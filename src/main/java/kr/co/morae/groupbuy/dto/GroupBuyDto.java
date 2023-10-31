@@ -3,7 +3,7 @@ package kr.co.morae.groupbuy.dto;
 import java.sql.Date;
 
 import org.springframework.web.multipart.MultipartFile;
-
+//글 작성 dto
 public class GroupBuyDto {
 	private int gbNo;
 	private String recruitLocation;
