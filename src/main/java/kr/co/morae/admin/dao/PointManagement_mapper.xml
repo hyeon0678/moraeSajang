@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="kr.co.morae.admin.dao.PointManagementDao">
+	<select id="adminPointChargeDesc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		select * from chargehistory order by chargeDate desc limit #{param1} offset #{param2}
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		SELECT CEIL(COUNT(chargeNo)/#{param1}) AS pages FROM chargehistory
+	</select>
+	
+	<select id="adminPointChargeAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		select * from chargehistory order by chargeDate limit #{param1} offset #{param2}
+	</select>
+	
+	<select id="adminPointChargeSearchDesc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		 <![CDATA[
+		select * from chargehistory where chargeDate >= #{param1} and chargeDate <= #{param2}
+   			order by chargeDate desc limit #{param3} offset #{param4}		 
+		 ]]>		
+	</select>
+	<select id="adminPointChargeSearchAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		<![CDATA[
+		select * from chargehistory where chargeDate >= #{param1} and chargeDate <= #{param2}
+   			order by chargeDate limit #{param3} offset #{param4}		 
+		 ]]>	
+	</select>
+	<select id="searchtotalPage" resultType="int">
+		<![CDATA[
+		SELECT CEIL(COUNT(chargeNo)/#{param1}) AS pages FROM chargehistory where chargeDate >= #{param2} and chargeDate <= #{param3}
+		 ]]>	
+	</select>
+	
+	<select id="adminPointHistoryDesc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		 select p.pointNo ,p.gbNo ,g.title ,p.userId ,p.pointMonney ,p.pointReason ,p.pointDate 
+   		from pointhistory p inner join groupbuyingpost g on p.gbNo = g.gbNo 
+   		order by p.pointDate desc limit #{param1} offset #{param2}
+	</select>
+	<select id="totalHistoryPage" resultType="int">
+		SELECT CEIL(COUNT(pointNo)/#{param1}) AS pages FROM pointhistory
+	</select>
+</mapper>
