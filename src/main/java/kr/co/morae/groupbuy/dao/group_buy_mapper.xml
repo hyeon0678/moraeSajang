@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.morae.groupbuy.dao.GroupBuyDao">
+<!-- 글 저장 -->
+<insert id="gbRegister" parameterType="kr.co.morae.groupbuy.dto.GroupBuyDto" useGeneratedKeys="true"
+        keyProperty="gbNo" keyColumn="gbNo">
+INSERT INTO groupBuyingPost (userId,categoryNo,gbContent,title,recruitPeople,finishDate,startDate,joinPrice,gbState,blockState) 
+VALUES (#{userId},(
+SELECT categoryNo
+FROM category
+WHERE categoryType = #{categoryType}
+),#{gbContent},#{title},#{recruitPeople},#{finishDate},#{startDate},#{joinPrice},#{gbState},'N');
+</insert>
+
+<!-- 이미지 저장 -->
+<insert id="gbSavePhoto" parameterType="String">
+INSERT INTO groupBuyingImage (gbNo, newName)
+VALUES (#{param1}, #{param2});
+</insert>
+
+<!-- 지역 저장 -->
+<insert id="gbRegionRegister" parameterType="kr.co.morae.groupbuy.dto.GroupBuyDto">
+INSERT INTO groupbuyingregions (gbNo, parcelAddress, gbDetailAddress, place)
+VALUES(#{gbNo}, #{parcelAddress}, #{gbDetailAddress}, #{place});
+</insert>
+
+</mapper>
