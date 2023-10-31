@@ -68,7 +68,7 @@ public class GroupBuyService {
 	public int saveFile(MultipartFile[] files, int gbNo){
 		log.info("gbNo" + gbNo);
 		int n = 0;
-		if(files!=null || files.length != 0) {
+		if(files!=null || files.length > 0) {
 			for(int i=0; i<files.length; i++) {
 				String fileName= files[i].getOriginalFilename();
 				int extIndex= fileName.lastIndexOf(".");
