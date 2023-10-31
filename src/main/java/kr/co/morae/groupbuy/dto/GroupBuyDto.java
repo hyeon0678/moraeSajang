@@ -2,8 +2,6 @@ package kr.co.morae.groupbuy.dto;
 
 import java.sql.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class GroupBuyDto {
 	private int gbNo;
 	private String recruitLocation;
