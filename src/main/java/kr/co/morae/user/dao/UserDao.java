@@ -1,5 +1,13 @@
 package kr.co.morae.user.dao;
 
+import java.util.HashMap;
+
+import kr.co.morae.user.dto.UserDto;
+
 public interface UserDao {
 
+	UserDto login(String id, String pw);
+
+	String findId(HashMap<String, String> params);
+	
 }
