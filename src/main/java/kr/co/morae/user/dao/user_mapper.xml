@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.morae.user.dao.UserDao">
+	
+	<select id="login" resultType="kr.co.morae.user.dto.UserDto">
+		select u.userId, u.password, u.email, u.nickname, u.name, u.reg_date, u.age, u.gender, a.authNo, d.streetAddress, d.userDetailAddress, d.detailAddress, t.authType
+			from user u 
+				left join userauth a on u.userId = a.userId
+				left join userAddress d on u.userId = d.userId
+				left join author t on a.authNo = t.authNo
+					where u.userId = #{param1} and u.password = #{param2}
+	</select>
+	
+	<select id="findId" resultType="String" parameterType="map">
+		select userId from user where name = #{name} and email = #{email}
+	</select>
+	
+	
+</mapper>
