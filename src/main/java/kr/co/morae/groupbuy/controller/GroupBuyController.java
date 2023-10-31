@@ -42,8 +42,9 @@ public class GroupBuyController {
 		boolean success = gbService.registerGB(files, dto);
 		
 		if(!success) {
-			model.addAttribute("fail", "�۾��⿡ �����Ͽ����ϴ�.");
-			return "groupBuy/gbWrite"; 
+
+			model.addAttribute("fail", "글 작성에 실패했습니다.");
+			return "groupBuy/gbWrite";
 		}
 		
 		return "redirect:/groupBuy/gbList";

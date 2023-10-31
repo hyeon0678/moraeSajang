@@ -36,13 +36,10 @@ public class GroupBuyService {
 		dto.setUserId("test1");
 		dto.setGbState(GbStateEnum.PROGRESS.getState());
 		dto = separateLocation(dto);
-		//±ÛÀúÀå
 		n += gbDao.gbRegister(dto);
 		int gbNo = dto.getGbNo();
 		
-		//Áö¿ª ÀúÀå dao
 		n += gbDao.gbRegionRegister(dto);
-		//file ÀúÀå
 		n += saveFile(files, gbNo);
 		
 		if(n<(files.length+2)) {
@@ -60,7 +57,7 @@ public class GroupBuyService {
 		String[] detailAddr = totalAddrStrings[1].split("\s");
 		log.info("length" + detailAddr.length);
 		 for(String addr : detailAddr){
-             if(addr.endsWith("À¾")||addr.endsWith("¸é")||addr.endsWith("µ¿")){
+             if(addr.endsWith("ì")||addr.endsWith("ë©´")||addr.endsWith("ë™")){
             	 dto.setGbDetailAddress(addr);
              	break;
              }
@@ -79,9 +76,7 @@ public class GroupBuyService {
 				int index = Integer.parseInt(fileName.substring(0,1));
 				log.info("index : "+ index);
 				
-				//UUID·Î »õ ÆÄÀÏ ÀÌ¸§ ¼³Á¤ µÚÀÇ ¼ıÀÚ -> ¸î ¹øÂ°ÀÎÁö
 				String newFileName = UUID.randomUUID().toString() + fileOrder[index-1]+ext;
-				//ÆÄÀÏ ÀúÀå
 				byte[] arr;
 				try {
 					arr = files[i].getBytes();
@@ -90,7 +85,6 @@ public class GroupBuyService {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				//±Û ¹øÈ£ + ÆÄÀÏµé db¿¡ ÀúÀå dao
 				n += gbDao.gbSavePhoto(Integer.toString(gbNo), newFileName);
 			}
 		}

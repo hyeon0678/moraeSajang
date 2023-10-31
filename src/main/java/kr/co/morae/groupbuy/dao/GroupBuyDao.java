@@ -7,10 +7,10 @@ import kr.co.morae.groupbuy.dto.GroupBuyDto;
 public interface GroupBuyDao {
 	
 	int gbRegister(GroupBuyDto dto);
-	//Áö¿ª ÀúÀå dao
+	//ì§€ì—­ ì €ìž¥ dao
 	int gbRegionRegister(GroupBuyDto dto);
 	
-	//file ÀúÀå dao
+	//file ì €ìž¥ dao
 	int gbSavePhoto(String gnNo, String photoName);
 	
 
