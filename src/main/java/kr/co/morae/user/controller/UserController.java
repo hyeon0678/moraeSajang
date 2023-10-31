@@ -31,11 +31,14 @@ public class UserController {
 			UserDto dto =  service.login(id,pw);
 			if(dto != null) { // 로그인 성공
 				session.setAttribute("userInfo", dto);
-				logger.info("해당 아이디 권한 : "+dto.getAuthType());
 				page = "redirect:/main/gbList";
-				if(dto.getAuthNo() == 1 || dto.getAuthNo() == 4) { // 관리자일 경우
+				if(dto.getAuthNo() == null || dto.getAuthNo() == 3) {
+					logger.info("해당 아이디 권한 : 일반사용자");
+				}else if(dto.getAuthNo() == 1 || dto.getAuthNo() == 4) {
 					page = "redirect:/admin/adminUser";
-				}else if(dto.getAuthNo() == 2) { // 차단된 사용자일 경우
+					logger.info("해당 아이디 권한 : "+dto.getAuthType());
+				}else if(dto.getAuthNo() == 2){
+					logger.info("해당 아이디 권한 : "+dto.getAuthType());
 					session.removeAttribute("userInfo");
 					model.addAttribute("msg","차단된 사용자입니다. 고객센터에 문의해주세요.");
 					page = "main/login";
