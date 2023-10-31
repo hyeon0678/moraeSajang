@@ -2,9 +2,9 @@ package kr.co.morae.emuns;
 
 public enum GbStateEnum {
 
-	PROGRESS("ÁøÇà"),
-	COMPLETE("¿Ï·á"),
-	CANCEL("Ãë¼Ò");
+	PROGRESS("ì§„í–‰"),
+	COMPLETE("ì™„ë£Œ"),
+	CANCEL("ì·¨ì†Œ");
 
     private final String state;
     GbStateEnum(String state) {
