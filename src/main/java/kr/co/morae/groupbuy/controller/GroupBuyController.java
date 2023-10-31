@@ -42,7 +42,7 @@ public class GroupBuyController {
 		boolean success = gbService.registerGB(files, dto);
 		
 		if(!success) {
-			model.addAttribute("fail", "ê¸€ ì‘ì„±ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
+			model.addAttribute("fail", "±Û¾²±â¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
 			return "groupBuy/gbWrite";
 		}
 		
@@ -51,6 +51,7 @@ public class GroupBuyController {
 	
 	@GetMapping("/gbList")
 	public String gbList() {
+		//±Û °¡Á®¿À´Â ·ÎÁ÷
 		return "groupBuy/gbList";
 	}
 }

@@ -36,11 +36,13 @@ public class GroupBuyService {
 		dto.setUserId("test1");
 		dto.setGbState(GbStateEnum.PROGRESS.getState());
 		dto = separateLocation(dto);
-		
+		//글저장
 		n += gbDao.gbRegister(dto);
 		int gbNo = dto.getGbNo();
 		
+		//지역 저장 dao
 		n += gbDao.gbRegionRegister(dto);
+		//file 저장
 		n += saveFile(files, gbNo);
 		
 		if(n<(files.length+2)) {
@@ -58,7 +60,7 @@ public class GroupBuyService {
 		String[] detailAddr = totalAddrStrings[1].split("\s");
 		log.info("length" + detailAddr.length);
 		 for(String addr : detailAddr){
-             if(addr.endsWith("占쏙옙")||addr.endsWith("占쏙옙")||addr.endsWith("占쏙옙")){
+             if(addr.endsWith("읍")||addr.endsWith("면")||addr.endsWith("동")){
             	 dto.setGbDetailAddress(addr);
              	break;
              }
@@ -77,7 +79,9 @@ public class GroupBuyService {
 				int index = Integer.parseInt(fileName.substring(0,1));
 				log.info("index : "+ index);
 				
+				//UUID로 새 파일 이름 설정 뒤의 숫자 -> 몇 번째인지
 				String newFileName = UUID.randomUUID().toString() + fileOrder[index-1]+ext;
+				//파일 저장
 				byte[] arr;
 				try {
 					arr = files[i].getBytes();
@@ -86,7 +90,7 @@ public class GroupBuyService {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				//
+				//글 번호 + 파일들 db에 저장 dao
 				n += gbDao.gbSavePhoto(Integer.toString(gbNo), newFileName);
 			}
 		}

@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.morae.groupbuy.dao.GroupBuyDao">
-<!-- 글 저장mapper -->
+<!-- 글 저장 -->
 <insert id="gbRegister" parameterType="kr.co.morae.groupbuy.dto.GroupBuyDto" useGeneratedKeys="true"
         keyProperty="gbNo" keyColumn="gbNo">
 INSERT INTO groupBuyingPost (userId,categoryNo,gbContent,title,recruitPeople,finishDate,startDate,joinPrice,gbState,blockState) 
