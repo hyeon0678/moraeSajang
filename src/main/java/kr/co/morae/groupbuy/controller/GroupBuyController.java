@@ -42,8 +42,8 @@ public class GroupBuyController {
 		boolean success = gbService.registerGB(files, dto);
 		
 		if(!success) {
-			model.addAttribute("fail", "±Û¾²±â¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
-			return "groupBuy/gbWrite";
+			model.addAttribute("fail", "ï¿½Û¾ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+			return "groupBuy/gbWrite"; 
 		}
 		
 		return "redirect:/groupBuy/gbList";
@@ -51,7 +51,7 @@ public class GroupBuyController {
 	
 	@GetMapping("/gbList")
 	public String gbList() {
-		//±Û °¡Á®¿À´Â ·ÎÁ÷
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		return "groupBuy/gbList";
 	}
 }
