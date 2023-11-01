@@ -24,4 +24,14 @@ public interface PointManagementDao {
 
 	int totalHistoryPage(int i);
 
+	ArrayList<PointManagementDto> adminPointHistoryAsc(int i, int offset);
+
+	ArrayList<PointManagementDto> adminPointHistorySearchDesc(String firstSearchDateValue, String lastSearchDateValue,
+			int i, int offset);
+
+	int searchHistoryPage(int i, String firstSearchDateValue, String lastSearchDateValue);
+
+	ArrayList<PointManagementDto> adminPointHistorySearchAsc(String firstSearchDateValue, String lastSearchDateValue,
+			int i, int offset);
+
 }

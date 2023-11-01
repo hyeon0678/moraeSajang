@@ -53,11 +53,37 @@ public class PointManagementController {
 	        return service.adminPointChargeSearchAsc(page, firstSearchDateValue, lastSearchDateValue);
 	 	}
 
-	 @RequestMapping(value = "/admin/point/History/desc")
+	 @RequestMapping(value = "/admin/point/history/desc")
 	 @ResponseBody
 	 public Map<String, Object> adminPointHistoryDesc(@RequestParam String page){
-		 logger.info(page);
 		 return service.adminPointHistoryDesc(page);
+	 }
+	 @RequestMapping(value = "/admin/point/history/asc")
+	 @ResponseBody
+	 public Map<String, Object> adminPointHistoryAsc(@RequestParam String page){
+		 return service.adminPointHistoryAsc(page);
+	 }
+	 @RequestMapping(value = "/admin/point/history/search/desc")
+	 @ResponseBody
+	 public Map<String, Object> adminPointHistorySearchDesc(
+			 	@RequestParam String page,
+	            @RequestParam String firstSearchDateValue,
+	            @RequestParam String lastSearchDateValue){
+		 	logger.info("Received adminSearchChargePoint request. Page: " + page);
+	        logger.info("First Search Date Value: " + firstSearchDateValue);
+	        logger.info("Last Search Date Value: " + lastSearchDateValue);
+	        return service.adminPointHistorySearchDesc(page,firstSearchDateValue,lastSearchDateValue);
+	 }
+	 @RequestMapping(value = "/admin/point/history/search/asc")
+	 @ResponseBody
+	 public Map<String, Object>adminPointHistorySearchAsc(
+			 	@RequestParam String page,
+	            @RequestParam String firstSearchDateValue,
+	            @RequestParam String lastSearchDateValue){
+		 	logger.info("Received adminSearchChargePoint request. Page: " + page);
+	        logger.info("First Search Date Value: " + firstSearchDateValue);
+	        logger.info("Last Search Date Value: " + lastSearchDateValue);
+	        return service.adminPointHistorySearchAsc(page,firstSearchDateValue,lastSearchDateValue);
 	 }
 	 	
 }

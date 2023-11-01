@@ -79,11 +79,47 @@ public Map<String, Object> adminPointHistoryDesc(String page) {
 	Map<String, Object> map = new HashMap<String, Object>();
 	logger.info(page);
 	int pages = dao.totalHistoryPage(10);
-	logger.info("확인"+pages);
 	map.put("currPage",page);
 	map.put("pages", pages);
 	map.put("list", HistoryPointList);
 	
+	return map;
+}
+
+public Map<String, Object> adminPointHistoryAsc(String page) {
+	int offset = (Integer.parseInt(page)-1)*10;
+	ArrayList<PointManagementDto> HistoryPointList = dao.adminPointHistoryAsc(10,offset);
+	Map<String, Object> map = new HashMap<String, Object>();
+	logger.info(page);
+	int pages = dao.totalHistoryPage(10);
+	map.put("currPage",page);
+	map.put("pages", pages);
+	map.put("list", HistoryPointList);
+	
+	return map;
+}
+
+public Map<String, Object> adminPointHistorySearchDesc(String page, String firstSearchDateValue,
+		String lastSearchDateValue) {
+	int offset = (Integer.parseInt(page)-1)*10;
+	ArrayList<PointManagementDto> HistoryPointSearchList = dao.adminPointHistorySearchDesc(firstSearchDateValue,lastSearchDateValue, 10,offset);
+	Map<String, Object> map = new HashMap<String, Object>();
+	int pages = dao.searchHistoryPage(10,firstSearchDateValue,lastSearchDateValue);
+	map.put("currPage", page);
+	map.put("pages", pages);
+	map.put("list", HistoryPointSearchList);
+	return map;
+}
+
+public Map<String, Object> adminPointHistorySearchAsc(String page, String firstSearchDateValue,
+		String lastSearchDateValue) {
+	int offset = (Integer.parseInt(page)-1)*10;
+	ArrayList<PointManagementDto> HistoryPointSearchList = dao.adminPointHistorySearchAsc(firstSearchDateValue,lastSearchDateValue, 10,offset);
+	Map<String, Object> map = new HashMap<String, Object>();
+	int pages = dao.searchHistoryPage(10,firstSearchDateValue,lastSearchDateValue);
+	map.put("currPage", page);
+	map.put("pages", pages);
+	map.put("list", HistoryPointSearchList);
 	return map;
 }
 }
