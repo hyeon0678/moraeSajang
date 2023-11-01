@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.morae.emuns.GbStateEnum;
+import kr.co.morae.emuns.UserReviewEnum;
 import kr.co.morae.groupbuy.dao.GroupBuyDao;
+import kr.co.morae.groupbuy.dto.CommentDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
 
 @Service
@@ -49,6 +52,7 @@ public class GroupBuyService {
 	}
 	
 	public GroupBuyDto separateLocation(GroupBuyDto dto) {
+		
 		String[] totalAddrStrings = dto.getRecruitLocation().split("\n");
 		dto.setParcelAddress(totalAddrStrings[1]);
 		dto.setPlace(totalAddrStrings[0]);
@@ -90,6 +94,38 @@ public class GroupBuyService {
 		}
 		return n;
 	}
+
+	@Transactional
+	public HashMap<String, Object> getGbDetail(int gbNo, String userId) {
+		//글 번호에 대한 글 내용 가져오기
+		GroupBuyDto gbDto =  gbDao.getGbDetail(gbNo);
+		if(gbDto.getUserId().equals(userId)) {
+			gbDto.setGbWriter(true);
+			gbDto.setIsJoining(userId);
+		}
+		if(gbDto.getJoinPeaple() != 0) {
+			int ratio = Math.floorDiv(gbDto.getRecruitPeople(),gbDto.getJoinPeaple());
+			gbDto.setGbRecruitRatio(ratio);
+		}else {
+			gbDto.setGbRecruitRatio(0);
+		}
+		log.info(gbDto.toString());
+		
+		ArrayList<String> photoNames = gbDao.getPhotoNames(gbNo);
+		log.info(photoNames.toString());
+		
+		
+		HashMap gbMap = new HashMap<String, Object>();
+		gbMap.put("GroupBuyDto", gbDto);
+		gbMap.put("PhotoNames", photoNames);
+		
+		return gbMap;
+		
+	}
+	
+	
+
+	
 	
 
 }

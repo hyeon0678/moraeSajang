@@ -26,4 +26,46 @@ INSERT INTO groupbuyingregions (gbNo, parcelAddress, gbDetailAddress, place)
 VALUES(#{gbNo}, #{parcelAddress}, #{gbDetailAddress}, #{place});
 </insert>
 
+<!-- 글 상세정보 가져오기 -->
+<select id="getGbDetail" parameterType="int" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
+SELECT gb.userId, gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.startDate, gb.joinPrice, gb.gbState, loc.place, loc.gbDetailAddress,
+    u.nickname, 
+    (SELECT count(userId) 
+     FROM groupBuyingJoining 
+     WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople, 
+    (SELECT categoryType
+     FROM category
+     WHERE categoryNo = gb.categoryNo) categoryType, 
+    (SELECT count(reviewNo)
+     FROM userreview u2 
+     WHERE u2.userId = 'test1' AND u2.reviewNo = 1
+    ) tradeAgainNum,
+    (SELECT count(reviewNo)
+     FROM userreview u2 
+     WHERE u2.userId = 'test1' AND u2.reviewNo = 2
+    ) justOkayNum, 
+    (SELECT count(reviewNo)
+     FROM userreview u2 
+     WHERE u2.userId = 'test1' AND u2.reviewNo = 3
+    ) notInterestedNum,
+    (select userId 
+     from groupBuyingJoining
+     where groupBuyingJoining.userId = 'test1'
+    ) isJoining
+FROM 
+    groupBuyingPost gb 
+    LEFT OUTER JOIN user u ON gb.userId = u.userId 
+    LEFT OUTER JOIN groupbuyingregions loc ON gb.gbNo = loc.gbNo
+WHERE gb.userId = 'test1' AND gb.gbNo = #{param1};
+</select>
+
+
+<!-- 사진 이름 가져오기 -->
+<select id="getPhotoNames" parameterType="int" resultType="String">
+SELECT newName
+FROM groupbuyingimage 
+WHERE gbNo = #{param1}
+
+</select>
+
 </mapper>
