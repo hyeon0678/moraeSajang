@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="kr.co.morae.admin.dao.ReportManagementDao">	
+	
+	
+	<select id="listall" resultType="map" >
+		select reportNo ,userId ,reportRegDate ,reportType,uniqueNo,processState
+		from report order by reportRegDate desc LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="allnum" resultType="Integer" >
+		select count(reportNo)/10  from report
+	</select>
+	
+	<select id="liststate" resultType="map" >
+		select reportNo ,userId ,reportRegDate ,reportType,uniqueNo,processState 
+		from report where processState = #{param1} order by reportRegDate desc LIMIT 10 OFFSET #{param2}
+	</select>
+
+	<select id="statenum" resultType="Integer" >
+		select count(reportNo)/10  from report where processState = #{param1}
+	</select>
+	
+</mapper>
