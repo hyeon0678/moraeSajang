@@ -25,7 +25,7 @@ public class ReportManagementController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired ReportManagementService service;
 	
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/admin/adminReport")
 	public String adminReport(Model model) {
 		
 		return "/admin/adminReport";
