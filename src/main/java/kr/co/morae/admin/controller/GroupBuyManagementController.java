@@ -22,7 +22,7 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		return "admin/adminBoard";
 	}
 
-	@RequestMapping(value="/admin/groupBuy/list")
+	@RequestMapping(value="/admin/groupBuy/list.ajax")
 	@ResponseBody
 	public Map<String, Object>adminGroupBuyList(
 			@RequestParam String page,@RequestParam String searchblock
@@ -31,7 +31,7 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		logger.info(searchblock);
 		return service.adminGroupBuyList(page,searchblock);
 	}
-	@RequestMapping(value="/admin/groupBuy/ser/user/list")
+	@RequestMapping(value="/admin/groupBuy/ser/user/list.ajax")
 	@ResponseBody
 	public Map<String, Object>adminGroupBuySerUserList(
 			@RequestParam String page, @RequestParam String searchblock, @RequestParam String seruser){
@@ -39,14 +39,14 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		return service.adminGroupBuySerUserList(page,searchblock,seruser);
 	}
 	
-	@RequestMapping(value="/admin/groupBuy/int/list")
+	@RequestMapping(value="/admin/groupBuy/int/list.ajax")
 	@ResponseBody
 	public Map<String, Object>adminGroupBuyIntList(
 			@RequestParam String page, @RequestParam String searchblock,@RequestParam String firstSearchDateValue, @RequestParam String lastSearchDateValue
 			){
 		return service.adminGroupBuyIntList(page,searchblock,firstSearchDateValue, lastSearchDateValue);
 	}
-	@RequestMapping(value="/admin/groupBuy/ser/user/int/list")
+	@RequestMapping(value="/admin/groupBuy/ser/user/int/list.ajax")
 	@ResponseBody
 	public Map<String, Object>adminGroupBuySerUserIntList(
 			@RequestParam String page, @RequestParam String searchblock,@RequestParam String seruser,
@@ -55,5 +55,8 @@ Logger logger = LoggerFactory.getLogger(getClass());
 		return service.adminGroupBuySerUserIntList(page,searchblock,seruser,firstSearchDateValue, lastSearchDateValue);
 	}
 
+	
+	
+	
 	
 }

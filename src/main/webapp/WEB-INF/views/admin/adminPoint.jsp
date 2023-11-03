@@ -113,7 +113,7 @@ function listCall(page, ascending) {
 function adminPointChargeDesc(page){
 	$.ajax({
 		type:'get',
-		url:'point/charge/desc',
+		url:'point/charge.ajax/desc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
@@ -132,7 +132,7 @@ function adminPointChargeDesc(page){
 function adminPointChargeAsc(page){
 	$.ajax({
 		type:'get',
-		url:'point/charge/asc',
+		url:'point/charge.ajax/asc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
@@ -170,7 +170,7 @@ $('#searchButton').on('click', function () {
 function adminPointChargeSearchDesc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: 'point/charge/search/desc',
+        url: 'point/charge.ajax/search/desc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
@@ -193,7 +193,7 @@ function adminPointChargeSearchDesc(page, firstSearchDateValue, lastSearchDateVa
 function adminPointChargeSearchAsc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: 'point/charge/search/asc',
+        url: 'point/charge.ajax/search/asc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
@@ -311,7 +311,7 @@ function pointHistoryListCall(page, ascendingOrder) {
 function adminPointHistoryDesc(page){
 	$.ajax({
 		type:'get',
-		url:'point/history/desc',
+		url:'point/history.ajax/desc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
@@ -330,7 +330,7 @@ function adminPointHistoryDesc(page){
 function adminPointHistoryAsc(page){
 	$.ajax({
 		type:'get',
-		url:'point/history/asc',
+		url:'point/history.ajax/asc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
@@ -350,7 +350,7 @@ function adminPointHistoryAsc(page){
 function adminPointHistorySearchDesc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: 'point/history/search/desc',
+        url: 'point/history.ajax/search/desc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
@@ -374,7 +374,7 @@ function adminPointHistorySearchDesc(page, firstSearchDateValue, lastSearchDateV
 function adminPointHistorySearchAsc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: ' point/history/search/asc',
+        url: ' point/history.ajax/search/asc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
