@@ -38,7 +38,33 @@
    		from pointhistory p inner join groupbuyingpost g on p.gbNo = g.gbNo 
    		order by p.pointDate desc limit #{param1} offset #{param2}
 	</select>
+	<select id="adminPointHistoryAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		 select p.pointNo ,p.gbNo ,g.title ,p.userId ,p.pointMonney ,p.pointReason ,p.pointDate 
+   		from pointhistory p inner join groupbuyingpost g on p.gbNo = g.gbNo 
+   		order by p.pointDate limit #{param1} offset #{param2}
+	</select>
 	<select id="totalHistoryPage" resultType="int">
 		SELECT CEIL(COUNT(pointNo)/#{param1}) AS pages FROM pointhistory
+	</select>
+	<select id="adminPointHistorySearchDesc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		<![CDATA[
+		select p.pointNo ,p.gbNo ,p.userId ,p.pointReason ,p.pointMonney ,p.pointDate ,g.title 
+  		from pointhistory p inner join groupbuyingpost g on p.gbNo = g.gbNo 
+   		where p.pointDate >=#{param1} and p.pointDate <= #{param2}
+   		order by p.pointDate desc limit #{param3} offset #{param4}
+		]]>	
+	</select>
+	<select id="adminPointHistorySearchAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+		<![CDATA[
+		select p.pointNo ,p.gbNo ,p.userId ,p.pointReason ,p.pointMonney ,p.pointDate ,g.title 
+  		from pointhistory p inner join groupbuyingpost g on p.gbNo = g.gbNo 
+   		where p.pointDate >=#{param1} and p.pointDate <= #{param2}
+   		order by p.pointDate limit #{param3} offset #{param4}
+		]]>	
+	</select>
+	<select id="searchHistoryPage" resultType="int">
+		<![CDATA[
+		SELECT CEIL(COUNT(pointNo)/#{param1}) AS pages FROM pointhistory where pointDate >= #{param2} and pointDate <= #{param3}
+		 ]]>
 	</select>
 </mapper>

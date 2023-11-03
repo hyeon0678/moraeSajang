@@ -1,18 +1,18 @@
 package kr.co.morae.groupbuy.dto;
 
 import java.sql.Date;
+import java.util.Optional;
 
 public class GroupBuyDto {
 	private int gbNo;
 	private String nickname;
-	private int joinPeaple;
+	private int joinPeople;
 	private int tradeAgainNum;
 	private int justOkayNum;
 	private int notInterestedNum;
 	private String recruitLocation;
 	private String categoryType;
 	private String userId;
-	private String nickName;
 	private int categoryNo;
 	private String gbContent;
 	private String title;
@@ -26,23 +26,28 @@ public class GroupBuyDto {
 	private String gbDetailAddress;
 	private String place;
 	private boolean isGbWriter;
-	private int gbRecruitRatio;
-	private String isJoining;
-	
+	private int isJoining;
+	private int currPage;
+	private String firstFileName;
 	
 
-	
-	public String getIsJoining() {
+	public String getFirstFileName() {
+		return firstFileName;
+	}
+	public void setFirstFileName(String firstFileName) {
+		this.firstFileName = firstFileName;
+	}
+	public int getIsJoining() {
 		return isJoining;
 	}
-	public void setIsJoining(String isJoining) {
+	public void setIsJoining(int isJoining) {
 		this.isJoining = isJoining;
 	}
-	public int getGbRecruitRatio() {
-		return gbRecruitRatio;
+	public int getCurrPage() {
+		return currPage;
 	}
-	public void setGbRecruitRatio(int gbRecruitRatio) {
-		this.gbRecruitRatio = gbRecruitRatio;
+	public void setCurrPage(int currPage) {
+		this.currPage = currPage;
 	}
 	public String getNickname() {
 		return nickname;
@@ -50,14 +55,15 @@ public class GroupBuyDto {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public int getJoinPeaple() {
-		return joinPeaple;
-	}
-	public void setJoinPeaple(int joinPeaple) {
-		this.joinPeaple = joinPeaple;
-	}
+
 	public int getTradeAgainNum() {
 		return tradeAgainNum;
+	}
+	public int getJoinPeople() {
+		return joinPeople;
+	}
+	public void setJoinPeople(int joinPeople) {
+		this.joinPeople = joinPeople;
 	}
 	public void setTradeAgainNum(int tradeAgainNum) {
 		this.tradeAgainNum = tradeAgainNum;
@@ -160,12 +166,6 @@ public class GroupBuyDto {
 		this.blockState = blockState;
 	}
 	
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
 	public String getParcelAddress() {
 		return parcelAddress;
 	}
@@ -186,11 +186,10 @@ public class GroupBuyDto {
 	}
 	@Override
 	public String toString() {
-		String s = "isJoining:"+isJoining+"gbDetailAddress="+gbDetailAddress+", parcelAddress="+parcelAddress+", gbContent="+gbContent;
+		String s = ", userId : " +userId+", nickname : "+nickname+ "isJoining:"+isJoining+"gbDetailAddress="+gbDetailAddress+", parcelAddress="+parcelAddress;
 	           s += ", joinPrice="+joinPrice+", finishDate="+finishDate+", place="+place+", categoryType="+categoryType;
 	           s += ", title="+title+", recruitPeople="+recruitPeople+", startDate="+startDate;
-	           s +=  ", gbNo : " +gbNo+", userId : " +userId+"recruitLocation="+recruitLocation;
-	           s += ", nickname : "+nickname;
+	           s +=  ", gbNo : " +gbNo+"recruitLocation="+recruitLocation;
 		return s;
 	}
 

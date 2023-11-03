@@ -10,15 +10,24 @@ public class CommentDto {
 	private String comment;
 	private String commState;
 	private boolean isCommentWriter;
-	private Date regDate;
+	private Date commRegDate;
+	private int commentCnt;
 	
 	
 	
-	public Date getRegDate() {
-		return regDate;
+	
+	
+	public int getCommentCnt() {
+		return commentCnt;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	public Date getCommRegDate() {
+		return commRegDate;
+	}
+	public void setCommRegDate(Date commRegDate) {
+		this.commRegDate = commRegDate;
 	}
 	public String getNickname() {
 		return nickname;

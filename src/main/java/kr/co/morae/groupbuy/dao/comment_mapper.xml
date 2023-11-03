@@ -7,7 +7,7 @@
 <mapper namespace="kr.co.morae.groupbuy.dao.CommentDao">
 <!-- 댓글 가져오기 -->
 <select id="getComment" parameterType="int" resultType="kr.co.morae.groupbuy.dto.CommentDto">
-SELECT g.userId, g.gbNo, g.comment, g.commState, g.commNo, 
+SELECT g.userId, g.gbNo, g.comment, g.commState, g.commNo, g.commRegDate,
 (
 SELECT nickname
 FROM user
@@ -17,6 +17,29 @@ WHERE gbNo = #{param1} AND g.commState = 'N'
 ORDER BY g.commNo 
 LIMIT 5 OFFSET #{param2};
 </select>
+
+<select id="getTotalComment" resultType="int">
+select count(*)
+from groupbuyingcomment
+where gbNo = #{param1} and commState = 'N'
+</select>
+
+<update id="modifyComment" parameterType="hashMap">
+UPDATE groupbuyingcomment 
+SET comment = #{comment}
+WHERE gbNo=#{gbNo} and commNo=#{commNo}
+</update>
+
+<delete id="deleteComment" parameterType="hashMap">
+DELETE 
+FROM groupbuyingcomment
+WHERE gbNo=#{gbNo} and commNo=#{commNo};
+</delete>
+
+<insert id="writeComment" parameterType="hashMap">
+insert into groupbuyingcomment (userId, gbNo, comment, commState)
+values(#{userId}, #{gbNo}, #{comment}, 'N')
+</insert>
 </mapper>
 
 
