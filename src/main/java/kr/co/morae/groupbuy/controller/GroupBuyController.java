@@ -1,5 +1,7 @@
 package kr.co.morae.groupbuy.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
 import kr.co.morae.groupbuy.service.GroupBuyService;
+import kr.co.morae.user.dto.UserDto;
 
 @Controller
 @RequestMapping("/groupBuy")
