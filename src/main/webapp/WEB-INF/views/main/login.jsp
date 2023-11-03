@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>�𷡻��� | �α���</title>
+<title>모래사장 | 로그인</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
         @font-face {
@@ -61,33 +61,33 @@
 <body>
 <header id="header">
         <div class="headerInner">
-            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="�𷡻���"></a></h1>
+            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="모래사장"></a></h1>
             <ul class="util">
-                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="�˸�"></a></li>
-                <li><a href="javascript:"><img src="resources/img/msg.png" alt="�޼��� �˸�"></a></li>
-                <li><a href="javascript:"><img src="resources/img/my.png" alt="����������"></a></li>
+                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="알림"></a></li>
+                <li><a href="javascript:"><img src="resources/img/msg.png" alt="메세지 알림"></a></li>
+                <li><a href="javascript:"><img src="resources/img/my.png" alt="마이페이지"></a></li>
             </ul>
         </div>
     </header>
     <section id="login">
     	<form action="login" method="post">
         <div class="loginInner">
-            <h2>�α���</h2>
+            <h2>로그인</h2>
             <div class="loginBox">
                 <div class="textBox">
-                    <p>���̵�</p>
-                    <input type="text" placeholder="���̵� �Է��ϼ���." value="" class="id" name="id"/>
+                    <p>아이디</p>
+                    <input type="text" placeholder="아이디를 입력하세요." value="" class="id" name="id"/>
                 </div>
                 <div class="textBox">
-                    <p>��й�ȣ</p>
-                    <input type="password" placeholder="��й�ȣ�� �Է��ϼ���." value="" class="pw" name="pw"/>
+                    <p>비밀번호</p>
+                    <input type="password" placeholder="비밀번호를 입력하세요." value="" class="pw" name="pw"/>
                 </div>
                 <div class="btnBox">
-                    <input type="submit" value="�α���"/>
+                    <input type="submit" value="로그인"/>
                     <ul class="detailBtn">
-                        <a href="findIdForm"><li>���̵� ã�� |</li></a>
-                        <a href="findPwForm"><li>&nbsp;��й�ȣ ã�� |</li></a>
-                        <a href="javascript:"><li>&nbsp;ȸ������</li></a>
+                        <a href="findId"><li>아이디 찾기 |</li></a>
+                        <a href="findPw"><li>&nbsp;비밀번호 찾기 |</li></a>
+                        <a href="register"><li>&nbsp;회원가입</li></a>
                     </ul>
                 </div>
             </div>

@@ -15,5 +15,15 @@
 		select userId from user where name = #{name} and email = #{email}
 	</select>
 	
+	<select id="findPw" resultType="String" parameterType="map">
+		select userId from user
+			where userId = #{id} and name = #{name} and email = #{email}
+				and hintNo = #{hintNo} and hintAnswer = #{hintAnswer};
+	</select>
+	
+	<update id="correctPw">
+		update user set password = #{param2} where userId = #{param1}
+	</update>
+	
 	
 </mapper>
