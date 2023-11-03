@@ -14,4 +14,14 @@ public interface UserDao {
 
 	void correctPw(String foundId, String newPw);
 
+	int overlay(String id);
+
+	int overemail(String email);
+
+	int overnickname(String nickname);
+
+	int insertJoinData(HashMap<String, String> params);
+
+	int insertUserAddr(HashMap<String, String> params);
+	
 }
