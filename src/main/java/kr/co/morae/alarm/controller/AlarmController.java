@@ -25,7 +25,7 @@ public class AlarmController {
 	
 	@RequestMapping(value="/alarm") // 테스트용 임시
 	public String alarm() {
-		return "alarm";
+		return "common/alarm";
 	}
 	
 	@RequestMapping(value="/alarm/call.ajax")
@@ -49,6 +49,7 @@ public class AlarmController {
 	}
 	
 	@RequestMapping(value="/alarm/remove.ajax")
+	@ResponseBody
 	public int alarmRemove(Model model, HttpSession session) {
 		int row = 0;
 		row = service.alarmRemove();

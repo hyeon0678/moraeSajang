@@ -29,7 +29,7 @@
 	<!-- datasource -->
 	<beans:bean name="datasource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="org.mariadb.jdbc.Driver"/>	
-		<beans:property name="url" value="jdbc:mariadb://localhost:3306/project01"/>
+		<beans:property name="url" value="jdbc:mariadb://localhost:3306/morae"/>
 		<beans:property name="username" value="web_user"/>
 		<beans:property name="password" value="pass"/>
 	</beans:bean>

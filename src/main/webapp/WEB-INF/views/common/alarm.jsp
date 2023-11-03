@@ -204,6 +204,8 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 </body>
 <script>
 
+	var alarmError = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림을 읽어올 수 없습니다."+'<p>';
+
 	
 	alarmCall();  // 페이지 로드 시 알림 리스트 호출
 	
@@ -237,6 +239,8 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 			},
 			error : function(e) {
 				console.log(e);
+				
+				
 			}
 		});
 	}
@@ -269,8 +273,8 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 			url : 'alarm/remove.ajax',
 			data : {},
 			dataType : 'json',
-			success : function(e) {
-				console.log("remove");
+			success : function(data) {
+				console.log(data.row);
 			},
 			error : function(e) {
 				console.log("오래된 알림 없음");
