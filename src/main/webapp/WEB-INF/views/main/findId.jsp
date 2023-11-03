@@ -104,16 +104,17 @@
 			var regex = new RegExp('^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$');
 			var match = regex.test($email.val());
 			if(!match){
-				alert("이메일 형식으로 입력해주세요.")
+				alert("이메일 형식으로 입력해주세요.");
+				$email.focus();
 				return false;
 			}
 			param.email = $email.val();
 			
-			// console.log(param); 파람값 확인
+			console.log(param); 파람값 확인
 			
 			$.ajax({
 				type: 'post',
-				url: 'findId',
+				url: 'findId.ajax',
 				data:param,
 				dataType:'json',
 				success:function(data){

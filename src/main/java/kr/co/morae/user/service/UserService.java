@@ -24,6 +24,15 @@ public class UserService {
 	public String findId(HashMap<String, String> params) {
 		return dao.findId(params);
 	}
+
+	public String findPw(HashMap<String, String> params) {
+		return dao.findPw(params);
+	}
+
+	public void correctPw(String foundId, String newPw) {
+		dao.correctPw(foundId, newPw);
+	}
+
 	
 	
 }
