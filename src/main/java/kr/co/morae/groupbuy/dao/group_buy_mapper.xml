@@ -27,36 +27,37 @@ VALUES(#{gbNo}, #{parcelAddress}, #{gbDetailAddress}, #{place});
 </insert>
 
 <!-- 글 상세정보 가져오기 -->
-<select id="getGbDetail" parameterType="int" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
-SELECT gb.userId, gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.startDate, gb.joinPrice, gb.gbState, loc.place, loc.gbDetailAddress,
-    u.nickname, 
+<select id="getGbDetail" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
+SELECT gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.startDate, gb.joinPrice, gb.gbState, loc.place, loc.gbDetailAddress,
+    c.categoryType, gb.userId,
+    (SELECT nickname
+     FROM user u
+	WHERE u.userid = gb.userId   
+    )nickname,
     (SELECT count(userId) 
      FROM groupBuyingJoining 
-     WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople, 
-    (SELECT categoryType
-     FROM category
-     WHERE categoryNo = gb.categoryNo) categoryType, 
+     WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople,  
     (SELECT count(reviewNo)
      FROM userreview u2 
-     WHERE u2.userId = 'test1' AND u2.reviewNo = 1
-    ) tradeAgainNum,
+     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 1
+    ) tradeAgain,
+    (SELECT COUNT(reviewNo)
+     FROM userreview u2 
+     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 2
+    ) justOkay, 
     (SELECT count(reviewNo)
      FROM userreview u2 
-     WHERE u2.userId = 'test1' AND u2.reviewNo = 2
-    ) justOkayNum, 
-    (SELECT count(reviewNo)
-     FROM userreview u2 
-     WHERE u2.userId = 'test1' AND u2.reviewNo = 3
-    ) notInterestedNum,
-    (select userId 
-     from groupBuyingJoining
-     where groupBuyingJoining.userId = 'test1'
+     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 3
+    ) notInterested,
+    (SELECT count(g.userId)
+     FROM groupBuyingJoining g
+     WHERE g.userId = #{param2} and g.gbNo =#{param1}
     ) isJoining
 FROM 
     groupBuyingPost gb 
-    LEFT OUTER JOIN user u ON gb.userId = u.userId 
-    LEFT OUTER JOIN groupbuyingregions loc ON gb.gbNo = loc.gbNo
-WHERE gb.userId = 'test1' AND gb.gbNo = #{param1};
+    LEFT OUTER JOIN groupbuyingregions loc on gb.gbNo = loc.gbNo
+    LEFT OUTER JOIN category c on gb.categoryNo=c.categoryNo 
+WHERE gb.gbNo = #{param1};
 </select>
 
 
@@ -67,5 +68,86 @@ FROM groupbuyingimage
 WHERE gbNo = #{param1}
 
 </select>
+
+<select id="isgbJoining" resultType="hashMap" >
+SELECT recruitPeople, userId ,
+(SELECT count(userId)
+FROM groupbuyingjoining g2 
+WHERE g2.gbNo =#{param1})joinPeople,
+(SELECT count(userId)
+FROM groupbuyingjoining g2 
+WHERE g2.gbNo =#{param1} AND g2.userId = #{param2}) isgbJoining
+FROM groupbuyingpost
+WHERE gbNo = #{param1};
+</select>
+
+<!-- 공구 참여 -->
+<insert id="gbJoin">
+insert into groupbuyingjoining (gbNo, userId, joinDate, joinState)
+values (#{param1}, #{param2}, curDate(),'Y');
+</insert>
+
+<!-- 공구 참여 포인트 차감 -->
+<insert id="insertPoint">
+insert into pointhistory (gbNo, userId, pointMonney, pointReason, pointDate)
+values (#{param1}, #{param2}, #{param3}, #{param4}, curdate());
+</insert>
+
+<!-- 공구글 상태 변경 -->
+<update id="modifyGbState">
+UPDATE groupBuyingPost
+SET gbState=#{param2}
+WHERE gbNo=#{param1};
+</update>
+
+
+<!-- 신고 -->
+<insert id="report" parameterType="hashmap">
+insert into report (userId, reportContent, reportRegDate, reportType, uniqueNo, processState)
+<if test="commNo == -1">
+values (#{userId}, #{reportContent}, curdate(), '글', #{gbNo}, '미처리');
+</if>
+<if test="commNo != -1">
+values (#{userId}, #{reportContent}, curdate(), '댓글', #{commNo}, '미처리');
+</if>
+</insert>
+
+<select id="getGbList" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto" parameterType="kr.co.morae.groupbuy.dto.SearchOptionDto">
+SELECT gb.gbNo, gb.recruitPeople, gb.title, gb.finishDate, gb.startDate, gb.joinPrice,
+    c.categoryType, gb.userId,
+    (SELECT nickname
+     FROM user u
+	WHERE u.userid = gb.userId   
+    )nickname,
+    (SELECT count(userId) 
+     FROM groupBuyingJoining 
+     WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople,
+     (SELECT g2.newName
+     FROM groupbuyingimage g2
+     WHERE g2.gbNo = gb.gbNo
+     ORDER BY g2.imgNo
+     LIMIT 1) newName 
+FROM 
+    groupBuyingPost gb 
+    LEFT OUTER join groupbuyingregions loc ON gb.gbNo = loc.gbNo
+    LEFT OUTER join category c ON gb.categoryNo=c.categoryNo
+    
+    <where>
+    	<if test="region == null">
+	        AND gb.blockState = 'N'
+	    </if>
+    	<if test="region != null">
+	        AND loc.gbDetailAddr=#{region} AND gb.blockState = 'N'
+	    </if>
+	    <if test="category != null">
+	        AND c.categoryNo=#{category}
+	    </if>
+	    <if test="keyWord != null">
+	        AND gb.title LIKE CONCAT('%',#{keyWord},'%')
+	    </if>
+  </where>
+   LIMIT 8 OFFSET #{offset}
+</select> 
+
 
 </mapper>

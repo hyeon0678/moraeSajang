@@ -1,39 +1,45 @@
-/**
- * 
- */
-const slides = document.querySelector('.slides'); //전체 슬라이드 컨테이너
-const slideImg = document.querySelectorAll('.slides li'); //모든 슬라이드들
-let currentIdx = 0; //현재 슬라이드 index
-const slideCount = slideImg.length; // 슬라이드 개수
-const prev = document.querySelector('.prev'); //이전 버튼
-const next = document.querySelector('.next'); //다음 버튼
-const slideWidth = 300; //한개의 슬라이드 넓이
-const slideMargin = 100; //슬라이드간의 margin 값
+$('.slider-2 .page-nav > div').click(function() {
+    
+    var $this = $(this);
+    var $pagenav = $this.parent()
+    var $current = $pagenav.find('.active');
+    
+    $current.removeClass('active');
+    $this.addClass('active');
 
-let photoNames = "${name}";
-console.log(photoNames);
-//전체 슬라이드 컨테이너 넓이 설정
-slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
-
-function moveSlide(num) {
-  slides.style.left = -num * 400 + 'px';
-  currentIdx = num;
-}
-
-prev.addEventListener('click', function () {
-  /*첫 번째 슬라이드로 표시 됐을때는 
-  이전 버튼 눌러도 아무런 반응 없게 하기 위해 
-  currentIdx !==0일때만 moveSlide 함수 불러옴 */
-
-  if (currentIdx !== 0) moveSlide(currentIdx - 1);
+    var index = $this.index();
+    var $슬라이더 = $this.closest('.slider-2');
+    
+    $슬라이더.find('.slides > div.active').removeClass('active');
+    $슬라이더.find('.slides > div').eq(index).addClass('active');
+    
+    
 });
 
-next.addEventListener('click', function () {
-  /* 마지막 슬라이드로 표시 됐을때는 
-  다음 버튼 눌러도 아무런 반응 없게 하기 위해
-  currentIdx !==slideCount - 1 일때만 
-  moveSlide 함수 불러옴 */
-  if (currentIdx !== slideCount - 1) {
-    moveSlide(currentIdx + 1);
-  }
+$('.slider-2 > .side-btns > div:first-child').click(function() {
+    var $this = $(this);
+    var $slider = $this.closest('.slider-2');
+    
+    var $current = $slider.find('.page-nav > div.active');
+    var $post = $current.prev();
+    
+    if ( $post.length == 0 ) {
+        $post = $slider.find('.page-nav > div:last-child');
+    }
+    
+    $post.click();
+});
+
+$('.slider-2 > .side-btns > div:last-child').click(function() {
+    var $this = $(this);
+    var $slider = $this.closest('.slider-2');
+    
+    var $current = $slider.find('.page-nav > div.active');
+    var $post = $current.next();
+    
+    if ( $post.length == 0 ) {
+        $post = $slider.find('.page-nav > div:first-child');
+    }
+    
+    $post.click();
 });

@@ -19,6 +19,21 @@ public interface ReportManagementDao {
 
 	int statenum(String pageState);
 
+	ArrayList<ReportManagementDto> reserchallB(int uniqueNum, int offset);
+
+	ArrayList<ReportManagementDto> reserchallR(int uniqueNum, int offset);
+
+	int renum(int uniqueNum);
+
+	ArrayList<ReportManagementDto> reserchstateB(String uniqueNo, String pageState, int offset);
+
+	ArrayList<ReportManagementDto> reserchstateR(String uniqueNo, String pageState, int offset);
+
+
+	ReportManagementDto reportDetailB(int idx);
+
+	ReportManagementDto reportDetailR(int idx);
+
 	
 
 	

@@ -1,24 +1,42 @@
-package kr.co.morae.admin.dto;
+package kr.co.morae.groupbuy.dto;
 
 import java.sql.Date;
 
-public class ReportManagementDto {
-
+public class ReportDto {
 	private int reportNo;
+	private int gbNo;
+	private int commNo;
 	private String userId;
 	private String reportContent;
 	private Date reportRegDate;
 	private String reportType;
 	private int uniqueNo;
 	private String processState;
-	
-	private String reportuser;
-	private String reportstate;
-	
-	
 	public int getReportNo() {
 		return reportNo;
 	}
+	
+	
+	public int getGbNo() {
+		return gbNo;
+	}
+
+
+	public void setGbNo(int gbNo) {
+		this.gbNo = gbNo;
+	}
+
+
+	public int getCommNo() {
+		return commNo;
+	}
+
+
+	public void setCommNo(int commNo) {
+		this.commNo = commNo;
+	}
+
+
 	public void setReportNo(int reportNo) {
 		this.reportNo = reportNo;
 	}
@@ -58,26 +76,6 @@ public class ReportManagementDto {
 	public void setProcessState(String processState) {
 		this.processState = processState;
 	}
-	public String getReportuser() {
-		return reportuser;
-	}
-	public void setReportuser(String reportuser) {
-		this.reportuser = reportuser;
-	}
-	public String getReportstate() {
-		return reportstate;
-	}
-	public void setReportstate(String reportstate) {
-		this.reportstate = reportstate;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
