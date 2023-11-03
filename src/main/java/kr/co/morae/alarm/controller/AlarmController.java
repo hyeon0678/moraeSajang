@@ -23,6 +23,11 @@ public class AlarmController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired AlarmService service;
 	
+	@RequestMapping(value="/alarm") // 테스트용 임시
+	public String alarm() {
+		return "alarm";
+	}
+	
 	@RequestMapping(value="/alarm/call.ajax")
 	@ResponseBody
 	public HashMap<String, Object> alarmCall(Model model, HttpSession session) {
