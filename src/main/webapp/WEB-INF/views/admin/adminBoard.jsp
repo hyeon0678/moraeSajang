@@ -137,175 +137,250 @@ position: absolute;
 
 </body>
     <script>
-        function formatDateFromTimestamp(timestamp) {
-            var date = new Date(timestamp);
-            var year = date.getFullYear(); // 연도를 4자리로 가져옵니다.
-            var month = ('0' + (date.getMonth() + 1)).slice(-2);
-            var day = ('0' + date.getDate()).slice(-2);
-            return year + '-' + month + '-' + day;
-        }
+    function formatDateFromTimestamp(timestamp) {
+        var date = new Date(timestamp);
+        var year = date.getFullYear(); // 연도를 4자리로 가져옵니다.
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var day = ('0' + date.getDate()).slice(-2);
+        return year + '-' + month + '-' + day;
+    }
 
-        var showPage = 1;
-		var searchblock ="all";
-	       var seruser = '';
-	       var searchResults = null;
-	       var firstpage = true;
-        adminGroupBuyList(showPage,searchblock);
+    var showPage = 1;
+	var searchblock ="all";
+       var seruser = '';
+       var searchResults = null;
+       var firstpage = true;
+       var serint = null;
+    adminGroupBuyList(showPage,searchblock);
 
-        function adminGroupBuyList(page,searchblock) {
-            $.ajax({
-                type: 'get',
-                url: 'groupBuy/list',
-                data: { 'page': page, 'searchblock':searchblock },
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    drawList(data);
-                },
-                error: function (e) {
-                    console.log(e);
+    function adminGroupBuyList(page,searchblock) {
+        $.ajax({
+            type: 'get',
+            url: 'groupBuy/list.ajax',
+            data: { 'page': page, 'searchblock':searchblock },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.list.length);
+                if(data.list.length==0){
+                	alert('검색결과가 없습니다.')
+                }else{                    	
+                drawList(data);
                 }
-            });
-        }
-
-        function drawList(obj) {
-            var content = '';
-			var pp = '';
-            var itemPerRow = 4; // 한 행당 4개의 아이템을 표시
-            obj.list.forEach(function (item, idx) {
-                content += '<div id="all" >'; // 한 행 시작
-                content += '<div class="card card' + idx + '" id="' + item.gbNo + '">';
-                content += '<div id="photoroom">';
-                content += '<img id="image" src="../../images/logo1.png"></img>';
-                content += '</div>';
-                content += '<div id="content">';
-                content += '<h3>' + item.title + '</h3>';
-                content += '<p id="name">' + item.userId + '</p>';
-                content += '<p>모집 기간</p>';
-                var startDate = formatDateFromTimestamp(item.startDate);
-                var finishDate = formatDateFromTimestamp(item.finishDate);
-                content += '<p>' + startDate + ' ~ ' + finishDate + '</p>';
-                content += '<br />';
-                content += '<p>모집 인원 ' + item.joinPeople + '/' + item.recruitPeople + '</p>';
-                content += '<h1>' + item.joinPrice + '원</h1>';
-                content += '<p id="icon">아이콘</p>';
-                content += '<p id="sinsun">' + item.categoryType + '</p>';
-                content += '</div>';
-                content += '</div>';
-                content += '</div>'; // 한 행 종료
-                content += '</div>'; 
-                content += '</div>'; 
-            });
-            pp += '<div class="container">';
-            pp += '<nav aria-label="Page navigation" style="text-align:center">';
-            pp += '<ul class="pagination" id="pagination"></ul>';
-            pp += '</nav>';
-            pp += '</div>';
-
-            $('#list').empty();
-            $('#list').append(content);
-            $('#list').append(pp);
-
-            	console.log(showPage);
-            // 페이징 처리 UI 그리기(플러그인 사용)
-            $('#pagination').twbsPagination({
-            	startPage: showPage, // 현재 페이지 번호를 설정
-        	    totalPages: obj.pages,
-        	    visiblePages: 5,
-        	    onPageClick: function (e, page) {
-        	        if (showPage !== page) {
-        	            showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고 있는 페이지 번호도 변경해 준다.
-        	            if(searchResults){
-        	        		adminGroupBuySerUserList(showPage, searchblock, seruser)		
-        	        	}else{
-        	        		adminGroupBuyList(showPage,searchblock);        		
-        	        	}
-                    }
-                }
-            });
-        }
-        $('#alladmingblist').on('click',function(){
-        	showPage = 1;
-        	searchblock = "all";
-        	seruser= null;
-        	searchResults=null;
-        	adminGroupBuyList(showPage,searchblock);
-        	console.log(showPage);
-        	firstpage = true;
-        	 $('#searchadmingblist').val('');
-        });
-        $('#sucadmingblist').on('click',function(){
-        	showPage= 1;
-        	searchblock = "N";
-        	if(searchResults){
-        		adminGroupBuySerUserList(showPage, searchblock, seruser)		
-        	}else{
-        		adminGroupBuyList(showPage,searchblock);        		
-        	}
-        	console.log(showPage);
-        });
-        $('#failadmingblist').on('click',function(){
-        	showPage= 1;
-        	searchblock = "Y";
-        	if(searchResults){
-        		adminGroupBuySerUserList(showPage, searchblock, seruser)		
-        	}else{
-        		adminGroupBuyList(showPage,searchblock);        		
-        	}
-        		console.log(showPage);
-        });
- 
-        $('#searchpoingblist').on('click',function(){
-        	showPage=1;
-        	searchblock = "all";
-        	seruser= null;
-        	firstpage = false;
-            var inputElement = document.getElementById("searchadmingblist");
-            seruser = inputElement.value;
-            adminGroupBuySerUserList(showPage, searchblock, seruser);
-        })
-        function adminGroupBuySerUserList(page, searchblock, seruser) {
-            $.ajax({
-                type: 'get',
-                url: 'groupBuy/ser/user/list',
-                data: { 'page': page,'searchblock':searchblock , 'seruser':seruser },
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    searchResults = data;
-                    drawList(data);
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-        }
-        
-        $('#searchButton').on('click', function () {
-        	showPage = 1;
-        	$('#pagination').twbsPagination({
-        	    startPage: '1'
-        	});
-            if($('#firstsearchdate').val() && $('#lastsearchdate').val()){
-            firstSearchDateValue = $('#firstsearchdate').val();
-            lastSearchDateValue = $('#lastsearchdate').val();
-            console.log(firstpage);
-            if(searchResults){
-        		adminGroupBuySerUserList(showPage, searchblock, seruser)		
-        	}else{
-        		adminGroupBuyList(showPage,searchblock);        		
-        	}
-            }else{
-            	alert('날짜를 모두 선택해 주세요.');
+            },
+            error: function (e) {
+                console.log(e);
             }
         });
-        $(document).ready(function() {
-        	$('.card').on('click', function() {
-        	    var cardId = $(this).attr('id');
-        	    console.log('클릭한 카드의 id: ' + cardId);
-        	    // 디테일 이동 수정 해야함 글번호 가지고옴
-        	});
+    }
+
+    function drawList(obj) {
+        var content = '';
+		var pp = '';
+        var itemPerRow = 4; // 한 행당 4개의 아이템을 표시
+
+        obj.list.forEach(function (item, idx) {
+        	content += '<div id="all" >'; // 한 행 시작
+            content += '<div class="card ' + idx + '" id="' + item.gbNo + '">';
+            content += '<div id="photoroom">';
+            content += '<img id="image" src="../../images/logo1.png"></img>';
+            content += '</div>';
+            content += '<div id="content">';
+            content += '<h3>' + item.title + '</h3>';
+            content += '<p id="name">' + item.userId + '</p>';
+            content += '<p>모집 기간</p>';
+            var startDate = formatDateFromTimestamp(item.startDate);
+            var finishDate = formatDateFromTimestamp(item.finishDate);
+            content += '<p>' + startDate + ' ~ ' + finishDate + '</p>';
+            content += '<br />';
+            content += '<p>모집 인원 ' + item.joinPeople + '/' + item.recruitPeople + '</p>';
+            content += '<h1>' + item.joinPrice + '원</h1>';
+            content += '<p id="icon">아이콘</p>';
+            content += '<p id="sinsun">' + item.categoryType + '</p>';
+            content += '</div>';
+            content += '</div>';
+            content += '</div>'; // 한 행 종료
+            content += '</div>'; 
+            content += '</div>'; 
         });
+        pp += '<div class="container">';
+        pp += '<nav aria-label="Page navigation" style="text-align:center">';
+        pp += '<ul class="pagination" id="pagination"></ul>';
+        pp += '</nav>';
+        pp += '</div>';
+
+        $('#list').empty();
+        $('#list').append(content);
+        $('#list').append(pp);
+
+        	console.log(showPage);
+        // 페이징 처리 UI 그리기(플러그인 사용)
+        $('#pagination').twbsPagination({
+        	startPage: showPage, // 현재 페이지 번호를 설정
+    	    totalPages: obj.pages,
+    	    visiblePages: 5,
+    	    onPageClick: function (e, page) {
+    	        if (showPage !== page) {
+    	            showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고 있는 페이지 번호도 변경해 준다.
+    	            if(serint){
+    	            	if(firstpage){
+    	                	adminGroupBuyIntList(showPage,searchblock,firstSearchDateValue,lastSearchDateValue);		
+    	            	}else{
+    	            		adminGroupBuySerUserIntList(showPage, searchblock, seruser,firstSearchDateValue,lastSearchDateValue);       		
+    	            	}
+    	            }else{        	            	
+    	            if(searchResults){
+    	        		adminGroupBuySerUserList(showPage, searchblock, seruser)		
+    	        	}else{
+    	        		adminGroupBuyList(showPage,searchblock);        		
+    	        	}
+    	            }
+                }
+            }
+        });
+    }
+    $('#alladmingblist').on('click',function(){
+    	showPage = 1;
+    	searchblock = "all";
+    	seruser= null;
+    	searchResults=null;
+    	adminGroupBuyList(showPage,searchblock);
+    	console.log(showPage);
+    	firstpage = true;
+    	 $('#searchadmingblist').val('');
+    });
+    $('#sucadmingblist').on('click',function(){
+    	showPage= 1;
+    	searchblock = "N";
+    	if(serint){
+        	if(firstpage){
+            	adminGroupBuyIntList(showPage,searchblock,firstSearchDateValue,lastSearchDateValue);		
+        	}else{
+        		adminGroupBuySerUserIntList(showPage, searchblock, seruser,firstSearchDateValue,lastSearchDateValue);       		
+        	}
+        }else{        	            	
+        if(searchResults){
+    		adminGroupBuySerUserList(showPage, searchblock, seruser)		
+    	}else{
+    		adminGroupBuyList(showPage,searchblock);        		
+    	}
+        }
+    	console.log(showPage);
+    });
+    $('#failadmingblist').on('click',function(){
+    	showPage= 1;
+    	searchblock = "Y";
+    	if(serint){
+        	if(firstpage){
+            	adminGroupBuyIntList(showPage,searchblock,firstSearchDateValue,lastSearchDateValue);		
+        	}else{
+        		adminGroupBuySerUserIntList(showPage, searchblock, seruser,firstSearchDateValue,lastSearchDateValue);       		
+        	}
+        }else{        	            	
+        if(searchResults){
+    		adminGroupBuySerUserList(showPage, searchblock, seruser)		
+    	}else{
+    		adminGroupBuyList(showPage,searchblock);        		
+    	}
+        }
+    		console.log(showPage);
+    });
+
+    $('#searchpoingblist').on('click',function(){
+    	showPage=1;
+    	searchblock = "all";
+    	seruser= null;
+    	firstpage = false;
+        var inputElement = document.getElementById("searchadmingblist");
+        seruser = inputElement.value;
+        adminGroupBuySerUserList(showPage, searchblock, seruser);
+    })
+    function adminGroupBuySerUserList(page, searchblock, seruser) {
+        $.ajax({
+            type: 'get',
+            url: 'groupBuy/ser/user/list.ajax',
+            data: { 'page': page,'searchblock':searchblock , 'seruser':seruser },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                searchResults = data;
+                if(data.list.length==0){
+                	alert('검색결과가 없습니다.')
+                }else{    
+                drawList(data);
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+    
+    $('#searchButton').on('click', function () {
+    	showPage = 1;
+    	$('#pagination').twbsPagination({
+    	    startPage: '1'
+    	});
+        if($('#firstsearchdate').val() && $('#lastsearchdate').val()){
+        firstSearchDateValue = $('#firstsearchdate').val();
+        lastSearchDateValue = $('#lastsearchdate').val();
+        console.log(firstpage);
+        if(firstpage){
+        	adminGroupBuyIntList(showPage,searchblock,firstSearchDateValue,lastSearchDateValue);		
+    	}else{
+    		adminGroupBuySerUserIntList(showPage, searchblock, seruser,firstSearchDateValue,lastSearchDateValue);       		
+    	}
+        }else{
+        	alert('날짜를 모두 선택해 주세요.');
+        }
+    });
+    function adminGroupBuyIntList(page, searchblock,firstSearchDateValue,lastSearchDateValue) {
+        $.ajax({
+            type: 'get',
+            url: 'groupBuy/int/list.ajax',
+            data: { 'page': page,'searchblock':searchblock ,'firstSearchDateValue':firstSearchDateValue,'lastSearchDateValue':lastSearchDateValue},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                serint=data;
+                if(data.list.length==0){
+                	alert('검색결과가 없습니다.')
+                }else{                    	
+                drawList(data);
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+    function adminGroupBuySerUserIntList(page, searchblock, seruser,firstSearchDateValue,lastSearchDateValue) {
+        $.ajax({
+            type: 'get',
+            url: 'groupBuy/ser/user/int/list.ajax',
+            data: { 'page': page,'searchblock':searchblock , 'seruser':seruser,'firstSearchDateValue':firstSearchDateValue,'lastSearchDateValue':lastSearchDateValue},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                serint=data;
+                if(data.list.length==0){
+                	alert('검색결과가 없습니다.')
+                }else{                    	
+                drawList(data);
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+    $(document).on('click', '.card', function() {
+        var cardId = $(this).attr('id'); // 클릭한 카드의 id 가져오기
+        var gbNo = $(this).find(".gbNo").text(); // 해당 카드 내의 gbNo 가져오기 (예를 들어, 특정 엘리먼트에 gbNo가 들어있는 경우)
+        
+        console.log('클릭한 카드의 id: ' + cardId);
+        // 원하는 작업 수행
+    });
+    
     </script>
 
 </html>
