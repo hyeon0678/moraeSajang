@@ -1,0 +1,501 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<link rel="stylesheet" href="<c:url value='/resources/css/img_slider.css'/>">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
+</head>
+<body>
+<p id ="gbNo" style="visibility: hidden">"${GroupBuyDto.gbNo}"</p>
+    <div><button id='reportBtn' class="report">신고하기</button></div>
+    <div id="productsInfo">
+        <div id="productImgBox" class="products">
+        	<div class="slider-2">
+			     <div class="side-btns">
+			        <div><span><i class="fas fa-caret-left"></i><</i></span></div>
+			        <div><span><i class="fas fa-caret-right"></i>></span></div>
+			    </div>
+    
+			    <div class="slides">
+			    	<c:choose>
+			    		<c:when test="${fn:length(PhotoNames)==0}">
+			    		<div class="active slide-img" style="background-image:url(/photo/default/default.png?auto=compress,format);"></div>
+			    		</c:when>
+			    		<c:otherwise>
+			    		<c:forEach items="${PhotoNames}" var="newName" varStatus="status">
+					    <c:if test="${status.index eq 0}">
+					    <div class="active slide-img" style="background-image:url(/photo/gbImg/${newName}?auto=compress,format);"></div>
+					    </c:if>
+					    <c:if test="${status.index ne 0}">
+					    <div class="slide-img" style="background-image:url(/photo/gbImg/${newName}?auto=compress,format);"></div>
+					    </c:if>
+					    </c:forEach>
+			    		</c:otherwise>
+			    	</c:choose>
+				    
+			    </div>
+            </div>
+        </div>
+        <div class="products">
+            <div 모집인원 class="smallInfo">
+                <label for="recruitPeople">인원수</label>
+                <span>
+                <input type="text" id="recruitPeople" name="recruitPeople" value="${GroupBuyDto.joinPeople}/${GroupBuyDto.recruitPeople}"/>
+                </span>
+                <span>
+                <c:if test="${GroupBuyDto.joinPeople ne 0}">
+                <fmt:formatNumber var="oc" type="number" maxFractionDigits="0"  value="${GroupBuyDto.joinPeople/GroupBuyDto.recruitPeople*100}" />
+                </c:if>
+                <c:choose>
+                	<c:when test="${GroupBuyDto.joinPeople eq 0}">
+                	<img class="detail-joinicon" src="/photo/icon/1.png"/>
+                	</c:when>
+                	<c:when test="${oc ge 0 && oc le 25}">
+                	<img class="detail-joinicon" src="/photo/icon/1.png" />
+                	</c:when>
+                	<c:when test="${oc ge 26 && oc le 50}">
+                	<img class="detail-joinicon" src="/photo/icon/2.png" />
+                	</c:when>
+                	<c:when test="${oc ge 51 && oc le 75}">
+                	<img class="detail-joinicon" src="/photo/icon/3.png" />
+                	</c:when>
+                	<c:when test="${oc ge 76 && oc le 99}">
+                	<img class="detail-joinicon" src="/photo/icon/4.png" />
+                	</c:when>
+                	<c:when test="${oc eq 100}">
+                	<img class="detail-joinicon" src="/photo/icon/5.png" />
+                	</c:when>
+                </c:choose>
+                </span>
+            </div>
+            <div 모집기간 class="smallInfo">
+                <label>모집기간</label>
+                <span>
+                    <input type="text" id="startDate" name="startDate" value="${GroupBuyDto.startDate}"/>
+                    ~
+                    <input type="text" id="finishDate" name="finishDate" value="${GroupBuyDto.startDate}"/>
+                </span>
+            </div>
+            <div>
+                <label for="recruitRegion">지역</label>
+                <span>
+                    <input type="text" id="recruitRegion" name="recruitRegion" value="${GroupBuyDto.gbDetailAddress}"/>
+                </span>
+            </div>
+            <div 모집장소 class="smallInfo">
+                <label for="recruitLocation">모집장소</label>
+                <span>
+                    <input type="text" id="recruitLocation" name="recruitLocation" value="${GroupBuyDto.place}" readonly/>
+                </span>
+            </div>
+            <div 모집장소 class="smallInfo">
+                <label for="recruiter">작성자</label>
+                <span>
+                    <input type="text" id="recruiter" name="recruiter" value="${GroupBuyDto.nickname}" readonly/>
+                </span>
+            </div>
+            <div 모집장소 class="smallInfo">
+                <label for="user">사용자 평가</label>
+                <span>
+                    별로에요 : <input type="text" value="${GroupBuyDto.tradeAgainNum}" readonly/>
+                </span>
+                <span>
+                    그냥 그래요 : <input type="text"  value="${GroupBuyDto.justOkayNum}" readonly/>
+                </span>
+                <span>
+                    또 거래하고싶어요 : <input type="text" value="${GroupBuyDto.notInterestedNum}" readonly/>
+                </span>
+            </div>
+            <div 금액 class="smallInfo">
+                <label for="joinPrice">금액</label>
+                <span>
+                	<fmt:formatNumber var="sm" value="${GroupBuyDto.joinPrice}" pattern="#,###" />
+                    <input type="text" id="joinPrice" value="${sm}"/>
+                </span>
+            </div>
+            <div 금액 class="smallInfo">
+                <label for="category">카테고리</label>
+                <span>
+                    <input type="text" id="category" value="${GroupBuyDto.categoryType}"/>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div id="titleDiv">
+        <div class="subContent">
+            제목
+            <input type="text" id="title" value="${GroupBuyDto.title}"/>
+        </div>
+        <div>
+            내용
+            <textarea id="gbContent" readonly>${GroupBuyDto.gbContent}</textarea>
+        </div>
+    </div>
+    <hr>
+    <h3>댓글</h3>
+    <div>
+        <div id="commentWriteBox">
+            <textarea id="comment" class="inputValid">
+
+            </textarea>
+            <div class="validation">250</div>
+        </div>
+        <div>
+            
+            <span>
+                <button id="commentWrite">댓글 작성</button>
+            </span>
+        </div>
+        <hr>
+        <div id="comments">
+	            
+        </div>
+        <div class="container">									
+			<nav aria-label="Page navigation" style="text-align:center">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>					
+		</div>
+
+    </div>
+    <hr>
+    <div>
+    
+	<c:set var="userId" value="${sessionScop.userinfo.userid}" />
+    <c:choose>
+    	<c:when test="${GroupBuyDto.joinPeople eq GroupBuyDto.recruitPeople}">
+    		<button disabled>모집완료</button>
+    	</c:when>
+    	<c:when test="${GroupBuyDto.isGbWriter eq true || GroupBuyDto.isJoining eq 1}">
+    		<button disabled>참여중</button>
+    	</c:when>
+    	<c:when test="${GroupBuyDto.isJoining eq 0}">
+    		<button id="gbJoin">참여하기</button>
+    	</c:when>
+    </c:choose>
+    </div>
+</body>
+<script>
+console.log('${GroupBuyDto.joinPeople}')
+console.log('${GroupBuyDto.recruitPeople}')
+let joinSuccess = '${joinSuccess}';
+let joinFail = '${joinSuccess}';
+let showPage = 1;
+
+let comment='';
+$(document).ready(function(){
+	showPage = 1
+	commentListCall(1);
+	gbJoin()
+	slider()
+	
+});
+
+function commentListCall(pageNum){
+	$.ajax({
+		type:'GET',
+		url:'comment/commList.ajax?gbNo='+'${GroupBuyDto.gbNo}&&pageNum='+pageNum,
+		data:JSON,
+		dataType : 'json',
+		success:function(data){
+			drawComment(data)
+		},
+		error:function(error){
+			console.error(error)
+		}
+				
+	});
+}
+
+function drawComment(obj){
+	let comments = '';
+	$('#comments').empty();
+	if(obj.comments.length > 0){
+		for(let comDto of obj.comments){
+			
+			comments += '<p style="display:none">'+comDto.commNo+'</p>';
+			comments += '<div id="commentHead">';
+			comments +=	'<span id="commentWriter">'+comDto.nickname+'</span>';
+	    	comments += '<span><button class="report" value="댓글">신고</button></span>'
+	    	comments += '</div>'
+			comments += '<div id="commentBody">'
+			comments += '<div id="content"><textarea id="commentContent" class="inputValid" readonly>'+comDto.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
+	        comments += '<div id="date">'
+	        let milliseconds = parseInt(comDto.commRegDate,10)
+	        const date = new Date(milliseconds);
+	        const year = date.getFullYear();
+	        const month = date.getMonth() + 1;
+	        const day = date.getDate();
+	        const formattedDate = year+'-'+month+'-'+day;
+	    	comments += '<span>작성 날짜<input id="reg_date" value='+formattedDate+' readonly></span>'
+			if(comDto.isCommentWriter == true){
+				
+				comments += '<span><button class="delete">삭제</button></span><button class="modify" value="modify">수정</button><button class="modifyCancel" value="modify" style="visibility:hidden">수정취소</button></div></div>'
+			}	
+		} 
+		console.log(obj.currPage);
+		$('#comments').append(comments);
+		$('#pagination').twbsPagination({
+			startPage:obj.currPage, // 보여줄 페이지
+			totalPages:obj.totalPage,// 총 페이지 수(총갯수/페이지당보여줄게시물수) : 서버에서 계산해서 가져와야함
+			visiblePages:5,//[1][2][3][4][5]
+			onPageClick:function(e,page){ // 번호 클릭시 실행할 내용
+				//console.log(e);
+				if(showPage != page){
+					console.log(page);
+					showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고 있는 페이지 번호도 변경해 준다.
+					commentListCall(page);
+				}
+			}
+		});
+		modifyBtn();
+		deleteBtn();
+		modifyCancel();
+		report();
+		inputValid();
+	}
+}
+//댓글 작성
+$('#commentWrite').on('click', function(){
+	let comment = $('#comment').val();
+	$.ajax({
+		type:'Post',
+		url:'comment/register.ajax',
+		data : {
+			comment : comment,
+			gbNo : '${GroupBuyDto.gbNo}'
+		},
+		dataType :'json',
+		success:function(data){
+			if(data.msg == "success"){
+				alert("댓글작성을 성공했습니다.");
+				console.log(data.pageNum);
+				commentListCall(data.pageNum)
+				
+			}else{
+				alert("댓글작성에 실패했습니다.")
+			}
+		},
+		error:function(error){
+			console.error(error)
+		}
+				
+	});
+});
+
+//댓글 삭제
+function deleteBtn(){
+	$('.delete').on('click', function(){
+		let commNo= $(this).closest("div").prev().parent("div").prev().prev().html();
+		console.log(commNo);
+		console.log(gbNo); 	
+		$.ajax({
+			type:'GET',
+			url:'comment/delete.ajax?gbNo='+'${GroupBuyDto.gbNo}&&commNo='+commNo,
+			dataType :'json',
+			success:function(data){
+				if(data.msg == "success"){
+					commentListCall(1)
+					alert("댓글삭제를 성공했습니다.");
+					
+				}else{
+					alert("댓글삭제에 실패했습니다.")
+				}
+			},
+			error:function(error){
+				console.error(error)
+			}
+					
+		});
+	});
+}
+//댓글 수정
+function modifyBtn(){
+	$('.modify').on('click', function(){
+		let commentArea = $(this).closest("div").prev().children('textarea');
+		
+		if($(this).html() == '수정'){
+			$(this).next().css('visibility','visible');
+			$(this).prev().css('visibility', 'hidden');
+			commentArea.next().css("display","block");
+			console.log($(this).val());
+			commentArea.prop('readonly', false);
+			$(this).html("수정완료")
+			comment = commentArea.val();
+			
+		}else if($(this).html() =='수정완료'){
+			$(this).next().css('visibility','hidden')
+			$(this).prev().css('visibility', 'visible')
+			commentArea.next().css("display","none");
+			console.log($(this).val());
+			commentArea.prop('readonly', true);
+			$(this).html("수정")
+			
+			comment = commentArea.val();
+			let commNo= $(this).closest("div").prev().parent("div").prev().prev().html();
+			
+			let modifyData = {}
+			modifyData.pageNum = showPage;
+			modifyData.commNo = commNo;
+			modifyData.gbNo = '${GroupBuyDto.gbNo}';
+			modifyData.comment = comment;
+			$.ajax({
+				type:'post',
+				url:'comment/modify.ajax',
+				data:modifyData,
+				dataType :'json',
+				success:function(data){
+					commentListCall(showPage)
+					alert(data.msg);
+				},
+				error:function(error){
+					console.error(error)
+				}
+						
+			});
+		}
+	});
+}
+
+//수정 취소 버튼 이벤트 함수
+function modifyCancel(){
+	$(".modifyCancel").on('click', function(){
+		$(this).css('visibility','hidden')
+		let modifyOk = $(this).prev();
+		modifyOk.html("수정")
+		modifyOk.prev().css('visibility', 'visible');
+		let commentArea = $(this).closest("div").prev().children('textarea')
+		commentArea.val(comment);
+		commentArea.prop('readonly', true);
+	});
+}
+
+//공구 참여 함수
+function gbJoin(){
+	$('#gbJoin').on('click', function(){
+		let gbNo = $('#gbNo').html();
+		$.ajax({
+			type:'post',
+			url:'join.ajax?',
+			data:{
+				gbNo:${GroupBuyDto.gbNo},
+				gbPrice:${GroupBuyDto.joinPrice}
+			},
+			dataType : 'json',
+			success:function(data){
+				alert(data.msg)
+				location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';
+			},
+			error:function(error){
+				location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';
+				console.error(error)
+			}
+					
+		});
+		
+	});
+}
+
+
+
+
+
+$('#pagePerNum').change(function(){
+	$('#pagination').twbsPagination('destroy');
+	commentListCall(showPage);
+});
+
+function report(){
+	$('.report').on('click', function(){
+		let gbNo = '${GroupBuyDto.gbNo}';
+		let url = 'report?gbNo='+gbNo;
+		console.log($(this).val());
+		if($(this).val() == '댓글'){
+			let commNo = $(this).closest("div").prev().html();
+			console.log(commNo)
+			url += '&&commNo='+commNo;
+		}
+		location.href = url;
+		
+	})
+}
+
+function inputValid(){
+	$('.inputValid').on('keydown', function(){
+	    let len = $(this).val().length;
+	            console.log($(this));
+	    if(len > 250){
+	        var over = len - 250;
+	        var x = $(this).val();
+	        console.log(x);
+	        x = x.replace(x.substr(250), "");
+	        console.log($(this).next());
+	        $(this).next().html('250/250 250자 까지 작성할 수 있습니다.');
+	    }else{
+	        $(this).next().html(len+'/250');
+	    }
+	}).on('keyup', function(){
+	    var y = $(this).val();
+	    if(y.length>250){
+	        $(this).next().html('250/250 250자 까지 작성할 수 있습니다.');
+	    }else{
+	    	$(this).next().html(y.length+'/250');
+	    }
+	    $(this).val($(this).val().replace(y.substr(250), ""));
+	});
+}
+
+function slider(){
+	$('.slider-2 > .side-btns > div:first-child').click(function() {
+	    console.log('slider click left')
+		var $this = $(this);
+	    console.log($this)
+	    var $slider = $this.closest('.slider-2');
+	    var $current = $slider.find('div.active');
+	    
+	    var $post = $current.prev();
+	    if($post.prop('class') == 'slide-img'){
+	    	console.log($post);
+		    $current.removeClass('active')
+		    $post.addClass("active");
+	    }else{
+	    	return false
+	    }
+	    
+	    if ( $post.length == 0 ) {
+	        $post = $slider.find('.page-nav > div:last-child');
+	    }
+	    
+	    $post.click();
+	});
+
+	$('.slider-2 > .side-btns > div:last-child').click(function() {
+		console.log('slider click right')
+	    var $this = $(this);
+	    var $slider = $this.closest('.slider-2');
+	    var $current = $slider.find('div.active');
+	    //console.log($current);
+	    var $post = $current.next();
+	    if($post.prop('class') == 'slide-img'){
+	    	console.log($post);
+		    $current.removeClass('active')
+		    $post.addClass("active");
+	    }else{
+	    	return false
+	    }
+	    
+	    $post.click();
+	});
+}
+</script>
+</html>

@@ -6,6 +6,8 @@ import java.util.List;
 
 import kr.co.morae.groupbuy.dto.CommentDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
+import kr.co.morae.groupbuy.dto.ReportDto;
+import kr.co.morae.groupbuy.dto.SearchOptionDto;
 
 public interface GroupBuyDao {
 	
@@ -16,9 +18,23 @@ public interface GroupBuyDao {
 	//file 저장 dao
 	int gbSavePhoto(String gnNo, String photoName);
 	
-	GroupBuyDto getGbDetail(int gbNo);
+	GroupBuyDto getGbDetail(String gbNo, String userId);
 	
 	ArrayList<String> getPhotoNames(int gbNo);
+	
+	//공구 참여 인원 확인
+	HashMap<String, String> isgbJoining(String gbNo, String userId);
+	
+	//공구 참여
+	int gbJoin(String gbNo, String userId);
+	
+	
+	int report(ReportDto dto);
+	
+	int insertPoint(int gbNo, String userId, int gbPrice, String string);
+	
+	void modifyGbState(int gbNo, String string);
+	List<GroupBuyDto> getGbList(SearchOptionDto dto);
 	
 
 }
