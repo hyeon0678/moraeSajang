@@ -72,13 +72,6 @@ public class GroupBuyController {
 	}
 	
 
-	@GetMapping("/gbList")
-
-	public String gbList(Model model) {
-
-		return "groupBuy/gbList";
-	}
-
 	
 	//글 상세정보보기
 	@GetMapping("/gbDetail")
