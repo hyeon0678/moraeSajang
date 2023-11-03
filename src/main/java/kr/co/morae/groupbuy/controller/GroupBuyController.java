@@ -163,7 +163,7 @@ public class GroupBuyController {
 	
 	@GetMapping("/gbList")
 	public String gbList() {
-		return "groupBuy/gbDetail";
+		return "groupBuy/gbList";
 	}
 	
 }
