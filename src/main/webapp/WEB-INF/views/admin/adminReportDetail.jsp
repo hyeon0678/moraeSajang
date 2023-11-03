@@ -42,53 +42,130 @@ div{
     <div style="width: 1000px; height: 80px;">
         <textarea style="height:70px; width:850px; resize: none; float: left;" placeholder="내용을 입력 해 주세요." value="" name="content"></textarea>        
         <!-- <input type="text" id = "reporthistory" value="" placeholder="내용을 입력 해 주세요"></div> -->
-     <div style="width: 100px; height:25px; float:right;"><input type="checkbox" value="처리완료" name="hisstate">처리완료</div>
+     <div style="width: 100px; height:25px; float:right;"><input type="checkbox" value="처리완료" name="hisstate" id="checkbox">처리완료</div>
      <div style="width: 100px; height:25px; float:right;"><button onclick="historyput()">저장</button></div>	
     </div>
-    <div style="width: 1000px; float: left;">
-        <span>신고 히스토리 댓글내용 아작스로 그려주기</span>        
+    <div style="width: 1000px; float: left;" id="historylist">
+        
     </div>	 
 </body>
 <script>
     var showpage =1;
+    histroycall();
+    console.log("히스토리 콜 시작");
     
-	function gotolist(){
-		location.href='./adminReport';		
-	}//historycall
-
-	function historyput(){
-		var $state = $("input[type=checkbox][name=hisstate]:checked").val();
-		var $content = $("textarea[name = content]").val();
-		console.log($state);
-		console.log($content);
-		
-		
-		
-		
-		$.ajax({
+    
+    function histroycall(page){
+    	var $reportNo = ${report.reportNo};
+    	
+    	$.ajax({
 			type:'post',
-			url:'ReportDetail.ajax/historyput',
-			data:{'hisstate':$state,'content':$content},
+			url:'ReportDetail.ajax/hislist',
+			data:{'reportNo':$reportNo},
 			dataType:'JSON',
 			success:function(obj){			
-				console.log(obj);			
-				
+				console.log(obj);
+				drawlist(obj);
 			},
 			error:function(e){
 				console.log(e);
 			}	
-		});//
+		});//		
+    	
+    	
+    }//
+    
+    function drawlist(obj){
+    	
+    	console.log(obj);
+    	var content ='';
+    	// '+obj.list[i].+'  '+obj.list[i].reportProcessNo+'
+    	for (var i = 0; i < obj.size; i++) {
+    		content += '<div style="width: 990px;">';
+    		content += '<div style="width: 970px; height: 35px;">';
+    		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리번호 : '+obj.list[i].reportProcessNo+'</span></div>';
+    		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리자 : '+obj.list[i].processorId+'</span></div>';
+    		content += '</div>';	 
+    		content += '<div style="width: 970px; height: 70px;">';
+    		content += '<span>'+obj.list[i].reportHistory+'</span>/<span>'+obj.list[i].processDate+'</span>';
+    		content += '</div>';	 
+    		content += '<div style="width: 970px; height: 30px;">';
+    		content += '<div style="width: 150px; float: right; height: 15px;"><span>미처리</span></div>';
+    		content += '</div>';	
+    		content += '</div>';
+    		$('#historylist').append(content);
+		}
+    	
+    	
+    	
+    	
+    }//
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	function gotolist(){
+		location.href='./adminReport';		
+	}//historycall
+	$('#checkbox').on('click',function(){
+		alert("처리완료가 선택되어있습니다.");
+		
+	});	
+	
+	function historyput(){		
+		var $state = $("input[type=checkbox][name=hisstate]:checked").val();
+		var $content = $("textarea[name = content]").val();
+		var $reportNo = ${report.reportNo};
+		// if($state == "처리완료"){
+		// if (confirm("처리완료가 선택 되어 있습니다.") == true) {
+				console.log($state);
+				console.log($content);
+				console.log($reportNo);
+				if ($state != "처리완료") {
+					$state = "미처리";			
+					console.log("미처리 :"+$state);
+				}
+				$.ajax({
+					type:'post',
+					url:'adminReportDetail.ajax/historyput',
+					data:{'hisstate':$state,'content':$content,'reportNo':$reportNo},
+					dataType:'JSON',
+					success:function(obj){			
+						console.log(obj);				
+					},
+					error:function(e){
+						console.log(e);
+					}	
+				});//				
+			//}else {
+				//location.href='./adminReport';	}
+			// alert("처리완료가 선택되어있습니다.")
+		}
 		
 		
 		
 		
 		
 		
-	};//
-
-
-
-
+		
+		
+		
+		
+	
 
 
 

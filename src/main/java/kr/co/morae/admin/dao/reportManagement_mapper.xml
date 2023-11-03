@@ -61,6 +61,26 @@
 		from report r left join groupbuyingcomment c on r.uniqueNo =c.commNo where r.reportNo = #{param1}
 	</select>
 	
+	<update id="hisstatech">
+		update report set processState = #{param1} where reportNo = #{param2}
+	</update>
+	
+	<insert id="inserthistory">	
+		insert into reportprocesshistory (reportNo,reportHistory,processorId,processDate) 
+		values(#{param1},#{param2},#{param3}, curdate());
+	</insert>
+	
+	<select id="hislist" resultType="map" >
+		select reportProcessNo, processorId , reportHistory , processDate from reportprocesshistory r where reportNo = #{param1}
+	</select>	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

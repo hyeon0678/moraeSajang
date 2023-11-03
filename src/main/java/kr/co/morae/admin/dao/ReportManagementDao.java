@@ -34,6 +34,12 @@ public interface ReportManagementDao {
 
 	ReportManagementDto reportDetailR(int idx);
 
+	void hisstatech(String hisstate, String reportNo);
+
+	void inserthistory(String reportNo, String content, String gardid);
+
+	ArrayList<HashMap<String, Object>> hislist(int reportnum);
+
 	
 
 	

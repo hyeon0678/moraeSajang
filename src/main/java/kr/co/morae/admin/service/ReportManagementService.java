@@ -89,6 +89,22 @@ public class ReportManagementService {
 		return dao.reportDetailR(idx);
 	}
 
+
+	public void hisstatech(String hisstate, String reportNo) {
+		dao.hisstatech(hisstate,reportNo);
+	}
+
+
+	public void inserthistory(String reportNo, String content, String gardid) {
+		dao.inserthistory(reportNo,content,gardid);		
+	}
+
+
+	public ArrayList<HashMap<String, Object>> hislist(String reportNo) {
+		int reportnum = Integer.parseInt(reportNo);
+		return dao.hislist(reportnum);
+	}
+
 	
 	
 	

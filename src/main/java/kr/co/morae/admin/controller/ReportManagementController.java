@@ -3,6 +3,8 @@ package kr.co.morae.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.morae.admin.dto.ReportManagementDto;
 import kr.co.morae.admin.service.ReportManagementService;
+import kr.co.morae.user.dto.UserDto;
 
 
 
@@ -60,21 +63,44 @@ public class ReportManagementController {
 		logger.info("userstate : "+userstate);		
 		logger.info("useruniqueNo : "+useruniqueNo);
 		
-		model.addAttribute("report",dto);
+		model.addAttribute("report",dto); 
 		model.addAttribute("userstate",userstate);
 		model.addAttribute("useruniqueNo",useruniqueNo);
 		return "admin/adminReportDetail";
 	}
 	
 	// 신고 히스토리 insert
-	@RequestMapping(value = "admin/ReportDetail.ajax/historyput")
+	@RequestMapping(value = "/adminReportDetail.ajax/historyput")
 	@ResponseBody
-	public HashMap<String,Object> historyput (@RequestParam String hisstate,@RequestParam String content,Model model){		
-		logger.info("히스토리 insert");
-		logger.info("hisstate :"+hisstate);
-		logger.info("content :"+content);
-		HashMap<String, Object> result = new HashMap<String, Object>();
+	public HashMap<String,Object> hislist (@RequestParam String reportNo,Model model){		
+		logger.info("히스토리 list");
 		
+		HashMap<String, Object> result = new HashMap<String, Object>();		
+		logger.info("reportNo : "+reportNo); //신고 번호
+		ArrayList<HashMap<String, Object>> list = service.hislist(reportNo);
+		
+		result.put("list", list);
+		result.put("size", list.size());
+		
+		logger.info("result :"+result); //신고 번호
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/admin/ReportDetail.ajax/historyput")
+	@ResponseBody
+	public HashMap<String,Object> historyput (@RequestParam String hisstate,@RequestParam String content,
+			@RequestParam String reportNo,Model model,HttpSession session){		
+		logger.info("히스토리 insert");
+		logger.info("hisstate :"+hisstate); // 신고 처리 상태
+		logger.info("content :"+content); //신고 사유
+		logger.info("reportNo :"+reportNo); //신고 번호
+		UserDto dto = (UserDto) session.getAttribute("userInfo");
+		String gardid = dto.getUserId();
+		service.hisstatech(hisstate,reportNo);
+		service.inserthistory(reportNo,content,gardid);		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		logger.info("신고 히스토리 입력 완료"); //신고 번호
 		
 		
 		return null;
