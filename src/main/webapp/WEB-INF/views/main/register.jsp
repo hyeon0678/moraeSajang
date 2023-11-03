@@ -217,11 +217,14 @@ $('#register').on('click',function(){
       }else if($nickname.val()==''){
          alert('닉네임을 입력해 주세요');
          $nickname.focus();
+      }else if($addr1.val()){
+    	  alert('도로명주소를 입력해 주세요');
+          $addr1.focus(); 
       }else if($addr2.val()==''){
-         alert('도로명주소를 입력해 주세요');
+         alert('지번주소를 입력해 주세요');
          $addr2.focus();
       }else if($addr3.val()==''){
-         alert('지번주소를 입력해 주세요');
+         alert('상세주소를 입력해 주세요');
          $addr3.focus();
       } else{         
          var param = {};
@@ -416,9 +419,9 @@ function execPostCode() {
            
            
            
-           $("[name=addr1]").val(data.zonecode);
-           $("[name=addr2]").val(fullRoadAddr); 
-           $("[name=addr3]").val(data.jibunAddress);
+          /* $("[name=addr1]").val(data.zonecode);*/
+           $("[name=addr1]").val(fullRoadAddr); 
+           $("[name=addr2]").val(data.jibunAddress);
            
        }
     }).open();
