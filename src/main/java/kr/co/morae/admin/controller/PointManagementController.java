@@ -16,6 +16,10 @@ public class PointManagementController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired PointManagementService service;
 	
+	@RequestMapping(value="/admin/point")
+	public String adminPoint() {
+		return "admin/adminPoint";
+	}
 	@RequestMapping(value="/admin/point/charge/desc")
 	@ResponseBody
 	public Map<String, Object> adminPointChargeDesc(@RequestParam String page) {

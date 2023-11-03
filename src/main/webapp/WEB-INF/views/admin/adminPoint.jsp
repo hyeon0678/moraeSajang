@@ -8,7 +8,7 @@
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -47,15 +47,6 @@
     </thead>
     <tbody id="list">
     </tbody>
-    <tr>
-        <td colspan="6" id="paging">
-            <div class="container">
-                <nav aria-label="Page navigation" style="text-align:center">
-                    <ul class="pagination" id="pagination"></ul>
-                </nav>
-            </div>
-        </td>
-    </tr>
 </table>
 <div id="contentContainer"class="hidden">
 <table>
@@ -72,15 +63,6 @@
     </thead>
     <tbody id="list">
     </tbody>
-    <tr>
-        <td colspan="7" id="paging">
-            <div class="container">
-                <nav aria-label="Page navigation" style="text-align:center">
-                    <ul class="pagination" id="pagination"></ul>
-                </nav>
-            </div>
-        </td>
-    </tr>
 </table>
 </div>
 <script>
@@ -131,12 +113,16 @@ function listCall(page, ascending) {
 function adminPointChargeDesc(page){
 	$.ajax({
 		type:'get',
-		url:'admin/point/charge/desc',
+		url:'point/charge/desc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
 			console.log(data);
+			if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
 			drawList(data);
+            }
 		},
 		error:function(e){
 			console.log(e);
@@ -146,12 +132,16 @@ function adminPointChargeDesc(page){
 function adminPointChargeAsc(page){
 	$.ajax({
 		type:'get',
-		url:'admin/point/charge/asc',
+		url:'point/charge/asc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
 			console.log(data);
+			if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
 			drawList(data);
+            }			
 		},
 		error:function(e){
 			console.log(e);
@@ -160,8 +150,11 @@ function adminPointChargeAsc(page){
 }
 
 $('#searchButton').on('click', function () {
-    if($('#firstsearchdate').val() && $('#lastsearchdate').val()){
 	showPage = 1;
+	$('#pagination').twbsPagination({
+	    startPage: '1'
+	});
+    if($('#firstsearchdate').val() && $('#lastsearchdate').val()){
     firstSearchDateValue = $('#firstsearchdate').val();
     lastSearchDateValue = $('#lastsearchdate').val();
     console.log(firstpage);
@@ -177,7 +170,7 @@ $('#searchButton').on('click', function () {
 function adminPointChargeSearchDesc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: 'admin/point/charge/search/desc',
+        url: 'point/charge/search/desc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
@@ -186,7 +179,11 @@ function adminPointChargeSearchDesc(page, firstSearchDateValue, lastSearchDateVa
         dataType: 'json',
         success: function (data) {
             searchResults = data; // 검색 결과 업데이트
+            if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
             drawList(data);
+            }
         },
         error: function (e) {
             console.log(e);
@@ -196,7 +193,7 @@ function adminPointChargeSearchDesc(page, firstSearchDateValue, lastSearchDateVa
 function adminPointChargeSearchAsc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: 'admin/point/charge/search/asc',
+        url: 'point/charge/search/asc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
@@ -205,7 +202,11 @@ function adminPointChargeSearchAsc(page, firstSearchDateValue, lastSearchDateVal
         dataType: 'json',
         success: function (data) {
             searchResults = data; // 검색 결과 업데이트
+            if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
             drawList(data);
+            }
         },
         error: function (e) {
             console.log(e);
@@ -215,6 +216,8 @@ function adminPointChargeSearchAsc(page, firstSearchDateValue, lastSearchDateVal
 
 function drawList(obj){
 	var content ='';
+	var pp ='';
+	
 	obj.list.forEach(function(item, idx){
 		content +='<tr>';
 		content +='<td>'+item.chargeNo+'</td>';
@@ -225,9 +228,18 @@ function drawList(obj){
 		content +='<td>'+item.depositor+'</td>';
 		content +='</tr>';
 	});
+		pp +='<tr>';
+		pp +='<td colspan="6" id="paging">';
+		pp +='<div class="container">';
+		pp +='<nav aria-label="Page navigation" style="text-align:center">';
+		pp +='<ul class="pagination" id="pagination"></ul>';
+		pp +='</nav>';
+		pp +='</div>';
+		pp +='</td>';
+		pp +='</tr>';
 	$('#list').empty();
 	$('#list').append(content);
-	
+	$('#list').append(pp);
 	$('#pagination').twbsPagination({
 	    startPage: showPage, // 현재 페이지 번호를 설정
 	    totalPages: obj.pages,
@@ -299,12 +311,16 @@ function pointHistoryListCall(page, ascendingOrder) {
 function adminPointHistoryDesc(page){
 	$.ajax({
 		type:'get',
-		url:'admin/point/history/desc',
+		url:'point/history/desc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
 			console.log(data);
+			if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
 			drawHistoryList(data);
+            }
 		},
 		error:function(e){
 			console.log(e);
@@ -314,12 +330,16 @@ function adminPointHistoryDesc(page){
 function adminPointHistoryAsc(page){
 	$.ajax({
 		type:'get',
-		url:'admin/point/history/asc',
+		url:'point/history/asc',
 		data:{'page':page},
 		dataType:'json',
 		success:function(data){
 			console.log(data);
+			if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
 			drawHistoryList(data);
+            }
 		},
 		error:function(e){
 			console.log(e);
@@ -330,7 +350,7 @@ function adminPointHistoryAsc(page){
 function adminPointHistorySearchDesc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: 'admin/point/history/search/desc',
+        url: 'point/history/search/desc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
@@ -339,7 +359,11 @@ function adminPointHistorySearchDesc(page, firstSearchDateValue, lastSearchDateV
         dataType: 'json',
         success: function (data) {
             searchResults = data; // 검색 결과 업데이트
+            if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
             drawHistoryList(data);
+            }
         },
         error: function (e) {
             console.log(e);
@@ -350,7 +374,7 @@ function adminPointHistorySearchDesc(page, firstSearchDateValue, lastSearchDateV
 function adminPointHistorySearchAsc(page, firstSearchDateValue, lastSearchDateValue) {
     $.ajax({
         type: 'get',
-        url: 'admin/point/history/search/asc',
+        url: ' point/history/search/asc',
         data: {
             'page': page,
             'firstSearchDateValue': firstSearchDateValue,
@@ -359,7 +383,11 @@ function adminPointHistorySearchAsc(page, firstSearchDateValue, lastSearchDateVa
         dataType: 'json',
         success: function (data) {
             searchResults = data; // 검색 결과 업데이트
+            if(data.list.length==0){
+            	alert('검색결과가 없습니다.');
+            }else{                    	
             drawHistoryList(data);
+            }
         },
         error: function (e) {
             console.log(e);
@@ -369,6 +397,7 @@ function adminPointHistorySearchAsc(page, firstSearchDateValue, lastSearchDateVa
 
 function drawHistoryList(obj){
 	var content ='';
+	var pp = '';
 	obj.list.forEach(function(item, idx){
 		content +='<tr>';
 		content +='<td>'+item.pointNo+'</td>';
@@ -381,8 +410,18 @@ function drawHistoryList(obj){
 		content +='<td>'+formattedDate+'</td>';
 		content +='</tr>';
 	});
+	pp +='<tr>';
+	pp +='<td colspan="7" id="paging">';
+	pp +='<div class="container">';
+	pp +='<nav aria-label="Page navigation" style="text-align:center">';
+	pp +='<ul class="pagination" id="pagination"></ul>';
+	pp +='</nav>';
+	pp +='</div>';
+	pp +='</td>';
+	pp +='</tr>';
 	$('#contentContainer #list').empty();
 	$('#contentContainer #list').append(content);
+	$('#contentContainer #list').append(pp);
 	
 	$('#contentContainer #pagination').twbsPagination({
 	    startPage: showPage, // 현재 페이지 번호를 설정
