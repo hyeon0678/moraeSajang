@@ -5,12 +5,15 @@ import java.sql.Date;
 public class ReportManagementDto {
 
 	private int reportNo;
-	private String reportId;
+	private String userId;
 	private String reportContent;
 	private Date reportRegDate;
 	private String reportType;
 	private int uniqueNo;
 	private String processState;
+	
+	private String reportuser;
+	private String reportstate;
 	
 	
 	public int getReportNo() {
@@ -19,11 +22,11 @@ public class ReportManagementDto {
 	public void setReportNo(int reportNo) {
 		this.reportNo = reportNo;
 	}
-	public String getReportId() {
-		return reportId;
+	public String getUserId() {
+		return userId;
 	}
-	public void setReportId(String reportId) {
-		this.reportId = reportId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getReportContent() {
 		return reportContent;
@@ -55,6 +58,19 @@ public class ReportManagementDto {
 	public void setProcessState(String processState) {
 		this.processState = processState;
 	}
+	public String getReportuser() {
+		return reportuser;
+	}
+	public void setReportuser(String reportuser) {
+		this.reportuser = reportuser;
+	}
+	public String getReportstate() {
+		return reportstate;
+	}
+	public void setReportstate(String reportstate) {
+		this.reportstate = reportstate;
+	}
+	
 	
 	
 	

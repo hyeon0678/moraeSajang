@@ -23,6 +23,7 @@ public class ReportManagementService {
 	
 	public ArrayList<ReportManagementDto> listall(String page) {
 		int offset = (Integer.parseInt(page)-1)*10;
+		logger.info("offset : "+offset);
 		return dao.listall(offset);
 	}
 
@@ -43,7 +44,51 @@ public class ReportManagementService {
 	public int statenum(String pageState) {
 		return dao.statenum(pageState);
 	}
-	
+
+
+	public ArrayList<ReportManagementDto> reserchallB(int uniqueNum, String page) {
+		int p = Integer.parseInt(page);	
+		int offset = (p-1)*10;		
+		return dao.reserchallB(uniqueNum,offset);
+	}
+
+
+	public ArrayList<ReportManagementDto> reserchallR(int uniqueNum, String page) {
+		int p = Integer.parseInt(page);	
+		int offset = (p-1)*10;		
+		
+		return dao.reserchallR(uniqueNum,offset);
+	}
+
+
+	public int renum(int uniqueNum) {
+		return dao.renum(uniqueNum);
+	}
+
+
+	public ArrayList<ReportManagementDto> reserchstateB(String uniqueNo, String pageState, String page) {
+		int p = Integer.parseInt(page);	
+		int offset = (p-1)*10;		
+		return dao.reserchstateB(uniqueNo,pageState,offset);
+	}
+
+
+	public ArrayList<ReportManagementDto> reserchstateR(String uniqueNo, String pageState, String page) {
+		int p = Integer.parseInt(page);	
+		int offset = (p-1)*10;
+		return dao.reserchstateR(uniqueNo,pageState,offset);
+	}
+
+
+	public ReportManagementDto reportDetailB(int idx) {		
+		return dao.reportDetailB(idx);
+	}
+
+
+	public ReportManagementDto reportDetailR(int idx) {
+		return dao.reportDetailR(idx);
+	}
+
 	
 	
 	
