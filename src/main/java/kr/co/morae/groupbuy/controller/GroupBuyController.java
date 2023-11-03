@@ -26,13 +26,18 @@ public class GroupBuyController {
 	
 	@GetMapping("/gbWrite")
 	public String gbWriteForm(HttpSession session) {
+		log.info("session + "+session.getAttribute("userInfo"));
+		UserDto dto = (UserDto) session.getAttribute("userInfo");
+		log.info("userdto : " + dto);
+		log.info(dto.toString());
+		dto.getStreetAddress();
 		return "groupBuy/gbWrite";
 	}
 	
 	//
 	@PostMapping("/gbWrite/register")
-	public String writeGb(@RequestParam(value="images") MultipartFile[] files, @ModelAttribute GroupBuyDto dto, 
-			Model model, HttpSession session) {
+	public String writeGb(@RequestParam(value="images") MultipartFile[] files, 
+			@ModelAttribute GroupBuyDto dto, Model model, HttpSession session, RedirectAttributes rattr) {
 		log.info("files:"+files.length);
 		log.info("params : "+dto.toString());
 		boolean success = gbService.registerGB(files, dto);
@@ -43,11 +48,34 @@ public class GroupBuyController {
 			return "groupBuy/gbWrite";
 		}
 		
+		rattr.addAttribute("success","공구가 등록되었습니다!");
 		return "redirect:/groupBuy/gbList";
 	}
 	
 	@GetMapping("/gbList")
-	public String gbList() {
+
+	public String gbList(Model model) {
+
 		return "groupBuy/gbList";
 	}
+	
+	//글 상세정보보기
+	@GetMapping("/gbDetail")
+	public String gbDetail(@RequestParam int gbNo, HttpSession session, RedirectAttributes rattr, Model model) {
+		log.info("parma : " + gbNo);
+		UserDto info = (UserDto)session.getAttribute("userInfo");
+		HashMap<String, Object> map = gbService.getGbDetail(gbNo, info.getUserId());
+		
+		if(map.get("GroupBuyDto") == null) {
+			rattr.addFlashAttribute("fail", "공구 불러오기에 실패하였습니다.");
+			return "redirect:/groupBuy/gbList";
+		}
+		
+		model.addAllAttributes(map);
+		return "groupBuy/gbDetail";
+	}
+	
+	//공구 참여
+	
+	//공구 신고
 }

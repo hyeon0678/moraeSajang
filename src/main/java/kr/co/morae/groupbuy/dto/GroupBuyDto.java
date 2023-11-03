@@ -4,6 +4,11 @@ import java.sql.Date;
 
 public class GroupBuyDto {
 	private int gbNo;
+	private String nickname;
+	private int joinPeaple;
+	private int tradeAgainNum;
+	private int justOkayNum;
+	private int notInterestedNum;
 	private String recruitLocation;
 	private String categoryType;
 	private String userId;
@@ -20,8 +25,62 @@ public class GroupBuyDto {
 	private String parcelAddress;
 	private String gbDetailAddress;
 	private String place;
+	private boolean isGbWriter;
+	private int gbRecruitRatio;
+	private String isJoining;
+	
+	
 
 	
+	public String getIsJoining() {
+		return isJoining;
+	}
+	public void setIsJoining(String isJoining) {
+		this.isJoining = isJoining;
+	}
+	public int getGbRecruitRatio() {
+		return gbRecruitRatio;
+	}
+	public void setGbRecruitRatio(int gbRecruitRatio) {
+		this.gbRecruitRatio = gbRecruitRatio;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getJoinPeaple() {
+		return joinPeaple;
+	}
+	public void setJoinPeaple(int joinPeaple) {
+		this.joinPeaple = joinPeaple;
+	}
+	public int getTradeAgainNum() {
+		return tradeAgainNum;
+	}
+	public void setTradeAgainNum(int tradeAgainNum) {
+		this.tradeAgainNum = tradeAgainNum;
+	}
+	public int getJustOkayNum() {
+		return justOkayNum;
+	}
+	public void setJustOkayNum(int justOkayNum) {
+		this.justOkayNum = justOkayNum;
+	}
+	public int getNotInterestedNum() {
+		return notInterestedNum;
+	}
+	public void setNotInterestedNum(int notInterestedNum) {
+		this.notInterestedNum = notInterestedNum;
+	}
+	
+	public boolean getIsGbWriter() {
+		return isGbWriter;
+	}
+	public void setGbWriter(boolean isGbWriter) {
+		this.isGbWriter = isGbWriter;
+	}
 	public String getRecruitLocation() {
 		return recruitLocation;
 	}
@@ -127,10 +186,11 @@ public class GroupBuyDto {
 	}
 	@Override
 	public String toString() {
-		String s = "gbDetailAddress="+gbDetailAddress+", parcelAddress="+parcelAddress+", gbContent="+gbContent;
+		String s = "isJoining:"+isJoining+"gbDetailAddress="+gbDetailAddress+", parcelAddress="+parcelAddress+", gbContent="+gbContent;
 	           s += ", joinPrice="+joinPrice+", finishDate="+finishDate+", place="+place+", categoryType="+categoryType;
 	           s += ", title="+title+", recruitPeople="+recruitPeople+", startDate="+startDate;
 	           s +=  ", gbNo : " +gbNo+", userId : " +userId+"recruitLocation="+recruitLocation;
+	           s += ", nickname : "+nickname;
 		return s;
 	}
 

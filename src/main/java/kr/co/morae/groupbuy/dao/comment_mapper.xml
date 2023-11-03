@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.morae.groupbuy.dao.CommentDao">
+<!-- 댓글 가져오기 -->
+<select id="getComment" parameterType="int" resultType="kr.co.morae.groupbuy.dto.CommentDto">
+SELECT g.userId, g.gbNo, g.comment, g.commState, g.commNo, 
+(
+SELECT nickname
+FROM user
+WHERE userid = g.userid)nickname
+FROM groupbuyingcomment g
+WHERE gbNo = #{param1} AND g.commState = 'N'
+ORDER BY g.commNo 
+LIMIT 5 OFFSET #{param2};
+</select>
+</mapper>
+
+
+
+
+
+
