@@ -31,13 +31,13 @@ public class UserController {
 			UserDto dto =  service.login(id,pw);
 			if(dto != null) { // 로그인 성공
 				session.setAttribute("userInfo", dto);
-				page = "redirect:/main/gbList";
-				if(dto.getAuthNo() == null || dto.getAuthNo() == 3) {
+				page = "redirect:/groupBuy/gbList";
+				if(dto.getAuthNo() == null || dto.getAuthNo() == 3) { // 일반 사용자
 					logger.info("해당 아이디 권한 : 일반사용자");
-				}else if(dto.getAuthNo() == 1 || dto.getAuthNo() == 4) {
-					page = "redirect:/admin/adminUser";
+				}else if(dto.getAuthNo() == 1 || dto.getAuthNo() == 4) { // 관리자
+					page = "redirect:/admin/admin	User";
 					logger.info("해당 아이디 권한 : "+dto.getAuthType());
-				}else if(dto.getAuthNo() == 2){
+				}else if(dto.getAuthNo() == 2){ // 차단된 사용자
 					logger.info("해당 아이디 권한 : "+dto.getAuthType());
 					session.removeAttribute("userInfo");
 					model.addAttribute("msg","차단된 사용자입니다. 고객센터에 문의해주세요.");
@@ -55,7 +55,7 @@ public class UserController {
 		return "redirect:/main/main";
 	}
 	
-	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	@RequestMapping(value = "/findId.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> findId(@RequestParam HashMap<String, String> params) {
 		logger.info("params : "+params);
@@ -66,5 +66,36 @@ public class UserController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	public String findPw(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
+		String page = "main/findPw";
+		logger.info("params : "+params);
+		String foundId = service.findPw(params);
+		logger.info(foundId);
+		if(foundId == null) {
+			model.addAttribute("msg", "일치하는 회원의 정보가 없습니다.");
+		}else {
+			session.setAttribute("foundId", foundId);
+			page = "redirect:/correctPw";
+		}
+		return page;
+	}
+	
+	@RequestMapping(value = "/newPw", method = RequestMethod.POST)
+	public String correctPw(@RequestParam String newPw, HttpSession session, Model model) {
+		String foundId = (String) session.getAttribute("foundId");
+		logger.info("세션에서 가져온 ID : "+foundId);
+		logger.info("새로운 비밀번호 : "+newPw);
+		String page = "main/main";
+		if(session.getAttribute("foundId") != null) {
+			service.correctPw(foundId, newPw);
+			model.addAttribute("msg","정상적으로 변경되었습니다.");
+			page = "main/login";
+			session.removeAttribute("foundId");
+		}else {
+			model.addAttribute("msg","비정상적인 접근입니다.");
+		}
+		return page;
+	}
 	
 }

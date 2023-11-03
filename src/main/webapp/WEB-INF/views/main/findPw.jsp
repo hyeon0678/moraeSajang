@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>�𷡻��� | ��й�ȣã��</title>
+<title>모래사장 | 비밀번호찾기</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
         @font-face {
@@ -64,57 +64,103 @@
 <body>
 <header id="header">
         <div class="headerInner">
-            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="�𷡻���"></a></h1>
+            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="모래사장"></a></h1>
             <ul class="util">
-                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="�˸�"></a></li>
-                <li><a href="javascript:"><img src="resources/img/msg.png" alt="�޼��� �˸�"></a></li>
-                <li><a href="javascript:"><img src="resources/img/my.png" alt="����������"></a></li>
+                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="알림"></a></li>
+                <li><a href="javascript:"><img src="resources/img/msg.png" alt="메세지 알림"></a></li>
+                <li><a href="javascript:"><img src="resources/img/my.png" alt="마이페이지"></a></li>
             </ul>
         </div>
     </header>
 <section id="findPw">
+	<form action="findPw" method="post" name="findPwForm">
         <div class="findPwInner">
-            <h2>��й�ȣ ã��</h2>
-            <p>��й�ȣ ���� �� �Է��Ͻ� ��Ʈ�� ã���� �� �ֽ��ϴ�.</p>
+            <h2>비밀번호 찾기</h2>
+            <p>비밀번호 가입 시 입력하신 힌트로 찾으실 수 있습니다.</p>
             <div class="findPwBox">
                 <div class="textBox">
-                    <p>���̵�</p>
-                    <input type="text" placeholder="���̵� �Է����ּ���." name="id" value=""/>
+                    <p>아이디</p>
+                    <input type="text" placeholder="아이디를 입력해주세요." name="id" value=""/>
                 </div>
                 <div class="textBox">
-                    <p>�̸�</p>
-                    <input type="text" placeholder="�̸��� �Է����ּ���." name="name" value=""/>
+                    <p>이름</p>
+                    <input type="text" placeholder="이름을 입력해주세요." name="name" value=""/>
                 </div>
                 <div class="textBox">
-                    <p>�̸���</p>
-                    <input type="text" placeholder="�̸����� �Է����ּ���." name="email" value=""/>
+                    <p>이메일</p>
+                    <input type="text" placeholder="이메일을 입력해주세요." name="email" value=""/>
                 </div>
                 <div class="textBox">
-                    <p>��й�ȣ ��Ʈ</p>
-                    <select id="selector" name="question">
-                        <option value="0">������ �ּ���.</option>
-                        <option value="1">���� ��� �ʵ��б���?</option>
-                        <option value="2">���� �����ϴ� ĳ���ʹ�?</option>
-                        <option value="3">�ٽ� �¾�� �ǰ� ���� ����?</option>
-                        <option value="4">���� �����ϴ� ������?</option>
-                        <option value="5">���� ��� ������?</option>
+                    <p>비밀번호 힌트</p>
+                    <select id="selector" name="hintNo">
+                        <option value="0">선택해 주세요.</option>
+                        <option value="1">나의 출신 초등학교는?</option>
+                        <option value="2">내가 좋아하는 캐릭터는?</option>
+                        <option value="3">다시 태어나면 되고 싶은 것은?</option>
+                        <option value="4">가장 좋아하는 색깔은?</option>
+                        <option value="5">나의 출신 고향은?</option>
                     </select>
                 </div>
                 <div class="textBox">
-                    <p>��й�ȣ ����</p>
-                    <input type="text" placeholder="������ �Է����ּ���." name="answer" value=""/>
+                    <p>비밀번호 정답</p>
+                    <input type="text" placeholder="정답을 입력해주세요." name="hintAnswer" value=""/>
                 </div>
                 <div class="btnBox">
-                    <input type="button" id="findPwBtn" value="Ȯ��"/>
+                    <input type="submit" id="findPwBtn" value="확인" onclick="return check()"/>
                 </div>
                 <div class="idFind">
-                    <span>���̵� ��ﳪ�� �ʴ´ٸ�? &nbsp;&nbsp;</span><a href="findIdForm">���̵� ã��</a>
+                    <span>아이디가 기억나지 않는다면? &nbsp;&nbsp;</span><a href="findId">아이디 찾기</a>
                 </div>
             </div>
         </div>
+       </form>
     </section>
 </body>
 <script>
+function check(){
+	/* 아이디 유효성 검사 */
+	if(findPwForm.id.value.length == 0){ // myform.id.value == "" 이것도 가능
+		alert("아이디를 입력해주세요.");
+		findPwForm.id.focus(); // 포커스를 이동시켜 바로 아이디를 입력할 수 있게
+		return false;
+	}
 	
+	if(findPwForm.name.value.length == 0){
+		alert("이름을 입력해주세요.");
+		findPwForm.name.focus(); // 포커스를 이동시켜 바로 이름을 입력할 수 있게
+		return false;
+	}
+	
+	if(findPwForm.email.value.length == 0){
+		alert("이메일을 입력해주세요.");
+		findPwForm.email.focus(); 
+		return false;
+	}else{
+		var regex = new RegExp('^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$');
+		var match = regex.test(findPwForm.email.value);
+		if(!match){
+			alert("이메일 형식으로 입력해주세요.");
+			findPwForm.email.focus();
+			return false;
+			}
+		}
+	
+	if(findPwForm.hintNo.value == "0"){
+		alert("비밀번호 힌트를 선택해주세요.");
+		findPwForm.hintNo.focus(); 
+		return false;
+	}
+	
+	if(findPwForm.hintAnswer.value == 0){
+		alert("비밀번호 정답을 입력해주세요.");
+		findPwForm.hintAnswer.focus(); 
+		return false;
+	}
+}
+
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
 </script>
 </html>
