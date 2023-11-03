@@ -251,7 +251,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 					content += '<tr>';
 					content += '<td>'+'<a href=';
 					content += ""+item.alarmAddr+item.gbNo+' style="text-decoration:none">';
-					content += item.title.substr(0,13) + '</a>';
+					content += item.title.substr(0,13) + '</a>';	  // 제목 열 세 글자만 끊어서 보여주기
 					content += '<button class="alarmChk"'+'>읽음</button></td>';
 				});
 		
