@@ -27,7 +27,7 @@ public class CommentController {
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	CommentService commService;
+	CommentService commService;//
 	@Autowired
 	CommentDao commDao;
 	
