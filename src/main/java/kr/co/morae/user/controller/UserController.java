@@ -98,4 +98,53 @@ public class UserController {
 		return page;
 	}
 	
+	
+	
+	@RequestMapping(value="/overlay")
+	@ResponseBody 
+	public HashMap<String, Object> overlay(@RequestParam String id) {
+		boolean use = service.overlay(id);
+		logger.info("사용 가능 여부: "+use);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("use", use);				
+		return map;
+	}
+	
+	
+	
+
+	@RequestMapping(value="/overemail")
+	@ResponseBody 
+	public HashMap<String, Object> overemail(@RequestParam String email) {
+		boolean use1 = service.overemail(email);
+		logger.info("사용 가능 여부 : "+use1);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("use1", use1);		
+		return map;
+	}
+	
+	
+	
+	@RequestMapping(value="/overnickname")
+	@ResponseBody 
+	
+	public HashMap<String, Object> overnickname(@RequestParam String nickname) {
+		boolean use2 = service.overnickname(nickname);
+		logger.info("사용 가능 여부 : "+use2);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("use2", use2);		
+		return map;
+	}
+	
+	@RequestMapping(value="/register", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params){
+		logger.info("params : "+params);
+		HashMap<String, Object> result = new HashMap<String, Object>();	
+		int row = service.join(params);		
+		result.put("success", row);		
+		return result;
+	}
+
+	
 }

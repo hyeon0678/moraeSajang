@@ -33,6 +33,49 @@ public class UserService {
 		dao.correctPw(foundId, newPw);
 	}
 
+	public boolean overemail(String email) {
+		boolean use1 = false;
+		int cnt1 = dao.overemail(email);
+		if(cnt1 == 0) {
+			use1 = true;
+		}		
+		return use1;		
+	}
+
+	public boolean overnickname(String nickname) {
+		boolean use2 = false;
+		int cnt2 = dao.overnickname(nickname);
+		if(cnt2 == 0) {
+			use2 = true;
+		}		
+		return use2;
+		
+	}
 	
+	
+	public boolean overlay(String id) {
+		
+		boolean use = false;
+		int cnt = dao.overlay(id);
+		if(cnt == 0) {
+			use = true;
+		}		
+		return use;
+	}
+	
+	public int join(HashMap<String, String> params) {
+		
+		int row =0;
+		
+		
+		row = dao.insertJoinData(params);
+		
+		
+		row= dao.insertUserAddr(params);
+		
+		return row;
+	}
+
+
 	
 }
