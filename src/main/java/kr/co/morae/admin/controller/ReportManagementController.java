@@ -66,6 +66,19 @@ public class ReportManagementController {
 		return "admin/adminReportDetail";
 	}
 	
+	// 신고 히스토리 insert
+	@RequestMapping(value = "admin/ReportDetail.ajax/historyput")
+	@ResponseBody
+	public HashMap<String,Object> historyput (@RequestParam String hisstate,@RequestParam String content,Model model){		
+		logger.info("히스토리 insert");
+		logger.info("hisstate :"+hisstate);
+		logger.info("content :"+content);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		
+		
+		return null;
+	}
 	
 	 
 	@RequestMapping(value = "/admin/reportMgmt.ajax/list")
