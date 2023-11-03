@@ -149,6 +149,8 @@
 	$(document).ready(function(){
 	    getCalender();
 	    getUserLocation();
+	    fileDeleteClick();
+	    changeOrder();
 	});
 	
 	//숫자-문자 검증
@@ -222,38 +224,46 @@
 	    this.value = ''; 
 	});
 
-//파일첨부 클릭 시 작동되는 함수
-  $('#image-container').on('click', '.delete-button', function() {
-    var index = $(this).index();
-    fileList.splice(index, 1);
-    var reIndex = $(this).closest('.image-thumbnail').nextAll();
-    if(reIndex){
-        for(var elem of reIndex){
-            let index = elem.lastChild.innerHTML;
-            elem.lastChild.innerHTML = index-1;
-        }
-    }
-    $(this).closest('.image-thumbnail').remove();
-    
-  });
+//파일첨부 지우기 버튼 클릭 시
+	function fileDeleteClick(){
+		$('#image-container').on('click', '.delete-button', function() {
+	        var index = $(this).index()-1;
+	        console.log(index);
+	        fileList.splice(index, 1);
+	        var reIndex = $(this).closest('.image-thumbnail').nextAll();
+	        if(reIndex.length > 0){
+	            for(var elem of reIndex){
+	                console.log(elem);
+	                let index = elem.lastChild.innerHTML;
+	                elem.lastChild.innerHTML = index-1;
+	            }
+	        }
+	        
+	        $(this).closest('.image-thumbnail').remove();
+	        console.log(fileList);
+	      });
+	}
+ 
 
-  // 이미지 순서 변경 함수
-  $('#image-container').sortable({
-    update: function(event, ui) {
-        var newOrder = [];
-        let i=0;
-        $('#image-container .image-thumbnail').each(function() {
-            var index = $(this).children('label').text();
-            console.log(index);
-            newOrder.push(fileList[index]);
-            $(this).children('label').text(i);
-            i++;
-        });
+	function changeOrder(){
+	  // 이미지 순서 변경 함수
+	  $('#image-container').sortable({
+	    update: function(event, ui) {
+	        var newOrder = [];
+	        let i=0;
+	        $('#image-container .image-thumbnail').each(function() {
+	            var index = $(this).children('label').text();
+	            console.log(index);
+	            newOrder.push(fileList[index]);
+	            $(this).children('label').text(i);
+	            i++;
+	        });
 
-        fileList = newOrder; // 이미지 순서 변경
-        //console.log(fileList);
-        }
-  });
+	        fileList = newOrder; // 이미지 순서 변경
+	        console.log(fileList);
+	        }
+	  });
+	}
   
 	function inputValues(){
 	    values.push($('#recruitPeople'));
@@ -272,16 +282,21 @@
 		setSendData();
         $.ajax({
             type: 'POST',
-            url: 'gbWrite/register',
+            url: 'gbWrite/register.ajax',
             data: formData,
             dataType:'json',
             processData: false,
             contentType: false,
             success: function(response) {
+            	if(response.success !=''){
+            		alert(response.success);
+                	location.href = 'gbDetail?gbNo='+response.gbNo;
+            	}
                 console.log('데이터 업로드 성공:', response);
             },
             error: function(error) {
                 console.error('데이터 업로드 실패:', error);
+                location.href = 'gbWrite';
             }
         });
 		console.log('form submit!!!!');
@@ -389,36 +404,6 @@
 	    this.value = ''; 
 	 });
 
-	//이미지 지우기 함수
-	  $('#image-container').on('click', '.delete-button', function() {
-		  var index = $(this).index();
-	      fileList.splice(index, 1);
-	      var reIndex = $(this).closest('.image-thumbnail').nextAll();
-	      if(reIndex){
-	          for(var elem of reIndex){
-	              let index = elem.lastChild.innerHTML;
-	              elem.lastChild.innerHTML = index-1;
-	          }
-	      }
-	      $(this).closest('.image-thumbnail').remove();
-	  });
-
-	 //파일 이미지 순서 변경함수
-	  $('#image-container').sortable({
-	  	update: function(event, ui) {
-	    	var newOrder = [];
-	        let i=0;
-	        $('#image-container .image-thumbnail').each(function() {
-	            var index = $(this).children('label').text();
-	            newOrder.push(fileList[index]);
-	            $(this).children('label').text(i);
-	            i++;
-	        });
-	
-	        fileList = newOrder;
-	     }
-	    
-	  });
 
 	//지도 생성 전 사용자의 위치를 좌표로 바꾼다
     function getUserLocation(){
