@@ -20,19 +20,19 @@ public class PointManagementController {
 	public String adminPoint() {
 		return "admin/adminPoint";
 	}
-	@RequestMapping(value="/admin/point/charge/desc")
+	@RequestMapping(value="/admin/point/charge.ajax/desc")
 	@ResponseBody
 	public Map<String, Object> adminPointChargeDesc(@RequestParam String page) {
 		return service.adminPointChargeDesc(page);
 	}
 	
-	@RequestMapping(value="/admin/point/charge/asc")
+	@RequestMapping(value="/admin/point/charge.ajax/asc")
 	@ResponseBody
 	public Map<String, Object>adminPointChargeAsc(@RequestParam String page){
 		return service.adminPointChargeAsc(page);
 	}
 	
-	 @RequestMapping(value = "/admin/point/charge/search/desc")
+	 @RequestMapping(value = "/admin/point/charge.ajax/search/desc")
 	 @ResponseBody
 	 public Map<String, Object> adminPointChargeSearchDesc(
 	            @RequestParam String page,
@@ -44,7 +44,7 @@ public class PointManagementController {
 
 	        return service.adminPointChargeSearchDesc(page, firstSearchDateValue, lastSearchDateValue);
 	    }
-	 	@RequestMapping(value = "/admin/point/charge/search/asc")
+	 	@RequestMapping(value = "/admin/point/charge.ajax/search/asc")
 	    @ResponseBody
 	    public Map<String, Object> adminPointChargeSearchAsc(
 	            @RequestParam String page,
@@ -57,17 +57,17 @@ public class PointManagementController {
 	        return service.adminPointChargeSearchAsc(page, firstSearchDateValue, lastSearchDateValue);
 	 	}
 
-	 @RequestMapping(value = "/admin/point/history/desc")
+	 @RequestMapping(value = "/admin/point/history.ajax/desc")
 	 @ResponseBody
 	 public Map<String, Object> adminPointHistoryDesc(@RequestParam String page){
 		 return service.adminPointHistoryDesc(page);
 	 }
-	 @RequestMapping(value = "/admin/point/history/asc")
+	 @RequestMapping(value = "/admin/point/history.ajax/asc")
 	 @ResponseBody
 	 public Map<String, Object> adminPointHistoryAsc(@RequestParam String page){
 		 return service.adminPointHistoryAsc(page);
 	 }
-	 @RequestMapping(value = "/admin/point/history/search/desc")
+	 @RequestMapping(value = "/admin/point/history.ajax/search/desc")
 	 @ResponseBody
 	 public Map<String, Object> adminPointHistorySearchDesc(
 			 	@RequestParam String page,
@@ -78,7 +78,7 @@ public class PointManagementController {
 	        logger.info("Last Search Date Value: " + lastSearchDateValue);
 	        return service.adminPointHistorySearchDesc(page,firstSearchDateValue,lastSearchDateValue);
 	 }
-	 @RequestMapping(value = "/admin/point/history/search/asc")
+	 @RequestMapping(value = "/admin/point/history.ajax/search/asc")
 	 @ResponseBody
 	 public Map<String, Object>adminPointHistorySearchAsc(
 			 	@RequestParam String page,
