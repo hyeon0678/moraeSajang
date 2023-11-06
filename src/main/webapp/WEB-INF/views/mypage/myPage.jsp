@@ -5,15 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<title>모래사장</title>
+<title>모래사장 | 마이페이지</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <style>
 a:-webkit-any-link {
 	color: black;
-	}
+}
+
 @font-face {
 	font-family: 'KorailRoundGothicBold';
-	src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2')
+		format('woff2');
 	font-weight: 700;
 	font-style: normal;
 }
@@ -73,6 +77,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	width: 100%;
 	height: 100px;
 	border-bottom: 1px solid #dedede;
+	z-index: 9999;
 }
 
 #header .headerInner {
@@ -120,27 +125,27 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	right: 210px;
 	top: 80px;
 	display: none;
-	overflow:auto;
+	overflow: auto;
 	height: 300px;
 	width: 235px;
 	border: 1px solid #F9DCA3;
 	border-radius: 3%;
 	background-color: white;
-	
-	
 }
-
 
 #header .alarmList table {
 	width: 200px;
-	margin: 3px;
+	margin: 3px 3px 5px 10px;
+	background-color: white;
+	border: none;
 }
 
-.alarmList button:hover{
+.alarmList button:hover {
 	color: white;
 	background-color: #FFBC38;
 }
-#alarmChkAll:hover{
+
+#alarmChkAll:hover {
 	color: white;
 	background-color: #FFBC38;
 }
@@ -158,19 +163,121 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	display: block;
 }
 
-#alarmChkAll{
+#alarmChkAll {
 	border-radius: 5px;
 	border: 1px solid #FFBC38;
 	color: #FFBC38;
-	background-color: rgb(255,255,255);
+	background-color: rgb(255, 255, 255);
 	margin-bottom: 7px;
 	height: 22px;
 	width: 210px;
-	
 }
 
+#userImg {
+	margin-left: 30%;
+	width: 250px;
+	height: 250px;
+	margin-top: 7%;
+	float: left;
+}
 
+#userImg img {
+	width: 100%;
+	height: 100%;
+}
 
+#mypage {
+	width: 250px;
+	height: 250px;
+	margin-top: 7%;
+	float: left;
+	margin-left: 50px;
+	padding-left: 10px;
+}
+
+#mypage td {
+	padding: 20px 13px 0px 5px;
+}
+
+#btn_on {
+	margin-right: -2px;
+	margin-left: 15px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#btn_off {
+	margin-left: -2px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#btn_group button {
+	border: 1px solid #FFBC38;
+	background-color: rgba(0, 0, 0, 0);
+	color: #FFBC38;
+	padding: 5px;
+	width: 38px;
+	height: 27px;
+}
+
+#btn_group button:hover {
+	color: white;
+	background-color: #FFBC38;
+}
+
+#usermody {
+	width: 241px;
+	height: 50px;
+	cursor: pointer;
+	text-align: center;
+	display: inline-block;
+	margin-top: 70px;
+	line-height: 50px;
+	background-color: #FFBC38;
+	border-radius: 5px;
+	color: white;
+	font-size: 18px;
+	margin-left: 600px;
+}
+
+#review {
+	margin-left: 430px;
+	margin-top: 50px;
+	text-align: center;
+}
+
+#review .reviewCount {
+	float: left;
+	text-align: center;
+	margin: 5px;
+	border: 1px solid #FFBC38;
+	border-radius: 5px;
+	width: 180px;
+	height: 50px;
+	padding: 10px;
+}
+
+.reviewCount div {
+	padding-top: 20px;
+}
+
+body {
+	padding-top: 100px;
+	height: 100%;
+	/* 생략 */
+}
+
+#myPoint {
+	margin-top: 30px;
+	margin-right: 120px;
+	float: right;
+}
+
+#myPoint #sumPoint {
+	float: right;
+	padding-left: 10px;
+}
 </style>
 </head>
 <body>
@@ -185,31 +292,135 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 						src="./resources/img/Notification.png" alt="알림" id="alarmIcon"></a></li>
 				<li><a href="javascript:"><img
 						src="./resources/img/msg.png" alt="메세지 알림"></a></li>
-				<li><a href="mypage"><img src="./resources/img/my.png"
+				<li><a href="javascript:"><img src="./resources/img/my.png"
 						alt="마이페이지"></a></li>
 			</ul>
 		</div>
-	<div class="alarmList">
-	<table>
-		<thead>
-			<tr>
-				<td><button id="alarmChkAll" type="button">전체 읽음</button></td>
-			</tr>
-		</thead>
-		<tbody id='list'>
-		</tbody>
-	</table>
-	</div>
+		<div class="alarmList">
+			<table>
+				<thead>
+					<tr>
+						<td><button id="alarmChkAll" type="button">전체 읽음</button></td>
+					</tr>
+				</thead>
+				<tbody id='list'>
+				</tbody>
+			</table>
+		</div>
 	</header>
+
+
+	<main>
+		<div id="myPoint">
+			보유 포인트
+			<div id="sumPoint"></div>
+		</div>
+
+		<div id="userImg">
+			<img src="./resources/img/mypageimg.png" alr="유저이미지" />
+		</div>
+
+		<div id="mypage">
+			<table>
+				<tr>
+					<td>아이디</td>
+					<td id="userId"></td>
+				</tr>
+				<tr>
+					<td>닉네임</td>
+					<td id="nickName"></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td id="name"></td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td id="email"></td>
+				</tr>
+				<tr>
+					<td>가입 날짜</td>
+					<td id="reg_date"></td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td id="addr"></td>
+				</tr>
+				<tr id="alarmAuth">
+					<td>알림 설정</td>
+					<td>
+						<div id="btn_group">
+							<button id="btn_on" value="1">ON</button>
+							<button id="btn_off" value="2">OFF</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="usermody" OnClick="location.href ='#'">수정</div>
+
+		<div id="review">
+			<div class="reviewCount">
+				또 거래하고 싶어요
+				<div id="count_1"></div>
+			</div>
+
+			<div class="reviewCount">
+				그냥 그래요
+				<div id="count_2"></div>
+			</div>
+
+			<div class="reviewCount">
+				별로예요
+				<div id="count_3"></div>
+			</div>
+		</div>
+	</main>
 </body>
 <script>
 
-	var alarmError = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림을 읽어올 수 없습니다."+'<p>';
-
+	var authNo = '${sessionScope.userInfo.authNo}'
+	console.log(authNo);
+	var alarmSetNo;
 	
+	if(authNo == 1){
+		$('#btn_on').css('color', 'white');
+		$('#btn_on').css('background-color', '#FFBC38');
+		$('#btn_on').attr('disabled','true');
+	} else if(authNo == 2) {
+		$('#btn_off').css('color', 'white');
+		$('#btn_off').css('background-color', '#FFBC38');
+		$('#btn_off').attr('disabled','true');
+	}
+	
+	$('#btn_on').on('click',function(e){
+		alarmSetNo = $(this).val()
+		alarmSet(alarmSetNo);
+	});
+	$('#btn_off').on('click',function(e){
+		alarmSetNo = $(this).val()
+		alarmSet(alarmSetNo);
+	});
+
+	function alarmSet(alarmSetNo){
+		$.ajax({
+			type: 'get',
+			url: 'my/alarmSet.ajax',
+			data: {'alarmSetNo':alarmSetNo},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+				alarmCall();
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	myPageInfo(); // 마이 페이지 정보 호출
 	alarmCall();  // 페이지 로드 시 알림 리스트 호출
 	
-
 	function alarmCall() {  // 알림 리스트 호출
 		alarmRemove()  // 7일 이상 경과된 히스토리 삭제
 		alarmUpdate();  // 히스토리 최신 알림 업데이트
@@ -239,8 +450,6 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 			},
 			error : function(e) {
 				console.log(e);
-				
-				
 			}
 		});
 	}
@@ -251,7 +460,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 					content += '<tr>';
 					content += '<td>'+'<a href=';
 					content += ""+item.alarmAddr+item.gbNo+' style="text-decoration:none">';
-					content += item.title.substr(0,13) + '</a>';	  // 제목 열 세 글자만 끊어서 보여주기
+					content += item.title.substr(0,13) + '</a>';
 					content += '<button class="alarmChk"'+'>읽음</button></td>';
 				});
 		
@@ -273,8 +482,8 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 			url : 'alarm/remove.ajax',
 			data : {},
 			dataType : 'json',
-			success : function(data) {
-				console.log(data.row);
+			success : function(e) {
+				console.log("remove");
 			},
 			error : function(e) {
 				console.log("오래된 알림 없음");
@@ -356,5 +565,64 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 			$('.alarmList').css('display', 'none');
 		}
 	});
+	
+	/********************************************************************/
+	
+	var userId;
+	var nickName;
+	var name;
+	var email;
+	var reg_date;
+	var addr;
+	
+	var point;
+	var high;
+	var mid;
+	var low;
+	
+	
+	function myPageInfo(){
+		console.log("유저 정보 요청")
+		$.ajax({
+			type: 'get',
+			url: 'my/page/myInfo.ajax',
+			data: {},
+			dataType: 'json',
+			success: function(data) {
+				console.log(data.myInfo);
+			data.myInfo.forEach(function(item, idx) {
+				userId = item.userId;
+				nickName = item.nickname;
+				name = item.name;
+				email = item.email;
+				reg_date = item.reg_date;
+				addr = item.addr;
+			});
+				$('#userId').html(userId);	
+				$('#nickName').html(nickName);	
+				$('#name').html(name);	
+				$('#email').html(email);	
+				$('#reg_date').html(reg_date);	
+				$('#addr').html(addr);
+				
+				point = data.point;
+				$('#sumPoint').html(point);
+				
+				high = data.review.high;
+				mid = data.review.mid;
+				low = data.review.low;
+				$('#count_1').html(high);
+				$('#count_2').html(mid);
+				$('#count_3').html(low);
+				
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+		
+	}
+	
+	
 </script>
 </html>
