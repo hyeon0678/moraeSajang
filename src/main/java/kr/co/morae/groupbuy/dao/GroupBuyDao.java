@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import kr.co.morae.groupbuy.dto.CommentDto;
+import kr.co.morae.groupbuy.dto.GbStateCheckDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
 import kr.co.morae.groupbuy.dto.ReportDto;
 import kr.co.morae.groupbuy.dto.SearchOptionDto;
@@ -35,7 +36,12 @@ public interface GroupBuyDao {
 	int insertPoint(int gbNo, String userId, int gbPrice, String string);
 	
 	void modifyGbState(int gbNo, String string);
+	
 	List<GroupBuyDto> getGbList(SearchOptionDto dto);
+	
+	int getTotalgbCnt(SearchOptionDto dto);
+	
+	ArrayList<GbStateCheckDto> checkGbState();
 	
 
 }

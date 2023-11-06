@@ -408,7 +408,7 @@
 	//지도 생성 전 사용자의 위치를 좌표로 바꾼다
     function getUserLocation(){
         var ps = new kakao.maps.services.Places();
-        var userLoc = '서울 금천구 가산디지털2로 169-23'
+        var userLoc = '${sessionScope.userInfo.streetAddress}'
         ps.keywordSearch(userLoc, getLocation);                                                                                                              
     }
     //사용자 좌표 반환 함수

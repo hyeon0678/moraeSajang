@@ -1,10 +1,10 @@
 package kr.co.morae.groupbuy.dto;
 
 public class SearchOptionDto {
-	private String category;
+	private int category;
 	private String keyWord;
 	private String region;
-	private int pageNum;
+	private int page;
 	private int offset;
 	
 	
@@ -14,16 +14,16 @@ public class SearchOptionDto {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
-	public int getPageNum() {
-		return pageNum;
+	public int getPage() {
+		return page;
 	}
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
+	public void setPage(int page) {
+		this.page = page;
 	}
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 
@@ -42,7 +42,7 @@ public class SearchOptionDto {
 	@Override
 	public String toString() {
 		String s = "";
-		s += "pageNum:"+pageNum+", categoryType:" +category+", keyWord:"+keyWord+", region:"+region;
+		s += "pageNum:"+page+", categoryType:" +category+", keyWord:"+keyWord+", region:"+region;
 		return s;
 	}
 	

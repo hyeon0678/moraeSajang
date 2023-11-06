@@ -84,7 +84,7 @@ WHERE gbNo = #{param1};
 <!-- 공구 참여 -->
 <insert id="gbJoin">
 insert into groupbuyingjoining (gbNo, userId, joinDate, joinState)
-values (#{param1}, #{param2}, curDate(),'Y');
+values (#{param1}, #{param2}, curDate(),'N');
 </insert>
 
 <!-- 공구 참여 포인트 차감 -->
@@ -131,23 +131,75 @@ FROM
     groupBuyingPost gb 
     LEFT OUTER join groupbuyingregions loc ON gb.gbNo = loc.gbNo
     LEFT OUTER join category c ON gb.categoryNo=c.categoryNo
+WHERE gb.blockState = 'N' AND gb.gbState like '진행'
+    <if test="'all'==region and category != 0 and keyWord == null">
+        AND c.categoryNo=#{category}
+    </if>
+    <if test="'all'==region and category == 0 and keyWord != null">
+        gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
+    <if test="'all'==region and category != 0 and keyWord != null">
+        AND c.categoryNo=#{category} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
     
-    <where>
-    	<if test="region == null">
-	        AND gb.blockState = 'N'
-	    </if>
-    	<if test="region != null">
-	        AND loc.gbDetailAddr=#{region} AND gb.blockState = 'N'
-	    </if>
-	    <if test="category != null">
-	        AND c.categoryNo=#{category}
-	    </if>
-	    <if test="keyWord != null">
-	        AND gb.title LIKE CONCAT('%',#{keyWord},'%')
-	    </if>
-  </where>
-   LIMIT 8 OFFSET #{offset}
+    <if test="'all'!=region and category == 0 and keyWord == null">
+        AND loc.gbDetailAddress=#{region} 
+    </if>
+    <if test="'all'!=region and category != 0 and keyWord == null">
+        AND loc.gbDetailAddress=#{region} AND c.categoryNo=#{category}
+    </if>
+    <if test="'all'!=region and category == 0 and keyWord != null">
+        AND loc.gbDetailAddress=#{region} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
+    <if test="'all'!=region and category != 0 and keyWord != null">
+        AND loc.gbDetailAddress=#{region} AND c.categoryNo=#{category} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
+    LIMIT 8 OFFSET #{offset}
+</select> 
+
+<!-- 검색 옵션에 따른 게시물 총 개수 -->
+<select id="getTotalgbCnt" resultType="int" parameterType="kr.co.morae.groupbuy.dto.SearchOptionDto">
+SELECT count(gb.gbNo) totalCnt
+FROM 
+    groupBuyingPost gb 
+    LEFT OUTER join groupbuyingregions loc ON gb.gbNo = loc.gbNo
+    LEFT OUTER join category c ON gb.categoryNo=c.categoryNo
+WHERE gb.blockState = 'N' AND gb.gbState like '진행'
+    <if test="'all'==region and category != 0 and keyWord == null">
+        AND c.categoryNo=#{category}
+    </if>
+    <if test="'all'==region and category == 0 and keyWord != null">
+        gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
+    <if test="'all'==region and category != 0 and keyWord != null">
+        AND c.categoryNo=#{category} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
+    
+    <if test="'all'!=region and category == 0 and keyWord == null">
+        AND loc.gbDetailAddress=#{region} 
+    </if>
+    <if test="'all'!=region and category != 0 and keyWord == null">
+        AND loc.gbDetailAddress=#{region} AND c.categoryNo=#{category}
+    </if>
+    <if test="'all'!=region and category == 0 and keyWord != null">
+        AND loc.gbDetailAddress=#{region} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
+    <if test="'all'!=region and category != 0 and keyWord != null">
+        AND loc.gbDetailAddress=#{region} AND c.categoryNo=#{category} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
+    </if>
 </select> 
 
 
+<select id="checkGbState" resultType="kr.co.morae.groupbuy.dto.GbStateCheckDto">
+
+SELECT g.gbNo, DATE_ADD(g.finishDate , INTERVAL 1 DAY)finishDate, DATE_ADD(g.finishDate , INTERVAL 10 DAY)completeDate, g.recruitPeople, COUNT(g2.userId)joinNum, 
+(SELECT COUNT(joinState)
+FROM groupbuyingjoining g3 
+WHERE g3.gbNo = g.gbNo AND joinState LIKE 'Y'
+) completeCnt
+FROM groupbuyingpost g LEFT OUTER JOIN groupbuyingjoining g2 
+ON g.gbNo = g2.gbNo
+WHERE g.blockState LIKE 'N' AND g.gbState LIKE '진행'
+group by g.gbNo;
+</select>
 </mapper>

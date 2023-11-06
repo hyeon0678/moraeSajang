@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.morae.common.Paging;
 import kr.co.morae.groupbuy.dao.CommentDao;
 import kr.co.morae.groupbuy.dto.CommentDto;
 
@@ -15,8 +16,10 @@ import kr.co.morae.groupbuy.dto.CommentDto;
 public class CommentService {
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 	
+	
 	@Autowired
 	CommentDao commDao;
+	Paging paging = new Paging();
 	
 	@Transactional
 	public HashMap<String, Object> getCommentList(int gbNo, String userId, int pageNum){
@@ -24,7 +27,9 @@ public class CommentService {
 		ArrayList<CommentDto> commDto = commDao.getComment(gbNo, offset);
 		commDto = setCommWriter(commDto, userId);
 		log.info("commDtolength : "+commDto.size());
-		int totalPage = getTotalPage(gbNo);
+		
+		int totalCommentCnt = commDao.getTotalComment(gbNo);
+		int totalPage = paging.getTotalPage(totalCommentCnt,5);
 		
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		map.put("totalPage", Integer.toString(totalPage));
@@ -34,17 +39,6 @@ public class CommentService {
 		return map;
 	}
 	
-	public int getTotalPage(int gbNo) {
-		int totalCommentCnt = commDao.getTotalComment(gbNo);
-		log.info("totalCommentCnt : "+totalCommentCnt);
-		int total = 0;
-		if(totalCommentCnt%5==0) {
-			return total = totalCommentCnt/5;
-		}else {
-			return total = (totalCommentCnt/5)+1;
-		}
-		 
-	}
 	
 	public ArrayList<CommentDto> setCommWriter(ArrayList<CommentDto> commdto, String userId) {
 		for(CommentDto dto : commdto) {
@@ -63,16 +57,29 @@ public class CommentService {
 		}
 	}
 
-	public boolean writeComment(HashMap<String, String> map, String userId) {
+	/*
+	 * 댓글 작성 함수
+	 * 댓글 작성에 성공하면 마지막 페이지 번호를 가져온다
+	 */
+	public HashMap<String,Object> writeComment(HashMap<String, String> map, String userId) {
 		map.put("userId", userId);
 		log.info("write comment"+map.toString());
 		
-		int row = commDao.writeComment(map);
-		if(row>0) {
-			return true;
-		}
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		
-		return false;
+		int row = commDao.writeComment(map);
+		
+		if(row>0) {
+			int gbNo = Integer.parseInt(String.valueOf(map.get("gbNo")));
+			int totalCommentCnt = commDao.getTotalComment(gbNo);
+			int lastPageNum = paging.getTotalPage(totalCommentCnt,5);
+			
+			result.put("pageNum", lastPageNum);
+			result.put("msg", "success");
+			return result;
+		}
+		result.put("msg", "fail");
+		return result;
 	}
 	
 	

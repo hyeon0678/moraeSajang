@@ -150,19 +150,20 @@ public class GroupBuyController {
 		return "redirect:/groupBuy/gbDetail?gbNo="+params.get("gbNo");
 	}
 	
+	//공구 리스트
 	@GetMapping("/gbList.ajax")
+	@ResponseBody
 	public HashMap<String,Object> gbList(@ModelAttribute SearchOptionDto dto) {
 		log.info("------------gbList+search----------------");
 		log.info("params : "+dto.toString());
-		List<GroupBuyDto> gbList = gbService.getGbList(dto);
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("gbList", gbList);
+		HashMap<String, Object> result = gbService.getGbList(dto);
 		log.info("------------end----------------");
 		return result;
 	}
 	
 	@GetMapping("/gbList")
 	public String gbList() {
+		log.info("forword gbListForm");
 		return "groupBuy/gbList";
 	}
 	

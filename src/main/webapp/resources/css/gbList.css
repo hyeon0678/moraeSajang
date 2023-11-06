@@ -1,0 +1,122 @@
+@charset "UTF-8";
+.recruit-img-span{
+	float:right;	
+	
+}
+img.detail-joinicon{
+	max-width:36px;
+	max-height:36px;
+	margin-right:20px;
+}
+div.card-row{
+    display: flex;
+    flex-flow:row nowrap;
+	justify-content: center;
+    align-items: center;
+    justify-content:center;
+    overflow : outo;
+    height: 440px;
+    margin-bottom: 40px;
+    
+}
+.gb-list-container{
+	margin:0,auto;
+}
+div.container-row-spacing{
+    width:inherit;
+    height: 880px;
+	margin-bottom: 40px;
+}
+button.region{
+	width: 100px;
+	height: 50px;
+	border-style: none;
+	padding:0px;
+	margin:0;
+	border-radius:10px;
+}
+div.card{
+	min-width:240px;
+    width : 320px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border: 1px solid lightgray;
+    height: 420px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+div.elem-container{
+	justify-content: center;
+    margin:0,auto;
+}
+.card-img-top{
+    height: 44%;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-position:center;
+    /* 이미지를 최대한 안짤리게 한다. */
+    background-size: 100% 100%;
+    /* 배경 반복 금지 */
+    background-repeat:no-repeat;
+}
+div.card-body{
+    margin: 15px 10px;
+}
+.recruit-img{
+    background-color: aquamarine;
+    width: 40px;
+    height: 40px;
+}
+
+div.search1, div.search2{
+	margin-left:21%;
+}
+p.gbno-hidden{
+	display:none;
+}
+div.container{
+	margin-left:20%;
+}
+span.card-category{
+    background-color: orange;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 60%;
+    float:right;
+    margin-right:20px
+}
+.current{
+    background-color: #FFBC38;
+}
+.search1,.search2{
+    margin-bottom: 30px;
+}
+.no-result{
+    margin-top: 30%;
+    margin-left: 50%;
+}
+div.title{
+    font-size: 20px;
+}
+div.writer{
+	color:#FFBC38;
+}
+span.recruit-period{
+	margin-left:10px;
+}
+div.date-div{
+	margin-top:10px;
+}
+div.date{
+	margin-bottom:10px;
+}
+div.section{
+	margin-top:10px;
+	margin-buttom:10px;
+	width:inherit;
+	overflow:auto; 
+	margin-bottom:15px;
+}

@@ -3,186 +3,191 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Document</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/img_slider.css'/>">
+<link rel="stylesheet" href="<c:url value='/resources/css/gbDetail.css'/>">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
 </head>
+
+
 <body>
+
 <p id ="gbNo" style="visibility: hidden">"${GroupBuyDto.gbNo}"</p>
-    <div><button id='reportBtn' class="report">신고하기</button></div>
-    <div id="productsInfo">
-        <div id="productImgBox" class="products">
-        	<div class="slider-2">
-			     <div class="side-btns">
-			        <div><span><i class="fas fa-caret-left"></i><</i></span></div>
-			        <div><span><i class="fas fa-caret-right"></i>></span></div>
-			    </div>
-    
-			    <div class="slides">
-			    	<c:choose>
-			    		<c:when test="${fn:length(PhotoNames)==0}">
-			    		<div class="active slide-img" style="background-image:url(/photo/default/default.png?auto=compress,format);"></div>
-			    		</c:when>
-			    		<c:otherwise>
-			    		<c:forEach items="${PhotoNames}" var="newName" varStatus="status">
-					    <c:if test="${status.index eq 0}">
-					    <div class="active slide-img" style="background-image:url(/photo/gbImg/${newName}?auto=compress,format);"></div>
-					    </c:if>
-					    <c:if test="${status.index ne 0}">
-					    <div class="slide-img" style="background-image:url(/photo/gbImg/${newName}?auto=compress,format);"></div>
-					    </c:if>
-					    </c:forEach>
-			    		</c:otherwise>
-			    	</c:choose>
-				    
-			    </div>
-            </div>
-        </div>
-        <div class="products">
-            <div 모집인원 class="smallInfo">
-                <label for="recruitPeople">인원수</label>
-                <span>
-                <input type="text" id="recruitPeople" name="recruitPeople" value="${GroupBuyDto.joinPeople}/${GroupBuyDto.recruitPeople}"/>
-                </span>
-                <span>
-                <c:if test="${GroupBuyDto.joinPeople ne 0}">
-                <fmt:formatNumber var="oc" type="number" maxFractionDigits="0"  value="${GroupBuyDto.joinPeople/GroupBuyDto.recruitPeople*100}" />
-                </c:if>
-                <c:choose>
-                	<c:when test="${GroupBuyDto.joinPeople eq 0}">
-                	<img class="detail-joinicon" src="/photo/icon/1.png"/>
-                	</c:when>
-                	<c:when test="${oc ge 0 && oc le 25}">
-                	<img class="detail-joinicon" src="/photo/icon/1.png" />
-                	</c:when>
-                	<c:when test="${oc ge 26 && oc le 50}">
-                	<img class="detail-joinicon" src="/photo/icon/2.png" />
-                	</c:when>
-                	<c:when test="${oc ge 51 && oc le 75}">
-                	<img class="detail-joinicon" src="/photo/icon/3.png" />
-                	</c:when>
-                	<c:when test="${oc ge 76 && oc le 99}">
-                	<img class="detail-joinicon" src="/photo/icon/4.png" />
-                	</c:when>
-                	<c:when test="${oc eq 100}">
-                	<img class="detail-joinicon" src="/photo/icon/5.png" />
-                	</c:when>
-                </c:choose>
-                </span>
-            </div>
-            <div 모집기간 class="smallInfo">
-                <label>모집기간</label>
-                <span>
-                    <input type="text" id="startDate" name="startDate" value="${GroupBuyDto.startDate}"/>
-                    ~
-                    <input type="text" id="finishDate" name="finishDate" value="${GroupBuyDto.startDate}"/>
-                </span>
-            </div>
-            <div>
-                <label for="recruitRegion">지역</label>
-                <span>
-                    <input type="text" id="recruitRegion" name="recruitRegion" value="${GroupBuyDto.gbDetailAddress}"/>
-                </span>
-            </div>
-            <div 모집장소 class="smallInfo">
-                <label for="recruitLocation">모집장소</label>
-                <span>
-                    <input type="text" id="recruitLocation" name="recruitLocation" value="${GroupBuyDto.place}" readonly/>
-                </span>
-            </div>
-            <div 모집장소 class="smallInfo">
-                <label for="recruiter">작성자</label>
-                <span>
-                    <input type="text" id="recruiter" name="recruiter" value="${GroupBuyDto.nickname}" readonly/>
-                </span>
-            </div>
-            <div 모집장소 class="smallInfo">
-                <label for="user">사용자 평가</label>
-                <span>
-                    별로에요 : <input type="text" value="${GroupBuyDto.tradeAgainNum}" readonly/>
-                </span>
-                <span>
-                    그냥 그래요 : <input type="text"  value="${GroupBuyDto.justOkayNum}" readonly/>
-                </span>
-                <span>
-                    또 거래하고싶어요 : <input type="text" value="${GroupBuyDto.notInterestedNum}" readonly/>
-                </span>
-            </div>
-            <div 금액 class="smallInfo">
-                <label for="joinPrice">금액</label>
-                <span>
-                	<fmt:formatNumber var="sm" value="${GroupBuyDto.joinPrice}" pattern="#,###" />
-                    <input type="text" id="joinPrice" value="${sm}"/>
-                </span>
-            </div>
-            <div 금액 class="smallInfo">
-                <label for="category">카테고리</label>
-                <span>
-                    <input type="text" id="category" value="${GroupBuyDto.categoryType}"/>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-    
-    <div id="titleDiv">
-        <div class="subContent">
-            제목
-            <input type="text" id="title" value="${GroupBuyDto.title}"/>
-        </div>
-        <div>
-            내용
-            <textarea id="gbContent" readonly>${GroupBuyDto.gbContent}</textarea>
-        </div>
-    </div>
-    <hr>
-    <h3>댓글</h3>
-    <div>
-        <div id="commentWriteBox">
-            <textarea id="comment" class="inputValid">
-
-            </textarea>
-            <div class="validation">250</div>
-        </div>
-        <div>
-            
-            <span>
-                <button id="commentWrite">댓글 작성</button>
-            </span>
-        </div>
-        <hr>
-        <div id="comments">
+    <div class="elem-container">
+	    <div><button id='reportBtn' class="report">신고하기</button></div>
+	    <div id="productsInfo">
+	        <div id="productImgBox" class="products">
+	        	<div class="slider-2">
+				     <div class="side-btns">
+				        <div><span><i class="fas fa-caret-left"></i><</i></span></div>
+				        <div><span><i class="fas fa-caret-right"></i>></span></div>
+				    </div>
+	    
+				    <div class="slides">
+				    	<c:choose>
+				    		<c:when test="${fn:length(PhotoNames)==0}">
+				    		<div class="active slide-img" style="background-image:url(/photo/default/default.png?auto=compress,format);"></div>
+				    		</c:when>
+				    		<c:otherwise>
+				    		<c:forEach items="${PhotoNames}" var="newName" varStatus="status">
+						    <c:if test="${status.index eq 0}">
+						    <div class="active slide-img" style="background-image:url(/photo/gbImg/${newName}?auto=compress,format);"></div>
+						    </c:if>
+						    <c:if test="${status.index ne 0}">
+						    <div class="slide-img" style="background-image:url(/photo/gbImg/${newName}?auto=compress,format);"></div>
+						    </c:if>
+						    </c:forEach>
+				    		</c:otherwise>
+				    	</c:choose>
+					    
+				    </div>
+	            </div>
+	        </div>
+	        <div class="products">
+	            <div 모집인원 class="smallInfo">
+	                <label for="recruitPeople">인원수</label>
+	                <span>
+	                ${GroupBuyDto.joinPeople}/${GroupBuyDto.recruitPeople}
+	                </span>
+	                <span>
+	                <c:if test="${GroupBuyDto.joinPeople ne 0}">
+	                <fmt:formatNumber var="oc" type="number" maxFractionDigits="0"  value="${GroupBuyDto.joinPeople/GroupBuyDto.recruitPeople*100}" />
+	                </c:if>
+	                <c:choose>
+	                	<c:when test="${GroupBuyDto.joinPeople eq 0}">
+	                	<img class="detail-joinicon" src="/photo/icon/1.png"/>
+	                	</c:when>
+	                	<c:when test="${oc ge 0 && oc le 25}">
+	                	<img class="detail-joinicon" src="/photo/icon/1.png" />
+	                	</c:when>
+	                	<c:when test="${oc ge 26 && oc le 50}">
+	                	<img class="detail-joinicon" src="/photo/icon/2.png" />
+	                	</c:when>
+	                	<c:when test="${oc ge 51 && oc le 75}">
+	                	<img class="detail-joinicon" src="/photo/icon/3.png" />
+	                	</c:when>
+	                	<c:when test="${oc ge 76 && oc le 99}">
+	                	<img class="detail-joinicon" src="/photo/icon/4.png" />
+	                	</c:when>
+	                	<c:when test="${oc eq 100}">
+	                	<img class="detail-joinicon" src="/photo/icon/5.png" />
+	                	</c:when>
+	                </c:choose>
+	                </span>
+	            </div>
+	            <div 모집기간 class="smallInfo">
+	                <label>모집기간</label>
+	                <span>
+	                    ${GroupBuyDto.startDate}
+	                    ~
+	                    ${GroupBuyDto.startDate}
+	                </span>
+	            </div>
+	            <div class = "smallInfo">
+	                <label for="recruitRegion">지역</label>
+	                <span>
+	                    ${GroupBuyDto.gbDetailAddress}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label for="recruitLocation">모집장소</label>
+	                <span>
+	                    ${GroupBuyDto.place}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label for="recruiter">작성자</label>
+	                <span>
+						${GroupBuyDto.nickname}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label for="user">사용자 평가</label>
+	                <span>
+	                    별로에요 : ${GroupBuyDto.tradeAgainNum}
+	                </span>
+	                <span>
+	                    그냥 그래요 : ${GroupBuyDto.justOkayNum}
+	                </span>
+	                <span>
+	                    또 거래하고싶어요 : ${GroupBuyDto.notInterestedNum}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label for="joinPrice">금액</label>
+	                <span>
+	                	<fmt:formatNumber var="sm" value="${GroupBuyDto.joinPrice}" pattern="#,###" />
+	                    ${sm}원
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label for="category">카테고리</label>
+	                <span>
+	                    ${GroupBuyDto.categoryType}
+	                </span>
+	            </div>
+	        </div>
+	        
+	    </div>
+	    
+	    <div class="gbContent">
+	        <div class="subContent">
+	            <input type="text" id="title" class="big-info" value="${GroupBuyDto.title}" readonly/>
+	        </div>
+	        <div>
+	            <textarea id="gbContent" class="big-info" readonly>${GroupBuyDto.gbContent}</textarea>
+	        </div>
+	    </div>
+	    <hr>
+	    <h3>댓글</h3>
+	    <div class="comment-div">
+	        <div id="commentWriteBox">
+	            <textarea id="comment" class="inputValid big-info">
+	
+	            </textarea>
+	            <div class="validation">0/250</div>
+	        </div>
+	        <div>
 	            
-        </div>
-        <div class="container">									
-			<nav aria-label="Page navigation" style="text-align:center">
-				<ul class="pagination" id="pagination"></ul>
-			</nav>					
-		</div>
-
-    </div>
-    <hr>
-    <div>
-    
-	<c:set var="userId" value="${sessionScop.userinfo.userid}" />
-    <c:choose>
-    	<c:when test="${GroupBuyDto.joinPeople eq GroupBuyDto.recruitPeople}">
-    		<button disabled>모집완료</button>
-    	</c:when>
-    	<c:when test="${GroupBuyDto.isGbWriter eq true || GroupBuyDto.isJoining eq 1}">
-    		<button disabled>참여중</button>
-    	</c:when>
-    	<c:when test="${GroupBuyDto.isJoining eq 0}">
-    		<button id="gbJoin">참여하기</button>
-    	</c:when>
-    </c:choose>
+	            <span>
+	                <button id="commentWrite">댓글 작성</button>
+	            </span>
+	        </div>
+	        <hr>
+	        <div id="comments">
+		            
+	        </div>
+	        
+	
+	    </div>
+	    <div class="container">									
+				<nav aria-label="Page navigation" style="text-align:center">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>					
+			</div>
+	    <hr>
+	    <div>
+	    
+		<c:set var="userId" value="${sessionScop.userinfo.userid}" />
+	    <c:choose>
+	    	<c:when test="${GroupBuyDto.joinPeople eq GroupBuyDto.recruitPeople || GroupBuyDto.gbState eq '완료'}">
+	    		<button disabled>모집완료</button>
+	    	</c:when>
+	    	<c:when test="${GroupBuyDto.isGbWriter eq true || GroupBuyDto.isJoining eq 1}">
+	    		<button disabled>참여중</button>
+	    	</c:when>
+	    	<c:when test="${GroupBuyDto.isJoining eq 0}">
+	    		<button id="gbJoin">참여하기</button>
+	    	</c:when>
+	    </c:choose>
+	    <button id="back">목록으로</button>
+	    </div>
     </div>
 </body>
 <script>
@@ -222,26 +227,26 @@ function drawComment(obj){
 	$('#comments').empty();
 	if(obj.comments.length > 0){
 		for(let comDto of obj.comments){
-			
+			comments += '<div class="comment-box">';
 			comments += '<p style="display:none">'+comDto.commNo+'</p>';
-			comments += '<div id="commentHead">';
-			comments +=	'<span id="commentWriter">'+comDto.nickname+'</span>';
-	    	comments += '<span><button class="report" value="댓글">신고</button></span>'
+			comments += '<div class="commentHead">';
+			comments +=	'<span class="commentWriter">'+comDto.nickname+'</span>';
+	    	comments += '<span class="report2"><button class="report" value="댓글">신고</button></span>'
 	    	comments += '</div>'
-			comments += '<div id="commentBody">'
-			comments += '<div id="content"><textarea id="commentContent" class="inputValid" readonly>'+comDto.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
-	        comments += '<div id="date">'
+			comments += '<div class="commentBody">'
+			comments += '<div class="content"><textarea id="commentContent" class="inputValid big-info" readonly>'+comDto.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
+	        comments += '<div class="date">'
 	        let milliseconds = parseInt(comDto.commRegDate,10)
 	        const date = new Date(milliseconds);
 	        const year = date.getFullYear();
 	        const month = date.getMonth() + 1;
 	        const day = date.getDate();
 	        const formattedDate = year+'-'+month+'-'+day;
-	    	comments += '<span>작성 날짜<input id="reg_date" value='+formattedDate+' readonly></span>'
+	    	comments += '<span>작성 날짜 '+formattedDate+'</span>'
 			if(comDto.isCommentWriter == true){
-				
-				comments += '<span><button class="delete">삭제</button></span><button class="modify" value="modify">수정</button><button class="modifyCancel" value="modify" style="visibility:hidden">수정취소</button></div></div>'
-			}	
+				comments += '<span class="witer-olny"><button class="delete">삭제</button><button class="modify" value="modify">수정</button><button class="modifyCancel" value="modify" style="visibility:hidden">수정취소</button></span></div></div>'
+			}
+			comments += '</div>';
 		} 
 		console.log(obj.currPage);
 		$('#comments').append(comments);
@@ -267,7 +272,9 @@ function drawComment(obj){
 }
 //댓글 작성
 $('#commentWrite').on('click', function(){
+	$('#pagination').twbsPagination('destroy');
 	let comment = $('#comment').val();
+	$('#comment').val('');
 	$.ajax({
 		type:'Post',
 		url:'comment/register.ajax',
@@ -296,6 +303,7 @@ $('#commentWrite').on('click', function(){
 //댓글 삭제
 function deleteBtn(){
 	$('.delete').on('click', function(){
+		$('#pagination').twbsPagination('destroy');
 		let commNo= $(this).closest("div").prev().parent("div").prev().prev().html();
 		console.log(commNo);
 		console.log(gbNo); 	
@@ -319,6 +327,7 @@ function deleteBtn(){
 		});
 	});
 }
+
 //댓글 수정
 function modifyBtn(){
 	$('.modify').on('click', function(){
@@ -370,11 +379,12 @@ function modifyBtn(){
 //수정 취소 버튼 이벤트 함수
 function modifyCancel(){
 	$(".modifyCancel").on('click', function(){
+		let commentArea = $(this).closest("div").prev().children('textarea');
+		commentArea.next().css("display","none");
 		$(this).css('visibility','hidden')
 		let modifyOk = $(this).prev();
 		modifyOk.html("수정")
 		modifyOk.prev().css('visibility', 'visible');
-		let commentArea = $(this).closest("div").prev().children('textarea')
 		commentArea.val(comment);
 		commentArea.prop('readonly', true);
 	});
@@ -406,10 +416,6 @@ function gbJoin(){
 	});
 }
 
-
-
-
-
 $('#pagePerNum').change(function(){
 	$('#pagination').twbsPagination('destroy');
 	commentListCall(showPage);
@@ -433,7 +439,7 @@ function report(){
 function inputValid(){
 	$('.inputValid').on('keydown', function(){
 	    let len = $(this).val().length;
-	            console.log($(this));
+	    console.log($(this));
 	    if(len > 250){
 	        var over = len - 250;
 	        var x = $(this).val();
@@ -497,5 +503,9 @@ function slider(){
 	    $post.click();
 	});
 }
+
+$('#back').on('click', function(){
+	location.href='gbList';
+})
 </script>
 </html>

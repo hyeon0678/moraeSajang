@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,25 +19,29 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.morae.common.FileRoles;
+import kr.co.morae.common.Paging;
 import kr.co.morae.emuns.GbStateEnum;
 import kr.co.morae.emuns.UserReviewEnum;
 import kr.co.morae.emuns.pointReasonEnum;
 import kr.co.morae.groupbuy.dao.GroupBuyDao;
 import kr.co.morae.groupbuy.dto.CommentDto;
+import kr.co.morae.groupbuy.dto.GbStateCheckDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
 import kr.co.morae.groupbuy.dto.ReportDto;
 import kr.co.morae.groupbuy.dto.SearchOptionDto;
 
 @Service
 public class GroupBuyService {
+	
+	
 	@Autowired
 	private GroupBuyDao gbDao;
-	
+	Paging paging = new Paging();
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
-	String fileOrder[] = {"1", "2", "3", "4"};
-	String root = "C:/upload/";
 	
 	@Transactional
 	public int registerGB(MultipartFile[] files, GroupBuyDto dto){
@@ -85,11 +92,11 @@ public class GroupBuyService {
 				int index = Integer.parseInt(fileName.substring(0,1));
 				log.info("index : "+ index);
 				
-				String newFileName = UUID.randomUUID().toString() + fileOrder[index-1]+ext;
+				String newFileName = UUID.randomUUID().toString() + FileRoles.fileOrder[index-1]+ext;
 				byte[] arr;
 				try {
 					arr = files[i].getBytes();
-					Path path = Paths.get(root+newFileName);
+					Path path = Paths.get(FileRoles.root+newFileName);
 					Files.write(path, arr);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -110,7 +117,7 @@ public class GroupBuyService {
 		}else {
 			gbDto.setGbWriter(false);
 		}
-		
+		log.info(gbDto.getFinishDate().toString());
 		log.info("isJoining :" +gbDto.getIsJoining());
 		
 		ArrayList<String> photoNames = gbDao.getPhotoNames(gbNo);
@@ -125,25 +132,25 @@ public class GroupBuyService {
 
 	@Transactional
 	public boolean gbJoin(int gbNo, String userId, int gbPrice) {
-		//공구 참여 확인
+		
 		HashMap<String, String> gbJoinCheck = gbDao.isgbJoining(Integer.toString(gbNo), userId);
 		log.info("gbJoin : " + gbJoinCheck.toString());
 		if(!checkGbJoin(gbJoinCheck, userId)) {
 			return false;
 		}
 		
-		//공구 참여 
+		 
 		int joinSuccess=gbDao.gbJoin(Integer.toString(gbNo), userId);
 		Integer recruitPeople = Integer.parseInt(String.valueOf(gbJoinCheck.get("recruitPeople")));
 		Integer joinPeople= Integer.parseInt(String.valueOf(gbJoinCheck.get("joinPeople")));
 		
 		if((joinPeople+1) == recruitPeople) {
-			gbDao.modifyGbState(gbNo, GbStateEnum.COMPLETE.toString());
+			gbDao.modifyGbState(gbNo, GbStateEnum.COMPLETE.getState());
 		}
 		if(joinSuccess>0) {
 			//글번호, 아이디, 금액, 거래사유
 			gbPrice = gbPrice*-1;
-			int row = gbDao.insertPoint(gbNo, userId, gbPrice, pointReasonEnum.USE.toString());
+			int row = gbDao.insertPoint(gbNo, userId, gbPrice, pointReasonEnum.USE.getState());
 			log.info("insertPoint : "+row);
 			if(row > 0) {
 				return true;
@@ -155,6 +162,9 @@ public class GroupBuyService {
 	}
 	
 
+	/*
+	 * 공구 참여 가능하지 확인하는 함수
+	 */
 	public boolean checkGbJoin(HashMap<String, String> map, String userId) {
 		String joinPeople= String.valueOf(equals(map.get("joinPeople")));
 		if(String.valueOf(map.get("isgbJoining")).equals("0")) {
@@ -195,27 +205,32 @@ public class GroupBuyService {
 			dto.setReportContent(params.get("reportContent"));
 			dto.setUserId(userId);
 			dto.setReportType("댓글");	
-			log.info("댓글글 신고");
+			log.info("댓글 신고");
 		}
 		
 		int row = gbDao.report(dto);
 		return row;
 	}
 
-	public List<GroupBuyDto> getGbList(SearchOptionDto dto) {
-		
-		int offset = (dto.getPageNum()-1)*8;
+	public HashMap<String, Object> getGbList(SearchOptionDto dto) {
+		HashMap<String, Object>map = new HashMap<>();
+		int offset = (dto.getPage()-1)*8;
+		log.info("categoryNo:"+dto.getCategory());
 		log.info("offset:"+offset);
 		dto.setOffset(offset);
+		
 		List<GroupBuyDto> gbList = gbDao.getGbList(dto);
 		log.info("list:"+gbList);
-		return gbList;
+		map.put("gbList", gbList);
+		
+		int totalCommentCnt = gbDao.getTotalgbCnt(dto);
+		int totalPage = paging.getTotalPage(totalCommentCnt, 8);
+		log.info("totalPage : " + totalPage);
+		map.put("totalPage", totalPage);
+		map.put("currPage", dto.getPage());
+		
+		return map;
 		
 	}
-	
-	
-	//공구 완료 확인
-	
-	
 
 }
