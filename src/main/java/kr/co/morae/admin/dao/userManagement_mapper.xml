@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="kr.co.morae.admin.dao.UserManagementDao">	
+	
+	<select id="userlist" resultType="map">
+		select u.userId , u.nickname , u.reg_date , a.authNo ,b.blockedId as state
+		from userauth a right OUTER join  `user` u using(userId) left outer join userblockhistory b on u.userId = b.blockedId 
+		order by reg_date desc LIMIT 10 OFFSET #{param1}
+	</select>
+	
+	<select id="allnum" resultType="Integer" >
+		select count(userId)/10 from `user` u 
+	</select>
+	
+	
+	<select id="reserch" resultType="map">
+		select u.userId , u.nickname , u.reg_date , a.authNo ,b.blockedId as state
+		from userauth a right OUTER join  `user` u using(userId) left outer join userblockhistory b on u.userId = b.blockedId 
+		where u.userId = #{param1} order by reg_date desc 
+	</select>
+	
+	<select id="userdetail" resultType="map">
+		select u.userId ,u.nickname ,u.name ,u.age ,u.gender ,u.email ,u.reg_date 
+		,concat( ad.streetAddress, ad.userDetailAddress,ad.detailAddress) as addr 
+		from `user` u left join useraddress ad using(userId) where userId = #{param1}
+		
+	</select>
+	
+	</mapper>

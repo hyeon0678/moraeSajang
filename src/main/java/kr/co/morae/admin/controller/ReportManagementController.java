@@ -28,13 +28,16 @@ public class ReportManagementController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired ReportManagementService service;
 	
+	
+	// 신고관리 인트로
 	@RequestMapping(value = "/admin/adminReport")
 	public String adminReport() {		
 		//return "home";
 		return "admin/adminReport";
 	}
 	
-	@RequestMapping(value = "/admin/adminReportDetail")
+	//신고 상세 jsp
+	@RequestMapping(value = "admin/adminReportDetail")
 	public String adminReportDetail(@RequestParam int idx, @RequestParam String type,Model model) {		
 		//return "home";
 		logger.info("idx : "+idx);
@@ -69,8 +72,9 @@ public class ReportManagementController {
 		return "admin/adminReportDetail";
 	}
 	
-	// 신고 히스토리 insert
-	@RequestMapping(value = "/adminReportDetail.ajax/historyput")
+	
+	// 신고 히스토리 리스트
+	@RequestMapping(value = "admin/ReportDetail.ajax/hislist")
 	@ResponseBody
 	public HashMap<String,Object> hislist (@RequestParam String reportNo,Model model){		
 		logger.info("히스토리 list");
@@ -87,7 +91,8 @@ public class ReportManagementController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/admin/ReportDetail.ajax/historyput")
+	//신고 히스토리 인서트
+	@RequestMapping(value = "admin/ReportDetail.ajax/historyput")
 	@ResponseBody
 	public HashMap<String,Object> historyput (@RequestParam String hisstate,@RequestParam String content,
 			@RequestParam String reportNo,Model model,HttpSession session){		
@@ -96,7 +101,14 @@ public class ReportManagementController {
 		logger.info("content :"+content); //신고 사유
 		logger.info("reportNo :"+reportNo); //신고 번호
 		UserDto dto = (UserDto) session.getAttribute("userInfo");
-		String gardid = dto.getUserId();
+		String gardid = "";
+		logger.info("gardid :"+gardid);
+		gardid = dto.getUserId();
+		logger.info("gardid :"+gardid);
+		if(gardid == "") {
+			gardid ="test1";
+		} //아이디 미입력 방지 구간 나중에 삭제
+		
 		service.hisstatech(hisstate,reportNo);
 		service.inserthistory(reportNo,content,gardid);		
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -106,8 +118,8 @@ public class ReportManagementController {
 		return null;
 	}
 	
-	 
-	@RequestMapping(value = "/admin/reportMgmt.ajax/list")
+	 // 신고 리스트
+	@RequestMapping(value = "admin/reportMgmt.ajax/list")
 	@ResponseBody
 	public HashMap<String,Object> reportMgmtlist (Model model,@RequestParam String pageState,@RequestParam String page) {
 		logger.info("회원 리스트 호출");
@@ -148,8 +160,8 @@ public class ReportManagementController {
 	}
 	
 	
-	
-	@RequestMapping(value = "/admin/reportMgmt.ajax/reserch")
+	//신고 리스트 검색
+	@RequestMapping(value = "admin/reportMgmt.ajax/reserch")
 	@ResponseBody
 	public HashMap<String,Object> reportMgmtreserch(Model model,@RequestParam String pageState
 			,@RequestParam String page ,@RequestParam String uniqueNo) {

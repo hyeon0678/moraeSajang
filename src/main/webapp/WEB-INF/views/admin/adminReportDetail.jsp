@@ -56,8 +56,7 @@ div{
     
     
     function histroycall(page){
-    	var $reportNo = ${report.reportNo};
-    	
+    	var $reportNo = ${report.reportNo};    	
     	$.ajax({
 			type:'post',
 			url:'ReportDetail.ajax/hislist',
@@ -71,7 +70,8 @@ div{
 				console.log(e);
 			}	
 		});//		
-    	
+    	// drawlist();
+    	// $("textarea[name = content]").val('');
     	
     }//
     
@@ -87,7 +87,9 @@ div{
     		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리자 : '+obj.list[i].processorId+'</span></div>';
     		content += '</div>';	 
     		content += '<div style="width: 970px; height: 70px;">';
-    		content += '<span>'+obj.list[i].reportHistory+'</span>/<span>'+obj.list[i].processDate+'</span>';
+    		var date = new Date(obj.list[i].processDate);
+			 var dateStr = date.toLocaleDateString("ko-KR");
+    		content += '<span>'+obj.list[i].reportHistory+'</span>/<span>'+dateStr+'</span>';
     		content += '</div>';	 
     		content += '<div style="width: 970px; height: 30px;">';
     		content += '<div style="width: 150px; float: right; height: 15px;"><span>미처리</span></div>';
@@ -100,22 +102,6 @@ div{
     	
     	
     }//
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 	function gotolist(){
@@ -141,16 +127,19 @@ div{
 				}
 				$.ajax({
 					type:'post',
-					url:'adminReportDetail.ajax/historyput',
+					url:'ReportDetail.ajax/historyput',
 					data:{'hisstate':$state,'content':$content,'reportNo':$reportNo},
 					dataType:'JSON',
 					success:function(obj){			
-						console.log(obj);				
+						console.log(obj);	
+						
 					},
 					error:function(e){
 						console.log(e);
 					}	
-				});//				
+				});//
+				$("textarea[name = content]").val('');
+				//histroycall();
 			//}else {
 				//location.href='./adminReport';	}
 			// alert("처리완료가 선택되어있습니다.")
