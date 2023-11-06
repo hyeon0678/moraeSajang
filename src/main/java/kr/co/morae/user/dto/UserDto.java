@@ -14,6 +14,8 @@ public class UserDto {
 	private Date reg_date;
 	private int age;
 	private String gender;
+	// 사용자 주소 필드 (통 주소)
+		private String addr;
 	// 사용자 주소 필드
 	private String streetAddress;
 	private String userDetailAddress;
@@ -105,6 +107,12 @@ public class UserDto {
 	}
 	public void setAuthType(String authType) {
 		this.authType = authType;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
 	
 	
