@@ -87,7 +87,7 @@
                     <ul class="detailBtn">
                         <a href="findId"><li>아이디 찾기 |</li></a>
                         <a href="findPw"><li>&nbsp;비밀번호 찾기 |</li></a>
-                        <a href="register"><li>&nbsp;회원가입</li></a>
+                        <a href="loginregister"><li>&nbsp;회원가입</li></a>
                     </ul>
                 </div>
             </div>

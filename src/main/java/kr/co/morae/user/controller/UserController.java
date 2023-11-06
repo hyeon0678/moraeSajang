@@ -99,6 +99,19 @@ public class UserController {
 	}
 	
 	
+	//메인 회원가입 버튼
+	@RequestMapping(value="main/mainregister")
+	public String mainregister() {
+		return "register";
+	}
+	
+	
+	//로그인 회원가입 버튼
+	@RequestMapping(value="login/loginregister")
+	public String loginregister() {
+		return "register";
+	}
+	
 	
 	@RequestMapping(value="/overlay")
 	@ResponseBody 
@@ -109,7 +122,6 @@ public class UserController {
 		map.put("use", use);				
 		return map;
 	}
-	
 	
 	
 
