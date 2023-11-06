@@ -374,11 +374,9 @@ position: absolute;
         });
     }
     $(document).on('click', '.card', function() {
-        var cardId = $(this).attr('id'); // 클릭한 카드의 id 가져오기
-        var gbNo = $(this).find(".gbNo").text(); // 해당 카드 내의 gbNo 가져오기 (예를 들어, 특정 엘리먼트에 gbNo가 들어있는 경우)
-        
-        console.log('클릭한 카드의 id: ' + cardId);
-        // 원하는 작업 수행
+    	var gbNo = $(this).attr('id');
+        console.log('클릭한 카드의 id: ' + gbNo);
+        location.href= 'gbdetail?gbNo='+gbNo;
     });
     
     </script>

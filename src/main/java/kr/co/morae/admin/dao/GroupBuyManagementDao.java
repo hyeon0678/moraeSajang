@@ -45,4 +45,8 @@ public interface GroupBuyManagementDao {
 	int adminGroupBuySerUserCheckIntListtotalPage(int i, String searchblock, String seruser,
 			String firstSearchDateValue, String lastSearchDateValue);
 
+	GroupBuyDto admingbdetail(int i);
+
+
+
 }
