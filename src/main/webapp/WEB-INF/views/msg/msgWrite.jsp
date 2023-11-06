@@ -84,9 +84,9 @@
     </header>
     <div id="lnb">
         <ul>
-            <a href="javascript:"><li>받은 쪽지</li></a>
-            <a href="javascript:"><li>보낸 쪽지</li></a>
-            <a href="javascript:"><li>쪽지 보내기</li></a>
+            <a href="msgRcvList"><li>받은 쪽지</li></a>
+            <a href="msgSendList"><li>보낸 쪽지</li></a>
+            <a href="msgWrite"><li>쪽지 보내기</li></a>
         </ul>
     </div>
     <section id="msgWrite">
@@ -132,6 +132,11 @@
     </section>
 </body>
 <script>
+var senerNickName = '${senerNickName}';
+if(senerNickName != ''){
+	$('#nameCheck').val(senerNickName);
+	$('#nameCheck').focus();
+}
 
 var msg = '${msg}';
 if(msg != ''){

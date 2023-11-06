@@ -41,15 +41,39 @@ public class MessageService {
 		return row;
 	}
 
-	public HashMap<String, Object> list(String userId, String page) {
+	public HashMap<String, Object> rcvList(String userId, String page) {
+		logger.info("접속회원 아이디 : "+userId);
 		int p = Integer.parseInt(page);
-		int offset = p*5;
-		ArrayList<MessageDto> list = dao.list(userId, offset);
+		int offset = (p*5)-5;
+		ArrayList<MessageDto> list = dao.rcvList(userId, offset);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int pages = dao.totalPage();
-		logger.info("만들 수 있는 총 페이지 수 : "+pages);
+		int pages = dao.rcvPages(userId);
+		
+		logger.info("받은 쪽지함 만들 수 있는 총 페이지 수 : "+pages);
 		map.put("pages", pages);
-		map.put("list", list);
+		map.put("rcvList", list);
 		return map;
+	}
+
+	public HashMap<String, Object> sendList(String userId, String page) {
+		logger.info("접속회원 아이디 : "+userId);
+		int p = Integer.parseInt(page);
+		int offset = (p*5)-5;
+		ArrayList<MessageDto> list = dao.sendList(userId, offset);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int pages = dao.sendPages(userId);
+		
+		logger.info("보낸 쪽지함 만들 수 있는 총 페이지 수 : "+pages);
+		map.put("pages", pages);
+		map.put("sendList", list);
+		return map;
+	}
+
+	public MessageDto msgDetail(String messagesNo) {
+		return dao.msgDetail(messagesNo);
+	}
+
+	public void msgRead(String messagesNo) {
+		dao.msgRead(messagesNo);
 	}
 }

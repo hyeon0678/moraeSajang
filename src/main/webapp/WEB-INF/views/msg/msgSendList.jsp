@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>모래사장 | 받은 쪽지함</title>
+<title>모래사장 | 보낸 쪽지함</title>
 <!-- bootstrap : 디자인을 위한 프레임워크 -->
 <link href="resources/css/paging.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -69,8 +69,8 @@
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .centerArea .nickName{position:relative; top:20px;}
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .centerArea .msgContent{position:relative; top:18px; font-size:16px; color:#888;}
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .msgDate{position:absolute; top:15px; right:0; font-size:16px;}
-        #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .read{position:absolute; top:70px; right:40px; font-size:14px; font-family: 'KorailRoundGothicBold';}
-        #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .notRead{position:absolute; top:70px; right:40px; font-size:16px; font-family: 'KorailRoundGothicBold'; color:#FFBC38; animation: blinking 1.5s linear infinite;}
+        #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .read{position:absolute; top:70px; right:40px; font-size:16px; font-family: 'KorailRoundGothicBold';}
+        #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .notRead{position:absolute; top:70px; right:40px; font-size:16px; font-family: 'KorailRoundGothicBold'; color:#FFBC38; animation: blinking 1s linear infinite;}
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .delImg{position: absolute; top:67px; right:0; color:#999;}
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .delImg:hover{color:#212732;}
         #msgList .msgListInner .msgListInnerBox .noMsg{text-align: center; display:none;}
@@ -104,7 +104,7 @@
     <section id="msgList">
         <div class="msgListInner">
             <div class="msgListInnerBox">
-                <h2>받은 쪽지</h2>
+                <h2>보낸 쪽지</h2>
                 	<div class="noMsg">
                     <p>받은 쪽지가 없습니다.</p>
                     <svg width="200" height="200" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -126,23 +126,12 @@
 <script>
 var showPage = 1;
 msgListCall(showPage);
-var intervalID = setInterval(function() {
-	  msgListCall(showPage);
-	}, 3000);
-	
-	function del(){
-		if (confirm("한번 삭제한 자료는 복구할 방법이 없습니다. 정말 삭제하시겠습니까?")) {
-			  // 사용자가 "확인" 버튼을 클릭한 경우
-			  // 여기에서 수행할 작업을 정의합니다.
-			}
-	}
-	
 
 	function msgListCall(page){
 		console.log(page);
 		$.ajax({
 			type: 'post',
-			url: 'msgRcvListCall.ajax',
+			url: 'msgSendListCall.ajax',
 			data: {'page':page},
 			dataType: 'json',
 			success:function(data){
@@ -152,7 +141,7 @@ var intervalID = setInterval(function() {
 				}else{
 					$('.noMsg').css('display','none');
 				}
-				drawMsgRcvList(data);
+				drawMsgSendList(data);
 			},
 			error:function(e){
 				console.log(e);
@@ -160,25 +149,21 @@ var intervalID = setInterval(function() {
 		});
 	}
 	
-	function drawMsgRcvList(obj){
+	function drawMsgSendList(obj){
+		console.log("드로우 시작");
 		var content = '';
-		obj.rcvList.forEach(function(item, idx){
+		obj.sendList.forEach(function(item, idx){
 			content += '<li class="msg"><div class="msgForm">';
 			content += '<div class="leftArea"><svg width="80" height="80" viewBox="0 0 66 63" fill="none" xmlns="http://www.w3.org/2000/svg" class="profileImg"><path d="M66 31C66 48.1208 51.2254 62 33 62C14.7746 62 0 48.1208 0 31C0 13.8792 14.7746 0 33 0C51.2254 0 66 13.8792 66 31Z" fill="#EDEDED"/><path d="M33.491 33.625C35.836 33.625 38.0851 32.6965 39.7433 31.0439C41.4015 29.3912 42.3331 27.1497 42.3331 24.8125C42.3331 22.4753 41.4015 20.2338 39.7433 18.5811C38.0851 16.9285 35.836 16 33.491 16C31.1459 16 28.8969 16.9285 27.2386 18.5811C25.5804 20.2338 24.6488 22.4753 24.6488 24.8125C24.6488 27.1497 25.5804 29.3912 27.2386 31.0439C28.8969 32.6965 31.1459 33.625 33.491 33.625ZM14.2299 52.6982C13.9563 53.427 13.9261 54.2245 14.1438 54.9718C14.3615 55.7191 14.8156 56.3764 15.4383 56.8459C20.6001 60.844 26.9536 63.0098 33.491 63C40.2994 63 46.5714 60.697 51.5613 56.8312C52.8287 55.853 53.3415 54.1787 52.7638 52.6893C51.2673 48.806 48.6244 45.4663 45.1841 43.1108C41.7438 40.7554 37.6677 39.4949 33.4938 39.4959C29.3199 39.4969 25.2444 40.7591 21.8052 43.1162C18.366 45.4732 15.7247 48.8142 14.2299 52.6982Z" fill="#DCBB7C"/></svg></div>';
 			if(item.messageContent.length === 20){
-				content += '<div class="centerArea"><a href="msgRcvDetail?messagesNo='+item.messagesNo+'"><p class="nickName">'+item.senerNickName+'</p><p class="msgContent">'+item.messageContent+'...</p></a></div>';
+				content += '<div class="centerArea"><a href="msgSendDetail?messagesNo='+item.messagesNo+'"><p class="nickName">'+item.senerNickName+'</p><p class="msgContent">'+item.messageContent+'...</p></a></div>';
 			}else{
-				content += '<div class="centerArea"><a href="msgRcvDetail?messagesNo='+item.messagesNo+'"><p class="nickName">'+item.senerNickName+'</p><p class="msgContent">'+item.messageContent+'</p></a></div>';
+				content += '<div class="centerArea"><a href="msgSendDetail?messagesNo='+item.messagesNo+'"><p class="nickName">'+item.senerNickName+'</p><p class="msgContent">'+item.messageContent+'</p></a></div>';
 			}
 			var date = new Date(item.sentDate);
 			var dateStr = date.toLocaleDateString("ko-KR");
 			content += '<div class="rightArea"><p class="msgDate">'+dateStr+'</p>';
-			if(item.messageRead == 'N'){
-				content += '<p class="notRead">안읽음</p>';
-			}else{
-				content += '<p class="read">읽음</p>';
-			}
-			content += '<a href="/msgDel?messagesNo='+item.messagesNo+'" id="del"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg></a>';
+			content += '<a href="/msgDel?messagesNo='+item.messagesNo+'"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg></a>';
 			content += '</div></li>';
 		});
 		$('.msgListBox').empty();

@@ -9,6 +9,8 @@ public class MessageDto {
 	private String messageRead;
 	private String sener;
 	private String reciever;
+	private String senerNickName;
+	private String recieverNickName;
 	
 	public int getMessagesNo() {
 		return messagesNo;
@@ -45,5 +47,17 @@ public class MessageDto {
 	}
 	public void setReciever(String reciever) {
 		this.reciever = reciever;
+	}
+	public String getSenerNickName() {
+		return senerNickName;
+	}
+	public void setSenerNickName(String senerNickName) {
+		this.senerNickName = senerNickName;
+	}
+	public String getRecieverNickName() {
+		return recieverNickName;
+	}
+	public void setRecieverNickName(String recieverNickName) {
+		this.recieverNickName = recieverNickName;
 	}
 }

@@ -1,6 +1,5 @@
 package kr.co.morae.message.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -41,6 +40,11 @@ public class MessageController {
 		return "msg/msgRcvList";
 	}
 	
+	@RequestMapping(value = "/msgSendList")
+	public String msgSendList() {
+		return "msg/msgSendList";
+	}
+	
 	@RequestMapping(value = "/nameCheck.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> nameCheck(@RequestParam String nickName, HttpSession session){
@@ -68,12 +72,41 @@ public class MessageController {
 		return page;
 	}
 	
-	@RequestMapping(value = "/msgListCall.ajax", method = RequestMethod.GET)
+	@RequestMapping(value = "/msgRcvListCall.ajax", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> msgListCall(@RequestParam String page, HttpSession session){
+	public HashMap<String, Object> msgRcvListCall(@RequestParam String page, HttpSession session){
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
 		String userId = userInfo.getUserId();
-		return service.list(userId, page);
+		return service.rcvList(userId, page);
+	}
+	
+	@RequestMapping(value = "/msgSendListCall.ajax", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> msgSendListCall(@RequestParam String page, HttpSession session){
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		return service.sendList(userId, page);
+	}
+	
+	@RequestMapping(value = "/msgRcvDetail", method = RequestMethod.GET)
+	public String msgRcvDetail(@RequestParam String messagesNo, HttpSession session, Model model) {
+		MessageDto msgInfo = service.msgDetail(messagesNo);
+		service.msgRead(messagesNo);
+		model.addAttribute("item",msgInfo);
+		return "msg/msgRcvDetail";
+	}
+	
+	@RequestMapping(value = "/msgSendDetail", method = RequestMethod.GET)
+	public String msgSendDetail(@RequestParam String messagesNo, HttpSession session, Model model) {
+		MessageDto msgInfo = service.msgDetail(messagesNo);
+		model.addAttribute("item",msgInfo);
+		return "msg/msgSendDetail";
+	}
+	
+	@RequestMapping(value = "/reply")
+	public String reply(@RequestParam String senerNickName, Model model) {
+		model.addAttribute("senerNickName",senerNickName);
+		return "msg/msgWrite";
 	}
 	
 }

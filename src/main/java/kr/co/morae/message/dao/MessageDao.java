@@ -12,7 +12,15 @@ public interface MessageDao {
 
 	int msgSend(String content, String userId, String rcvId);
 
-	ArrayList<MessageDto> list(String userId, int offset);
+	ArrayList<MessageDto> rcvList(String userId, int offset);
 
-	int totalPage();
+	int rcvPages(String userId);
+
+	ArrayList<MessageDto> sendList(String userId, int offset);
+
+	int sendPages(String userId);
+
+	MessageDto msgDetail(String messagesNo);
+
+	void msgRead(String messagesNo);
 }
