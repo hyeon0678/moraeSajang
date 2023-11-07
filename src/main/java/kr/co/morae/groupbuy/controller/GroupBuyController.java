@@ -34,18 +34,6 @@ public class GroupBuyController {
 	
 	@GetMapping("/gbWrite")
 	public String gbWriteForm(HttpSession session, RedirectAttributes rattr) {
-		log.info("session + "+session.getAttribute("userInfo"));
-		UserDto info = (UserDto) session.getAttribute("userInfo");
-		
-		if(info== null) {
-			rattr.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-			return "redirect:/";
-		}
-		
-		
-		log.info("userdto : " + info);
-		log.info(info.toString());
-		info.getStreetAddress();
 		return "groupBuy/gbWrite";
 	}
 	

@@ -19,19 +19,20 @@ import kr.co.morae.groupbuy.dto.GbStateCheckDto;
 
 @Component 
 class GbStateConfirmListener implements ApplicationListener<ContextRefreshedEvent>, DisposableBean {
-
+	Thread thread;
 	Logger log = LoggerFactory.getLogger(getClass());
 	@Autowired
 	GroupBuyDao gbDao;
-
+	
+	
+	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		log.info("===gbStateComfirmListener start");
-		Thread thread = new Thread(()->{
-			while(true) {
+		
+		thread = new Thread(()->{
+			while(!Thread.currentThread().isInterrupted()) {
 				try {
-					log.info("thread test");
-					log.info("do thread");
 					
 					LocalDate currentDate = LocalDate.now();
 					LocalDateTime nextDate = currentDate.atStartOfDay();
@@ -49,7 +50,9 @@ class GbStateConfirmListener implements ApplicationListener<ContextRefreshedEven
 					
 					Thread.sleep(sleep);
 				} catch (InterruptedException e) {
+					
 					e.printStackTrace();
+					break;
 				}
 			}
 		});
@@ -96,7 +99,9 @@ class GbStateConfirmListener implements ApplicationListener<ContextRefreshedEven
 	@Override
 	public void destroy() throws Exception {
 		log.info("====== distroy thread ==========");
-		Thread.interrupted();
+		 if (thread != null) {
+	        thread.interrupt(); 
+	     }
 	}
 	
 	

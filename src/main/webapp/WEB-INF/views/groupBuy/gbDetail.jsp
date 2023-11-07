@@ -14,10 +14,8 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
 </head>
-
-
+<jsp:include page="/WEB-INF/views/common/alarm.jsp"/>
 <body>
-
 <p id ="gbNo" style="visibility: hidden">"${GroupBuyDto.gbNo}"</p>
     <div class="elem-container">
 	    <div><button id='reportBtn' class="report">신고하기</button></div>
@@ -25,8 +23,8 @@
 	        <div id="productImgBox" class="products">
 	        	<div class="slider-2">
 				     <div class="side-btns">
-				        <div><span><i class="fas fa-caret-left"></i><</i></span></div>
-				        <div><span><i class="fas fa-caret-right"></i>></span></div>
+				        <div><span><i class="fas fa-caret-left"><</i></span></div>
+				        <div><span><i class="fas fa-caret-right">></i></span></div>
 				    </div>
 	    
 				    <div class="slides">
@@ -234,7 +232,7 @@ function drawComment(obj){
 	    	comments += '<span class="report2"><button class="report" value="댓글">신고</button></span>'
 	    	comments += '</div>'
 			comments += '<div class="commentBody">'
-			comments += '<div class="content"><textarea id="commentContent" class="inputValid big-info" readonly>'+comDto.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
+			comments += '<div class="content"><textarea class="commentContent inputValid big-info" readonly>'+comDto.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
 	        comments += '<div class="date">'
 	        let milliseconds = parseInt(comDto.commRegDate,10)
 	        const date = new Date(milliseconds);
@@ -246,7 +244,7 @@ function drawComment(obj){
 			if(comDto.isCommentWriter == true){
 				comments += '<span class="witer-olny"><button class="delete">삭제</button><button class="modify" value="modify">수정</button><button class="modifyCancel" value="modify" style="visibility:hidden">수정취소</button></span></div></div>'
 			}
-			comments += '</div>';
+			comments += '</div></div>';
 		} 
 		console.log(obj.currPage);
 		$('#comments').append(comments);
@@ -332,7 +330,7 @@ function deleteBtn(){
 function modifyBtn(){
 	$('.modify').on('click', function(){
 		let commentArea = $(this).closest("div").prev().children('textarea');
-		
+		commentArea.css('border','1px solid darkgray');
 		if($(this).html() == '수정'){
 			$(this).next().css('visibility','visible');
 			$(this).prev().css('visibility', 'hidden');
@@ -379,8 +377,10 @@ function modifyBtn(){
 //수정 취소 버튼 이벤트 함수
 function modifyCancel(){
 	$(".modifyCancel").on('click', function(){
+		
 		let commentArea = $(this).closest("div").prev().children('textarea');
 		commentArea.next().css("display","none");
+		commentArea.css('border','none');
 		$(this).css('visibility','hidden')
 		let modifyOk = $(this).prev();
 		modifyOk.html("수정")
@@ -447,15 +447,19 @@ function inputValid(){
 	        x = x.replace(x.substr(250), "");
 	        console.log($(this).next());
 	        $(this).next().html('250/250 250자 까지 작성할 수 있습니다.');
+	        $(this).next().css('color', 'red');
 	    }else{
 	        $(this).next().html(len+'/250');
+	        $(this).next().css('color', 'black');
 	    }
 	}).on('keyup', function(){
 	    var y = $(this).val();
 	    if(y.length>250){
 	        $(this).next().html('250/250 250자 까지 작성할 수 있습니다.');
+	        $(this).next().css('color', 'red');
 	    }else{
 	    	$(this).next().html(y.length+'/250');
+	        $(this).next().css('color', 'black');
 	    }
 	    $(this).val($(this).val().replace(y.substr(250), ""));
 	});
