@@ -4,12 +4,13 @@ ul, li {
     list-style:none;
 }
 #productImgBox{
-	width:320px;
+	width:420px;
 }
 .slider-2 {
-    height:320px;
+    height:420px;
     position:relative;
 }
+
 
 .slider-2 .slides > div {
     position:absolute;
@@ -53,9 +54,6 @@ ul, li {
     cursor:pointer;
 }
 
-.slider-2 .page-nav > div.active {
-    background-color:rgba(255,255,255,1);
-}
 
 .slider-2>.side-btns>div{
     position:absolute;
@@ -83,10 +81,10 @@ ul, li {
     left:inherit;
     right:inherit;
     width:40px;
-    height:40px;
+    height:30px;
     background-color:rgba(0,0,0,0.4);
-    border-radius:100%;
     margin:0 10px;
+    border-radius: 10px;
 }
 .slider-2>.side-btns>div>span > i{
     position:absolute;

@@ -14,8 +14,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <link rel="stylesheet" href="<c:url value='/resources/css/gbWrite.css'/>">
 </head>
+<jsp:include page="<c:url value='/resources/common/alarm.jsp'/>"/>
 <body>
-    <div class="gbForm">
+    <div class="gbForm center">
         <span id="h3">글쓰기</span>
         <span class="validation h3Validation">*필수 정보</span>
         <hr>
@@ -26,6 +27,7 @@
             <div>
                 <input type="file" id="image-input" accept="image/*">
             </div>
+            <hr>
         </div>
         <div 카테고리 class="smallInfo">
             <label for="category">카테고리</label><span class="validation">*</span>
@@ -70,10 +72,11 @@
         </div>
         <div id="recruitDiv" class="smallInfo">
             <label for="recruitLocation">모집장소</label><span class="validation">*</span>
-            <span class="input-content">
+            <span class="input-content" >
                 <textarea id="recruitLocation" readonly></textarea>
-                <button class="btnClear" id="locationClear">x</button>
+                
             </span>
+            <button class="btnClear" id="locationClear">x</button>
         </div>
         
         <div id="locationBtn">
@@ -87,7 +90,7 @@
             <div id="kakaoMapApi" class="map-position">
 
             </div>
-            <div class="recommend">
+            <div class="recommend place-ul-div">
                 <p>추천 장소 목록</p>
                 <div class="placeListDiv">
                     <ul id="recommendList" class="ul-list">
@@ -99,7 +102,7 @@
         <div id="map_wrap" class="kakaoApiPosition tab-content">
             <div id="locationSearch" class="map-position">
             </div>
-            <div class="recommend">
+            <div class="recommend place-ul-div">
                 <div class="option">
                     <div>
                         <form onsubmit="searchPlaces(); return false;">
@@ -109,25 +112,21 @@
                     </div>
                 </div>
                 <div class="placeListDiv">
-                    <ul id="placesList" ></ul>
+                    <ul id="placesList" class="ul-list"></ul>
                 </div>
             </div>
         </div>
-        <div id="titleDiv">
-            <label for="title">제목</label><span class="validation">*</span>
-            <span class="input-content2">
-                <input type="search" id="title"/>
-            </span>
+        <div id="titleDiv detail-info">
+            <span>제목</span><span class="validation detail-valid">*</span>
+            <input type="search" id="title"/>
         </div>
-        <div id="contentDiv">
-            <label for="gbContent">내용</label><span class="validation">*</span>
-            <span class="input-content2">
-                <textarea id="gbContent"></textarea>
-            </span>
+        <div id="contentDiv detail-info">
+            <span>내용</span><span class="validation detail-valid">*</span>
+            <textarea id="gbContent"></textarea>
         </div>
     </div>
-    <div>
-        <button id="submit">글쓰기</button>
+    <div class="center">
+        <button id="submit">글쓰기</button><button id="goList">목록으로</button>
     </div>
 </body>
 
@@ -189,6 +188,7 @@
 	    $('#recruitLocation').html('');
 	});
 
+	//장소 탭 클릭
 	$('ul.tabs li').click(function(){
 	    var tab_id = $(this).attr('data-tab');
 	
@@ -632,5 +632,9 @@
 		    return;
 		}
 	}
+	
+	$('#goList').on("click", function(){
+		history.back();
+	})
 </script>
 </html>

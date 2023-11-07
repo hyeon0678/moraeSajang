@@ -1,38 +1,21 @@
 @charset "UTF-8";
 .detail-joinicon{
-	width: 30px;
-	heght: 30px;
+	width: 15%;
+	heght: 15%;
 }
 #productsInfo{
 	display: flex;
 	
 }
 .elem-container{
-	width:880px;
+	width: 64%;
+	margin: 0 auto;
+	margin-top: 100px;
 }
 body{
-	display: flex;
-	justify-content: center;
-    margin:0,auto;
-}
-.no-boarder{
-	border-style: none;
+	
 }
 
-.smallInfo{
-	margin:10px 20px;
-}
-#productsInfo{
-	margin:40px 30px;
-}
-.big-info{
-	width:90%;
-	margin-left:15px;
-}
-div.comment-div{
-	border: 1px solid rightgray;
-
-}
 .witer-olny{
 	float:right;
 }
@@ -41,14 +24,35 @@ div.comment-div{
 	
 }
 .commentHead{
-	margin:0px 20px;
 	padding:5px;
 	background-color:#F9DCA3;
 }
-.comment-box{
-	margin: 10px 20px;
-	border: 1px solid rightgray;
+
+.comment-div{
+	border: 1px solid lightgray;
+	
 }
-.comment{
-	margin-bottom:5px;
+#comments{
+	
+}
+.comment-box{
+	margin-bottom: 4px;
+}
+.commentBody{
+	margin-left: 24px;
+	margin-right: 24px;
+	margin-top: 10px
+}
+.commentcontent{
+	width: 100%;
+	height: 120px;
+	resize: none;
+	border: none;
+	margin: 10px 14px;
+}
+.date{
+	padding: 5px 10px;
+}
+.commentWriter{
+	margin-left: 10px;
 }

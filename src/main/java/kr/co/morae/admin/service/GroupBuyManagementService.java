@@ -4,16 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.morae.admin.dao.GroupBuyManagementDao;
+import kr.co.morae.groupbuy.dao.CommentDao;
+import kr.co.morae.groupbuy.dao.GroupBuyDao;
+import kr.co.morae.groupbuy.dto.CommentDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
 
 
 @Service
 public class GroupBuyManagementService {
 @Autowired GroupBuyManagementDao dao;
+@Autowired GroupBuyDao gbdao;
+@Autowired CommentDao commDao;
+Logger logger = LoggerFactory.getLogger(getClass());
 
 public Map<String, Object> adminGroupBuyList(String page, String searchblock) {
 	int offset = (Integer.parseInt(page)-1)*8;
@@ -95,5 +103,59 @@ public Map<String, Object> adminGroupBuySerUserIntList(String page, String searc
 		map.put("list", adminGroupBuySerUserCheckIntList);
 	}
 	return map;
+}
+
+public Map<String, Object> admingbdetail(String gbNo) {
+	logger.info("관리자 공구글 서비스 시작");
+	gbNo = gbNo.replace("\"", "");
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	GroupBuyDto gbDto = dao.admingbdetail(Integer.parseInt(gbNo));
+	ArrayList<String> PhotoNames = gbdao.getPhotoNames(Integer.parseInt(gbNo));
+	map.put("GroupBuyDto", gbDto);
+	map.put("PhotoNames", PhotoNames);
+	return map;
+}
+
+public Map<String, Object> adminCommentListCall(String page, String gbNo) {
+	logger.info("관리자 댓글 서비스 시작");
+	gbNo = gbNo.replace("\"", "");
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	int offset = (Integer.parseInt(page)-1)*5;
+	ArrayList<CommentDto> commDto = commDao.getComment(Integer.parseInt(gbNo), offset);
+	int totalPage = getTotalPage(Integer.parseInt(gbNo));
+	
+	map.put("totalPage", Integer.toString(totalPage));
+	map.put("comments", commDto);
+	map.put("currPage", page);
+	map.put("gbNo", gbNo);
+	return map;
+}
+public int getTotalPage(int gbNo) {
+	int totalCommentCnt = commDao.getTotalComment(gbNo);
+	logger.info("totalCommentCnt : "+totalCommentCnt);
+	int total = 0;
+	if(totalCommentCnt%5==0) {
+		return total = totalCommentCnt/5;
+	}else {
+		return total = (totalCommentCnt/5)+1;
+	}
+	 
+}
+
+public Map<String, Object> adminCommentdel(String commNo, String gbNo) {
+	HashMap<String, String>params = new HashMap<String, String>();
+	params.put("commNo", commNo);
+	params.put("gbNo", gbNo);
+	int row = commDao.deleteComment(params);
+	HashMap<String, Object> result = new HashMap<String, Object>();
+	
+	if(row>0) {
+		result.put("msg", "success");
+		return result;
+	}
+	
+	result.put("msg", "fail");
+	
+	return result;
 }
 }

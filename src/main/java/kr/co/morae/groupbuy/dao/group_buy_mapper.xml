@@ -200,6 +200,6 @@ WHERE g3.gbNo = g.gbNo AND joinState LIKE 'Y'
 FROM groupbuyingpost g LEFT OUTER JOIN groupbuyingjoining g2 
 ON g.gbNo = g2.gbNo
 WHERE g.blockState LIKE 'N' AND g.gbState LIKE '진행'
-group by g.gbNo;
+group by g.gbNo
 </select>
 </mapper>

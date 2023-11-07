@@ -1,11 +1,13 @@
 package kr.co.morae.admin.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,9 +56,34 @@ Logger logger = LoggerFactory.getLogger(getClass());
 			){
 		return service.adminGroupBuySerUserIntList(page,searchblock,seruser,firstSearchDateValue, lastSearchDateValue);
 	}
+	
+	@RequestMapping(value="/admin/gbdetail")
+	public String admingbdetail(@RequestParam int gbNo,Model model) {
+		logger.info("글번호확인:"+gbNo);
+		model.addAttribute("gbNo",gbNo);
+		return "admin/adminBoardDetail";
+	}
+	
+	@RequestMapping(value="/admin/Board/detail.ajax")
+	@ResponseBody
+	public Map<String, Object> admingbdetail(@RequestParam String gbNo, Model model) {
+		logger.info("번호확인"+gbNo);
+		model.addAttribute(service.admingbdetail(gbNo));
+		return service.admingbdetail(gbNo);
+	}
 
+	@RequestMapping(value="/admin/Board/detail/comment.ajax")
+	@ResponseBody
+	public Map<String, Object>adminCommentListCall(@RequestParam String page,@RequestParam String gbNo){
+		return service.adminCommentListCall(page,gbNo);
+	}
 	
-	
+	@RequestMapping(value="/admin/Board/comment/del.ajax")
+	@ResponseBody
+	public Map<String, Object>adminCommentdel(@RequestParam String commNo,@RequestParam String gbNo){
+		logger.info("댓글 삭제 확인용"+commNo,gbNo);
+		return service.adminCommentdel(commNo,gbNo);
+	}
 	
 	
 }

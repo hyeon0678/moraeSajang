@@ -29,8 +29,29 @@ public class GroupBuyDto {
 	private int isJoining;
 	private int currPage;
 	private String firstFileName;
-	
+	private String completeNum;
+	private String joinState;
+	private int isReview;
 
+	
+	public String getJoinState() {
+		return joinState;
+	}
+	public void setJoinState(String joinState) {
+		this.joinState = joinState;
+	}
+	public int getIsReview() {
+		return isReview;
+	}
+	public void setIsReview(int isReview) {
+		this.isReview = isReview;
+	}
+	public String getCompleteNum() {
+		return completeNum;
+	}
+	public void setCompleteNum(String completeNum) {
+		this.completeNum = completeNum;
+	}
 	public String getFirstFileName() {
 		return firstFileName;
 	}

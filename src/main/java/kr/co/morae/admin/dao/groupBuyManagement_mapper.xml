@@ -175,4 +175,37 @@ SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost
 where blockState=#{param2} AND userId=#{param3} AND regDate >= #{param4} and regDate <= #{param5}
 ]]>
 </select>
+
+<select id="admingbdetail" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
+SELECT gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.startDate, gb.joinPrice, gb.gbState, loc.place, loc.gbDetailAddress,
+    c.categoryType, gb.userId,gb.blockState, 
+    (SELECT nickname
+     FROM user u
+	WHERE u.userid = gb.userId   
+    )nickname,
+    (SELECT count(userId) 
+     FROM groupBuyingJoining 
+     WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople,  
+    (SELECT count(reviewNo)
+     FROM userreview u2 
+     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 1
+    ) tradeAgain,
+    (SELECT COUNT(reviewNo)
+     FROM userreview u2 
+     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 2
+    ) justOkay, 
+    (SELECT count(reviewNo)
+     FROM userreview u2 
+     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 3
+    ) notInterested,
+    (SELECT count(g.userId)
+     FROM groupBuyingJoining g
+     WHERE g.userId = g.gbNo =#{param1}
+    ) isJoining
+FROM 
+    groupBuyingPost gb 
+    LEFT OUTER JOIN groupbuyingregions loc on gb.gbNo = loc.gbNo
+    LEFT OUTER JOIN category c on gb.categoryNo=c.categoryNo 
+WHERE gb.gbNo = #{param1};
+</select>
 </mapper>
