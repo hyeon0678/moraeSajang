@@ -109,4 +109,40 @@ public class MessageController {
 		return "msg/msgWrite";
 	}
 	
+	@RequestMapping(value = "/msgRcvDel")
+	public String msgRcvDel(@RequestParam String messagesNo) {
+		service.msgDel(messagesNo);
+		return "msg/msgRcvList";
+	}
+	
+	@RequestMapping(value = "/msgSendDel")
+	public String msgSendDel(@RequestParam String messagesNo) {
+		service.msgDel(messagesNo);
+		return "msg/msgSendList";
+	}
+	
+	@RequestMapping(value = "/msgRcvAllDel")
+	public String msgRcvAllDel(HttpSession session) {
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		service.msgRcvAllDel(userId);
+		return "msg/msgRcvList";
+	}
+	
+	@RequestMapping(value = "/msgSendAllDel")
+	public String msgSendDel(HttpSession session) {
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		service.msgSendAllDel(userId);
+		return "msg/msgSendList";
+	}
+	
+	@RequestMapping(value = "/msgAlram.ajax")
+	@ResponseBody
+	public HashMap<String, Object> msgAlram(HttpSession session){
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		return service.msgAlram(userId);
+	}
+	
 }

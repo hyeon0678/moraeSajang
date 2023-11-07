@@ -23,4 +23,12 @@ public interface MessageDao {
 	MessageDto msgDetail(String messagesNo);
 
 	void msgRead(String messagesNo);
+
+	void msgDel(String messagesNo);
+
+	int msgAlram(String userId);
+
+	void msgRcvAllDel(String userId);
+
+	void msgSendAllDel(String userId);
 }
