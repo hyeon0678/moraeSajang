@@ -24,7 +24,7 @@ public class UserController {
 	
 	@Autowired UserService service;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/main/login", method = RequestMethod.POST)
 		public String login(@RequestParam String id, @RequestParam String pw, HttpSession session, Model model) {
 			String page = "main/login";
 			logger.info("id : "+id+" / pw : "+pw);
@@ -99,33 +99,28 @@ public class UserController {
 	}
 	
 	
-	//메인 회원가입 버튼
-	@RequestMapping(value="main/mainregister")
+
+	@RequestMapping(value="/main/register")
 	public String mainregister() {
-		return "register";
+		return "main/register";
 	}
 	
+
 	
-	//로그인 회원가입 버튼
-	@RequestMapping(value="login/loginregister")
-	public String loginregister() {
-		return "register";
-	}
-	
-	
-	@RequestMapping(value="/overlay")
+	@RequestMapping(value="/main/overlay")
 	@ResponseBody 
 	public HashMap<String, Object> overlay(@RequestParam String id) {
 		boolean use = service.overlay(id);
 		logger.info("사용 가능 여부: "+use);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("use", use);				
+		map.put("use", use);	
+		logger.info("overlay");
 		return map;
 	}
 	
 	
 
-	@RequestMapping(value="/overemail")
+	@RequestMapping(value="/main/overemail")
 	@ResponseBody 
 	public HashMap<String, Object> overemail(@RequestParam String email) {
 		boolean use1 = service.overemail(email);
@@ -137,7 +132,7 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value="/overnickname")
+	@RequestMapping(value="/main/overnickname")
 	@ResponseBody 
 	
 	public HashMap<String, Object> overnickname(@RequestParam String nickname) {
@@ -148,7 +143,7 @@ public class UserController {
 		return map;
 	}
 	
-	@RequestMapping(value="/register", method = RequestMethod.POST)
+	@RequestMapping(value="/main/register", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params){
 		logger.info("params : "+params);
