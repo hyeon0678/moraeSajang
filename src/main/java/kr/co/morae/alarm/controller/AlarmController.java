@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.morae.alarm.service.AlarmService;
+import kr.co.morae.user.dto.UserDto;
 import kr.co.morae.alarm.dto.AlarmDto;
 
 @Controller
@@ -32,8 +33,10 @@ public class AlarmController {
 	@ResponseBody
 	public HashMap<String, Object> alarmCall(Model model, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String userId = "test1";  // 세션 값으로 대체 예정
-		int authNo = 1;  // 세션 값으로 대체 예정
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		//int authNo = userInfo.getAuthNo();
+		int authNo = 1;
 		String alarmState = "";
 		if(authNo == 1) {
 			ArrayList<AlarmDto> alarmList = service.alarm(userId);
@@ -61,7 +64,8 @@ public class AlarmController {
 	@ResponseBody
 	public HashMap<String, Object> alarmUpdate(Model model, HttpSession session) {
 		int row = 0;
-		String userId = "test1"; // 세션 값으로 대체 예정
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
 		row = service.alarmUpdate(userId);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("row", row);
@@ -73,7 +77,8 @@ public class AlarmController {
 	@ResponseBody
 	public int alarmRead(Model model, HttpSession session, @RequestParam int alarmChk) {
 		logger.info("읽음 처리할 글 번호: "+alarmChk);
-		String userId = "test1"; // 세션 값으로 대체 예정
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
 		int row = service.alarmRead(userId,alarmChk);
 		return row;
 	}
@@ -82,7 +87,8 @@ public class AlarmController {
 	@ResponseBody
 	public HashMap<String, Object> alarmChkAll(Model model, HttpSession session) {
 		logger.info("전체 읽음 처리 요청");
-		String userId = "test1"; // 세션 값으로 대체 예정
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int row = 0;
 		row = service.alarmReadAll(userId);

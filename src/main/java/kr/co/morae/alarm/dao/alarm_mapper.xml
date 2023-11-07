@@ -18,7 +18,7 @@
 	
 	<select id="alarmUpdate" resultType="kr.co.morae.alarm.dto.AlarmDto">
 		SELECT gbNo FROM groupBuyingRegions
-		WHERE gbNo NOT IN (SELECT gbNo From alarmHistory ah) AND
+		WHERE gbNo NOT IN (SELECT gbNo From alarmHistory ah WHERE userId = #{param1}) AND
 		gbDetailAddress = (SELECT userDetailAddress FROM userAddress WHERE userId = #{param1})
 		AND gbNo
 		IN (select gbNo FROM groupBuyingPost WHERE regDate BETWEEN

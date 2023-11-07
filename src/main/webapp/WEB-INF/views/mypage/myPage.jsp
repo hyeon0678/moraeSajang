@@ -502,6 +502,8 @@ body {
 				if (data.row != 0) {
 					console.log(data.row);
 					alarmCall();
+				}else{
+					console.log("이미 최신 상태 입니다.");
 				}
 			},
 			error : function(e) {
