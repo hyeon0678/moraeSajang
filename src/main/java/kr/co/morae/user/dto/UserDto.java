@@ -1,6 +1,10 @@
 package kr.co.morae.user.dto;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import kr.co.morae.admin.dto.AuthDto;
 
 public class UserDto {
 	
@@ -22,6 +26,19 @@ public class UserDto {
 	// 사용자 권한 필드
 	private Integer authNo;
 	private String authType;
+	private String state;
+	
+	
+	
+	
+	
+	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	
 	
 	public String getUserId() {

@@ -132,12 +132,12 @@ $('#reserch').on('click',function(){
 			for (var i = 0; i < obj.size; i++) {
 				var state = "미차단";
 				var auth = "";
-				if(obj.list[i].authNoe == 1){auth="최고관리자";}
-				else if(obj.list[i].authNoe == 4){auth="관리자";}
-				else {auth="일반회원";};	
+				if(obj.list[i].authType == '최고 관리자'){auth="최고관리자";}
+				else if(obj.list[i].authType == '관리자'){auth="관리자";}
+				else {auth="일반회원";}
 				if(obj.list[i].state != null){state = "차단";};
 				 	 content = '<tr>';
-					 content += '<td><a href="adminUserDetail?idx='+obj.list[i].userId+'&&type=">' + obj.list[i].userId + '</td>';
+					 content += '<td><a href="adminUserDetail?userid='+obj.list[i].userId+'&&state='+state+'&&auth='+auth+'">' + obj.list[i].userId + '</td>';
 					 content += '<td>' + state + '</td>';
 					 content += '<td>' + auth + '</td>';
 					 content += '<td>' + obj.list[i].nickname + '</td>';
@@ -191,8 +191,8 @@ function listcall(page){
 			for (var i = 0; i < obj.size; i++) {
 				var state = "미차단";
 				var auth = "";
-				if(obj.list[i].authNo == 1){auth="최고관리자";}
-				else if(obj.list[i].authNo == 4){auth="관리자";}
+				if(obj.list[i].authType == '최고 관리자'){auth="최고관리자";}
+				else if(obj.list[i].authType == '관리자'){auth="관리자";}
 				else {auth="일반회원";}
 				if(obj.list[i].state != null){state = "차단";};
 				 	 content = '<tr>';

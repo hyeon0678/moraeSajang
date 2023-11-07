@@ -2,6 +2,7 @@ package kr.co.morae.admin.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,7 +50,8 @@ public class UserManagementController {
 		return "admin/adminUserDetail";
 	}
 	
-	// 회원 히스토리 리스트
+	// 회원 상세 보기 -----------------------------------------------------------------------------------------------------------------------------------
+	
 		@RequestMapping(value = "admin/userDetail.ajax/detail")
 		@ResponseBody
 		public HashMap<String,Object> userhislist (@RequestParam String userId,Model model,HttpSession session){		
@@ -86,6 +88,65 @@ public class UserManagementController {
 			
 			return result;
 		}
+		
+		@RequestMapping(value = "admin/userDetail.ajax/UBhis")
+		@ResponseBody
+		public HashMap<String,Object> UBhis (@RequestParam String userId){		
+			logger.info("차단 히스토리 리스트 ");
+			logger.info("userId : "+userId); //신고 번호
+			
+			HashMap<String, Object> result = new HashMap<String, Object>();			
+			ArrayList<HashMap<String, Object>> list = service.UBhislist(userId);		
+			
+			result.put("list", list);
+			result.put("size", list.size());			
+			logger.info("result :"+result); //신고 번호
+			
+			return result;
+		}
+		
+		@RequestMapping(value = "admin/userDetail.ajax/authsave")
+		@ResponseBody
+		public HashMap<String,Object> authsave (@RequestParam String userId,@RequestParam String auth){		
+			logger.info("authsave 권한 저장 ");
+			
+			logger.info("userId : "+userId); //아이디
+			logger.info("auth : "+auth); //아이디
+			
+			if(auth.equals("관리자")) {				
+				service.gardsave(userId);
+			}else {
+				service.nomaluser(userId);	}		
+			
+			return null;
+		}
+		
+		@RequestMapping(value = "admin/userDetail.ajax/statesave")
+		@ResponseBody
+		public HashMap<String,Object> statesave (@RequestParam String userId,@RequestParam String state
+				,@RequestParam String statehis,HttpSession session){		
+			logger.info("authsave 권한 저장 ");
+			
+			logger.info("userId : "+userId); //아이디
+			logger.info("state : "+state); //상태
+			logger.info("statehis : "+statehis); //처리 히스토리
+			// 처리자 아이디
+			UserDto dto = (UserDto) session.getAttribute("userInfo");
+			String gardid = "";
+			logger.info("gardid :"+gardid);
+			gardid = dto.getUserId();
+			logger.info("gardid :"+gardid);			
+			
+			if(state.equals("미차단")) {				
+				service.statedel(userId);
+				service.hisasave(userId,gardid,statehis);
+			}else { // 차단
+				service.stateins(userId);
+				
+			}
+			
+			return null;
+		}
 	
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,9 +159,9 @@ public class UserManagementController {
 		HashMap<String, Object> result = new HashMap<String, Object>();		
 		logger.info("page : "+page); //페이지
 		
-		ArrayList<HashMap<String, Object>> list = service.userlist(page);				
+		ArrayList<UserDto> list = service.userlist(page);				
 		result.put("list", list);
-		result.put("size", list.size());
+		result.put("size", list.size());		
 		
 		int allnum = service.allnum()+1;
 		
@@ -122,7 +183,7 @@ public class UserManagementController {
 		HashMap<String, Object> result = new HashMap<String, Object>();		
 		logger.info("page : "+page); //페이지
 		
-		ArrayList<HashMap<String, Object>> list = service.reserch(userId);
+		ArrayList<UserDto> list = service.reserch(userId);
 		
 		result.put("list", list);
 		result.put("size", list.size());

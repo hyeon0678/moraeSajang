@@ -107,6 +107,7 @@ div{
 	function gotolist(){
 		location.href='./adminReport';		
 	}//historycall
+	
 	$('#checkbox').on('click',function(){
 		alert("처리완료가 선택되어있습니다.");
 		
