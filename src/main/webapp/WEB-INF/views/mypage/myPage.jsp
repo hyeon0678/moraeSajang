@@ -473,6 +473,8 @@ body {
 					var alarmDisabled = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림 비활성화 상태 입니다."+'<p>';
 					$('#list').empty();
 					$('#list').append(alarmDisabled);
+					$('#alarmIcon').attr('src',
+					'./resources/img/Notification.png');
 				}
 			},
 			error : function(e) {
