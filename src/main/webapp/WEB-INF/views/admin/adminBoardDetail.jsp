@@ -77,6 +77,16 @@
                 </span>
             </div>
             <p id ="gbNo">글 번호: ${gbNo}</p>
+            <fieldset>
+ <div>
+ 	<label>글 상태</label>
+ 	<div>
+    <p>정상<input type="radio" id="blockN" name="blockState" value="N"/></p>
+    <p>블라인드<input type="radio" id="blockY" name="blockState" value="Y"/></p>
+    <input type ="button" id="blockbut" value="저장"/>
+ 	</div>
+ </div>
+</fieldset>
             <div 모집기간 class="smallInfo">
                 <label>모집기간</label>
                 <span>
@@ -110,13 +120,13 @@
             <div 모집장소 class="smallInfo">
                 <label for="user">사용자 평가</label>
                 <span>
-                    별로에요 : <input type="text" value="${GroupBuyDto.tradeAgainNum}" readonly/>
+                    별로에요 : <input type="text" id="tradeAgainNum" value="${GroupBuyDto.tradeAgainNum}" readonly/>
                 </span>
                 <span>
-                    그냥 그래요 : <input type="text"  value="${GroupBuyDto.justOkayNum}" readonly/>
+                    그냥 그래요 : <input type="text" id="justOkayNum" value="${GroupBuyDto.justOkayNum}" readonly/>
                 </span>
                 <span>
-                    또 거래하고싶어요 : <input type="text" value="${GroupBuyDto.notInterestedNum}" readonly/>
+                    또 거래하고싶어요 : <input type="text" id="notInterestedNum" value="${GroupBuyDto.notInterestedNum}" readonly/>
                 </span>
             </div>
             <div 금액 class="smallInfo">
@@ -151,10 +161,8 @@
     <div id="comments">
 	            
         </div>
-        <div class="container">									
-			<nav aria-label="Page navigation" style="text-align:center">
-				<ul class="pagination" id="pagination"></ul>
-			</nav>					
+        <div id="pp">
+
 		</div>
     <hr>
 </body>
@@ -188,6 +196,18 @@ function admingbdetail(){
             $('#joinPrice').val(data.GroupBuyDto.joinPrice);
             $('#category').val(data.GroupBuyDto.categoryType);
             $('#userId').val(data.GroupBuyDto.userId);
+            $('#tradeAgainNum').val(data.GroupBuyDto.tradeAgainNum);
+            $('#justOkayNum').val(data.GroupBuyDto.justOkayNum);
+            $('#notInterestedNum').val(data.GroupBuyDto.notInterestedNum);
+            var blockStateValue = data.GroupBuyDto.blockState; 
+            if (blockStateValue === 'N') {
+                $('#blockN').prop('checked', true);
+                $('#blockY').prop('checked', false);
+            } else if (blockStateValue === 'Y') {
+                $('#blockN').prop('checked', false);
+                $('#blockY').prop('checked', true);
+            }
+            
             // PhotoNames 데이터 업데이트
             var photoNames = data.PhotoNames;
             var slides = $('.slides');
@@ -241,7 +261,7 @@ function commentListCall(page,gbNo){
             if(data.comments.length==0){
             	var comments ='';
             	comments += '<p>댓글이 없습니다.</p>';
-            	$('#list').empty();
+            	$('#comments').empty();
             	$('#comments').append(comments);
             }else{                    	
             drawList(data);
@@ -254,7 +274,7 @@ function commentListCall(page,gbNo){
 }
 function drawList(obj){
 	var comments ='';
-
+	var pp ='';
 	obj.comments.forEach(function(item, idx){
 		comments += '<p style="display:none">'+item.commNo+'</p>';
 		comments += '<div id="commentHead">';
@@ -266,8 +286,15 @@ function drawList(obj){
         
         comments += '<span><button class="delete" data-commno="${item.commNo}">삭제</button>';	
 	});
-	$('#list').empty();
+	pp += '<div class="container">';
+    pp += '<nav aria-label="Page navigation" style="text-align:center">';
+    pp += '<ul class="pagination" id="pagination"></ul>';
+    pp += '</nav>';
+    pp += '</div>';
+    $('#comments').empty();
+    $('#pp').empty();
 	$('#comments').append(comments);
+	$('#pp').append(pp);
 	$('#pagination').twbsPagination({
 		startPage:showPage, // 보여줄 페이지
 		totalPages:obj.totalPage,// 총 페이지 수(총갯수/페이지당보여줄게시물수) : 서버에서 계산해서 가져와야함
@@ -277,16 +304,18 @@ function drawList(obj){
 			if(showPage != page){
 				console.log(page);
 				showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고 있는 페이지 번호도 변경해 준다.
-				$('#comments').empty();
 	            commentListCall(showPage, gbNo);
 			}
 		}
 	});
+	deleteBtn();
 }
 // 댓글 삭제 기능 만들기, 블라인드 상태 변경 버튼
+function deleteBtn(){
 	$('.delete').on('click', function(){
-		var commNo = $(this).data('commno');
+		let commNo= $(this).closest("div").prev().parent("div").prev().prev().html();
 		console.log(commNo);
+		console.log(gbNo); 
 		$.ajax({
 			type:'GET',
 			url:'Board/comment/del.ajax',
@@ -294,9 +323,9 @@ function drawList(obj){
 			dataType :'json',
 			success:function(data){
 				if(data.msg == "success"){
-					commentListCall(1)
+					showPage=1;
+					commentListCall(showPage,gbNo);
 					alert("댓글삭제를 성공했습니다.");
-					
 				}else{
 					alert("댓글삭제에 실패했습니다.")
 				}
@@ -307,6 +336,30 @@ function drawList(obj){
 					
 		});
 	});
+}
+
+$('#blockbut').on('click',function(){
+	 var blockState = $("input[name='blockState']:checked").val();
+	 console.log("선택한 블록 상태: " + blockState);
+	 $.ajax({
+			type:'GET',
+			url:'Board/blockState.ajax',
+			data: {'blockState':blockState,'gbNo':gbNo},
+			dataType :'json',
+			success:function(data){
+				if(data.msg == "success"){
+					admingbdetail()
+					alert("상태변경에 성공했습니다.");
+				}else{
+					alert("상태변경에 실패했습니다.")
+				}
+			},
+			error:function(error){
+				console.error(error)
+			}
+					
+		});
+});
 	
 
 

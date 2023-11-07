@@ -81,8 +81,16 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	@RequestMapping(value="/admin/Board/comment/del.ajax")
 	@ResponseBody
 	public Map<String, Object>adminCommentdel(@RequestParam String commNo,@RequestParam String gbNo){
-		logger.info("댓글 삭제 확인용"+commNo,gbNo);
+		logger.info("댓글 삭제 확인용"+commNo+gbNo);
 		return service.adminCommentdel(commNo,gbNo);
+	}
+	
+	@RequestMapping(value="/admin/Board/blockState.ajax")
+	@ResponseBody
+	public Map<String, Object>adminBlockState(@RequestParam String blockState,@RequestParam String gbNo){
+		logger.info(blockState);
+		logger.info("blockState 글 번호 확인: "+gbNo);
+		return service.adminBlockState(blockState,gbNo);
 	}
 	
 	

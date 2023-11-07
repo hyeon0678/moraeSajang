@@ -44,8 +44,10 @@
         #header .headerInner .util li a img{width:100%;}
 
         #msgWrite{position:relative; margin-top:100px; overflow: hidden;}
-        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #dedede; z-index: 9999;}
-        #lnb li{height:50px; text-align: center; line-height: 50px; border:1px solid #888; box-sizing: border-box;}
+        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
+        #lnb ul{margin-top:20px;}
+        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
+        #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
         #msgWrite .msgWriteInner{position:relative; left:300px; height:800px;}
         #msgWrite .msgWriteInner .msgWriteInnerBox{position:relative; width:500px; top:10%; margin:0 30%;}
         #msgWrite .msgWriteInner .msgWriteInnerBox h2{text-align: center; font-size:38px; margin-bottom: 10px;}
@@ -86,7 +88,7 @@
         <ul>
             <a href="msgRcvList"><li>받은 쪽지</li></a>
             <a href="msgSendList"><li>보낸 쪽지</li></a>
-            <a href="msgWrite"><li>쪽지 보내기</li></a>
+            <a href="msgWrite"><li class="on">쪽지 보내기</li></a>
         </ul>
     </div>
     <section id="msgWrite">

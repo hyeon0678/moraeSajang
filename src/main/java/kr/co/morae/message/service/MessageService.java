@@ -34,7 +34,7 @@ public class MessageService {
 	public int msgSend(String content, String userId, String nickName) {
 		int row = 0;
 		String rcvId = dao.nickNameId(nickName);
-		logger.info("받는 아이디 : "+rcvId+" / 보내는 아이디 : "+userId);
+		// logger.info("받는 아이디 : "+rcvId+" / 보내는 아이디 : "+userId);
 		if(!rcvId.equals(userId)) {
 			row = dao.msgSend(content, userId, rcvId);
 		}
@@ -49,7 +49,7 @@ public class MessageService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int pages = dao.rcvPages(userId);
 		
-		logger.info("받은 쪽지함 만들 수 있는 총 페이지 수 : "+pages);
+		// logger.info("받은 쪽지함 만들 수 있는 총 페이지 수 : "+pages);
 		map.put("pages", pages);
 		map.put("rcvList", list);
 		return map;
@@ -63,7 +63,7 @@ public class MessageService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int pages = dao.sendPages(userId);
 		
-		logger.info("보낸 쪽지함 만들 수 있는 총 페이지 수 : "+pages);
+		// logger.info("보낸 쪽지함 만들 수 있는 총 페이지 수 : "+pages);
 		map.put("pages", pages);
 		map.put("sendList", list);
 		return map;
@@ -75,5 +75,25 @@ public class MessageService {
 
 	public void msgRead(String messagesNo) {
 		dao.msgRead(messagesNo);
+	}
+
+	public void msgDel(String messagesNo) {
+		dao.msgDel(messagesNo);
+	}
+
+	public HashMap<String, Object> msgAlram(String userId) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		int cnt = dao.msgAlram(userId);
+		// logger.info("N의 갯수 : "+cnt);
+		result.put("cnt", cnt);
+		return result;
+	}
+
+	public void msgRcvAllDel(String userId) {
+		dao.msgRcvAllDel(userId);
+	}
+
+	public void msgSendAllDel(String userId) {
+		dao.msgSendAllDel(userId);
 	}
 }

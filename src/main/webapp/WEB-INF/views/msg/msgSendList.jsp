@@ -49,14 +49,19 @@
         #header .headerInner .util li a img{width:100%;}
 
         #msgList{position:relative; margin-top:130px; overflow: hidden;}
-        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #dedede; z-index: 99;}
-        #lnb li{height:50px; text-align: center; line-height: 50px; border:1px solid #888; box-sizing: border-box;}
+        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
+        #lnb ul{margin-top:20px;}
+        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
+        #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
+        #lnb a:hover{text-decoration:none;}
         #msgList .msgListInner{position:relative; left:300px;}
         #msgList .msgListInner .pagingArea{position: relative; width:400px; height: 36px; border: 1px solid #b7b7b7; margin:0 32%;}
         #msgList .msgListInner .msgListInnerBox{position:relative; width:700px; height:670px; margin:0 25%;}
-        #msgList .msgListInner .msgListInnerBox h2{text-align: center; font-size:38px; margin-bottom: 40px;}
+        #msgList .msgListInner .msgListInnerBox h2{text-align: center; font-size:38px; margin-bottom: 20px;}
         #msgList .msgListInner .msgListInnerBox p{font-size:30px;}
-        #msgList .msgListInner .msgListInnerBox .msgListBox{position: relative; width:700px; height:600px; margin:20px auto;}
+        #msgList .msgListInner .msgListInnerBox .allDel{position:relative; left:585px; color:#FFBC38; font-family: 'KorailRoundGothicBold';}
+        #msgList .msgListInner .msgListInnerBox .allDel:hover{text-decoration: underline;}
+        #msgList .msgListInner .msgListInnerBox .msgListBox{position: relative; width:700px; height:600px; margin:10px auto;}
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg{position:relative; height:110px; border-bottom: 1px solid #ccc; background-color: #fff7e7;}
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg:nth-child(5n+1){border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;}
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm{position:relative; width: 600px; height:110px; margin:0 auto;}
@@ -75,18 +80,12 @@
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .delImg:hover{color:#212732;}
         #msgList .msgListInner .msgListInnerBox .noMsg{text-align: center; display:none;}
         #msgList .msgListInner .msgListInnerBox .noMsg p{font-size:22px; color:#888; margin-top: 150px;}
-
-        @keyframes blinking {
-            0% { color: #FFBC38; }
-            50% { color: #FFFFFF; }
-            100% { color: #FFBC38; }
-        }
 </style>
 </head>
 <body>
 <header id="header">
         <div class="headerInner">
-            <h1 class="logo"><a href="main.html"><img src="resources/img/logo.png" alt="모래사장"></a></h1>
+            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="모래사장"></a></h1>
             <ul class="util">
                 <li><a href="javascript:"><img src="resources/img/Notification.png" alt="알림"></a></li>
                 <li><a href="javascript:"><img src="resources/img/msg.png" alt="메세지 알림"></a></li>
@@ -97,7 +96,7 @@
     <div id="lnb">
         <ul>
             <a href="msgRcvList"><li>받은 쪽지</li></a>
-            <a href="msgSendList"><li>보낸 쪽지</li></a>
+            <a href="msgSendList"><li class="on">보낸 쪽지</li></a>
             <a href="msgWrite"><li>쪽지 보내기</li></a>
         </ul>
     </div>
@@ -105,6 +104,7 @@
         <div class="msgListInner">
             <div class="msgListInnerBox">
                 <h2>보낸 쪽지</h2>
+                <a href="msgSendAllDel" class="allDel" onclick="return del()">전체삭제</a>
                 	<div class="noMsg">
                     <p>받은 쪽지가 없습니다.</p>
                     <svg width="200" height="200" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -127,6 +127,14 @@
 var showPage = 1;
 msgListCall(showPage);
 
+function del(){
+	if (confirm("한번 삭제한 자료는 복구할 방법이 없습니다. \n\n정말 삭제하시겠습니까?")) {
+		  return true;
+		}else{
+			return false;
+		}
+}
+
 	function msgListCall(page){
 		console.log(page);
 		$.ajax({
@@ -138,8 +146,10 @@ msgListCall(showPage);
 				console.log(data);
 				if(data.pages==0){
 					$('.noMsg').css('display','block');
+					$('.allDel').css('display','none');
 				}else{
 					$('.noMsg').css('display','none');
+					$('.allDel').css('display','block');
 				}
 				drawMsgSendList(data);
 			},
@@ -163,7 +173,7 @@ msgListCall(showPage);
 			var date = new Date(item.sentDate);
 			var dateStr = date.toLocaleDateString("ko-KR");
 			content += '<div class="rightArea"><p class="msgDate">'+dateStr+'</p>';
-			content += '<a href="/msgDel?messagesNo='+item.messagesNo+'"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg></a>';
+			content += '<a href="msgSendDel?messagesNo='+item.messagesNo+'" onclick="return del()"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg"><path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/></svg></a>';
 			content += '</div></li>';
 		});
 		$('.msgListBox').empty();

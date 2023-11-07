@@ -52,4 +52,20 @@
 		update messages set messageRead = 'Y' where messagesNo = #{param1}
 	</update>
 	
+	<delete id="msgDel" >
+		delete from messages where messagesNo = #{param1}
+	</delete>
+	
+	<delete id="msgRcvAllDel" >
+		delete from messages where reciever = #{param1}
+	</delete>
+	
+	<delete id="msgSendAllDel" >
+		delete from messages where sener = #{param1}
+	</delete>
+	
+	<select id="msgAlram" resultType="int">
+		select count(messageRead) from messages where reciever = #{param1} and messageRead = 'N'
+	</select>
+	
 </mapper>

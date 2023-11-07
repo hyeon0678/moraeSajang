@@ -46,8 +46,10 @@
 
         #msgList{position:relative; margin-top:150px; overflow: hidden;}
         #sendmsgList{display: none;}
-        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #dedede; z-index: 99;}
-        #lnb li{height:50px; text-align: center; line-height: 50px; border:1px solid #888; box-sizing: border-box;}
+        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
+        #lnb ul{margin-top:20px;}
+        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
+        #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
         #msgList .msgListInner{position:relative; left:300px;}
         #msgList .msgListInner .pagingArea{position: relative; width:400px; height: 36px; border: 1px solid #b7b7b7; margin:0 32%;}
         #msgList .msgListInner .msgListInnerBox{position:relative; width:700px; height:720px; margin:0 25%;}
@@ -88,7 +90,7 @@
     <div id="lnb">
         <ul>
             <a href="msgRcvList"><li>받은 쪽지</li></a>
-            <a href="msgSendList"><li>보낸 쪽지</li></a>
+            <a href="msgSendList"><li class="on">보낸 쪽지</li></a>
             <a href="msgWrite"><li>쪽지 보내기</li></a>
         </ul>
     </div>
@@ -116,7 +118,7 @@
                                     <circle cx="80" cy="256" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
                                     <circle cx="80" cy="368" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
                                 </svg></a>
-                                <a href="msgDel?messagesNo=${item.messagesNo}"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg">
+                                <a href="msgSendDel?messagesNo=${item.messagesNo}" onclick="return del()"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg">
                                     <path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"></path>
                                 </svg></a>
                             </div>
@@ -133,5 +135,12 @@
     </section>
 </body>
 <script>
+function del(){
+	if (confirm("한번 삭제한 자료는 복구할 방법이 없습니다. \n\n정말 삭제하시겠습니까?")) {
+		  return true;
+		}else{
+			return false;
+		}
+}
 </script>
 </html>
