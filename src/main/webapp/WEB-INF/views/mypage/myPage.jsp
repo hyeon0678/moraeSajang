@@ -224,6 +224,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 #btn_group button:hover {
 	color: white;
 	background-color: #FFBC38;
+	cursor: pointer;
 }
 
 #usermody {
@@ -350,8 +351,8 @@ body {
 					<td>알림 설정</td>
 					<td>
 						<div id="btn_group">
-							<button id="btn_on" value="1">ON</button>
-							<button id="btn_off" value="2">OFF</button>
+							<button id="btn_on" value="3">ON</button>
+							<button id="btn_off" value="5">OFF</button>
 						</div>
 					</td>
 				</tr>
@@ -379,29 +380,53 @@ body {
 </body>
 <script>
 
-	var authNo = '${sessionScope.userInfo.authNo}'
-	console.log(authNo);
+
 	var alarmSetNo;
+	var no = 0;
+	alarmToggle();
 	
-	if(authNo == 1){
-		$('#btn_on').css('color', 'white');
-		$('#btn_on').css('background-color', '#FFBC38');
-		$('#btn_on').attr('disabled','true');
-	} else if(authNo == 2) {
-		$('#btn_off').css('color', 'white');
-		$('#btn_off').css('background-color', '#FFBC38');
-		$('#btn_off').attr('disabled','true');
+	function alarmToggle(){
+		$.ajax({
+			type: 'get',
+			url: 'my/alarmToggle.ajax',
+			data: {},
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+				no = data;
+				if(data == 3){
+					$('#btn_on').css('color', 'white');
+					$('#btn_on').css('background-color', '#FFBC38');
+					$('#btn_on').attr('disabled','true');
+					alarmCall();
+				}else if(data == 5){
+					$('#btn_off').css('color', 'white');
+					$('#btn_off').css('background-color', '#FFBC38');
+					$('#btn_off').attr('disabled','true');
+					alarmCall();
+				}
+			},
+			error: function(e){
+				console.log(e)
+			}
+		});
+		
 	}
+
 	
 	$('#btn_on').on('click',function(e){
 		alarmSetNo = $(this).val()
 		alarmSet(alarmSetNo);
+		alarmToggle();
 	});
 	$('#btn_off').on('click',function(e){
 		alarmSetNo = $(this).val()
 		alarmSet(alarmSetNo);
+		alarmToggle();
 	});
 
+
+	
 	function alarmSet(alarmSetNo){
 		$.ajax({
 			type: 'get',
@@ -410,7 +435,7 @@ body {
 			dataType: 'json',
 			success: function(data){
 				console.log(data);
-				alarmCall();
+				location.reload();
 			},
 			error: function(e){
 				console.log(e);
@@ -427,11 +452,12 @@ body {
 		$.ajax({
 			type : 'get',
 			url : 'alarm/call.ajax',
-			data : {},
+			data : {"no":no},
 			dataType : 'json',
 			success : function(data) {
 				console.log(data.alarmState);
 				if(data.alarmState == "activate"){  // 사용자 알림 활성화 여부 확인
+
 					if (data.alarmList.length != 0) {  // 알림 리스트 개수 확인
 						$('#alarmIcon').attr('src',
 								'./resources/img/NotificationOn.png');  // 확인할 알림이 있으면 배지 붙은 아이콘 표시
@@ -445,6 +471,7 @@ body {
 					console.log("알림 차단");
 					$('#alarmChkAll').css('display', 'none');
 					var alarmDisabled = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림 비활성화 상태 입니다."+'<p>';
+					$('#list').empty();
 					$('#list').append(alarmDisabled);
 				}
 			},

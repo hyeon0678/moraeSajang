@@ -38,4 +38,8 @@ public class MypageService {
 		return dao.alarmSet(alarmSetNo,userId);
 	}
 
+	public int alarmToggle(String userId) {
+		return dao.alarmToggle(userId);
+	}
+
 }

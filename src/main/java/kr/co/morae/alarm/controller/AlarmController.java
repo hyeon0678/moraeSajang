@@ -31,14 +31,18 @@ public class AlarmController {
 	
 	@RequestMapping(value="/alarm/call.ajax")
 	@ResponseBody
-	public HashMap<String, Object> alarmCall(Model model, HttpSession session) {
+	public HashMap<String, Object> alarmCall(Model model, HttpSession session, @RequestParam int no) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
 		String userId = userInfo.getUserId();
-		//int authNo = userInfo.getAuthNo();
-		int authNo = 1;
+		int authNo = 0;
+		if(no == 0) {
+			authNo = userInfo.getAuthNo();
+		}else if(no > 0) {
+			authNo = no;
+		}
 		String alarmState = "";
-		if(authNo == 1) {
+		if(authNo == 3) {
 			ArrayList<AlarmDto> alarmList = service.alarm(userId);
 			map.put("alarmList",alarmList);
 			alarmState = "activate";

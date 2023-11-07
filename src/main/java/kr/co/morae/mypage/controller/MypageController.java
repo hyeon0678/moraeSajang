@@ -43,4 +43,14 @@ public class MypageController {
 		String userId = userInfo.getUserId();
 		return service.alarmSet(alarmSetNo,userId);
 	}
-}
+	
+	@RequestMapping(value="/my/alarmToggle.ajax")
+	@ResponseBody
+	public int alarmToggle(Model model, HttpSession session) {
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		return service.alarmToggle(userId);
+	}
+	
+	
+}	

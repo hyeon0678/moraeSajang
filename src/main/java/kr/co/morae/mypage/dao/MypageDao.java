@@ -15,4 +15,6 @@ public interface MypageDao {
 
 	int alarmSet(int alarmSetNo, String userId);
 
+	int alarmToggle(String userId);
+
 }

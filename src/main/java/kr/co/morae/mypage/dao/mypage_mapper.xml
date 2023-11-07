@@ -36,4 +36,7 @@
 		#{param2}
 	</update>
 
+	<select id="alarmToggle" resultType="int">
+		SELECT authNo FROM userAuth WHERE userId = #{param1}
+	</select>
 </mapper>
