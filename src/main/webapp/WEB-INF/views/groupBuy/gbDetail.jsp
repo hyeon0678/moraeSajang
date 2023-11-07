@@ -14,7 +14,6 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
 </head>
-<jsp:include page="/WEB-INF/views/common/alarm.jsp"/>
 <body>
 <p id ="gbNo" style="visibility: hidden">"${GroupBuyDto.gbNo}"</p>
     <div class="elem-container">
