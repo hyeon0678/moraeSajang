@@ -51,7 +51,7 @@
          <tr>
              <th>나이</th>
              <th>
-                 <input type="text" name="age" />
+                 <input type="text" name="age" placeholder="나이를 입력해주세요"/>
              </th>
          </tr>
          <tr>
@@ -412,32 +412,20 @@ function execPostCode() {
                fullRoadAddr += extraRoadAddr;
            }
 
-           let userDetailAddr = separateLocation(fullRoadAddr);
-           console.log(userDetailAddr);
-           console.log(data.zonecode);
-           console.log(fullRoadAddr);
+        
            
            
            
-          /* $("[name=addr1]").val(data.zonecode);*/
+         
            $("[name=addr1]").val(fullRoadAddr); 
-           $("[name=addr2]").val(data.jibunAddress);
+           $("[name=addr2]").val(data.bname);
            
        }
     }).open();
 }
 
 
-//   읍/면/동
-function separateLocation(addr){
-   let addrArr = addr.split(' ');
-   console.log(addrArr);
-   console.log();
-   let userDetailAddr = addrArr[addrArr.length -1];
-   userDetailAddr = userDetailAddr.replace('(','')
-   userDetailAddr = userDetailAddr.replace(')','')
-   console.log(userDetailAddr);
-}
+
 
 
 
