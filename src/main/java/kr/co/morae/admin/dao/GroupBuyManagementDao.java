@@ -47,6 +47,8 @@ public interface GroupBuyManagementDao {
 
 	GroupBuyDto admingbdetail(int i);
 
+	int adminBlockState(String blockState, String gbNo);
+
 
 
 }
