@@ -47,17 +47,26 @@
 	<mybatis-spring:scan base-package="kr.co.morae.*.dao"/>
 	
 <!-- Interceptors -->
+<!-- 
 
+ -->
 <interceptors>
 	<interceptor>
 		<mapping path="/**"/>
 		<exclude-mapping path="/resources/**"/>
 		<exclude-mapping path="/main"/>
+		<exclude-mapping path="/main/**"/>
 		<exclude-mapping path="/"/>
-		<exclude-mapping path="/login"/>
+		<exclude-mapping path="/login/**"/>
 		<exclude-mapping path="/findPw"/>
+		<exclude-mapping path="/findId.ajax"/>
 		<exclude-mapping path="/findId"/>
+		<exclude-mapping path="/loginregister"/>
 		<exclude-mapping path="/register"/>
+		<exclude-mapping path="/newPw"/>
+		<exclude-mapping path="/overlay"/>
+		<exclude-mapping path="/overemail"/>
+		<exclude-mapping path="/overnickname"/>
 		<beans:bean id="loginInterceptor" class="kr.co.morae.common.LoginInterceptor"/>
 	</interceptor>
 	<interceptor>
