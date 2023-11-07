@@ -235,6 +235,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 					$('#alarmChkAll').css('display', 'none');
 					var alarmDisabled = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림 비활성화 상태 입니다."+'<p>';
 					$('#list').append(alarmDisabled);
+					$('#alarmIcon').attr('src','./resources/img/Notification.png');
 				}
 			},
 			error : function(e) {
