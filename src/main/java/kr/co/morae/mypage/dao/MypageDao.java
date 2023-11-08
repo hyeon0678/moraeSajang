@@ -1,6 +1,7 @@
 package kr.co.morae.mypage.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import kr.co.morae.mypage.dto.MypageDto;
@@ -16,5 +17,12 @@ public interface MypageDao {
 	int alarmSet(int alarmSetNo, String userId);
 
 	int alarmToggle(String userId);
+	
+	int overnickname(String nickname);
+	
+
+	int updateData(HashMap<String, String> parmas);
+
+	int updateAddr(HashMap<String, String> parmas);
 
 }
