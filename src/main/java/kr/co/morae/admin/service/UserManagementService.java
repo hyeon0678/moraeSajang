@@ -21,7 +21,11 @@ public class UserManagementService {
 	
 	public ArrayList<UserDto> userlist(String page) {		
 		
-		int offset = (Integer.parseInt(page)-1)*10;
+		int pages = Integer.parseInt(page);
+		int offset = (pages-1)*10;
+		if (pages>1) {
+			offset=(pages-1)*10-1;
+		}
 		logger.info("offset : "+offset);		
 		
 		ArrayList<UserDto> list = dao.userlist(offset);		

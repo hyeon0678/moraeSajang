@@ -13,70 +13,96 @@
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
 
 <style>
-table, th,td{
-	border: 1px solid black;
-	border-collapse: collapse;
-	padding: 5px 10px;	
-}
-table{
-	width: 500px;
-}
+	table, th,td{
+		border: 3px  black;
+		border-style: solid none;		
+		border-color : #DEDEDE;
+		border-collapse: collapse;
+		padding: 5px 10px;	
+		margin: auto;
+		
+	}
+	table{
+		width: 900px;
+	}
+	tr.f1{
+	background-color: #F9DCA3; 
+	}
 
-div.sideber ul {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
-  width: 200px;
-  background: green;
-  height: 100%;
-  overflow: auto;
-  position: fixed;
-}
+	div.sideber ul {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px 20px 0px 20px;
+	  width: 200px;
+	  background: white;	  
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  float: left;
+	  border: 3px ;
+	 border-style: none solid none none;
+	  border-color: #F9DCA3; 
+	}
+	
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  background: white;
+	  color: gray;
+	  border: 0px solid ;
+	  border-color: #F9DCA3;
+	  font-weight: bold;
+	  margin: 10px 0px;
+	  border-radius: 15px;
+	}
+	
+	li a:hover {
+	  background: #F9DCA3;
+	  color: white;
+	  border-radius: 15px;
+	}
+		
+	li h3.page {
+	  background : white;
+	  color: gray;
+	}
+	
 
-li a {
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  color: #000;
-  font-weight: bold;
-}
-
-li a:hover {
-  background: #333;
-  color: #fff;
-}
-
-li h3.page {
-  background : blue;
-  color: red;
-}
-
-.main {
-  margin-left: 220px;
-}
+	.main {
+	  margin-left: 240px;
+	}
+	input[type="button"]{
+		background-color: #FFBC38;
+		border-color:#DEDEDE;
+		color: #212732;
+	}
+		
 </style>
 </head>
 <body>
 	<div class="sideber">
 		<ul>
 	  <li><h3 class="page">관리자 페이지</h3></li>
-	  <li><a href="#">통계</a></li>
-	  <li><a href="#">신고 관리</a></li>
-	  <li><a href="#">포인트 관리</a></li>
-	  <li><a href="#">게시판 관리</a></li>
+	  <li><a href="analysis">통계</a></li>
+	  <li><a href="adminUser" style="background: #F9DCA3;color: white;">회원 관리</a></li>
+	  <li><a href="adminReport">신고 관리</a></li>
+	  <li><a href="point">포인트 관리</a></li>
+	  <li><a href="groupBuy">게시판 관리</a></li>
 		</ul>
 	</div>
 
 	<div class="main">
-	<h3>회원 관리 리스트</h3>
-	 
-	<input type="text" name="userId" value="" placeholder="아이디를 입력해주세요."/>
-	<input type="button" id="reserch" value="검색"/>
-	<input type="button" id="return" value="전체 리스트로 돌아가기"/>
+	<h3 style=" float: left; margin: 30px 50px; ">회원 관리 리스트</h3>	<br/>
+	<div style="float:right;  display: flex;margin-left: auto; padding: 10px 53px; margin-top: 50px;">
+	<input type="text" name="userId" value="" placeholder="아이디를 입력해주세요." style="margin: 0px 5px;"/>
+	<input type="button" id="reserch" value="검색" style="margin: 0px 5px;"/>
+	<input type="button" id="return" value="전체 리스트로 돌아가기" style="margin: 0px 5px;"/>
+	</div>
 	</br>
 		<table>
 			<thead>
-				<tr>
+				<tr class="f1">
 				<th>아이디</th>
 				<th>회원상태</th>
 				<th>회원권한</th>
