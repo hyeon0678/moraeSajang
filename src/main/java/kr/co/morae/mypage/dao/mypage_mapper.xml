@@ -39,4 +39,20 @@
 	<select id="alarmToggle" resultType="int">
 		SELECT authNo FROM userAuth WHERE userId = #{param1}
 	</select>
+
+	<select id="overnickname" resultType="int">
+		SELECT COUNT(nickname) FROM user
+			WHERE nickname = #{param1}	
+	</select>
+	
+	<update id="updateData" parameterType="map">
+	UPDATE user SET nickname = #{nickname}, password = #{pw} where userId = #{id} 	
+	</update>
+	
+	<update id="updateAddr" parameterType="map">
+	UPDATE userAddress SET userDetailAddress = #{addr1} ,detailAddress = #{addr2}
+	where userId = #{id};
+	
+	</update>
+	
 </mapper>

@@ -41,5 +41,21 @@ public class MypageService {
 	public int alarmToggle(String userId) {
 		return dao.alarmToggle(userId);
 	}
+	
+	public int overnickname(String userId) {	
+		return dao.overnickname(userId);
+		
+	}
 
+	public int update(HashMap<String, String> parmas) {
+		int row = 0;
+			row = dao.updateData(parmas);
+			row = dao.updateAddr(parmas);
+			logger.info("row"+row);
+			return row;
+		}
+		
+	
+	
+	
 }
