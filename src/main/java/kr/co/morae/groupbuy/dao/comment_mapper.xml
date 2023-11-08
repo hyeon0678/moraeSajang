@@ -11,8 +11,8 @@ SELECT g.userId, g.gbNo, g.comment, g.commState, g.commNo, g.commRegDate,
 (
 SELECT nickname
 FROM user
-WHERE userid = g.userid)nickname
-FROM groupbuyingcomment g
+WHERE userId = g.userid)nickname
+FROM groupBuyingComment g
 WHERE gbNo = #{param1} AND g.commState = 'N'
 ORDER BY g.commNo 
 LIMIT 5 OFFSET #{param2};
@@ -20,24 +20,24 @@ LIMIT 5 OFFSET #{param2};
 
 <select id="getTotalComment" resultType="int">
 select count(*)
-from groupbuyingcomment
+from groupBuyingComment
 where gbNo = #{param1} and commState = 'N'
 </select>
 
 <update id="modifyComment" parameterType="hashMap">
-UPDATE groupbuyingcomment 
+UPDATE groupBuyingComment 
 SET comment = #{comment}
 WHERE gbNo=#{gbNo} and commNo=#{commNo}
 </update>
 
 <delete id="deleteComment" parameterType="hashMap">
 DELETE 
-FROM groupbuyingcomment
+FROM groupBuyingComment
 WHERE gbNo=#{gbNo} and commNo=#{commNo};
 </delete>
 
 <insert id="writeComment" parameterType="hashMap">
-insert into groupbuyingcomment (userId, gbNo, comment, commState)
+insert into groupBuyingComment (userId, gbNo, comment, commState)
 values(#{userId}, #{gbNo}, #{comment}, 'N')
 </insert>
 </mapper>

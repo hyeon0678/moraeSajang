@@ -92,16 +92,23 @@ public class GroupBuyController {
 		log.info("------------gbJoin----------------");
 		log.info("params : "+"gbNo:"+gbNo+"gbPrice:"+gbPrice);
 		UserDto info = (UserDto)session.getAttribute("userInfo");
-		boolean isJoin = gbService.gbJoin(gbNo, info.getUserId(), gbPrice);
+		String isJoin = gbService.gbJoin(gbNo, info.getUserId(), gbPrice);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		if(isJoin) {
+		
+		if(isJoin.equals("true")) {
 			log.info("공동구매 참여 완료");
-			result.put("msg", "공구 참여 완료");
+			result.put("success", "공구 참여 완료");
 			return result;
 		}
+		
+		if(isJoin.equals("balanceIssue")) {
+			log.info("잔액부족");
+			result.put("balanceIssue", "잔액이 부족하여 포인트 충전 페이지로 넘어갑니다");
+		}
+		
 		log.info("공동구매 참여 실패");
-		result.put("msg", "공동 참여 실패");
+		result.put("fail", "공구 참여 실패");
 		log.info("------------end----------------");
 		return result;
 	}

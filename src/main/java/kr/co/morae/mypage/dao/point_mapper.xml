@@ -10,11 +10,11 @@
 	</insert>
 	
 	<select id="myPoint" resultType="int" parameterType="java.lang.String">
-		SELECT SUM(value) AS totalSum
+		SELECT IFNULL(SUM(value), 0) AS totalSum
 			FROM (
-			    SELECT chargePrice AS value FROM chargehistory WHERE userId = #{param1}
+			    SELECT chargePrice AS value FROM chargeHistory WHERE userId = #{param1}
 			    UNION ALL
-			    SELECT pointMonney AS value FROM pointhistory WHERE userId = #{param1}
+			    SELECT pointMonney AS value FROM pointHistory WHERE userId = #{param1}
 			) AS totalSum;
 	</select>
 </mapper>

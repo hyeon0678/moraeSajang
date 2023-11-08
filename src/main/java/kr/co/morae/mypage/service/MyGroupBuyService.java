@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.morae.common.Paging;
 import kr.co.morae.emuns.GbStateEnum;
+import kr.co.morae.emuns.pointReasonEnum;
 import kr.co.morae.groupbuy.dao.GroupBuyDao;
 import kr.co.morae.groupbuy.dto.GbStateCheckDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
@@ -54,7 +55,6 @@ public class MyGroupBuyService {
 		log.info("success complete");
 		if(row>0) {
 			stateCheck(gbNo);
-			
 			return true;
 		}
 		return false;
@@ -63,8 +63,12 @@ public class MyGroupBuyService {
 	public void stateCheck(int gbNo) {
 		GbStateCheckDto checkDto = myGbDao.checkComplete(gbNo);
 		log.info("success stateCheck");
+		
 		if(checkDto.getRecruitPeople() == checkDto.getJoinNum()) {
 			gbDao.modifyGbState(gbNo, GbStateEnum.COMPLETE.getState());
+			gbDao.insertGbStateHistory(gbNo, GbStateEnum.COMPLETE.getState());
+			int totalPrice = checkDto.getJoinNum()*checkDto.getJoinPrice();
+			gbDao.insertPoint(gbNo, checkDto.getUserId(), totalPrice, pointReasonEnum.CALCULATE.getState());
 			log.info("success modifyState");
 		}
 	}

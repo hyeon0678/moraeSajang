@@ -43,5 +43,9 @@ public interface GroupBuyDao {
 	
 	ArrayList<GbStateCheckDto> checkGbState();
 	
+	ArrayList<String> getJoinUser(int gbNo);
+	
+	int insertGbStateHistory(int gbNo, String reason);
+	
 
 }

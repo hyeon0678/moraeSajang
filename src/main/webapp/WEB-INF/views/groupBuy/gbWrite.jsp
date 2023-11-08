@@ -13,6 +13,7 @@
 <link rel="javascript" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <link rel="stylesheet" href="<c:url value='/resources/css/gbWrite.css'/>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <jsp:include page="<c:url value='/resources/common/alarm.jsp'/>"/>
 <body>
@@ -25,14 +26,15 @@
 
             </div>
             <div>
+            	<label for="image-input" class="comm-btn file">첨부파일</label> 
                 <input type="file" id="image-input" accept="image/*">
             </div>
-            <hr>
         </div>
+        <hr>
         <div 카테고리 class="smallInfo">
-            <label for="category">카테고리</label><span class="validation">*</span>
+            <div class="label-div"><label for="category">카테고리</label><span class="validation">*</span></div>
             <span class="input-content">
-                <select type="text" id="categoryType" >
+                <select type="text" id="categoryType" class="input-value">
                     <option value="" selected disabled hidden>카테고리를 선택해주세요.</option>
                     <option value="가공 식품">가공 식품</option>
                     <option value="신선 식품">신선 식품</option>
@@ -45,35 +47,35 @@
             </span>
         </div>
         <div 모집인원 class="smallInfo">
-            <label for="recruitPeople">모집인원</label><span class="validation">*</span>
+            <div class="label-div"><label for="recruitPeople">모집인원</label><span class="validation">*</span></div>
             <span class="input-content">
-                <input type="text" id="recruitPeople"/>
+                <input type="text" id="recruitPeople" class="input-value"/>
             </span>
             <span class="validation" id="recruitValid">
 
             </span>
         </div>
         <div 금액 class="smallInfo">
-            <label for="joinPrice">금액</label><span class="validation">*</span>
+            <div class="label-div"><label for="joinPrice">금액</label><span class="validation">*</span></div>
             <span class="input-content2">
-                <input type="text" id="joinPrice"/>
+                <input type="text" id="joinPrice" class="input-value"/>
             </span>
             <span class="validation" id="joinPriceValid">
 
             </span>
         </div>
         <div 모집기간 class="smallInfo">
-            <label>모집기간</label><span class="validation">*</span>
+            <div class="label-div"><label>모집기간</label><span class="validation">*</span></div>
             <span class="input-content">
-                <input type="text" id="startDate"/>
+                <input type="text" id="startDate" class="input-value"/>
                 ~
-                <input type="text" id="finishDate"/>
+                <input type="text" id="finishDate" class="input-value"/>
             </span>
         </div>
         <div id="recruitDiv" class="smallInfo">
-            <label for="recruitLocation">모집장소</label><span class="validation">*</span>
+        	<div class="label-div"><label for="recruitLocation">모집장소</label><span class="validation">*</span></div>
             <span class="input-content" >
-                <textarea id="recruitLocation" readonly></textarea>
+                <textarea id="recruitLocation" class="input-value" readonly></textarea>
                 
             </span>
             <button class="btnClear" id="locationClear">x</button>
@@ -84,7 +86,7 @@
                 <li class="tab-link current" data-tab="recommDiv">추천장소</li>
                 <li class="tab-link" data-tab="map_wrap">장소검색</li>
             </ul>
-            <button id="selectBtn">선택하기</button>
+            <button id="selectBtn" class="comm-btn">선택하기</button>
         </div>
         <div id="recommDiv" class=" kakaoApiPosition tab-content current" >
             <div id="kakaoMapApi" class="map-position">
@@ -104,29 +106,33 @@
             </div>
             <div class="recommend place-ul-div">
                 <div class="option">
-                    <div>
-                        <form onsubmit="searchPlaces(); return false;">
-                            키워드 : <input type="text" value="" id="keyword" size="12"> 
-                            <button type="submit">검색하기</button> 
+                    <form onsubmit="searchPlaces(); return false;">
+                            <div id="info__id">
+                            	<input type="text" value="" id="keyword" size="12" placeholder="장소를 입력해주세요"> 
+                            <button type="submit"><i class="bi bi-search"></i></button> 
+                            </div>
                         </form>
-                    </div>
                 </div>
                 <div class="placeListDiv">
                     <ul id="placesList" class="ul-list"></ul>
                 </div>
             </div>
         </div>
-        <div id="titleDiv detail-info">
-            <span>제목</span><span class="validation detail-valid">*</span>
-            <input type="search" id="title"/>
+        <div id="titleDiv" class="detail-info">
+        	<div class="label-div">
+	            <span class="big-info-span">제목</span><span class="validation detail-valid">*</span>        	
+        	</div>
+            <input type="search" id="title" class="input-value"/>
         </div>
-        <div id="contentDiv detail-info">
-            <span>내용</span><span class="validation detail-valid">*</span>
-            <textarea id="gbContent"></textarea>
+        <div id="contentDiv" class="detail-info">
+            <div class="label-div">
+            	<span class="big-info-span">내용</span><span class="validation detail-valid">*</span>
+            </div>
+            <textarea id="gbContent" class="input-value"></textarea>
         </div>
     </div>
-    <div class="center">
-        <button id="submit">글쓰기</button><button id="goList">목록으로</button>
+    <div class="center bottom-btn-div">
+        <button id="submit" class="comm-btn">글쓰기</button><button id="goList" class="comm-btn">목록으로</button>
     </div>
 </body>
 
@@ -227,7 +233,7 @@
 //파일첨부 지우기 버튼 클릭 시
 	function fileDeleteClick(){
 		$('#image-container').on('click', '.delete-button', function() {
-	        var index = $(this).index()-1;
+	        var index = $(this).next().html();
 	        console.log(index);
 	        fileList.splice(index, 1);
 	        var reIndex = $(this).closest('.image-thumbnail').nextAll();
@@ -280,6 +286,15 @@
 			return false;
 		}
 		setSendData();
+		for (let key of formData.keys()) {
+			  console.log(key);
+			}
+
+			// FormData의 value 확인
+			for (let value of formData.values()) {
+			  console.log(value);
+			}
+		
         $.ajax({
             type: 'POST',
             url: 'gbWrite/register.ajax',

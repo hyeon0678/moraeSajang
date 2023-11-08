@@ -9,8 +9,25 @@ public class GbStateCheckDto {
 	private int recruitPeople;
 	private int completeCnt;
 	private int joinNum;
+	private int joinPrice;
+	private String userId;
 	
 	
+	public int getJoinPrice() {
+		return joinPrice;
+	}
+	public void setJoinPrice(int joinPrice) {
+		this.joinPrice = joinPrice;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public void setCompleteDate(Date completeDate) {
+		this.completeDate = completeDate;
+	}
 	public int getJoinNum() {
 		return joinNum;
 	}
