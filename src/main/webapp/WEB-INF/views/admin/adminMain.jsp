@@ -12,11 +12,18 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <!-- 그래프 차트 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-<!-- 도넛 차트 -->
+<style>
+table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px 10px;
+        }
+</style>
 
 </head>
 <body>
 <div id="donutChartContainer" style="position: relative;">
+	<div>거래량 TOP6</div>
 	<label for="date">날짜를 선택하세요:
         <input type="date" id="dfirstsearchdate" value="" />
         ~
@@ -27,21 +34,99 @@
   <div id="centerText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 20px; color: #333;">Your Text</div>
 </div>
 <div id="graphChartContainer" >
-	<select id="category">
-	</select>
-	<input type="button" id="csearchButton" value="검색" />
+	<div>카테고리별 거래량</div>
 	<label for="date">날짜를 선택하세요:
-        <input type="date" id="gfirstsearchdate" value="" />
+        <input type="date" id="cfirstsearchdate" value="" />
         ~
-        <input type="date" id="glastsearchdate" value="" />
-        <input type="button" id="gsearchButton" value="검색" />
+        <input type="date" id="clastsearchdate" value="" />
+        <input type="button" id="csearchButton" value="검색" />
     </label>
 <canvas id="myChart" width="450" height="350"></canvas>
 </div>
-
-
+<div id="topJoinUserContainer">
+	<label for="date">날짜를 선택하세요:
+        <input type="date" id="ufirstsearchdate" value="" />
+        ~
+        <input type="date" id="ulastsearchdate" value="" />
+        <input type="button" id="usearchButton" value="검색" />
+    </label>
+	<table>
+		<thead>
+        	<tr>
+            	<th>순위</th>
+            	<th>사용자</th>
+            	<th>모집 글</th>
+            	<th>성공 글</th>
+            	<th>성공 률</th>
+        	</tr>
+		</thead>
+    	<tbody id="topJoinUserList">
+    	</tbody>
+	</table>
+</div>
+<div id="topPointContainer">
+	<label for="date">날짜를 선택하세요:
+        <input type="date" id="pfirstsearchdate" value="" />
+        ~
+        <input type="date" id="plastsearchdate" value="" />
+        <input type="button" id="psearchButton" value="검색" />
+    </label>
+	<table>
+		<thead>
+        	<tr>
+        		<th>순위</th>
+            	<th>날짜</th>
+            	<th>포인트</th>
+        	</tr>
+		</thead>
+    	<tbody id="topPointList">
+    	</tbody>
+	</table>
+</div>
+<div id="gbStateContainer">
+	<input type="button" id="ssearchButton" value="완료" />
+	<input type="button" id="isearchButton" value="진행" />
+	<input type="button" id="fsearchButton" value="취소" />
+	<label for="date">날짜를 선택하세요:
+        <input type="date" id="bfirstsearchdate" value="" />
+        ~
+        <input type="date" id="blastsearchdate" value="" />
+        <input type="button" id="bsearchButton" value="검색" />
+    </label>
+	<table>
+		<thead>
+        	<tr>
+        		<th>순위</th>
+        		<th>날짜</th>
+            	<th>전체 건수</th>
+            	<th>진행</th>
+            	<th>비율</th>
+        	</tr>
+		</thead>
+    	<tbody id="gbStateList">
+    	</tbody>
+	</table>
+</div>
 </body>
 <script>
+const today = new Date();
+const yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1);
+
+const year = today.getFullYear();
+const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1 해주고 두 자리로 포맷
+const firstDayOfMonth = year + '-' + month + '-01';
+
+// 어제 날짜를 "yyyy-mm-dd" 형식으로 포맷
+const formattedYesterday = yesterday.getFullYear() + '-' + (yesterday.getMonth() + 1).toString().padStart(2, '0') + '-' + yesterday.getDate().toString().padStart(2, '0');
+
+function formatDateFromTimestamp(timestamp) {
+    var date = new Date(timestamp);
+    var year = date.getFullYear(); // 연도를 4자리로 가져옵니다.
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    return year + '-' + month + '-' + day;
+}
 // ------------------------------------------도넛차트--------------------------------------
 const donutChartContainer = document.getElementById('donutChartContainer');
 const centerText = document.getElementById('centerText');
@@ -103,7 +188,7 @@ const chartHeight = donutChartContainer.offsetHeight;
 
 centerText.style.top = chartHeight / 2 + 'px';
 centerText.style.left = chartWidth / 2 + 'px';
-centerText.style.transform = 'translate(-438%, -68%)';
+centerText.style.transform = 'translate(-700%, -68%)';
 // 왼쪽 : 숫자가 작아질수록 오른쪽으로 이동
 // 오른쪽 : 숫자가 작아질수록 아래쪽으로 이동
 
@@ -113,18 +198,11 @@ centerText.style.transform = 'translate(-438%, -68%)';
 
 // -------------------------도넛 차트 ajax---------------------------
 
-const today = new Date();
-const yesterday = new Date(today);
-yesterday.setDate(today.getDate() - 1);
-
-// 어제 날짜를 "yyyy-mm-dd" 형식으로 포맷
-const formattedYesterday = yesterday.getFullYear() + '-' + (yesterday.getMonth() + 1).toString().padStart(2, '0') + '-' + yesterday.getDate().toString().padStart(2, '0');
-
 // 두 개의 input 요소에 formattedYesterday 값을 설정
 const dfirstSearchDateInput = document.getElementById('dfirstsearchdate');
 const dlastSearchDateInput = document.getElementById('dlastsearchdate');
 
-dfirstSearchDateInput.value = formattedYesterday;
+dfirstSearchDateInput.value = firstDayOfMonth;
 dlastSearchDateInput.value = formattedYesterday;
 
 
@@ -175,46 +253,50 @@ function drawChartAdress(dfirstSearchDate,dlastSearchDate){
 }
 
 
-// ----------------------------------그래프 차트 --------------------------------------
+// ----------------------------------카테고리 차트 --------------------------------------
+const barChartData = {
+    labels: ['카테고리1', '카테고리2', '카테고리3', '카테고리4', '카테고리5', '카테고리6','카테고리7'],
+    datasets: [
+        {
+            label: '완료',
+            data: [1,2,3,4,5,6,7],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+        },
+        {
+            label: '진행',
+            data: [1,2,3,4,5,6,7],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+        },
+        {
+        	label: '취소',
+        	  data: [1,2,3,4,5,6,7],
+        	  backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        	  borderColor: 'rgba(255, 206, 86, 1)',
+        	  borderWidth: 1,
+        },
+    ],
+};
 const gctx = document.getElementById('myChart');
 const myChart = new Chart(gctx, {
     type: 'bar',
-    data: {
-        labels: ['React', 'Vue', 'Angular', 'Svelte', 'Ember.js', 'Backbone.js'],
-        datasets: [{
-            label: '최다 거래지역 TOP6',
-            data: [185134, 195514, 80460, 57022, 22165, 27862],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
+    data: barChartData,
     options: {
-    	responsive: false,
+        responsive: false,
         scales: {
             y: {
-                beginAtZero: true
-            }
-        }
-    }
+                beginAtZero: true,
+            },
+        },
+    },
 });
+// --------------------------------------카테고리 차트 ajax--------------------------------
+/* 카테고리 그리기
 const categorySelect = document.getElementById('category');
 drawcategory();
-// --------------------------------------카테고리 차트 ajax--------------------------------
 function drawcategory(){
 	$.ajax({
 		type:'GET',
@@ -235,7 +317,228 @@ function drawcategory(){
 		}	
 	});
 }
+*/
 
+const cfirstSearchDateInput = document.getElementById('cfirstsearchdate');
+const clastSearchDateInput = document.getElementById('clastsearchdate');
 
+cfirstSearchDateInput.value = firstDayOfMonth;
+clastSearchDateInput.value = formattedYesterday;
+
+drawChartCategory(cfirstSearchDateInput.value,clastSearchDateInput.value)
+function drawChartCategory(cfirstSearchDate,clastSearchDate){
+	$.ajax({
+		type:'GET',
+		url:'analysis/drawChartCategory.ajax',
+		data:{'cfirstSearchDate':cfirstSearchDate,'clastSearchDate':clastSearchDate},
+		dataType :'json',
+		success:function(data){
+		    console.log(data);
+		    const labels = data.chartCategory.map(function (item) {
+	            return item.categoryType;
+	        });
+		    const sucCate = data.chartCategory.map(function (item) {
+		    	return item.sucCate;
+	        });
+		    const ingCate = data.chartCategory.map(function (item) {
+		    	return item.ingCate;
+	        });
+		    const falCate = data.chartCategory.map(function (item) {
+		    	return item.falCate;
+	        });
+
+	        myChart.data.labels = labels;
+	        myChart.data.datasets[0].data = sucCate;
+	        myChart.data.datasets[1].data = ingCate;
+	        myChart.data.datasets[2].data = falCate;
+	        myChart.update(); // 데이터를 받은 후에 차트 업데이트를 호출합니다.
+		    /*
+
+		    const topAddresses = data.chartAdress.map(function (item) {
+		        return item.topAddress;
+		    });
+
+		    // 도넛 차트 데이터 업데이트
+		    myDonutChart.data.datasets[0].data = topAddresses;
+		    */
+		},
+		error:function(error){
+			console.error(error)
+		}	
+	});
+}
+//카테고리 그래프 날짜 검색 버튼 클릭 
+document.getElementById('csearchButton').addEventListener('click', function () {
+	  const cfirstSearchDate = cfirstSearchDateInput.value;
+	  const clastSearchDate = clastSearchDateInput.value;
+	  drawChartCategory(cfirstSearchDate, clastSearchDate);
+	});
+	
+//----------------------------------최다 모집자-------------------------------------
+const ufirstSearchDateInput = document.getElementById('ufirstsearchdate');
+const ulastSearchDateInput = document.getElementById('ulastsearchdate');
+
+ufirstSearchDateInput.value = firstDayOfMonth;
+ulastSearchDateInput.value = formattedYesterday;
+
+drawTopUser(ufirstSearchDateInput.value,ulastSearchDateInput.value)
+function drawTopUser(ufirstSearchDate,ulastSearchDate){
+	$.ajax({
+		type:'GET',
+		url:'analysis/drawTopUser.ajax',
+		data:{'ufirstSearchDate':ufirstSearchDate,'ulastSearchDate':ulastSearchDate},
+		dataType :'json',
+		success:function(data){
+		    console.log(data);
+		    var content ='';
+		    if(data.topUser.length==0){
+		    	content +='<tr>';
+		    	content +='<td>"검색 결과가 없습니다"</td>';
+		    	content +='</tr>';
+		    }else{
+		    	data.topUser.forEach(function(item, idx){
+		    		idx = idx + 1;
+		    		content +='<tr>';
+		    		content +='<td>'+idx+'</td>';
+		    		content +='<td>'+item.userId+'</td>';
+		    		content +='<td>'+item.al+'</td>';
+		    		content +='<td>'+item.su+'</td>';
+		            content += '<td>' +item.sucrate+ '%' + '</td>'
+		    		content +='</tr>';
+		    	});
+		    }
+				$('#topJoinUserList').empty();
+				$('#topJoinUserList').append(content);
+		},
+		error:function(error){
+			console.error(error)
+		}	
+	});
+}
+
+// 최다 모집자 유저 날짜 검색 
+document.getElementById('usearchButton').addEventListener('click', function () {
+	  const ufirstSearchDate = ufirstSearchDateInput.value;
+	  const ulastSearchDate = ulastSearchDateInput.value;
+	  drawTopUser(ufirstSearchDate, ulastSearchDate);
+	});
+	
+	
+//--------------------------------------------충전 포인트-----------------------------------
+const pfirstSearchDateInput = document.getElementById('pfirstsearchdate');
+const plastSearchDateInput = document.getElementById('plastsearchdate');
+
+pfirstSearchDateInput.value = firstDayOfMonth;
+plastSearchDateInput.value = formattedYesterday;
+
+drawTopPoint(pfirstSearchDateInput.value,plastSearchDateInput.value);
+function drawTopPoint(pfirstSearchDate,plastSearchDate){
+	$.ajax({
+		type:'GET',
+		url:'analysis/drawTopPoint.ajax',
+		data:{'pfirstSearchDate':pfirstSearchDate,'plastSearchDate':plastSearchDate},
+		dataType :'json',
+		success:function(data){
+		    console.log(data);
+		    var content ='';
+		    if(data.topPoint.length==0){
+		    	content +='<tr>';
+		    	content +='<td>"검색 결과가 없습니다"</td>';
+		    	content +='</tr>';
+		    }else{
+		    	data.topPoint.forEach(function(item, idx){
+		    		idx += 1;
+		    		content +='<tr>';
+		    		content +='<td>'+idx+'</td>';
+		    		content +='<td>'+formatDateFromTimestamp(item.chargeDate)+'</td>';
+		    		content +='<td>'+item.chargePoint+'</td>';
+		    		content +='</tr>';
+		    	});
+		    }
+				$('#topPointList').empty();
+				$('#topPointList').append(content);
+		},
+		error:function(error){
+			console.error(error)
+		}	
+	});
+}
+
+//최다 포인트 날짜 검색 
+document.getElementById('psearchButton').addEventListener('click', function () {
+	  const pfirstSearchDate = pfirstSearchDateInput.value;
+	  const plastSearchDate = plastSearchDateInput.value;
+	  drawTopPoint(pfirstSearchDate, plastSearchDate);
+	});
+	
+	
+//---------------------------------------------공동구매 계시글 현황----------------------------------
+const bfirstSearchDateInput = document.getElementById('bfirstsearchdate');
+const blastSearchDateInput = document.getElementById('blastsearchdate');
+
+bfirstSearchDateInput.value = firstDayOfMonth;
+blastSearchDateInput.value = formattedYesterday;
+
+var stateBar = '완료';
+drawgbState(stateBar,bfirstSearchDateInput.value,blastSearchDateInput.value);
+
+function drawgbState(stateBar,bfirstSearchDate,blastSearchDate){
+	$.ajax({
+		type:'GET',
+		url:'analysis/drawgbState.ajax',
+		data:{'stateBar':stateBar,'bfirstSearchDate':bfirstSearchDate,'blastSearchDate':blastSearchDate},
+		dataType :'json',
+		success:function(data){
+		    console.log(data);
+		    var content ='';
+		    if(data.gbState.length==0){
+		    	content +='<tr>';
+		    	content +='<td>"검색 결과가 없습니다"</td>';
+		    	content +='</tr>';
+		    }else{
+		    	data.gbState.forEach(function(item, idx){
+		    		idx += 1;
+		    		content +='<tr>';
+		    		content +='<td>'+idx+'</td>';
+		    		content +='<td>'+formatDateFromTimestamp(item.stateUpDate)+'</td>';
+		    		content +='<td>'+item.stateall+'</td>';
+		    		content +='<td>'+item.stateing+'</td>';
+		    		content +='<td>'+item.stateper+'</td>';
+		    		content +='</tr>';
+		    	});
+		    }
+				$('#gbStateList').empty();
+				$('#gbStateList').append(content);
+		},
+		error:function(error){
+			console.error(error)
+		}	
+	});
+}
+
+document.getElementById('bsearchButton').addEventListener('click', function () {
+	  const bfirstSearchDate = bfirstSearchDateInput.value;
+	  const blastSearchDate = blastSearchDateInput.value;
+	  drawgbState(stateBar,bfirstSearchDate,blastSearchDate);
+	});
+	
+$('#ssearchButton').on('click',function(){
+	stateBar = $(this).val();
+	const bfirstSearchDate = bfirstSearchDateInput.value;
+	const blastSearchDate = blastSearchDateInput.value;
+	drawgbState(stateBar,bfirstSearchDate,blastSearchDate)
+});
+$('#isearchButton').on('click',function(){
+	stateBar = $(this).val();
+	const bfirstSearchDate = bfirstSearchDateInput.value;
+	  const blastSearchDate = blastSearchDateInput.value;
+	drawgbState(stateBar,bfirstSearchDate,blastSearchDate)
+});
+$('#fsearchButton').on('click',function(){
+	stateBar = $(this).val();
+	const bfirstSearchDate = bfirstSearchDateInput.value;
+	  const blastSearchDate = blastSearchDateInput.value;
+	drawgbState(stateBar,bfirstSearchDate,blastSearchDate)
+});
 </script>
 </html>
