@@ -1,5 +1,6 @@
 package kr.co.morae.admin.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -30,9 +31,41 @@ public class AnalysisContoller {
 	}
 	
 	// 카테고리 목록 그리기
+	/*
 	@RequestMapping(value="/admin/analysis/drawcategory.ajax")
 	@ResponseBody
 	public Map<String, Object>drawcategory(){
 		return service.drawcategory();
+	}
+	*/
+	
+	// 카테고리 그래프
+	@RequestMapping(value="/admin/analysis/drawChartCategory.ajax")
+	@ResponseBody
+	public Map<String, Object>adminanalysisCategory(
+			@RequestParam String cfirstSearchDate,@RequestParam String clastSearchDate){
+		return service.adminanalysisCategory(cfirstSearchDate,clastSearchDate);
+	}
+	
+	// 최다 모집자 순위표
+	@RequestMapping(value="/admin/analysis/drawTopUser.ajax")
+	@ResponseBody
+	public Map<String, Object>adminanalysisTopUser(@RequestParam String ufirstSearchDate,@RequestParam String ulastSearchDate){
+		return service.adminanalysisTopUser(ufirstSearchDate,ulastSearchDate);
+	}
+	
+	// 충전 포인트 순위표
+	@RequestMapping(value="/admin/analysis/drawTopPoint.ajax")
+	@ResponseBody
+	public Map<String, Object>adminanalysisTopPoint(@RequestParam String pfirstSearchDate,@RequestParam String plastSearchDate){
+		return service.adminanalysisTopPoint(pfirstSearchDate,plastSearchDate);
+	}
+	
+	// 공동구매 합계 순위표
+	@RequestMapping(value="/admin/analysis/drawgbState.ajax")
+	@ResponseBody
+	public Map<String, Object>adminanalysisgbState(
+			@RequestParam HashMap<String, Object> gbParams){
+		return service.adminanalysisgbState(gbParams);
 	}
 }

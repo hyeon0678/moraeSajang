@@ -212,4 +212,10 @@ WHERE gb.gbNo = #{param1};
 <update id="adminBlockState">
 UPDATE groupbuyingpost SET blockState = #{param1} WHERE gbNo = #{param2}
 </update>
+<update id="admingbState">
+UPDATE groupbuyingpost
+SET gbState = '취소'
+WHERE gbNo = #{param1}
+AND recruitPeople != (SELECT COUNT(userId) FROM groupbuyingjoining WHERE gbNo = #{param1});
+</update>
 </mapper>
