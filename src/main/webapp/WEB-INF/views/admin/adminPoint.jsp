@@ -16,6 +16,71 @@
             padding: 5px 10px;
         }
 
+	table, th,td{
+		border: 3px  black;
+		border-style: solid none;		
+		border-color : #DEDEDE;
+		border-collapse: collapse;
+		padding: 5px 10px;	
+		margin: auto;
+		
+	}
+	table{
+		width: 900px;
+	}
+	tr.f1{
+	background-color: #F9DCA3; 
+	}
+
+	div.sideber ul {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px 20px 0px 20px;
+	  width: 200px;
+	  background: white;	  
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  float: left;
+	  border: 3px ;
+	 border-style: none solid none none;
+	  border-color: #F9DCA3; 
+	}
+	
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  background: white;
+	  color: gray;
+	  border: 0px solid ;
+	  border-color: #F9DCA3;
+	  font-weight: bold;
+	  margin: 10px 0px;
+	  border-radius: 15px;
+	}
+	
+	li a:hover {
+	  background: #F9DCA3;
+	  color: white;
+	  border-radius: 15px;
+	}
+		
+	li h3.page {
+	  background : white;
+	  color: gray;
+	}
+	
+
+	.main {
+	  margin-left: 240px;
+	}
+	input[type="button"]{
+		background-color: #FFBC38;
+		border-color:#DEDEDE;
+		color: #212732;
+	}
+
         select {
             margin: 5px 0px;
         }
@@ -25,45 +90,59 @@
     </style>
 </head>
 <body>
-<th>
-    <input type="button" id="chargePoint" value="사용자 충전 내역" />
-    <input type="button" id="pointHistory" value="사용자 거래 내역" />
-    <label for="date">날짜를 선택하세요:
-        <input type="date" id="firstsearchdate" value="" />
-        ~
-        <input type="date" id="lastsearchdate" value="" />
-        <input type="button" id="searchButton" value="검색" />
-    </label>
-</th>
-<table id="pointChargeTable">
-    <thead>
-        <tr>
-            <th>충전 번호</th>
-            <th>사용자 아이디</th>
-            <th>금액</th>
-            <th id="mm">날짜</th>
-            <th>입금자 명</th>
-        </tr>
-    </thead>
-    <tbody id="list">
-    </tbody>
-</table>
-<div id="contentContainer"class="hidden">
-<table>
-    <thead>
-        <tr>
-            <th>포인트 번호</th>
-            <th>식별 번호</th>
-            <th>제목</th>
-            <th>사용자 ID</th>
-            <th>금액</th>
-            <th>거래사유</th>
-            <th id="mm">날짜</th>
-        </tr>
-    </thead>
-    <tbody id="list">
-    </tbody>
-</table>
+
+  <div class="sideber">
+		<ul>
+	  <li><h3 class="page">관리자 페이지</h3></li>
+	  <li><a href="analysis">통계</a></li>
+	  <li><a href="adminUser">회원 관리</a></li>
+	  <li><a href="adminReport">신고 관리</a></li>
+	  <li><a href="point" style="background: #F9DCA3;color: white;" >포인트 관리</a></li>
+	  <li><a href="groupBuy">게시판 관리</a></li>
+		</ul>
+	</div>
+	
+	<div style="margin: 0px 0px 0px 250px">
+		<div style="float:right; display: flex; padding: 10px 35px; margin-left: auto;  margin-top: 40px">
+		    <input type="button" id="chargePoint" value="사용자 충전 내역" style="margin: 0px 5px" />
+		    <input type="button" id="pointHistory" value="사용자 거래 내역" style="margin: 0px 5px" />
+		    <label for="date" style="margin: 0px 5px">날짜를 선택하세요:
+		        <input type="date" id="firstsearchdate" value="" />
+		        ~
+		        <input type="date" id="lastsearchdate" value="" />
+		        <input type="button" id="searchButton" value="검색" style="margin: 0px 5px"/>
+		    </label>
+		</div>
+		<table id="pointChargeTable">
+		    <thead>
+		        <tr class="f1">
+		            <th>충전 번호</th>
+		            <th>사용자 아이디</th>
+		            <th>금액</th>
+		            <th id="mm">날짜</th>
+		            <th>입금자 명</th>
+		        </tr>
+		    </thead>
+		    <tbody id="list">
+		    </tbody>
+		</table>
+		<div id="contentContainer"class="hidden">
+		<table>
+		    <thead>
+		        <tr class="f1">
+		            <th>포인트 번호</th>
+		            <th>식별 번호</th>
+		            <th>제목</th>
+		            <th>사용자 ID</th>
+		            <th>금액</th>
+		            <th>거래사유</th>
+		            <th id="mm">날짜</th>
+		        </tr>
+		    </thead>
+		    <tbody id="list">
+		    </tbody>
+		</table>
+		</div>
 </div>
 <script>
 function formatDateFromTimestamp(timestamp) {
@@ -219,7 +298,7 @@ function drawList(obj){
 	var pp ='';
 	
 	obj.list.forEach(function(item, idx){
-		content +='<tr>';
+		content +='<tr >';
 		content +='<td>'+item.chargeNo+'</td>';
 		content +='<td>'+item.userId+'</td>';
 		content +='<td>'+item.chargePrice+'</td>';
@@ -399,7 +478,7 @@ function drawHistoryList(obj){
 	var content ='';
 	var pp = '';
 	obj.list.forEach(function(item, idx){
-		content +='<tr>';
+		content +='<tr >';
 		content +='<td>'+item.pointNo+'</td>';
 		content +='<td>'+item.gbNo+'</td>';
 		content +='<td>'+item.title+'</td>';

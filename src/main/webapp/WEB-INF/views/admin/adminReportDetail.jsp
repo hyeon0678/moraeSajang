@@ -7,22 +7,83 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-div{
-    border: 1px solid black;
+div.under{
+   border: 3px  black;
+	border-style: solid none;		
+	border-color : #DEDEDE;
     border-collapse: collapse;
-    padding: 5px 5px 0px 5px;
-    margin: 5px;
+    padding: 5px 5px 0px 5px;   
     font-size: 15px;
+    border-style: none none solid none;
 }
-
+div.sideber ul {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px 0px 0px 20px;
+	  width: 200px;
+	  background: white;	  
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  float: left;
+	  border: 3px ;
+	 border-style: none solid none none;
+	  border-color: #F9DCA3; 
+	}
+	
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  background: white;
+	  color: gray;
+	  border: 0px solid ;
+	  border-color: #F9DCA3;
+	  font-weight: bold;
+	  margin: 10px 0px;
+	  border-radius: 15px;
+	}
+	
+	li a:hover {
+	  background: #F9DCA3;
+	  color: white;
+	  border-radius: 15px;
+	}
+		
+	li h3.page {
+	  background : white;
+	  color: gray;
+	}
+	
+	.main {
+	  margin-left: 220px;
+	}
+	
+	input[type="button"]{
+	background-color: #FFBC38;
+	border-color:#DEDEDE;
+	color: #212732;
+	}
 
 </style>
 </head>
 <body>
-	<button onclick="gotolist()">리스트로 돌아가기</button>
-	<div style="width: 1000px; height: 40px; padding-top: 20px;">
+	<div class="sideber">
+		<ul>
+	  <li><h3 class="page">관리자 페이지</h3></li>
+	  <li><a href="analysis">통계</a></li>
+	  <li><a href="adminUser">회원 관리</a></li>
+	  <li><a href="adminReport" style="background: #F9DCA3;color: white;">신고 관리</a></li>
+	  <li><a href="point">포인트 관리</a></li>
+	  <li><a href="groupBuy">게시판 관리</a></li>
+		</ul>
+	</div>
+	
+	<div style="margin: 0px 0px 0px 300px;" class="reportmain"	>
+	<button onclick="gotolist()" style="margin: 0px 0px 0px 900px">리스트로 돌아가기</button>
+	<div style="width: 1000px; height: 40px; padding-top: 20px;" >		
 		<div style="width: 475px; float: left; height: 20px;"><span style="font-weight: 600;">신고 상세보기</span></div>
-		<div style="width: 475px; float: left; height: 20px;"><span style="text-align: right;">신고 번호 : ${report.reportNo}</span></div>
+		<div style="width: 475px; float: right; height: 20px;"><span style="text-align: right;">신고 번호 : ${report.reportNo}</span></div>		
 	</div>	
 	<div style="width: 1000px; height: 40px;">
 		<div style="width: 970px; float: left;height: 20px;"><span>신고자 아이디 : ${report.userId}</span>  /  
@@ -48,6 +109,7 @@ div{
     <div style="width: 1000px; float: left;" id="historylist">
         
     </div>	 
+	</div>
 </body>
 <script>
     var showpage =1;
@@ -78,9 +140,9 @@ div{
     function drawlist(obj){
     	
     	console.log(obj);
-    	var content ='';
     	// '+obj.list[i].+'  '+obj.list[i].reportProcessNo+'
     	for (var i = 0; i < obj.size; i++) {
+    	var content ='';
     		content += '<div style="width: 990px;">';
     		content += '<div style="width: 970px; height: 35px;">';
     		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리번호 : '+obj.list[i].reportProcessNo+'</span></div>';
@@ -114,18 +176,24 @@ div{
 	});	
 	
 	function historyput(){		
+		
+		if ($("textarea[name = content]").val() == "") {
+			alert("신고 히스토리를 입력 해주세요");
+			
+		}else {
 		var $state = $("input[type=checkbox][name=hisstate]:checked").val();
 		var $content = $("textarea[name = content]").val();
 		var $reportNo = ${report.reportNo};
-		// if($state == "처리완료"){
-		// if (confirm("처리완료가 선택 되어 있습니다.") == true) {
+		 //if($state == "처리완료"){}
+		 //if (confirm("처리완료가 선택 되어 있습니다.") == true) {}
 				console.log($state);
 				console.log($content);
 				console.log($reportNo);
 				if ($state != "처리완료") {
-					$state = "미처리";			
+					$state = $("input[type=checkbox][name=hisstate]:checked").val();			
 					console.log("미처리 :"+$state);
-				}
+				}				
+				
 				$.ajax({
 					type:'post',
 					url:'ReportDetail.ajax/historyput',
@@ -140,10 +208,13 @@ div{
 					}	
 				});//
 				$("textarea[name = content]").val('');
-				//histroycall();
+				histroycall();
+				alert("신고 히스토리가 저장 되었습니다.");
+				
 			//}else {
 				//location.href='./adminReport';	}
 			// alert("처리완료가 선택되어있습니다.")
+			}
 		}
 		
 		

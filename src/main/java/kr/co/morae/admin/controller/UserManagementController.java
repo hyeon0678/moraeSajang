@@ -142,7 +142,7 @@ public class UserManagementController {
 				service.hisasave(userId,gardid,statehis);
 			}else { // 차단
 				service.stateins(userId);
-				
+				service.hisasave(userId,gardid,statehis);
 			}
 			
 			return null;
