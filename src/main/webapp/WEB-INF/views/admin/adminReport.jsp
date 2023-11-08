@@ -14,73 +14,98 @@
 
 <style>
 table, th,td{
-	border: 1px solid black;
-	border-collapse: collapse;
-	padding: 5px 10px;	
-}
-table{
-	width: 500px;
-}
+		border: 3px  black;
+		border-style: solid none;		
+		border-color : #DEDEDE;
+		border-collapse: collapse;
+		padding: 5px 10px;	
+		margin: auto;
+		
+	}
+	table{
+		width: 900px;
+	}
+	tr.f1{
+	background-color: #F9DCA3; 
+	}
 
-div.sideber ul {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
-  width: 200px;
-  background: green;
-  height: 100%;
-  overflow: auto;
-  position: fixed;
-}
+	div.sideber ul {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px 20px 0px 20px;
+	  width: 200px;
+	  background: white;	  
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  float: left;
+	  border: 3px ;
+	 border-style: none solid none none;
+	  border-color: #F9DCA3; 
+	}
+	
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  background: white;
+	  color: gray;
+	  border: 0px solid ;
+	  border-color: #F9DCA3;
+	  font-weight: bold;
+	  margin: 10px 0px;
+	  border-radius: 15px;
+	}
+	
+	li a:hover {
+	  background: #F9DCA3;
+	  color: white;
+	  border-radius: 15px;
+	}
+		
+	li h3.page {
+	  background : white;
+	  color: gray;
+	}
+	
 
-li a {
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  color: #000;
-  font-weight: bold;
-}
-
-li a:hover {
-  background: #333;
-  color: #fff;
-}
-
-li h3.page {
-  background : blue;
-  color: red;
-}
-
-.main {
-  margin-left: 220px;
-}
+	.main {
+	  margin-left: 240px;
+	}
+	input[type="button"]{
+		background-color: #FFBC38;
+		border-color:#DEDEDE;
+		color: #212732;
+	}
 </style>
 </head>
 <body>
 	<div class="sideber">
 		<ul>
 	  <li><h3 class="page">관리자 페이지</h3></li>
-	  <li><a href="#">통계</a></li>
-	  <li><a href="#">신고 관리</a></li>
-	  <li><a href="#">포인트 관리</a></li>
-	  <li><a href="#">게시판 관리</a></li>
+	  <li><a href="analysis">통계</a></li>
+	  <li><a href="adminUser" >회원 관리</a></li>
+	  <li><a href="adminReport" style="background: #F9DCA3;color: white;">신고 관리</a></li>
+	  <li><a href="point">포인트 관리</a></li>
+	  <li><a href="groupBuy">게시판 관리</a></li>
 		</ul>
 	</div>
-
-	<div class="main">
-	<h3>신고 리스트</h3>
-	 <select id="pageState">
+	<div class="main">	
+	<h3 style=" float: left; margin: 30px 50px; ">신고 리스트</h3><br/>
+	<div style="float:right;  display: flex;margin-left: auto; padding: 10px 53px; margin-top: 50px;">
+	 <select id="pageState" style="margin: 0px 5px">
 		<option values="전체">전체</option>
 		<option values="미처리">미처리</option>
 		<option values="처리완료">처리완료</option>
 	</select>
-	<input type="text" name="uniqueNo" value="" placeholder="글/댓글번호를 입력해주세요."/>
-	<input type="button" id="reserch" value="검색"/>
-	<input type="button" id="return" value="전체 리스트로 돌아가기"/>
+	<input type="text" name="uniqueNo" value="" placeholder="글/댓글번호를 입력해주세요." style="margin: 0px 5px"/>
+	<input type="button" id="reserch" value="검색" style="margin: 0px 5px"/>
+	<input type="button" id="return" value="전체 리스트로 돌아가기" style="margin: 0px 5px"/>
+	</div>
 	</br>
 		<table>
 			<thead>
-				<tr>
+				<tr class="f1">
 				<th>신고 번호</th>
 				<th>신고자</th>
 				<th>신고날짜</th>
