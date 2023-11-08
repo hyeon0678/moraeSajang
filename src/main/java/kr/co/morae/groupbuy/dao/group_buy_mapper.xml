@@ -22,7 +22,7 @@ VALUES (#{param1}, #{param2});
 
 <!-- 지역 저장 -->
 <insert id="gbRegionRegister" parameterType="kr.co.morae.groupbuy.dto.GroupBuyDto">
-INSERT INTO groupbuyingregions (gbNo, parcelAddress, gbDetailAddress, place)
+INSERT INTO groupBuyingRegions (gbNo, parcelAddress, gbDetailAddress, place)
 VALUES(#{gbNo}, #{parcelAddress}, #{gbDetailAddress}, #{place});
 </insert>
 
@@ -38,15 +38,15 @@ SELECT gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.start
      FROM groupBuyingJoining 
      WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople,  
     (SELECT count(reviewNo)
-     FROM userreview u2 
+     FROM userReview u2 
      WHERE u2.userId = 'gb.userId' and u2.reviewNo = 1
     ) tradeAgain,
     (SELECT COUNT(reviewNo)
-     FROM userreview u2 
+     FROM userReview u2 
      WHERE u2.userId = 'gb.userId' and u2.reviewNo = 2
     ) justOkay, 
     (SELECT count(reviewNo)
-     FROM userreview u2 
+     FROM userReview u2 
      WHERE u2.userId = 'gb.userId' and u2.reviewNo = 3
     ) notInterested,
     (SELECT count(g.userId)
@@ -55,7 +55,7 @@ SELECT gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.start
     ) isJoining
 FROM 
     groupBuyingPost gb 
-    LEFT OUTER JOIN groupbuyingregions loc on gb.gbNo = loc.gbNo
+    LEFT OUTER JOIN groupBuyingRegions loc on gb.gbNo = loc.gbNo
     LEFT OUTER JOIN category c on gb.categoryNo=c.categoryNo 
 WHERE gb.gbNo = #{param1};
 </select>
@@ -64,7 +64,7 @@ WHERE gb.gbNo = #{param1};
 <!-- 사진 이름 가져오기 -->
 <select id="getPhotoNames" parameterType="int" resultType="String">
 SELECT newName
-FROM groupbuyingimage 
+FROM groupBuyingImage 
 WHERE gbNo = #{param1}
 
 </select>
@@ -72,26 +72,28 @@ WHERE gbNo = #{param1}
 <select id="isgbJoining" resultType="hashMap" >
 SELECT recruitPeople, userId ,
 (SELECT count(userId)
-FROM groupbuyingjoining g2 
+FROM groupBuyingJoining g2 
 WHERE g2.gbNo =#{param1})joinPeople,
 (SELECT count(userId)
-FROM groupbuyingjoining g2 
+FROM groupBuyingJoining g2 
 WHERE g2.gbNo =#{param1} AND g2.userId = #{param2}) isgbJoining
-FROM groupbuyingpost
+FROM groupBuyingPost
 WHERE gbNo = #{param1};
 </select>
 
 <!-- 공구 참여 -->
 <insert id="gbJoin">
-insert into groupbuyingjoining (gbNo, userId, joinDate, joinState)
+insert into groupBuyingJoining (gbNo, userId, joinDate, joinState)
 values (#{param1}, #{param2}, curDate(),'N');
 </insert>
 
-<!-- 공구 참여 포인트 차감 -->
+<!-- 공구 참여 포인트 증감 -->
 <insert id="insertPoint">
-insert into pointhistory (gbNo, userId, pointMonney, pointReason, pointDate)
+insert into pointHistory (gbNo, userId, pointMonney, pointReason, pointDate)
 values (#{param1}, #{param2}, #{param3}, #{param4}, curdate());
 </insert>
+
+
 
 <!-- 공구글 상태 변경 -->
 <update id="modifyGbState">
@@ -123,20 +125,20 @@ SELECT gb.gbNo, gb.recruitPeople, gb.title, gb.finishDate, gb.startDate, gb.join
      FROM groupBuyingJoining 
      WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople,
      (SELECT g2.newName
-     FROM groupbuyingimage g2
+     FROM groupBuyingImage g2
      WHERE g2.gbNo = gb.gbNo
      ORDER BY g2.imgNo
-     LIMIT 1) newName 
+     LIMIT 1) firstFileName 
 FROM 
     groupBuyingPost gb 
-    LEFT OUTER join groupbuyingregions loc ON gb.gbNo = loc.gbNo
+    LEFT OUTER join groupBuyingRegions loc ON gb.gbNo = loc.gbNo
     LEFT OUTER join category c ON gb.categoryNo=c.categoryNo
 WHERE gb.blockState = 'N' AND gb.gbState like '진행'
     <if test="'all'==region and category != 0 and keyWord == null">
         AND c.categoryNo=#{category}
     </if>
     <if test="'all'==region and category == 0 and keyWord != null">
-        gb.title LIKE CONCAT('%',#{keyWord},'%')
+        AND gb.title LIKE CONCAT('%',#{keyWord},'%')
     </if>
     <if test="'all'==region and category != 0 and keyWord != null">
         AND c.categoryNo=#{category} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
@@ -162,14 +164,14 @@ WHERE gb.blockState = 'N' AND gb.gbState like '진행'
 SELECT count(gb.gbNo) totalCnt
 FROM 
     groupBuyingPost gb 
-    LEFT OUTER join groupbuyingregions loc ON gb.gbNo = loc.gbNo
+    LEFT OUTER join groupBuyingRegions loc ON gb.gbNo = loc.gbNo
     LEFT OUTER join category c ON gb.categoryNo=c.categoryNo
 WHERE gb.blockState = 'N' AND gb.gbState like '진행'
     <if test="'all'==region and category != 0 and keyWord == null">
         AND c.categoryNo=#{category}
     </if>
     <if test="'all'==region and category == 0 and keyWord != null">
-        gb.title LIKE CONCAT('%',#{keyWord},'%')
+        AND gb.title LIKE CONCAT('%',#{keyWord},'%')
     </if>
     <if test="'all'==region and category != 0 and keyWord != null">
         AND c.categoryNo=#{category} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
@@ -192,14 +194,20 @@ WHERE gb.blockState = 'N' AND gb.gbState like '진행'
 
 <select id="checkGbState" resultType="kr.co.morae.groupbuy.dto.GbStateCheckDto">
 
-SELECT g.gbNo, DATE_ADD(g.finishDate , INTERVAL 1 DAY)finishDate, DATE_ADD(g.finishDate , INTERVAL 10 DAY)completeDate, g.recruitPeople, COUNT(g2.userId)joinNum, 
+SELECT g.gbNo, DATE_ADD(g.finishDate , INTERVAL 1 DAY)finishDate, DATE_ADD(g.finishDate , INTERVAL 10 DAY)completeDate, g.recruitPeople, 
+COUNT(g2.userId)joinNum, g.joinPrice, g.userId,
 (SELECT COUNT(joinState)
-FROM groupbuyingjoining g3 
+FROM groupBuyingJoining g3 
 WHERE g3.gbNo = g.gbNo AND joinState LIKE 'Y'
 ) completeCnt
-FROM groupbuyingpost g LEFT OUTER JOIN groupbuyingjoining g2 
+FROM groupBuyingPost g LEFT OUTER JOIN groupBuyingJoining g2 
 ON g.gbNo = g2.gbNo
 WHERE g.blockState LIKE 'N' AND g.gbState LIKE '진행'
 group by g.gbNo
 </select>
+
+<!-- 공구 히스토리 insert -->
+<insert id="insertGbStateHistory">
+INSERT INTO gbStateHistory (gbNo, hState) VALUES (#{param1}, #{param2});
+</insert>
 </mapper>

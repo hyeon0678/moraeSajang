@@ -17,8 +17,10 @@
 <body>
 <p id ="gbNo" style="visibility: hidden">"${GroupBuyDto.gbNo}"</p>
     <div class="elem-container">
-	    <div><button id='reportBtn' class="report">신고하기</button></div>
-	    <div id="productsInfo">
+	    <div class="gb-report-div"><button id='reportBtn' class="report"><img src="/photo/icon/siren.png"/></button>
+	    
+	    </div>
+	    <div id="productsInfo" class="section">
 	        <div id="productImgBox" class="products">
 	        	<div class="slider-2">
 				     <div class="side-btns">
@@ -48,11 +50,11 @@
 	        </div>
 	        <div class="products">
 	            <div 모집인원 class="smallInfo">
-	                <label for="recruitPeople">인원수</label>
+	                <label for="recruitPeople" class="info-label">인원수</label>
 	                <span>
 	                ${GroupBuyDto.joinPeople}/${GroupBuyDto.recruitPeople}
 	                </span>
-	                <span>
+	                <span class="joinicon-span">
 	                <c:if test="${GroupBuyDto.joinPeople ne 0}">
 	                <fmt:formatNumber var="oc" type="number" maxFractionDigits="0"  value="${GroupBuyDto.joinPeople/GroupBuyDto.recruitPeople*100}" />
 	                </c:if>
@@ -79,7 +81,7 @@
 	                </span>
 	            </div>
 	            <div 모집기간 class="smallInfo">
-	                <label>모집기간</label>
+	                <label class="info-label">모집기간</label>
 	                <span>
 	                    ${GroupBuyDto.startDate}
 	                    ~
@@ -87,25 +89,25 @@
 	                </span>
 	            </div>
 	            <div class = "smallInfo">
-	                <label for="recruitRegion">지역</label>
+	                <label class="info-label">지역</label>
 	                <span>
 	                    ${GroupBuyDto.gbDetailAddress}
 	                </span>
 	            </div>
 	            <div class="smallInfo">
-	                <label for="recruitLocation">모집장소</label>
+	                <label class="info-label">모집장소</label>
 	                <span>
 	                    ${GroupBuyDto.place}
 	                </span>
 	            </div>
 	            <div class="smallInfo">
-	                <label for="recruiter">작성자</label>
+	                <label class="info-label">작성자</label>
 	                <span>
 						${GroupBuyDto.nickname}
 	                </span>
 	            </div>
 	            <div class="smallInfo">
-	                <label for="user">사용자 평가</label>
+	                <label class="info-label">사용자 평가</label>
 	                <span>
 	                    별로에요 : ${GroupBuyDto.tradeAgainNum}
 	                </span>
@@ -117,14 +119,14 @@
 	                </span>
 	            </div>
 	            <div class="smallInfo">
-	                <label for="joinPrice">금액</label>
+	                <label class="info-label">금액</label>
 	                <span>
 	                	<fmt:formatNumber var="sm" value="${GroupBuyDto.joinPrice}" pattern="#,###" />
 	                    ${sm}원
 	                </span>
 	            </div>
 	            <div class="smallInfo">
-	                <label for="category">카테고리</label>
+	                <label class="info-label">카테고리</label>
 	                <span>
 	                    ${GroupBuyDto.categoryType}
 	                </span>
@@ -133,28 +135,27 @@
 	        
 	    </div>
 	    
-	    <div class="gbContent">
+	    <div class="gbContent section">
 	        <div class="subContent">
 	            <input type="text" id="title" class="big-info" value="${GroupBuyDto.title}" readonly/>
 	        </div>
-	        <div>
+	        <div class="subContent">
 	            <textarea id="gbContent" class="big-info" readonly>${GroupBuyDto.gbContent}</textarea>
 	        </div>
 	    </div>
 	    <hr>
-	    <h3>댓글</h3>
+	    <h3 class="comment-h3">댓글</h3>
 	    <div class="comment-div">
 	        <div id="commentWriteBox">
-	            <textarea id="comment" class="inputValid big-info">
-	
-	            </textarea>
-	            <div class="validation">0/250</div>
-	        </div>
-	        <div>
-	            
-	            <span>
-	                <button id="commentWrite">댓글 작성</button>
-	            </span>
+	            <div>
+		            <textarea id="comment" class="inputValid comment-content">
+		
+		            </textarea>
+		            <div class="validation">0/250</div>
+		            <div class="write-div">
+		            	<button id="commentWrite" class="comm-wirte-btn comm-btn">댓글 작성</button>
+		            </div>
+	            </div>
 	        </div>
 	        <hr>
 	        <div id="comments">
@@ -167,23 +168,25 @@
 				<nav aria-label="Page navigation" style="text-align:center">
 					<ul class="pagination" id="pagination"></ul>
 				</nav>					
-			</div>
+		</div>
 	    <hr>
-	    <div>
+	    <div class="bottom-btn">
 	    
-		<c:set var="userId" value="${sessionScop.userinfo.userid}" />
+			<div>
+			<c:set var="userId" value="${sessionScop.userinfo.userid}" />
 	    <c:choose>
 	    	<c:when test="${GroupBuyDto.joinPeople eq GroupBuyDto.recruitPeople || GroupBuyDto.gbState eq '완료'}">
-	    		<button disabled>모집완료</button>
+	    		<button disabled class="btn-disabled">모집완료</button>
 	    	</c:when>
 	    	<c:when test="${GroupBuyDto.isGbWriter eq true || GroupBuyDto.isJoining eq 1}">
-	    		<button disabled>참여중</button>
+	    		<button disabled class="btn-disabled">참여중</button>
 	    	</c:when>
 	    	<c:when test="${GroupBuyDto.isJoining eq 0}">
-	    		<button id="gbJoin">참여하기</button>
+	    		<button id="gbJoin" class="comm-btn">참여하기</button>
 	    	</c:when>
 	    </c:choose>
-	    <button id="back">목록으로</button>
+	    <button id="back" class="comm-btn">목록으로</button>
+			</div>
 	    </div>
     </div>
 </body>
@@ -228,10 +231,10 @@ function drawComment(obj){
 			comments += '<p style="display:none">'+comDto.commNo+'</p>';
 			comments += '<div class="commentHead">';
 			comments +=	'<span class="commentWriter">'+comDto.nickname+'</span>';
-	    	comments += '<span class="report2"><button class="report" value="댓글">신고</button></span>'
+	    	comments += '<span class="report2"><button class="report" value="댓글"><img src="/photo/icon/siren.png"/></button></span>'
 	    	comments += '</div>'
 			comments += '<div class="commentBody">'
-			comments += '<div class="content"><textarea class="commentContent inputValid big-info" readonly>'+comDto.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
+			comments += '<div class="content"><textarea class="commentContent inputValid" readonly>'+comDto.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
 	        comments += '<div class="date">'
 	        let milliseconds = parseInt(comDto.commRegDate,10)
 	        const date = new Date(milliseconds);
@@ -239,9 +242,9 @@ function drawComment(obj){
 	        const month = date.getMonth() + 1;
 	        const day = date.getDate();
 	        const formattedDate = year+'-'+month+'-'+day;
-	    	comments += '<span>작성 날짜 '+formattedDate+'</span>'
+	    	comments += '<span >작성 날짜 '+formattedDate+'</span>'
 			if(comDto.isCommentWriter == true){
-				comments += '<span class="witer-olny"><button class="delete">삭제</button><button class="modify" value="modify">수정</button><button class="modifyCancel" value="modify" style="visibility:hidden">수정취소</button></span></div></div>'
+				comments += '<span class="witer-olny"><button class="delete comm-btn">삭제</button><button class="modify comm-btn" value="modify">수정</button><button class="modifyCancel" value="modify" style="visibility:hidden">수정취소</button></span></div></div>'
 			}
 			comments += '</div></div>';
 		} 
@@ -271,6 +274,10 @@ function drawComment(obj){
 $('#commentWrite').on('click', function(){
 	$('#pagination').twbsPagination('destroy');
 	let comment = $('#comment').val();
+	if(comment == ''){
+		alert("댓글을 작성해 주세요");
+		return false;
+	}
 	$('#comment').val('');
 	$.ajax({
 		type:'Post',
@@ -402,11 +409,21 @@ function gbJoin(){
 			},
 			dataType : 'json',
 			success:function(data){
-				alert(data.msg)
-				location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';
+				console.log(data.msg)
+				if(data.msg == 'success'){
+					alert(data.msg);
+					//location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';					
+				}
+				if(data.msg == 'fail'){
+					alert(data.msg);
+					//location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';					
+				}
+				if(data.msg == 'balanceIssue'){
+					alert(data.msg);					
+				}
 			},
 			error:function(error){
-				location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';
+				//location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';
 				console.error(error)
 			}
 					

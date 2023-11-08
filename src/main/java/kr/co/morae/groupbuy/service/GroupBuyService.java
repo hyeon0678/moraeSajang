@@ -33,6 +33,7 @@ import kr.co.morae.groupbuy.dto.GbStateCheckDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
 import kr.co.morae.groupbuy.dto.ReportDto;
 import kr.co.morae.groupbuy.dto.SearchOptionDto;
+import kr.co.morae.mypage.dao.PointDao;
 
 @Service
 public class GroupBuyService {
@@ -40,6 +41,9 @@ public class GroupBuyService {
 	
 	@Autowired
 	private GroupBuyDao gbDao;
+	@Autowired
+	private PointDao pointDao;
+	
 	Paging paging = new Paging();
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 	
@@ -49,8 +53,10 @@ public class GroupBuyService {
 		
 		dto.setUserId("test1");
 		dto.setGbState(GbStateEnum.PROGRESS.getState());
+		
 		dto = separateLocation(dto);
 		n += gbDao.gbRegister(dto);
+		gbDao.insertGbStateHistory(dto.getGbNo(), GbStateEnum.PROGRESS.getState());
 		int gbNo = dto.getGbNo();
 		
 		n += gbDao.gbRegionRegister(dto);
@@ -91,12 +97,12 @@ public class GroupBuyService {
 				String ext = fileName.substring(extIndex);
 				int index = Integer.parseInt(fileName.substring(0,1));
 				log.info("index : "+ index);
-				
+				log.info(fileName);
 				String newFileName = UUID.randomUUID().toString() + FileRoles.fileOrder[index-1]+ext;
 				byte[] arr;
 				try {
 					arr = files[i].getBytes();
-					Path path = Paths.get(FileRoles.root+newFileName);
+					Path path = Paths.get(FileRoles.root+"/"+newFileName);
 					Files.write(path, arr);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -131,33 +137,37 @@ public class GroupBuyService {
 	}
 
 	@Transactional
-	public boolean gbJoin(int gbNo, String userId, int gbPrice) {
+	public String gbJoin(int gbNo, String userId, int gbPrice) {
 		
 		HashMap<String, String> gbJoinCheck = gbDao.isgbJoining(Integer.toString(gbNo), userId);
 		log.info("gbJoin : " + gbJoinCheck.toString());
 		if(!checkGbJoin(gbJoinCheck, userId)) {
-			return false;
+			return "false";
 		}
 		
 		 
-		int joinSuccess=gbDao.gbJoin(Integer.toString(gbNo), userId);
-		Integer recruitPeople = Integer.parseInt(String.valueOf(gbJoinCheck.get("recruitPeople")));
-		Integer joinPeople= Integer.parseInt(String.valueOf(gbJoinCheck.get("joinPeople")));
 		
-		if((joinPeople+1) == recruitPeople) {
-			gbDao.modifyGbState(gbNo, GbStateEnum.COMPLETE.getState());
-		}
-		if(joinSuccess>0) {
-			//글번호, 아이디, 금액, 거래사유
+		
+		
+		Integer balance = pointDao.myPoint(userId);
+		log.info(Integer.toString(balance));
+		if(balance == null || balance<gbPrice) {
+			return "balanceIssue";
+		}else {
+			int joinSuccess=gbDao.gbJoin(Integer.toString(gbNo), userId);
+			
+			Integer recruitPeople = Integer.parseInt(String.valueOf(gbJoinCheck.get("recruitPeople")));
+			Integer joinPeople= Integer.parseInt(String.valueOf(gbJoinCheck.get("joinPeople")));
+			
 			gbPrice = gbPrice*-1;
 			int row = gbDao.insertPoint(gbNo, userId, gbPrice, pointReasonEnum.USE.getState());
 			log.info("insertPoint : "+row);
+			
 			if(row > 0) {
-				return true;
+				return "true";
 			}
 		}
-		
-		return false;
+		return "false";
 		
 	}
 	

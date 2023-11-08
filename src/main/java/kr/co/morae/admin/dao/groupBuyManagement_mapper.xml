@@ -7,11 +7,11 @@
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
          c.categoryType,g.gbNo
@@ -19,17 +19,17 @@ ORDER BY g.regDate DESC
 LIMIT #{param1} OFFSET #{param2}
 </select>
 <select id="adminGroupBuyListtotalPage" resultType="int">
-	SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost
+	SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost
 </select>
 <select id="adminGroupBuycheckList" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 WHERE g.blockState=#{param1}
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
@@ -38,17 +38,17 @@ ORDER BY g.regDate DESC
 LIMIT #{param2} OFFSET #{param3}
 </select>
 <select id="adminGroupBucheckListtotalPage" resultType="int">
-SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost where blockState=#{param2}
+SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost where blockState=#{param2}
 </select>
 <select id="adminGroupBuySerUserList" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 WHERE g.userId=#{param1}
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
@@ -57,17 +57,17 @@ ORDER BY g.regDate DESC
 LIMIT #{param2} OFFSET #{param3}
 </select>
 <select id="adminGroupBuyListSerUsertotalPage" resultType="int">
-SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost where userId=#{param2}
+SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost where userId=#{param2}
 </select>
 <select id="adminGroupBuySerUserCheckList" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 WHERE g.blockState=#{param1} AND g.userId=#{param2}
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
@@ -76,7 +76,7 @@ ORDER BY g.regDate DESC
 LIMIT #{param3} OFFSET #{param4}
 </select>
 <select id="adminGroupBuySerUserCheckListtotalPage" resultType="int">
-SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost 
+SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost 
 where blockState=#{param2} AND userId=#{param3}
 </select>
 <select id="adminGroupBuyIntList" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
@@ -84,11 +84,11 @@ where blockState=#{param2} AND userId=#{param3}
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 where g.regDate >= #{param1} and g.regDate <= #{param2}
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
@@ -99,7 +99,7 @@ LIMIT #{param3} OFFSET #{param4}
 </select>
 <select id="adminGroupBuyListInttotalPage" resultType="int">
 	<![CDATA[
-	SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost 
+	SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost 
 	where regDate >= #{param2} and regDate <= #{param3}
 ]]>	
 </select>
@@ -108,11 +108,11 @@ LIMIT #{param3} OFFSET #{param4}
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 WHERE g.blockState=#{param1} AND g.regDate >= #{param2} and g.regDate <= #{param3}
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
@@ -123,7 +123,7 @@ LIMIT #{param4} OFFSET #{param5}
 </select>
 <select id="adminGroupBucheckIntListtotalPage" resultType="int">
 <![CDATA[
-SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost 
+SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost 
 where blockState=#{param2} and regDate >= #{param3} and regDate <= #{param4}
 ]]>	
 </select>
@@ -132,11 +132,11 @@ where blockState=#{param2} and regDate >= #{param3} and regDate <= #{param4}
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 WHERE g.userId=#{param1} AND g.regDate >= #{param2} and g.regDate <= #{param3}
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
@@ -147,7 +147,7 @@ LIMIT #{param4} OFFSET #{param5}
 </select>
 <select id="adminGroupBuyIntListSerUsertotalPage" resultType="int">
 <![CDATA[
-SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost 
+SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost 
 where userId=#{param2} AND regDate >= #{param3} and regDate <= #{param4}
 ]]>	
 </select>
@@ -156,11 +156,11 @@ where userId=#{param2} AND regDate >= #{param3} and regDate <= #{param4}
 SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
        COUNT(j.userId) AS joinPeople, c.categoryType,
        (SELECT gi.newName
-        FROM groupbuyingimage gi
+        FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
         LIMIT 1) AS firstImage
-FROM groupbuyingpost g
-LEFT OUTER JOIN groupbuyingjoining j ON g.gbNo = j.gbNo
+FROM groupBuyingPost g
+LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
 WHERE g.blockState=#{param1} AND g.userId=#{param2} AND g.regDate >= #{param3} and g.regDate <= #{param4}
 GROUP BY g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.joinPrice, g.gbState, g.categoryNo,
@@ -171,7 +171,7 @@ LIMIT #{param5} OFFSET #{param6}
 </select>
 <select id="adminGroupBuySerUserCheckIntListtotalPage" resultType="int">
 <![CDATA[
-SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupbuyingpost 
+SELECT CEIL(COUNT(gbNo)/#{param1}) AS pages FROM groupBuyingPost 
 where blockState=#{param2} AND userId=#{param3} AND regDate >= #{param4} and regDate <= #{param5}
 ]]>
 </select>
@@ -187,15 +187,15 @@ SELECT gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.start
      FROM groupBuyingJoining 
      WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople,  
     (SELECT count(reviewNo)
-     FROM userreview u2 
+     FROM userReview u2 
      WHERE u2.userId = 'gb.userId' and u2.reviewNo = 1
     ) tradeAgain,
     (SELECT COUNT(reviewNo)
-     FROM userreview u2 
+     FROM userReview u2 
      WHERE u2.userId = 'gb.userId' and u2.reviewNo = 2
     ) justOkay, 
     (SELECT count(reviewNo)
-     FROM userreview u2 
+     FROM userReview u2 
      WHERE u2.userId = 'gb.userId' and u2.reviewNo = 3
     ) notInterested,
     (SELECT count(g.userId)
@@ -204,13 +204,13 @@ SELECT gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.start
     ) isJoining
 FROM 
     groupBuyingPost gb 
-    LEFT OUTER JOIN groupbuyingregions loc on gb.gbNo = loc.gbNo
+    LEFT OUTER JOIN groupBuyingRegions loc on gb.gbNo = loc.gbNo
     LEFT OUTER JOIN category c on gb.categoryNo=c.categoryNo 
 WHERE gb.gbNo = #{param1};
 </select>
 
 <update id="adminBlockState">
-UPDATE groupbuyingpost SET blockState = #{param1} WHERE gbNo = #{param2}
+UPDATE groupBuyingPost SET blockState = #{param1} WHERE gbNo = #{param2}
 </update>
 <update id="admingbState">
 UPDATE groupbuyingpost

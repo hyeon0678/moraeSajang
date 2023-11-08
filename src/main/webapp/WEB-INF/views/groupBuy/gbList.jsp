@@ -10,6 +10,7 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <link href="<c:url value='/resources/css/gbList.css'/>" rel="stylesheet"/>
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
 
@@ -17,8 +18,10 @@
 
     <div class="elem-container">
         <div class="gb-list-container search1">
-            <input type="text" id="search-keyWord"/>
-            <button id="search-btn">검색</button>
+            <div id="info__id">
+            	<input type="text" id="search-keyWord"/>
+	            <button id="search-btn"><i class="bi bi-search"></i></button>
+            </div>
             <select type="text" id="categoryType" >
                 <option value="" selected disabled hidden>카테고리를 선택해주세요.</option>
                 <option value="1">가공 식품</option>
@@ -34,10 +37,10 @@
         <div class="gb-list-container search2">
         <span><button class="region current" value="${sessionScope.userInfo.userDetailAddress}">${sessionScope.userInfo.userDetailAddress}</button></span>
         <span><button class="region" value="all">전체</button></span>
-        <span class="wirte-span"><button class="wirte" value="wirte">글쓰기</button></span>
+        <span class="wirte-span"><button class="wirte comm-btn" value="wirte">글쓰기</button></span>
         </div>
     
-        <div class="container-row-spacing">
+        <div class="card-row-spacing">
             
         </div>
         
@@ -68,10 +71,12 @@ function listCall(page){
         dataType : 'JSON',
         url:fullUrl,
         success(data){
+        	$('.no-result').remove();
             if(data.gbList.length == 0){
 				let noResult = '<div class="no-result">검색결과가 없습니다.</div>'
-					$('div.container-row-spacing').empty();
-				$('div.container-row-spacing').append(noResult);	
+				$('div.card-row-spacing').empty();
+				
+				$('.search2').after(noResult);	
 				setOptionEmpty();
             }else{
             	console.log(data);
@@ -94,7 +99,7 @@ function drawList(list, totalPage, currPage){
     let index=0
     let content = ''
     console.log(list);
-    $('div.container-row-spacing').empty();
+    $('div.card-row-spacing').empty();
     for(let i=0; i<2; i++){
         content += '<div class="card-row">'
         for(let j=1; j<5; j++){
@@ -109,7 +114,7 @@ function drawList(list, totalPage, currPage){
                 content +='<div class="card-img-top" style="background-image:url(/photo/default/default.png?auto=compress,format);">'
             	
             }else{
-            	content +='<div class="card-img-top" style="background-image:url(/photo/gbImg/${'+list[index].firstFileName+'}?auto=compress,format);">'  	
+            	content +='<div class="card-img-top" style="background-image:url(/photo/gbImg/'+list[index].firstFileName+'?auto=compress,format);">'  	
             }
             content +='</div>'
             content +='<div class="card-body">'
@@ -128,7 +133,7 @@ function drawList(list, totalPage, currPage){
             let joinPrice = list[index].joinPrice.toString();
             joinPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             content +='<span>'+joinPrice+'원</span>'
-            content +='<span class="card-category">'+list[index].categoryType+'</span>'
+            content +='<span class="card-category comm-btn">'+list[index].categoryType+'</span>'
             content +='</div>'
             content +='</div>'
             content +='</div>'
@@ -136,7 +141,7 @@ function drawList(list, totalPage, currPage){
         }
         content += '</div>'
     }
-    $('div.container-row-spacing').append(content);
+    $('div.card-row-spacing').append(content);
     $('#pagination').twbsPagination({
 		startPage:currPage, // 보여줄 페이지
 		totalPages:totalPage,// 총 페이지 수(총갯수/페이지당보여줄게시물수) : 서버에서 계산해서 가져와야함

@@ -1,23 +1,34 @@
 @charset "UTF-8";
 .detail-joinicon{
-	width: 15%;
-	heght: 15%;
+	width: 30%;
+	heght: 30%;
+}
+.info-label{
+	width:100px;
+	color: darkgray;
+}
+.joinicon-span{
+	float:right;
 }
 #productsInfo{
 	display: flex;
 	
 }
 .elem-container{
-	width: 64%;
+	width: 60%;
 	margin: 0 auto;
 	margin-top: 100px;
 }
-body{
-	
+.smallInfo{
+	margin-top: 5px;
+	margin-bottom: 10px;
 }
+
 
 .witer-olny{
 	float:right;
+	overflow: auto;
+	margin-bottom: 5px;
 }
 .report2{
 	float:right;
@@ -27,13 +38,38 @@ body{
 	padding:5px;
 	background-color:#F9DCA3;
 }
-
-.comment-div{
-	border: 1px solid lightgray;
-	
+.comment-h3{
+	padding-left: 15px;
 }
-#comments{
-	
+#comment{
+	width: 96%;
+	height: 100px;
+	resize: none;
+	margin: 0 auto;
+}
+#commentWriteBox{
+	width: 100%;
+	height: 200px;
+}
+#commentWriteBox div{
+	width: 90%;
+
+}
+.write-div{
+	display: flex;
+}
+.comment-div{
+	width:96%;
+	border: 1px solid lightgray;	
+	margin: 0 auto;
+}
+#commentWrite{
+	margin-left: auto;
+	margin-right: 20px;
+}
+#productImgBox{
+	border: 1px solid lightgray;
+	margin-right: 44px;
 }
 .comment-box{
 	margin-bottom: 4px;
@@ -41,21 +77,76 @@ body{
 .commentBody{
 	margin-left: 24px;
 	margin-right: 24px;
-	margin-top: 10px
 }
-.commentcontent{
+.big-info{
+	margin: 0 auto;
 	width: 100%;
-	height: 120px;
+	padding: 10px 20px;
+}
+.subContent{
+	width: 96%;
+	margin: 0 auto;
+}
+.section{
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+#gbContent{
+	resize: none;
+}
+.commentContent{
+	width:100%;
+	height: 80px;
 	resize: none;
 	border: none;
-	margin: 10px 14px;
+	padding: 10px;
+}
+.gb-report-div{
+	display: flex;
+	margin-bottom: 100px;
+}
+#reportBtn{
+	border-style:none;
+	background-color: transparent;
+	margin-left: auto;	
+	
+}
+#reportBtn img{
+width: 30px;
+	height: 30px;
 }
 .date{
 	padding: 5px 10px;
+	margin-bottom: 5px;
 }
-.commentWriter{
+.comm-wirte-btn{
 	margin-left: 10px;
 }
-.products{
-	margin-left: 32px;
+.report{
+	border-style:none;
+	background-color: transparent;
+	margin-left: auto;
+}
+.report img{
+	width: 20px;
+	height:20px;
+}
+.bottom-btn{
+	display: flex;
+}
+.bottom-btn div{
+	margin: 0 auto;
+}
+.comm-btn{
+	background-color:#F9DCA3; 
+	border-style: none;
+	border-radius: 5px;
+	padding: 5px 5px 0.5px 5px;
+}
+.btn-disabled{
+	
+}
+
+.modify{
+	margin-left: 5px;
 }

@@ -53,12 +53,12 @@
 	
 	<select id="reportDetailB" resultType="kr.co.morae.admin.dto.ReportManagementDto">
 		select r.reportNo, r.userId , r.uniqueNo , r.reportRegDate , r.reportContent , g.userId as reportuser , g.blockState as reportstate 
-		from report r left join groupbuyingpost g on r.uniqueNo =g.gbNo where r.reportNo = #{param1}
+		from report r left join groupBuyingPost g on r.uniqueNo =g.gbNo where r.reportNo = #{param1}
 	</select>
 	
 	<select id="reportDetailR" resultType="kr.co.morae.admin.dto.ReportManagementDto">
 		select r.reportNo, r.userId , r.uniqueNo , r.reportRegDate , r.reportContent , c.userId as reportuser , c.commState as reportstate
-		from report r left join groupbuyingcomment c on r.uniqueNo =c.commNo where r.reportNo = #{param1}
+		from report r left join groupBuyingComment c on r.uniqueNo =c.commNo where r.reportNo = #{param1}
 	</select>
 	
 	<update id="hisstatech">
@@ -66,12 +66,12 @@
 	</update>
 	
 	<insert id="inserthistory">	
-		insert into reportprocesshistory (reportNo,reportHistory,processorId,processDate) 
+		insert into reportProcessHistory (reportNo,reportHistory,processorId,processDate) 
 		values(#{param1},#{param2},#{param3}, curdate());
 	</insert>
 	
 	<select id="hislist" resultType="map" >
-		select reportProcessNo, processorId , reportHistory , processDate from reportprocesshistory r where reportNo = #{param1}
+		select reportProcessNo, processorId , reportHistory , processDate from reportProcessHistory r where reportNo = #{param1}
 	</select>	
 	
 	
