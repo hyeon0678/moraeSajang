@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="authlist" resultType="kr.co.morae.admin.dto.AuthDto">
-		select u.userId , a.authType, a.authNo from userauth u left outer join author a 	on u.authNo = a.authNo ;
+		select u.userId , a.authType, a.authNo from userAuth u left outer join author a 	on u.authNo = a.authNo ;
 	</select>
 	
 	<select id="allnum" resultType="Integer" >
@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="reserchauth" resultType="kr.co.morae.admin.dto.AuthDto">
-		select u.userId , a.authType, a.authNo from userauth u left outer join author a 	on u.authNo = a.authNo ;
+		select u.userId , a.authType, a.authNo from userAuth u left outer join author a 	on u.authNo = a.authNo ;
 	</select>
 	
 	
@@ -31,33 +31,33 @@
 	<select id="userdetail" resultType="map">
 		select u.userId ,u.nickname ,u.name ,u.age ,u.gender ,u.email ,u.reg_date 
 		,concat( ad.streetAddress, ad.userDetailAddress,ad.detailAddress) as addr 
-		from `user` u left join useraddress ad using(userId) where userId = #{param1}		
+		from `user` u left join userAddress ad using(userId) where userId = #{param1}		
 	</select>
 	
 	<insert id="gardsave">
-		insert into userauth (userId,authNo) values(#{param1},'4');
+		insert into userAuth (userId,authNo) values(#{param1},'4');
 	</insert>
 	
 	<delete id="nomaluser">
-		delete from userauth where userId = #{param1} and authNo ='4';
+		delete from userAuth where userId = #{param1} and authNo ='4';
 	</delete>
 	
 	<delete id="statedel">
-		delete from userauth where userId = #{param1} and authNo ='2';
+		delete from userAuth where userId = #{param1} and authNo ='2';
 	</delete>
 	
 	<insert id="stateins">
-		insert into userauth (userId,authNo) values(#{param1},'2');
+		insert into userAuth (userId,authNo) values(#{param1},'2');
 	</insert>
 	
 	<insert id="hisasave">
-		insert into userblockhistory (blockedId, blockDate,blockReason, blockerId) 
+		insert into userBlockHistory (blockedId, blockDate,blockReason, blockerId) 
 		values(#{param1}, curdate(),#{param3},#{param2});
 	</insert>
 	
 	
 	<select id="UBhislist" resultType="map">
-		select  blockNo , blockerId , blockReason ,blockDate from userblockhistory where blockedId = #{param1}
+		select  blockNo , blockerId , blockReason ,blockDate from userBlockHistory where blockedId = #{param1}
 	</select>
 	
 	

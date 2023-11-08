@@ -24,7 +24,7 @@ public class UserController {
 	
 	@Autowired UserService service;
 	
-	@RequestMapping(value = "/main/login", method = RequestMethod.POST)
+	@RequestMapping(value = "login", method = RequestMethod.POST)
 		public String login(@RequestParam String id, @RequestParam String pw, HttpSession session, Model model) {
 			String page = "main/login";
 			logger.info("id : "+id+" / pw : "+pw);
