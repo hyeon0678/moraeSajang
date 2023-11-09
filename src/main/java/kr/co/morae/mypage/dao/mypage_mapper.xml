@@ -14,12 +14,11 @@
 	</select>
 
 	<select id="totalPoint" resultType="int">
-		SELECT SUM(total) FROM
-		(SELECT SUM(pointMonney) as total FROM pointHistory WHERE userId =
-		#{param1}
+		SELECT NVL(SUM(total),0) FROM (SELECT SUM(pointMonney) as total FROM
+		pointHistory WHERE userId = #{param1}
 		UNION ALL
-		SELECT SUM(chargePrice) as total FROM chargeHistory
-		WHERE userId = #{param1}) as result
+		SELECT SUM(chargePrice) as total FROM chargeHistory WHERE userId = #{param1})
+		as total
 	</select>
 
 	<select id="review" resultType="map">

@@ -187,7 +187,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 }
 
 #mypage {
-	width: 250px;
+	width: 445px;
 	height: 250px;
 	margin-top: 7%;
 	float: left;
@@ -358,7 +358,7 @@ body {
 				</tr>
 			</table>
 		</div>
-		<div id="usermody" OnClick="location.href ='#'">수정</div>
+		<div id="usermody" OnClick="location.href ='my/profilRetouch'">수정</div>
 
 		<div id="review">
 			<div class="reviewCount">
