@@ -24,7 +24,7 @@ public class UserController {
 	
 	@Autowired UserService service;
 	
-	@RequestMapping(value = "user/loginGo", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/loginGo", method = RequestMethod.POST)
 		public String login(@RequestParam String id, @RequestParam String pw, HttpSession session, Model model) {
 			String page = "main/login";
 			logger.info("id : "+id+" / pw : "+pw);
@@ -55,7 +55,7 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
-	@RequestMapping(value = "user/findId.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/findId.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> findId(@RequestParam HashMap<String, String> params) {
 		logger.info("params : "+params);
@@ -66,7 +66,7 @@ public class UserController {
 		return result;
 	}
 	
-	@RequestMapping(value = "user/findPw", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/findPw", method = RequestMethod.POST)
 	public String findPw(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
 		String page = "main/findPw";
 		logger.info("params : "+params);
@@ -81,7 +81,7 @@ public class UserController {
 		return page;
 	}
 	
-	@RequestMapping(value = "user/newPw", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/newPw", method = RequestMethod.POST)
 	public String correctPw(@RequestParam String newPw, HttpSession session, Model model) {
 		String foundId = (String) session.getAttribute("foundId");
 		logger.info("세션에서 가져온 ID : "+foundId);

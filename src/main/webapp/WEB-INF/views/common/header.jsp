@@ -95,7 +95,7 @@ var setMsgAlram = setInterval(function() {
 	
 	
 function msgAlram(){
-	$.ajax({
+ 	$.ajax({
 		type: 'post',
 		url: 'alram.ajax',
 		dataType: 'json',
@@ -110,7 +110,7 @@ function msgAlram(){
 		error:function(e){
 			console.log(e);
 		}
-	});
+	}); 
 }
 </script>
 </html>

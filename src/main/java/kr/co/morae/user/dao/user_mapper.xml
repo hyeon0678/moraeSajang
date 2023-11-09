@@ -5,7 +5,7 @@
 	<select id="login" resultType="kr.co.morae.user.dto.UserDto">
 		select u.userId, u.password, u.email, u.nickname, u.name, u.reg_date, u.age, u.gender, a.authNo, d.streetAddress, d.userDetailAddress, d.detailAddress, t.authType
 			from user u 
-				left join userauth a on u.userId = a.userId
+				left join userAuth a on u.userId = a.userId
 				left join userAddress d on u.userId = d.userId
 				left join author t on a.authNo = t.authNo
 					where u.userId = #{param1} and u.password = #{param2}

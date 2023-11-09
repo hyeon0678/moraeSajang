@@ -358,7 +358,7 @@ body {
 				</tr>
 			</table>
 		</div>
-		<div id="usermody" OnClick="location.href ='my/profilRetouch'">수정</div>
+		<div id="usermody" OnClick="location.href ='mypage/profilRetouch'">수정</div>
 
 		<div id="review">
 			<div class="reviewCount">
@@ -388,7 +388,7 @@ body {
 	function alarmToggle(){
 		$.ajax({
 			type: 'get',
-			url: 'my/alarmToggle.ajax',
+			url: 'alarmToggle.ajax',
 			data: {},
 			dataType: 'json',
 			success: function(data){
@@ -430,7 +430,7 @@ body {
 	function alarmSet(alarmSetNo){
 		$.ajax({
 			type: 'get',
-			url: 'my/alarmSet.ajax',
+			url: 'alarmSet.ajax',
 			data: {'alarmSetNo':alarmSetNo},
 			dataType: 'json',
 			success: function(data){
@@ -616,7 +616,7 @@ body {
 		console.log("유저 정보 요청")
 		$.ajax({
 			type: 'get',
-			url: 'my/page/myInfo.ajax',
+			url: 'myInfo.ajax',
 			data: {},
 			dataType: 'json',
 			success: function(data) {

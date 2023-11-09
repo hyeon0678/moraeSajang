@@ -28,7 +28,7 @@ public class MypageController {
 		return "mypage/myPage";
 	}
 
-	@RequestMapping(value="/my/page/myInfo.ajax")
+	@RequestMapping(value="/mypage/myInfo.ajax")
 	@ResponseBody
 	public HashMap<String, Object> myInfo(Model model, HttpSession session){
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
@@ -37,7 +37,7 @@ public class MypageController {
 		return map;
 	}
 	
-	@RequestMapping(value="/my/alarmSet.ajax")
+	@RequestMapping(value="/mypage/alarmSet.ajax")
 	@ResponseBody
 	public int alarmSet(Model model, HttpSession session, @RequestParam int alarmSetNo) {
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
@@ -45,7 +45,7 @@ public class MypageController {
 		return service.alarmSet(alarmSetNo,userId);
 	}
 	
-	@RequestMapping(value="/my/alarmToggle.ajax")
+	@RequestMapping(value="/mypage/alarmToggle.ajax")
 	@ResponseBody
 	public int alarmToggle(Model model, HttpSession session) {
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
@@ -55,7 +55,7 @@ public class MypageController {
 	
 	
 	
-	@RequestMapping(value="/my/overnickname")
+	@RequestMapping(value="/mypage/overnickname")
 	@ResponseBody 	
 	public int overnickname(@RequestParam String nickname) {
 		int use4 = service.overnickname(nickname);
@@ -64,13 +64,13 @@ public class MypageController {
 	}
 
 	
-	@RequestMapping(value="/my/profilRetouch")
+	@RequestMapping(value="/mypage/profilRetouch")
 	public String profilRetouch(Model model,HttpSession session) {		
 		return "mypage/profilRetouch";
 	}
 	
 	
-	@RequestMapping(value="/my/update", method = RequestMethod.POST) //수정 글쓰기 페이지
+	@RequestMapping(value="/mypage/update", method = RequestMethod.POST) //수정 글쓰기 페이지
 	@ResponseBody
 	public HashMap<String, Object> update( @RequestParam HashMap<String, String> parmas,
 			HttpSession session){
