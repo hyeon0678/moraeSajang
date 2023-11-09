@@ -64,10 +64,10 @@
 	group by g.gbNo
 	</select>
 	
-<!--<insert id="" parameterType="map">
-	insert into userReview(userId , gbNo , reviewNo, reviewerId)
-	values(#{id},#{},#{ratings},#{id});
-	</insert>  -->    
+	<insert id="ratin" >	
+	INSERT INTO userReview (userId ,gbNo,reviewNo,reviewerId) 
+	values ((SELECT userId FROM groupBuyingPost gbp WHERE gbNo = #{param1}),#{param1},#{param3},#{param2})
+	</insert>  
 
 	
 	
