@@ -48,7 +48,7 @@ public class GroupBuyService {
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 	
 	@Transactional
-	public int registerGB(MultipartFile[] files, GroupBuyDto dto){
+	public int registerGB(MultipartFile[] files, GroupBuyDto dto, String userId){
 		int n=0;
 		
 		dto.setUserId("test1");

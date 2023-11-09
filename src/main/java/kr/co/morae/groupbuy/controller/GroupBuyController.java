@@ -55,7 +55,7 @@ public class GroupBuyController {
 		UserDto info = (UserDto)session.getAttribute("userInfo");
 		
 
-		int success = gbService.registerGB(files, dto);
+		int success = gbService.registerGB(files, dto, info.getUserId());
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		if(success>0) {
 			result.put("gbNo", success);
