@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 div.under{
-   border: 3px  black;
+   border: 3px;
 	border-style: solid none;		
 	border-color : #DEDEDE;
     border-collapse: collapse;
@@ -99,7 +99,7 @@ div.sideber ul {
 	</div>		
 	
 	<!-- 신고 히스토리 // insert -->
-	<h5>신고 히스토리</h5>
+	<div style=" display: flex;"><h5>신고 히스토리</h5><span style="margin: 40px 0px 3px 600px;"> 신고 처리 상태 : ${report.processState}</span></div>	
     <div style="width: 1000px; height: 80px;">
         <textarea style="height:70px; width:850px; resize: none; float: left;" placeholder="내용을 입력 해 주세요." value="" name="content"></textarea>        
         <!-- <input type="text" id = "reporthistory" value="" placeholder="내용을 입력 해 주세요"></div> -->
@@ -113,12 +113,17 @@ div.sideber ul {
 </body>
 <script>
     var showpage =1;
+   
+    
     histroycall();
     console.log("히스토리 콜 시작");
     
     
-    function histroycall(page){
-    	var $reportNo = ${report.reportNo};    	
+    function histroycall(){
+    	console.log("히스토리 콜 진입");
+    	var $reportNo = ${report.reportNo};    
+    	
+    	
     	$.ajax({
 			type:'post',
 			url:'ReportDetail.ajax/hislist',
@@ -138,12 +143,13 @@ div.sideber ul {
     }//
     
     function drawlist(obj){
-    	
+    	console.log("리스트 그려주기중");
+    	$('#historylist').empty();
     	console.log(obj);
     	// '+obj.list[i].+'  '+obj.list[i].reportProcessNo+'
     	for (var i = 0; i < obj.size; i++) {
     	var content ='';
-    		content += '<div style="width: 990px;">';
+    		content += '<div style="width: 990px; background-color:#DEDEDE; margin: 0px 0px 5px 0px;">';
     		content += '<div style="width: 970px; height: 35px;">';
     		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리번호 : '+obj.list[i].reportProcessNo+'</span></div>';
     		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리자 : '+obj.list[i].processorId+'</span></div>';
@@ -154,12 +160,12 @@ div.sideber ul {
     		content += '<span>'+obj.list[i].reportHistory+'</span>/<span>'+dateStr+'</span>';
     		content += '</div>';	 
     		content += '<div style="width: 970px; height: 30px;">';
-    		content += '<div style="width: 150px; float: right; height: 15px;"><span>미처리</span></div>';
+    		//content += '<div style="width: 150px; float: right; height: 15px;"><span>미처리</span></div>';
     		content += '</div>';	
     		content += '</div>';
     		$('#historylist').append(content);
 		}
-    	
+    	console.log("리스트 그려주기 완료");
     	
     	
     	
@@ -170,11 +176,19 @@ div.sideber ul {
 		location.href='./adminReport';		
 	}//historycall
 	
-	$('#checkbox').on('click',function(){
-		alert("처리완료가 선택되어있습니다.");
-		
+	
+	
+	$("#checkbox").change(function(){
+        if($("#checkbox").is(":checked")){
+        	alert("처리완료가 선택되어있습니다. 처리내용에 처리완료를 기입해 주세요");
+        }else{
+        	alert("처리완료가 해제 되었습니다.");
+        }	
+				
 	});	
 	
+	
+	/*  신고 히스토리 인서트 */
 	function historyput(){		
 		
 		if ($("textarea[name = content]").val() == "") {
@@ -190,7 +204,7 @@ div.sideber ul {
 				console.log($content);
 				console.log($reportNo);
 				if ($state != "처리완료") {
-					$state = $("input[type=checkbox][name=hisstate]:checked").val();			
+					$state = "미처리";			
 					console.log("미처리 :"+$state);
 				}				
 				
@@ -208,6 +222,10 @@ div.sideber ul {
 					}	
 				});//
 				$("textarea[name = content]").val('');
+				
+				
+				
+				
 				histroycall();
 				alert("신고 히스토리가 저장 되었습니다.");
 				

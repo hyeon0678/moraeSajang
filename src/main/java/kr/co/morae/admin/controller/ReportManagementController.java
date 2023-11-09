@@ -38,8 +38,9 @@ public class ReportManagementController {
 	
 	//신고 상세 jsp
 	@RequestMapping(value = "admin/adminReportDetail")
-	public String adminReportDetail(@RequestParam int idx, @RequestParam String type,Model model) {		
+	public String adminReportDetail(@RequestParam int idx, @RequestParam String type, Model model) {		
 		//return "home";
+		logger.info("신고 디테일 넣기"+idx);
 		logger.info("idx : "+idx);
 		logger.info("type : "+type);
 		ReportManagementDto dto = new ReportManagementDto();
@@ -96,13 +97,14 @@ public class ReportManagementController {
 	@ResponseBody
 	public HashMap<String,Object> historyput (@RequestParam String hisstate,@RequestParam String content,
 			@RequestParam String reportNo,Model model,HttpSession session){		
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		logger.info("히스토리 insert");
 		logger.info("hisstate :"+hisstate); // 신고 처리 상태
 		logger.info("content :"+content); //신고 사유
 		logger.info("reportNo :"+reportNo); //신고 번호
 		UserDto dto = (UserDto) session.getAttribute("userInfo");
 		String gardid = "";
-		logger.info("gardid :"+gardid);
 		gardid = dto.getUserId();
 		logger.info("gardid :"+gardid);
 		if(gardid == "") {
@@ -110,12 +112,13 @@ public class ReportManagementController {
 		} //아이디 미입력 방지 구간 나중에 삭제
 		
 		service.hisstatech(hisstate,reportNo);
-		service.inserthistory(reportNo,content,gardid);		
-		HashMap<String, Object> result = new HashMap<String, Object>();
+		service.inserthistory(reportNo,content,gardid);				
 		logger.info("신고 히스토리 입력 완료"); //신고 번호
 		
+		//result.put("hisstate", gardid);
+		// result.put("hisnum", gardid);
 		
-		return null;
+		return result;
 	}
 	
 	 // 신고 리스트

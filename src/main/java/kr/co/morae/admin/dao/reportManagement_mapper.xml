@@ -52,12 +52,12 @@
 	</select>	
 	
 	<select id="reportDetailB" resultType="kr.co.morae.admin.dto.ReportManagementDto">
-		select r.reportNo, r.userId , r.uniqueNo , r.reportRegDate , r.reportContent , g.userId as reportuser , g.blockState as reportstate 
+		select r.reportNo,r.processState, r.userId , r.uniqueNo , r.reportRegDate , r.reportContent , g.userId as reportuser , g.blockState as reportstate 
 		from report r left join groupBuyingPost g on r.uniqueNo =g.gbNo where r.reportNo = #{param1}
 	</select>
 	
 	<select id="reportDetailR" resultType="kr.co.morae.admin.dto.ReportManagementDto">
-		select r.reportNo, r.userId , r.uniqueNo , r.reportRegDate , r.reportContent , c.userId as reportuser , c.commState as reportstate
+		select r.reportNo,r.processState, r.userId , r.uniqueNo , r.reportRegDate , r.reportContent , c.userId as reportuser , c.commState as reportstate
 		from report r left join groupBuyingComment c on r.uniqueNo =c.commNo where r.reportNo = #{param1}
 	</select>
 	
