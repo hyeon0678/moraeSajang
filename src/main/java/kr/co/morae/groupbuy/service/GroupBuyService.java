@@ -145,10 +145,6 @@ public class GroupBuyService {
 			return "false";
 		}
 		
-		 
-		
-		
-		
 		Integer balance = pointDao.myPoint(userId);
 		log.info(Integer.toString(balance));
 		if(balance == null || balance<gbPrice) {
@@ -199,8 +195,7 @@ public class GroupBuyService {
 		log.info("reportService");
 		ReportDto dto = new ReportDto();
 		dto.setCommNo(0);
-		String commNo = params.get("commNo");
-		if(commNo.equals("")) {
+		if(!params.containsKey("commNo")) {
 			dto.setGbNo(Integer.parseInt(params.get("gbNo")));
 			dto.setCommNo(-1);
 			dto.setProcessState("미완료");
@@ -242,5 +237,6 @@ public class GroupBuyService {
 		return map;
 		
 	}
+	
 
 }

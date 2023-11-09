@@ -291,9 +291,9 @@ float: left;
 }
 .comm-btn{
 	background-color: #FFBC38;
-  border: 2px solid #FFBC38;
-  color:white;
-  border-radius: 5px;
+	  border: 2px solid #FFBC38;
+	  color:white;
+	  border-radius: 5px;
 }
 .input-value{
 	border: 1px solid darkgray;

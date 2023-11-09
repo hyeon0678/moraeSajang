@@ -21,8 +21,7 @@
     <form action="report" method="post">
     <div>
         <span id="h3">글쓰기</span>
-        <input id="gbNo" name="gbNo" value="${param.gbNo}" class="nums"/>
-        <input id="commNo" name="commNo" value="${param.commNo}" class="nums"></input>
+        
         <hr>
         <div id="productImg" class="smallInfo">
             <textarea id="reportContent" name="reportContent" class="inputValid"></textarea>
@@ -38,6 +37,8 @@
 <script>
 let param = '${param}';
 console.log(param);
+//<input id="gbNo" name="gbNo" value="${param.gbNo}" class="nums"/>
+//<input id="commNo" name="commNo" value="${param.commNo}" class="nums"></input>
 
 $('#report').on('click', function(){
 	if($('#reportContent').val() == ''){
@@ -48,8 +49,15 @@ $('#report').on('click', function(){
 });
 
 $('#goGb').on('click', function(){
-	location.href = 'gbDetail?gbNo='+'${param.gbNo}';
+	let gbNo = get_cookie('gbNo')
+	console.log(gbNo);
+	//location.href = 'gbDetail?gbNo='+'${param.gbNo}';
 });
+
+function get_cookie(name) {
+    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value? value[2] : null;
+}
 </script>
 <script type="text/javascript" src="<c:url value='/resources/js/inputValid.js'/>"></script>
 

@@ -63,12 +63,16 @@ public class MyGroupBuyService {
 	public void stateCheck(int gbNo) {
 		GbStateCheckDto checkDto = myGbDao.checkComplete(gbNo);
 		log.info("success stateCheck");
+		log.info(checkDto.toString());
 		
-		if(checkDto.getRecruitPeople() == checkDto.getJoinNum()) {
+		if(checkDto.getRecruitPeople() == checkDto.getCompleteCnt()) {
 			gbDao.modifyGbState(gbNo, GbStateEnum.COMPLETE.getState());
 			gbDao.insertGbStateHistory(gbNo, GbStateEnum.COMPLETE.getState());
-			int totalPrice = checkDto.getJoinNum()*checkDto.getJoinPrice();
-			gbDao.insertPoint(gbNo, checkDto.getUserId(), totalPrice, pointReasonEnum.CALCULATE.getState());
+			int totalPrice = checkDto.getCompleteCnt()*checkDto.getJoinPrice();
+			log.info("gbNo:"+gbNo+"userId:"+checkDto.getUserId()+", totalPrice");
+			int row = gbDao.insertPoint(gbNo, checkDto.getUserId(), totalPrice, pointReasonEnum.CALCULATE.getState());
+			
+			log.info("row:"+row);
 			log.info("success modifyState");
 		}
 	}
