@@ -40,6 +40,8 @@ public interface ReportManagementDao {
 
 	ArrayList<HashMap<String, Object>> hislist(int reportnum);
 
+	int uninum(String uniquenum);
+
 	
 
 	

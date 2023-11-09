@@ -51,6 +51,9 @@ public class ReportManagementController {
 		}
 		logger.info("dto : "+dto);
 		String useruniqueNo = Integer.toString(dto.getUniqueNo());
+		logger.info("useruniqueNo : "+useruniqueNo);
+		model.addAttribute("uniqueNo",useruniqueNo);
+		
 		if(type.equals("글")) {
 			useruniqueNo = useruniqueNo+"B";
 		}else {
@@ -66,12 +69,32 @@ public class ReportManagementController {
 		}
 		logger.info("userstate : "+userstate);		
 		logger.info("useruniqueNo : "+useruniqueNo);
+		logger.info("type : "+type);		
 		
+		model.addAttribute("type",type);
 		model.addAttribute("report",dto); 
 		model.addAttribute("userstate",userstate);
 		model.addAttribute("useruniqueNo",useruniqueNo);
 		return "admin/adminReportDetail";
 	}
+	
+	
+	@RequestMapping(value = "admin/ReportDetail.ajax/uninum")
+	@ResponseBody
+	public HashMap<String,Object> uninum (@RequestParam String uniquenum,Model model){		
+		logger.info("댓글 번호 가져와서 서치");
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();		
+		logger.info("uniquenum : "+uniquenum); //댓글 번호
+		int gbNo = service.uninum(uniquenum);
+		
+		result.put("gbNo", gbNo);
+		
+		logger.info("result :"+result); //신고 번호
+		
+		return result;
+	}
+	
 	
 	
 	// 신고 히스토리 리스트
@@ -171,7 +194,8 @@ public class ReportManagementController {
 		logger.info("글/댓글 번호 검색");
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		
+		try {
+			
 		int uniqueNum = Integer.parseInt(uniqueNo.replaceAll("[^0-9]", ""));		
 		String uniqueState = uniqueNo.replaceAll("[^A-Z]", "");
 		logger.info("uniqueNum : "+uniqueNum);
@@ -208,6 +232,11 @@ public class ReportManagementController {
 			result.put("size", list.size());
 		}
 		
+		} catch (NumberFormatException e) {
+			String msg = "글/댓글 번호를 다시 확인 해주세요.";
+			model.addAttribute("msg",msg);
+			
+		}
 		
 		
 		logger.info("result : " +result);

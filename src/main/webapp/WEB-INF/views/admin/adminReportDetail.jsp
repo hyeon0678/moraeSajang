@@ -64,6 +64,12 @@ div.sideber ul {
 	border-color:#DEDEDE;
 	color: #212732;
 	}
+	
+	button{
+	background-color: #FFBC38;
+		border-color:#DEDEDE;
+		color: #212732;
+	}
 
 </style>
 </head>
@@ -79,29 +85,30 @@ div.sideber ul {
 		</ul>
 	</div>
 	
+	
 	<div style="margin: 0px 0px 0px 300px;" class="reportmain"	>
-	<button onclick="gotolist()" style="margin: 0px 0px 0px 900px">리스트로 돌아가기</button>
-	<div style="width: 1000px; height: 40px; padding-top: 20px;" >		
+	<button onclick="gotolist()" style="margin: 0px 0px 0px 850px">리스트로 돌아가기</button>
+	<div style="width: 1000px; height: 20px; padding: 10px 0px 5px 0px; " >		
 		<div style="width: 475px; float: left; height: 20px;"><span style="font-weight: 600;">신고 상세보기</span></div>
 		<div style="width: 475px; float: right; height: 20px;"><span style="text-align: right;">신고 번호 : ${report.reportNo}</span></div>		
 	</div>	
-	<div style="width: 1000px; height: 40px;">
+	<div style="width: 1000px; height: 40px; border: 3px;	border-style: solid none;	border-color : #DEDEDE;">
 		<div style="width: 970px; float: left;height: 20px;"><span>신고자 아이디 : ${report.userId}</span>  /  
 		<span>피신고자 아이디 : ${report.reportuser}</span></div>
 	</div>
 	<div style="width: 1000px; height: 40px;">
-		<div style="width: 475px; float: left;height: 20px;"><span onclick="">글/댓글 번호 : ${useruniqueNo}</span>  /  
+		<div style="width: 475px; float: left;height: 20px;"><span >글/댓글 번호 : <button onclick="locationgo()">${useruniqueNo}</button></span>  /  
 		<span>글/댓글 상태 : ${userstate}</span></div>
 		<div style="width: 475px; float: left;height: 20px;"><span>${report.reportRegDate}</span></div>
 	</div>
-	<div style="width: 1000px; height: 300px;">
+	<div style="width: 1000px; height: 300px; border: 3px;	border-style: solid none;	border-color : #DEDEDE;">
 		<div style="width: 970px; float: left;height: 270px;"><span>신고사유 : ${report.reportContent}</span></div>
 	</div>		
 	
 	<!-- 신고 히스토리 // insert -->
-	<div style=" display: flex;"><h5>신고 히스토리</h5><span style="margin: 40px 0px 3px 600px;"> 신고 처리 상태 : ${report.processState}</span></div>	
+	<div style=" display: flex;"><h5>신고 히스토리</h5><span style="margin: 40px 0px 3px 580px;"> 신고 처리 상태 : ${report.processState}</span></div>	
     <div style="width: 1000px; height: 80px;">
-        <textarea style="height:70px; width:850px; resize: none; float: left;" placeholder="내용을 입력 해 주세요." value="" name="content"></textarea>        
+        <textarea style="height:70px; width:850px; resize: none; float: left;" placeholder="히스토리를 입력 해 주세요." value="" name="content"></textarea>        
         <!-- <input type="text" id = "reporthistory" value="" placeholder="내용을 입력 해 주세요"></div> -->
      <div style="width: 100px; height:25px; float:right;"><input type="checkbox" value="처리완료" name="hisstate" id="checkbox">처리완료</div>
      <div style="width: 100px; height:25px; float:right;"><button onclick="historyput()">저장</button></div>	
@@ -112,8 +119,15 @@ div.sideber ul {
 	</div>
 </body>
 <script>
-    var showpage =1;
+    
+    //var showpage =1;
    
+    var uniquenum = ${uniqueNo};
+    var idx = ${report.reportNo};
+    var type ="${type}";
+    console.log(type);
+    console.log(idx);
+    console.log(uniquenum);
     
     histroycall();
     console.log("히스토리 콜 시작");
@@ -138,8 +152,7 @@ div.sideber ul {
 			}	
 		});//		
     	// drawlist();
-    	// $("textarea[name = content]").val('');
-    	
+    	// $("textarea[name = content]").val('');    	
     }//
     
     function drawlist(obj){
@@ -165,12 +178,57 @@ div.sideber ul {
     		content += '</div>';
     		$('#historylist').append(content);
 		}
-    	console.log("리스트 그려주기 완료");
-    	
-    	
-    	
+    	console.log("리스트 그려주기 완료");    	
     }//
     
+    
+    function locationgo(){
+    	console.log ("locationgo 시작한다");    	
+    	var uniquenum = ${uniqueNo};
+        var idx = ${report.reportNo};
+        var type ="${type}";
+    	if(type == "글"){
+    		console.log (uniquenum+"글의 디테일로 간다");
+    		location.href='gbdetail?gbNo='+uniquenum;    		
+    	}else {
+    		
+    		$.ajax({
+    			type:'post',
+    			url:'ReportDetail.ajax/uninum',
+    			data:{'uniquenum':uniquenum},
+    			dataType:'JSON',
+    			success:function(obj){			
+    				console.log(obj);
+    				location.href='gbdetail?gbNo='+obj.gbNo;    	
+    				
+    				
+    			},
+    			error:function(e){
+    				console.log(e);
+    			}	
+    		});//		
+    		
+    		
+    		
+    		
+			
+		}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    }
     
 	function gotolist(){
 		location.href='./adminReport';		
@@ -226,8 +284,9 @@ div.sideber ul {
 				
 				
 				
-				histroycall();
+				//histroycall();
 				alert("신고 히스토리가 저장 되었습니다.");
+				location.href='adminReportDetail?idx='+idx+'&&type='+type;
 				
 			//}else {
 				//location.href='./adminReport';	}

@@ -75,7 +75,9 @@
 	</select>	
 	
 	
-	
+	<select id="uninum" resultType="Integer">
+		select gbNo from groupbuyingcomment g where commNo = #{param1}	
+	</select>
 	
 	
 	
