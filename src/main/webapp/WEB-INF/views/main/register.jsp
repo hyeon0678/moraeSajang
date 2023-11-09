@@ -109,9 +109,9 @@
       </tr>
             
       <tr class="form-group">      
-      <th>지번 주소</th>      
+      <th>읍/면/동</th>      
       <th>
-      <input class="form-control" id="userDetailAddr" placeholder="지번 주소" name="addr2" type="text" readonly="readonly">
+      <input class="form-control" id="userDetailAddr" placeholder="읍/면/동" name="addr2" type="text" readonly="readonly">
       </th>
       </tr>
      
@@ -166,7 +166,6 @@ $('.pw').keyup(function(){
 var overlayChk = false;
 var overemailChk = false;
 var overnicknameChk = false;
-var overaddressChk = false;
 
 
 $('#register').on('click',function(){
@@ -270,7 +269,7 @@ $('#register').on('click',function(){
                console.log(data);
                if(data.success>0){
                   alert('회원가입에 성공 했습니다.');
-                  location.href='./'; 
+                  location.href='/morae/login'; 
                }else{
                   alert('회원가입에 실패 했습니다.');
                }               
