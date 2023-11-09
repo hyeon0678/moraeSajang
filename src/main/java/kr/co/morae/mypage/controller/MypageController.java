@@ -54,7 +54,7 @@ public class MypageController {
 	}
 	
 	
-	//닉네임 중복체크
+	
 	@RequestMapping(value="/my/overnickname")
 	@ResponseBody 	
 	public int overnickname(@RequestParam String nickname) {

@@ -64,4 +64,11 @@
 	group by g.gbNo
 	</select>
 	
+<!--<insert id="" parameterType="map">
+	insert into userReview(userId , gbNo , reviewNo, reviewerId)
+	values(#{id},#{},#{ratings},#{id});
+	</insert>  -->    
+
+	
+	
 </mapper>

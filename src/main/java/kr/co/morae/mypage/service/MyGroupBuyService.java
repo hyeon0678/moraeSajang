@@ -72,6 +72,15 @@ public class MyGroupBuyService {
 			log.info("success modifyState");
 		}
 	}
+
+	
+
+	
+
+
+	
+
+	
 	
 
 }

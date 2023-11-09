@@ -8,9 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
@@ -70,6 +73,36 @@ public class MyGroupBuyController {
 		log.info("------------- end ---------------");
 		return result;
 	}
+	
+	
+	
+	@RequestMapping(value = {"/my/review"})
+	public String Ratingpage(HttpSession session, Model model, 
+	@RequestParam int gbNo) {
+		session.setAttribute("gbNo",gbNo);
+		return "mypage/ratingPage";	
+	}
+	
+	
+	
+/*	@RequestMapping(value = "/my/rating"  , method = RequestMethod.POST)
+	public String rating(Model model,@RequestParam HashMap<String, String> parmas,
+			HttpSession session){
+		log.info("params : "+parmas);	
+		
+		String gbNo = (String) session.getAttribute(gbNo);
+		String rat1 = myGbService.rating(gbNo);
+		model.addAttribute("rat1",rat1);
+		return "mypage/groupHistory";
+		 
+		String rat2 = myGbService.rating(parmas);
+		model.addAttribute("rat2",rat2);
+		return "mypage/groupHistory";	
+	
+	}*/
+	
+	
+
 	
 
 }
