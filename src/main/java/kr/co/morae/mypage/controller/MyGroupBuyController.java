@@ -76,30 +76,33 @@ public class MyGroupBuyController {
 	
 	
 	
-	@RequestMapping(value = {"/my/review"})
+	@RequestMapping(value = "/review")
 	public String Ratingpage(HttpSession session, Model model, 
-	@RequestParam int gbNo) {
+	@RequestParam String gbNo) {
 		session.setAttribute("gbNo",gbNo);
 		return "mypage/ratingPage";	
 	}
 	
 	
 	
-/*	@RequestMapping(value = "/my/rating"  , method = RequestMethod.POST)
-	public String rating(Model model,@RequestParam HashMap<String, String> parmas,
-			HttpSession session){
-		log.info("params : "+parmas);	
-		
-		String gbNo = (String) session.getAttribute(gbNo);
-		String rat1 = myGbService.rating(gbNo);
-		model.addAttribute("rat1",rat1);
-		return "mypage/groupHistory";
-		 
-		String rat2 = myGbService.rating(parmas);
-		model.addAttribute("rat2",rat2);
-		return "mypage/groupHistory";	
-	
-	}*/
+	@RequestMapping(value = "/Rating", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> ratin(Model model,@RequestParam String ratings,
+			HttpSession session){	
+		log.info("------------- ratin-------------");
+		String gbNo = (String) session.getAttribute("gbNo");
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String reviewerId = userInfo.getUserId();
+		int rat = myGbService.ratin(gbNo,reviewerId,ratings);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rat",rat);
+		log.info("gbNo:"+gbNo);
+		log.info("retings:"+ratings);
+		model.addAttribute("rat",rat);
+		session.removeAttribute(gbNo);
+		log.info("------------- ratin end -------------");
+		return map;		 	
+	}
 	
 	
 

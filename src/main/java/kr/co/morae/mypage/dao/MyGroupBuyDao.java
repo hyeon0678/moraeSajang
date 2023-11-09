@@ -13,4 +13,6 @@ public interface MyGroupBuyDao {
 	GbStateCheckDto checkComplete(int gbNo);
 	
 	int setComplete(int gbNo, String userId);
+
+	int ratin(String gbNo, String reviewerId, String ratings);
 }

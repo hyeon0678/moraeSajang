@@ -17,7 +17,7 @@ import kr.co.morae.mypage.dao.MyGroupBuyDao;
 
 @Service
 public class MyGroupBuyService {
-	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
+	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());		
 	Paging paging = new Paging();
 
 	private MyGroupBuyDao myGbDao;
@@ -76,6 +76,17 @@ public class MyGroupBuyService {
 			log.info("success modifyState");
 		}
 	}
+
+	public int ratin(String gbNo, String reviewerId, String ratings) {	
+		return myGbDao.ratin(gbNo,reviewerId,ratings);
+	}
+
+	
+	
+
+
+	
+
 
 	
 

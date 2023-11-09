@@ -23,6 +23,9 @@ public class UserDto {
 	// 사용자 주소 필드
 	private String streetAddress;
 	private String userDetailAddress;
+	private String detailAddress;
+	
+
 	// 사용자 권한 필드
 	private Integer authNo;
 	private String authType;
@@ -30,7 +33,12 @@ public class UserDto {
 	
 	
 	
-	
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
 	
 	
 	public String getState() {

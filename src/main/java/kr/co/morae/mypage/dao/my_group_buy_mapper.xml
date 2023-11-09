@@ -4,7 +4,11 @@
 	
 	<select id="getMyGbList" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
 	SELECT g.gbNo, g.finishDate, SUBSTRING(g.title, 1, 30) title ,g.startDate , g.recruitPeople, g.gbState, g2.joinState 
-	, g.joinPrice, c2.categoryType,  COUNT(ur.gbNo) isReview,
+	, g.joinPrice, c2.categoryType,
+	(select count(ur.userId)
+	from userReview ur
+	where ur.gbNo = g.gbNo and ur.reviewerId like 'test4'
+	) isReview,
 	(SELECT COUNT(g3.gbNo)
 	FROM groupBuyingJoining g3 
 	WHERE g3.gbNo = g.gbNo
@@ -21,7 +25,7 @@
 	ON ur.gbNo = g.gbNo 
 	<where>
 		<if test="'recruit' == param2">
-		 	AND g.userId = #{param1} AND g.blockState LIKE 'N'
+		 	AND g2.userId = #{param1} AND g.blockState LIKE 'N'
 		</if>
 		<if test="'join' == param2">
 			AND g2.userId = #{param1} and g.blockState like 'N'
@@ -64,10 +68,10 @@
 	group by g.gbNo
 	</select>
 	
-<!--<insert id="" parameterType="map">
-	insert into userReview(userId , gbNo , reviewNo, reviewerId)
-	values(#{id},#{},#{ratings},#{id});
-	</insert>  -->    
+	<insert id="ratin" >	
+	INSERT INTO userReview (userId ,gbNo,reviewNo,reviewerId) 
+	values ((SELECT userId FROM groupBuyingPost gbp WHERE gbNo = #{param1}),#{param1},#{param3},#{param2})
+	</insert>  
 
 	
 	

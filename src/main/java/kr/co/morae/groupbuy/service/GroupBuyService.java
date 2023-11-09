@@ -51,7 +51,7 @@ public class GroupBuyService {
 	public int registerGB(MultipartFile[] files, GroupBuyDto dto, String userId){
 		int n=0;
 		
-		dto.setUserId("test1");
+		dto.setUserId(userId);
 		dto.setGbState(GbStateEnum.PROGRESS.getState());
 		
 		dto = separateLocation(dto);
