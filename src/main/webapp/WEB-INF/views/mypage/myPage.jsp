@@ -187,7 +187,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 }
 
 #mypage {
-	width: 250px;
+	width: 445px;
 	height: 250px;
 	margin-top: 7%;
 	float: left;
