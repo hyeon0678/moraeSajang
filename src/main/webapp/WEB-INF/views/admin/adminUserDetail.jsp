@@ -228,7 +228,7 @@ function drawlist(obj){
 		content += '<label class="form-check-label" for="flexRadioDefault1"> 차단 </label>';		  
 		content += '<input class="form-check-input" type="radio" name="Stateradio" id="flexRadioDefault2" style="margin: 0px 0px 0px 10px;" value="미차단" checked/>';
 		content += '<label class="form-check-label" for="flexRadioDefault2"> 미차단 </label>';
-		content += '<textarea type="text" id = "reporthistory" value="" placeholder="내용을 입력 해 주세요" style="height: 100px; width: 270px; resize: none;margin: 5px 0px 0px 0px;"></textarea>';
+		content += '<textarea type="text" id = "reporthistory" value="" placeholder="회원상태변경의 이유을 입력해주세요" style="height: 100px; width: 270px; resize: none;margin: 5px 0px 0px 0px;"></textarea>';
 		content += '<input type="button" value="상태 저장" style="margin: 0px 0px 0px 10px; position: absolute; top: 555px;  left: 1020px;" onclick="statesave()"/>';		
 		content += '</div>';
 		$('#auth').append(content);

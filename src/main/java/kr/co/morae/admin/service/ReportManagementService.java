@@ -105,6 +105,11 @@ public class ReportManagementService {
 		return dao.hislist(reportnum);
 	}
 
+
+	public int uninum(String uniquenum) {		
+		return dao.uninum(uniquenum);
+	}
+
 	
 	
 	
