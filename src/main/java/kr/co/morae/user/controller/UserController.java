@@ -24,7 +24,7 @@ public class UserController {
 	
 	@Autowired UserService service;
 	
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "user/loginGo", method = RequestMethod.POST)
 		public String login(@RequestParam String id, @RequestParam String pw, HttpSession session, Model model) {
 			String page = "main/login";
 			logger.info("id : "+id+" / pw : "+pw);
@@ -35,7 +35,7 @@ public class UserController {
 				if(dto.getAuthNo() == null || dto.getAuthNo() == 3) { // 일반 사용자
 					logger.info("해당 아이디 권한 : 일반사용자");
 				}else if(dto.getAuthNo() == 1 || dto.getAuthNo() == 4) { // 관리자
-					page = "redirect:/admin/admin	User";
+					page = "redirect:/admin/adminUser";
 					logger.info("해당 아이디 권한 : "+dto.getAuthType());
 				}else if(dto.getAuthNo() == 2){ // 차단된 사용자
 					logger.info("해당 아이디 권한 : "+dto.getAuthType());
@@ -52,10 +52,10 @@ public class UserController {
 	@RequestMapping(value = "/myPage/logout")
 		public String logout(HttpSession session) {
 		session.removeAttribute("userInfo");
-		return "redirect:/main/main";
+		return "redirect:/main";
 	}
 	
-	@RequestMapping(value = "/findId.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "user/findId.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> findId(@RequestParam HashMap<String, String> params) {
 		logger.info("params : "+params);
@@ -66,7 +66,7 @@ public class UserController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	@RequestMapping(value = "user/findPw", method = RequestMethod.POST)
 	public String findPw(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
 		String page = "main/findPw";
 		logger.info("params : "+params);
@@ -76,12 +76,12 @@ public class UserController {
 			model.addAttribute("msg", "일치하는 회원의 정보가 없습니다.");
 		}else {
 			session.setAttribute("foundId", foundId);
-			page = "redirect:/correctPw";
+			page = "redirect:correctPw";
 		}
 		return page;
 	}
 	
-	@RequestMapping(value = "/newPw", method = RequestMethod.POST)
+	@RequestMapping(value = "user/newPw", method = RequestMethod.POST)
 	public String correctPw(@RequestParam String newPw, HttpSession session, Model model) {
 		String foundId = (String) session.getAttribute("foundId");
 		logger.info("세션에서 가져온 ID : "+foundId);
@@ -97,61 +97,5 @@ public class UserController {
 		}
 		return page;
 	}
-	
-	
-
-	@RequestMapping(value="/main/register")
-	public String mainregister() {
-		return "main/register";
-	}
-	
-
-	
-	@RequestMapping(value="/main/overlay")
-	@ResponseBody 
-	public HashMap<String, Object> overlay(@RequestParam String id) {
-		boolean use = service.overlay(id);
-		logger.info("사용 가능 여부: "+use);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("use", use);	
-		logger.info("overlay");
-		return map;
-	}
-	
-	
-
-	@RequestMapping(value="/main/overemail")
-	@ResponseBody 
-	public HashMap<String, Object> overemail(@RequestParam String email) {
-		boolean use1 = service.overemail(email);
-		logger.info("사용 가능 여부 : "+use1);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("use1", use1);		
-		return map;
-	}
-	
-	
-	
-	@RequestMapping(value="/main/overnickname")
-	@ResponseBody 
-	
-	public HashMap<String, Object> overnickname(@RequestParam String nickname) {
-		boolean use2 = service.overnickname(nickname);
-		logger.info("사용 가능 여부 : "+use2);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("use2", use2);		
-		return map;
-	}
-	
-	@RequestMapping(value="/main/register", method = RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params){
-		logger.info("params : "+params);
-		HashMap<String, Object> result = new HashMap<String, Object>();	
-		int row = service.join(params);		
-		result.put("success", row);		
-		return result;
-	}
-
 	
 }

@@ -25,7 +25,7 @@ public class MessageController {
 	
 	@Autowired MessageService service;
 	
-	@RequestMapping(value = "/msgWrite")
+	@RequestMapping(value = "message/write")
 	public String messageWrite(HttpSession session, Model model) {
 		String page = "msg/msgWrite";
 	      if(session.getAttribute("userInfo") == null) {
@@ -35,17 +35,17 @@ public class MessageController {
 	      return page;
 	}
 	
-	@RequestMapping(value = "/msgRcvList")
+	@RequestMapping(value = "message/rcvList")
 	public String msgRcvList() {
 		return "msg/msgRcvList";
 	}
 	
-	@RequestMapping(value = "/msgSendList")
+	@RequestMapping(value = "message/sendList")
 	public String msgSendList() {
 		return "msg/msgSendList";
 	}
 	
-	@RequestMapping(value = "/nameCheck.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "message/nameCheck.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> nameCheck(@RequestParam String nickName, HttpSession session){
 		logger.info("nickName : "+nickName);
@@ -58,7 +58,7 @@ public class MessageController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/msgSend", method = RequestMethod.POST)
+	@RequestMapping(value = "message/send", method = RequestMethod.POST)
 	public String msgSend(@RequestParam String nickName, @RequestParam String content, HttpSession session, Model model) {
 		String page = "msg/msgWrite";
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
@@ -72,7 +72,7 @@ public class MessageController {
 		return page;
 	}
 	
-	@RequestMapping(value = "/msgRcvListCall.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "message/rcvListCall.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> msgRcvListCall(@RequestParam String page, HttpSession session){
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
@@ -80,7 +80,7 @@ public class MessageController {
 		return service.rcvList(userId, page);
 	}
 	
-	@RequestMapping(value = "/msgSendListCall.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "message/sendListCall.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> msgSendListCall(@RequestParam String page, HttpSession session){
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
@@ -88,7 +88,7 @@ public class MessageController {
 		return service.sendList(userId, page);
 	}
 	
-	@RequestMapping(value = "/msgRcvDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "message/rcvDetail", method = RequestMethod.GET)
 	public String msgRcvDetail(@RequestParam String messagesNo, HttpSession session, Model model) {
 		MessageDto msgInfo = service.msgDetail(messagesNo);
 		service.msgRead(messagesNo);
@@ -96,32 +96,32 @@ public class MessageController {
 		return "msg/msgRcvDetail";
 	}
 	
-	@RequestMapping(value = "/msgSendDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "message/sendDetail", method = RequestMethod.GET)
 	public String msgSendDetail(@RequestParam String messagesNo, HttpSession session, Model model) {
 		MessageDto msgInfo = service.msgDetail(messagesNo);
 		model.addAttribute("item",msgInfo);
 		return "msg/msgSendDetail";
 	}
 	
-	@RequestMapping(value = "/reply")
+	@RequestMapping(value = "message/reply")
 	public String reply(@RequestParam String senerNickName, Model model) {
 		model.addAttribute("senerNickName",senerNickName);
 		return "msg/msgWrite";
 	}
 	
-	@RequestMapping(value = "/msgRcvDel")
+	@RequestMapping(value = "message/rcvDel")
 	public String msgRcvDel(@RequestParam String messagesNo) {
 		service.msgDel(messagesNo);
 		return "msg/msgRcvList";
 	}
 	
-	@RequestMapping(value = "/msgSendDel")
+	@RequestMapping(value = "message/sendDel")
 	public String msgSendDel(@RequestParam String messagesNo) {
 		service.msgDel(messagesNo);
 		return "msg/msgSendList";
 	}
 	
-	@RequestMapping(value = "/msgRcvAllDel")
+	@RequestMapping(value = "message/rcvAllDel")
 	public String msgRcvAllDel(HttpSession session) {
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
 		String userId = userInfo.getUserId();
@@ -129,7 +129,7 @@ public class MessageController {
 		return "msg/msgRcvList";
 	}
 	
-	@RequestMapping(value = "/msgSendAllDel")
+	@RequestMapping(value = "message/sendAllDel")
 	public String msgSendDel(HttpSession session) {
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
 		String userId = userInfo.getUserId();
@@ -137,7 +137,7 @@ public class MessageController {
 		return "msg/msgSendList";
 	}
 	
-	@RequestMapping(value = "/msgAlram.ajax")
+	@RequestMapping(value = "message/alram.ajax")
 	@ResponseBody
 	public HashMap<String, Object> msgAlram(HttpSession session){
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");

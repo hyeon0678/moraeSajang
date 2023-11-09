@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,41 +7,6 @@
 <title>모래사장 | 쪽지 보내기</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-	@font-face {
-            font-family: 'KorailRoundGothicBold';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicMedium.woff2') format('woff2');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicLight';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicLight.woff2') format('woff2');
-            font-weight: 300;
-            font-style: normal;
-        }
-        
-        *{margin:0; padding:0;}
-        li{list-style: none;}
-        a{text-decoration: none;}
-        img{border:none; display: block;}
-        h1, h2, h3, h4, h5, h6{font-family: 'KorailRoundGothicBold', sans-serif; font-size:16px; color:#212732;}
-        body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
-
-        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede; background-color: #fff; z-index:9999;}
-        #header .headerInner{position:relative; width:80%; height:100px; margin:0 auto;}
-        #header .headerInner .logo{position:absolute; width:180px; left:0; top:26px;}
-        #header .headerInner .logo img{width:100%;}
-        #header .headerInner .util{position:absolute; width:142px; right:0; top:28px;}
-        #header .headerInner .util li{position:relative; float:left; width:44px; margin-left: 5px;}
-        #header .headerInner .util li:first-child{margin-left:0px;}
-        #header .headerInner .util li a img{width:100%;}
-
         #msgWrite{position:relative; margin-top:100px; overflow: hidden;}
         #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
         #lnb ul{margin-top:20px;}
@@ -74,25 +38,16 @@
 </style>
 </head>
 <body>
-	<header id="header">
-        <div class="headerInner">
-            <h1 class="logo"><a href="main.html"><img src="resources/img/logo.png" alt="모래사장"></a></h1>
-            <ul class="util">
-                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="알림"></a></li>
-                <li><a href="javascript:"><img src="resources/img/msg.png" alt="메세지 알림"></a></li>
-                <li><a href="javascript:"><img src="resources/img/my.png" alt="마이페이지"></a></li>
-            </ul>
-        </div>
-    </header>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
     <div id="lnb">
         <ul>
-            <a href="msgRcvList"><li>받은 쪽지</li></a>
-            <a href="msgSendList"><li>보낸 쪽지</li></a>
-            <a href="msgWrite"><li class="on">쪽지 보내기</li></a>
+            <a href="rcvList"><li>받은 쪽지</li></a>
+            <a href="sendList"><li>보낸 쪽지</li></a>
+            <a href="write"><li class="on">쪽지 보내기</li></a>
         </ul>
     </div>
     <section id="msgWrite">
-      <form action="msgSend" method="post" name="msgWriteForm">
+      <form action="send" method="post" name="msgWriteForm">
         <div class="msgWriteInner">
             <div class="msgWriteInnerBox">
                 <h2>쪽지 보내기</h2>

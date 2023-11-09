@@ -1,46 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>¸ğ·¡»çÀå | ¾ÆÀÌµğÃ£±â</title>
+<meta charset="UTF-8">
+<title>ëª¨ë˜ì‚¬ì¥ | ì•„ì´ë””ì°¾ê¸°</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-        @font-face {
-            font-family: 'KorailRoundGothicBold';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicMedium.woff2') format('woff2');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicLight';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicLight.woff2') format('woff2');
-            font-weight: 300;
-            font-style: normal;
-        }
-        
-        *{margin:0; padding:0;}
-        li{list-style: none;}
-        a{text-decoration: none;}
-        img{border:none; display: block;}
-        h1, h2, h3, h4, h5, h6{font-family: 'KorailRoundGothicBold', sans-serif; font-size:16px; color:#212732;}
-        body, header, section, footer, div, ul, li, p, a, span, input{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
-
-        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede;}
-        #header .headerInner{position:relative; width:80%; height:100px; margin:0 auto;}
-        #header .headerInner .logo{position:absolute; width:180px; left:0; top:26px;}
-        #header .headerInner .logo img{width:100%;}
-        #header .headerInner .util{position:absolute; width:142px; right:0; top:28px;}
-        #header .headerInner .util li{position:relative; float:left; width:44px; margin-left: 5px;}
-        #header .headerInner .util li:first-child{margin-left:0px;}
-        #header .headerInner .util li a img{width:100%;}
-
         #findId{position:relative; margin-top:100px;}
         #findId .findIdInner{width:80%; height:500px; margin: 0 auto; padding-top:100px;}
         #findId .findIdInner h2{text-align: center; font-size:38px; margin-bottom: 10px;}
@@ -57,31 +23,22 @@
     </style>
 </head>
 <body>
-<header id="header">
-        <div class="headerInner">
-            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="¸ğ·¡»çÀå"></a></h1>
-            <ul class="util">
-                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="¾Ë¸²"></a></li>
-                <li><a href="javascript:"><img src="resources/img/msg.png" alt="¸Ş¼¼Áö ¾Ë¸²"></a></li>
-                <li><a href="javascript:"><img src="resources/img/my.png" alt="¸¶ÀÌÆäÀÌÁö"></a></li>
-            </ul>
-        </div>
-    </header>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
     <section id="findId">
         <div class="findIdInner">
-            <h2>¾ÆÀÌµğ Ã£±â</h2>
-            <p>¾ÆÀÌµğ´Â °¡ÀÔ½Ã ÀÔ·ÂÇÏ½Å ÀÌ¸ŞÀÏ·Î Ã£À¸½Ç ¼ö ÀÖ½À´Ï´Ù.</p>
+            <h2>ì•„ì´ë”” ì°¾ê¸°</h2>
+            <p>ì•„ì´ë””ëŠ” ê°€ì…ì‹œ ì…ë ¥í•˜ì‹  ì´ë©”ì¼ë¡œ ì°¾ìœ¼ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</p>
             <div class="findIdBox">
                 <div class="textBox">
-                    <p>ÀÌ¸§</p>
-                    <input type="text" placeholder="ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä." name="name" value=""/>
+                    <p>ì´ë¦„</p>
+                    <input type="text" placeholder="ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”." name="name" value=""/>
                 </div>
                 <div class="textBox">
-                    <p>ÀÌ¸ŞÀÏ</p>
-                    <input type="text" placeholder="ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä." name="email" value=""/>
+                    <p>ì´ë©”ì¼</p>
+                    <input type="text" placeholder="ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”." name="email" value=""/>
                 </div>
                 <div class="btnBox">
-                    <input type="button" id="findIdBtn" value="È®ÀÎ"/>
+                    <input type="button" id="findIdBtn" value="í™•ì¸"/>
                 </div>
             </div>
         </div>
@@ -93,10 +50,10 @@
 		var $email = $('input[name = "email"]');
 		
 		if($name.val() == ''){
-			alert("ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			alert("ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			$name.focus();
 		}else if($email.val() == ''){
-			alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+			alert("ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 			$email.focus();
 		}else{
 			var param = {};
@@ -104,13 +61,13 @@
 			var regex = new RegExp('^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$');
 			var match = regex.test($email.val());
 			if(!match){
-				alert("ÀÌ¸ŞÀÏ Çü½ÄÀ¸·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				alert("ì´ë©”ì¼ í˜•ì‹ìœ¼ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				$email.focus();
 				return false;
 			}
 			param.email = $email.val();
 			
-			console.log(param); ÆÄ¶÷°ª È®ÀÎ
+			// console.log(param); íŒŒëŒê°’ í™•ì¸
 			
 			$.ajax({
 				type: 'post',
@@ -119,9 +76,9 @@
 				dataType:'json',
 				success:function(data){
 					if(data.foundId != null){
-						alert('È¸¿ø°¡ÀÔ½Ã »ç¿ëÇÑ ¾ÆÀÌµğ´Â '+data.foundId+'ÀÔ´Ï´Ù.')
+						alert('íšŒì›ê°€ì…ì‹œ ì‚¬ìš©í•œ ì•„ì´ë””ëŠ” '+data.foundId+'ì…ë‹ˆë‹¤.')
 					}else{
-						alert('ÀÏÄ¡ÇÏ´Â È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù. ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä.')
+						alert('ì¼ì¹˜í•˜ëŠ” íšŒì›ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”.')
 					}
 				},
 				error:function(e){

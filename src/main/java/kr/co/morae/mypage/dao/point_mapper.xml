@@ -10,11 +10,32 @@
 	</insert>
 	
 	<select id="myPoint" resultType="int" parameterType="java.lang.String">
-		SELECT IFNULL(SUM(value), 0) AS totalSum
+		SELECT SUM(value) AS totalSum
 			FROM (
-			    SELECT chargePrice AS value FROM chargeHistory WHERE userId = #{param1}
+			    SELECT chargePrice AS value FROM chargehistory WHERE userId = #{param1}
 			    UNION ALL
-			    SELECT pointMonney AS value FROM pointHistory WHERE userId = #{param1}
+			    SELECT pointMonney AS value FROM pointhistory WHERE userId = #{param1}
 			) AS totalSum;
+	</select>
+	
+	<select id="useList" resultType="kr.co.morae.mypage.dto.PointDto">
+		select p.userId, p.pointReason, p.pointMonney, p.pointDate, SUBSTRING(g.title, 1, 10) as title
+			from pointhistory p
+				left join groupbuyingpost g on p.gbNo = g.gbNo
+				left join user u on p.userId = u.userId
+					where p.userId = #{param1} order by pointNo desc limit 10 offset #{param2}
+	</select>
+	
+	<select id="usePages" resultType="int">
+		select ceil(count(pointNo)/10) as pages from pointhistory where userId = #{param1}
+	</select>
+	
+	<select id="chargeList" resultType="kr.co.morae.mypage.dto.PointChargeDto">
+		select userId, chargePrice, chargeDate, depositor from chargehistory
+			where userId = #{param1} order by chargeNo desc limit 10 offset #{param2}
+	</select>
+	
+	<select id="chargePages" resultType="int">
+		select ceil(count(chargeNo)/10) as pages from chargehistory where userId = #{param1}
 	</select>
 </mapper>

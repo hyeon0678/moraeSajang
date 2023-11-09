@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,42 +7,6 @@
 <title>모래사장 | 보낸 쪽지 상세</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-   @font-face {
-            font-family: 'KorailRoundGothicBold';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicMedium.woff2') format('woff2');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicLight';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicLight.woff2') format('woff2');
-            font-weight: 300;
-            font-style: normal;
-        }
-        
-        *{margin:0; padding:0;}
-        li{list-style: none;}
-        a{text-decoration: none;}
-        img{border:none; display: block;}
-        h1, h2, h3, h4, h5, h6{font-family: 'KorailRoundGothicBold', sans-serif; font-size:16px; color:#212732;}
-        body, header, section, footer, div, ul, li, p, a, span, input, textarea{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
-        body{background-color: #f0f0f0;}
-
-        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede; background-color: #fff; z-index:999;}
-        #header .headerInner{position:relative; width:80%; height:100px; margin:0 auto;}
-        #header .headerInner .logo{position:absolute; width:180px; left:0; top:26px;}
-        #header .headerInner .logo img{width:100%;}
-        #header .headerInner .util{position:absolute; width:142px; right:0; top:28px;}
-        #header .headerInner .util li{position:relative; float:left; width:44px; margin-left: 5px;}
-        #header .headerInner .util li:first-child{margin-left:0px;}
-        #header .headerInner .util li a img{width:100%;}
-
         #msgList{position:relative; margin-top:150px; overflow: hidden;}
         #sendmsgList{display: none;}
         #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
@@ -77,21 +40,12 @@
 </style>
 </head>
 <body>
-<header id="header">
-        <div class="headerInner">
-            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="모래사장"></a></h1>
-            <ul class="util">
-                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="알림"></a></li>
-                <li><a href="javascript:"><img src="resources/img/msg.png" alt="메세지 알림"></a></li>
-                <li><a href="javascript:"><img src="resources/img/my.png" alt="마이페이지"></a></li>
-            </ul>
-        </div>
-    </header>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
     <div id="lnb">
         <ul>
-            <a href="msgRcvList"><li>받은 쪽지</li></a>
-            <a href="msgSendList"><li class="on">보낸 쪽지</li></a>
-            <a href="msgWrite"><li>쪽지 보내기</li></a>
+            <a href="rcvList"><li>받은 쪽지</li></a>
+            <a href="sendList"><li class="on">보낸 쪽지</li></a>
+            <a href="write"><li>쪽지 보내기</li></a>
         </ul>
     </div>
     <section id="msgList">
@@ -112,13 +66,13 @@
                                 <p class="sendDate">${item.sentDate}</p>
                             </div>
                             <div class="rightArea">
-                                <a href="msgRcvList"><svg width="22" height="22" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" class="returnList">
+                                <a href="sendList"><svg width="22" height="22" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" class="returnList">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M160 144h288M160 256h288M160 368h288"/>
                                     <circle cx="80" cy="144" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
                                     <circle cx="80" cy="256" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
                                     <circle cx="80" cy="368" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
                                 </svg></a>
-                                <a href="msgSendDel?messagesNo=${item.messagesNo}" onclick="return del()"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg">
+                                <a href="sendDel?messagesNo=${item.messagesNo}" onclick="return del()"><svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="delImg">
                                     <path fill="currentColor" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"></path>
                                 </svg></a>
                             </div>

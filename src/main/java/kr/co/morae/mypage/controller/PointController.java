@@ -25,7 +25,7 @@ public class PointController {
 	
 	@Autowired PointService service;
 	
-	@RequestMapping(value = "/pointCharge")
+	@RequestMapping(value = "my/point/charge")
 	   public String pointCharge(HttpSession session, Model model) {
 	      String page = "mypage/pointCharge";
 	      if(session.getAttribute("userInfo") == null) {
@@ -35,7 +35,12 @@ public class PointController {
 	      return page;
 	   }
 	
-	@RequestMapping(value = "/myPoint.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "my/point/history")
+	public String pointHistory() {
+		return "mypage/pointHistory";
+	}
+	
+	@RequestMapping(value = "my/point/myPoint.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> point(HttpSession session, Model model){
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -49,7 +54,7 @@ public class PointController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/chargeGo", method = RequestMethod.POST)
+	@RequestMapping(value = "my/point/chargeGo", method = RequestMethod.POST)
 		public String chargeGo(@RequestParam String name, @RequestParam String chargePrice, HttpSession session, Model model) {
 		logger.info("입금자명 : "+name+" / 충전금액 : "+chargePrice);
 		String page = "mypage/pointCharge";
@@ -58,12 +63,30 @@ public class PointController {
 		logger.info(userId);
 		int row = service.chargeGo(userId, name, chargePrice);
 		if(row==1) {
-	         model.addAttribute("msg","충전이 완료되었습니다.");
-	         page="redirect:/mypage/pointHistory";
+			model.addAttribute("msg","충전이 완료되었습니다.");
+	         page="redirect:/my/point/history";
 	      }else {
 	         model.addAttribute("msg","입금자명이 일치하지 않습니다.");
 	      }
 			return page;
 		}
+	
+	@RequestMapping(value = "my/point/useListCall.ajax", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> useListCall(@RequestParam String page, HttpSession session){
+		logger.info("page : "+page);
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		return service.useList(page, userId);
+	}
+	
+	@RequestMapping(value = "my/point/chargeListCall.ajax", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> chargeListCall(@RequestParam String page, HttpSession session){
+		logger.info("page : "+page);
+		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		return service.chargeList(page, userId);
+	}
 	
 }

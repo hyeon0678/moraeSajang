@@ -1,10 +1,6 @@
 package kr.co.morae.user.dto;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-
-import kr.co.morae.admin.dto.AuthDto;
 
 public class UserDto {
 	
@@ -18,35 +14,12 @@ public class UserDto {
 	private Date reg_date;
 	private int age;
 	private String gender;
-	// 사용자 주소 필드 (통 주소)
-		private String addr;
 	// 사용자 주소 필드
 	private String streetAddress;
 	private String userDetailAddress;
-	private String detailAddress;
-	
-
 	// 사용자 권한 필드
 	private Integer authNo;
 	private String authType;
-	private String state;
-	
-	
-	
-	public String getDetailAddress() {
-		return detailAddress;
-	}
-	public void setDetailAddress(String detailAddress) {
-		this.detailAddress = detailAddress;
-	}
-	
-	
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
 	
 	
 	public String getUserId() {
@@ -133,12 +106,4 @@ public class UserDto {
 	public void setAuthType(String authType) {
 		this.authType = authType;
 	}
-	public String getAddr() {
-		return addr;
-	}
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-	
-	
 }

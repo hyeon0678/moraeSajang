@@ -1,46 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>∏∑°ªÁ¿Â</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<meta charset="UTF-8">
+<title>Î™®ÎûòÏÇ¨Ïû•</title>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> 
 <style>
-        @font-face {
-            font-family: 'KorailRoundGothicBold';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicMedium.woff2') format('woff2');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'KorailRoundGothicLight';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicLight.woff2') format('woff2');
-            font-weight: 300;
-            font-style: normal;
-        }
-        
-        *{margin:0; padding:0;}
-        li{list-style: none;}
-        a{text-decoration: none;}
-        img{border:none; display: block;}
-        h1, h2, h3, h4, h5, h6{font-family: 'KorailRoundGothicBold', sans-serif; font-size:16px; color:#212732;}
-        body, header, section, footer, div, ul, li, p, a, span, input{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
-
-        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede;}
-        #header .headerInner{position:relative; width:80%; height:100px; margin:0 auto;}
-        #header .headerInner .logo{position:absolute; width:180px; left:0; top:26px;}
-        #header .headerInner .logo img{width:100%;}
-        #header .headerInner .util{position:absolute; width:142px; right:0; top:28px;}
-        #header .headerInner .util li{position:relative; float:left; width:44px; margin-left: 5px;}
-        #header .headerInner .util li:first-child{margin-left:0px;}
-        #header .headerInner .util li a img{width:100%;}
-
         #main{position:relative; margin-top:100px;}
         #main .mainInner{width:80%; height:500px; margin:0 auto; padding-top:200px;}
         #main .mainInner .innerText{text-align: center; margin-bottom: 50px;}
@@ -54,16 +20,7 @@
     </style>
 </head>
 <body>
-<header id="header">
-        <div class="headerInner">
-            <h1 class="logo"><a href="main"><img src="resources/img/logo.png" alt="∏∑°ªÁ¿Â"></a></h1>
-            <ul class="util">
-                <li><a href="javascript:"><img src="resources/img/Notification.png" alt="æÀ∏≤"></a></li>
-                <li><a href="javascript:"><img src="resources/img/msg.png" alt="∏ﬁºº¡ˆ æÀ∏≤"></a></li>
-                <li><a href="javascript:"><img src="resources/img/my.png" alt="∏∂¿Ã∆‰¿Ã¡ˆ"></a></li>
-            </ul>
-        </div>
-    </header>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
     <section id="main">
         <div class="mainInner">
             <div class="innerText">
@@ -72,8 +29,8 @@
                 <p>Welcome to Burger Bliss, where we take your cravings to a<br/>whole new level! Our mouthwatering burgers are made<br/>from 100% beef and are served on freshly baked buns.</p>
             </div>
             <ul class="innerBtn">
-                <a href="login"><li>∑Œ±◊¿Œ</li></a>
-                <a href="register"><li>»∏ø¯∞°¿‘</li></a>
+                <a href="user/login"><li>Î°úÍ∑∏Ïù∏</li></a>
+                <a href="user/register"><li>ÌöåÏõêÍ∞ÄÏûÖ</li></a>
             </ul>
         </div>
     </section>
