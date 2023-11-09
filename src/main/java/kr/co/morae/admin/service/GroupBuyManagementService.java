@@ -1,6 +1,9 @@
 package kr.co.morae.admin.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -164,6 +167,14 @@ public Map<String, Object> adminBlockState(String blockState, String gbNo) {
 	int row = dao.adminBlockState(blockState,gbNo);
 	if(blockState.equals("Y")) {		
 		int rw = dao.admingbState(gbNo);
+		LocalDate nowdate = LocalDate.now();
+		DateTimeFormatter fromatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = nowdate.format(fromatter);
+		int count = dao.admincount(gbNo);
+		logger.info("count확인 : "+count);
+		if(count==0) {			
+			int rr = dao.admingbHis(gbNo,formattedDate);
+		}
 		if(row>0 & rw >0) {
 			result.put("msg", "success");
 			return result;

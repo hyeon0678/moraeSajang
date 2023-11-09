@@ -5,132 +5,120 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Bootstrap: 디자인을 위한 프레임워크 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<!-- jQuery 는 사용하는 플러그인과 다른 라이브러리와의 충돌 여부를 확인해야 합니다. -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-<!-- 페이징 처리를 위한 라이브러리 -->
+<link href="<c:url value='/resources/css/gbList.css'/>" rel="stylesheet"/>
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
-.container-row-spacing {
-        margin-bottom: 80px; /* 원하는 간격(px)을 설정 */
-    }
-
-p {
-  font-size: 15px;
-}
 .card:hover {
   transform: scale(1.05);
 }
-#all {
-  width: 100%;
-  height: 100%;
-}
-#cc{
-	margin-left:15px;
-	width: 20px;
-	height: 20px;	
-}
-#z{
-	
-	margin-right:67%;
-	font-size: 20px;
-	float: right;
-}
 .card {
-  border-radius: 20px;
-  border: solid black 1px;
-  height: 450px;
-  width: 250px;
-  background-color: white;
-  position: relative;
   box-shadow: 10px 5px 5px black;
-  left: 80px;
-  float: left;
-  transition: all 0, 2s linear;
-  margin-right: 3%;
-  margin-top: 60px;
+  transition: all 0.2s linear;
+  margin-left: auto;
 }
+	tr.f1{
+	background-color: #F9DCA3; 
+	}
+
+	div.sideber ul {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px 20px 0px 20px;
+	  width: 200px;
+	  background: white;	  
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  float: left;
+	  border: 3px ;
+	 border-style: none solid none none;
+	  border-color: #F9DCA3; 
+	}
+	
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  background: white;
+	  color: gray;
+	  border: 0px solid ;
+	  border-color: #F9DCA3;
+	  font-weight: bold;
+	  margin: 10px 0px;
+	  border-radius: 15px;
+	}
+	
+	li a:hover {
+	  background: #F9DCA3;
+	  color: white;
+	  border-radius: 15px;
+	}
+		
+	li h3.page {
+	  background : white;
+	  color: gray;
+	}
+	
 
 
-#name {
-  color: orange;
-}
+	input[type="button"]{
+		background-color: #FFBC38;
+		border-color:#DEDEDE;
+		color: #212732;
+	}
 
-#content {
-  margin-top: 50px;
-  margin-left: 10px;
-}
-
-#sinsun {
-position: absolute;
-  width: 100px;
-  background-color: orange;
-  height: 40px;
-  border-radius: 20px;
-  left: 140px;
-  bottom: 10px;
-  text-align: center;
-  line-height: 40px;
-}
-
-#p1 {
-  top: 750px;
-  left: 300px;
-}
-
-#check {
-  top: 750px;
-  left: 350px;
-  width: 30px;
-  height: 30px;
-  color: yellow;
-}
-
-#photoroom {
-  width: 100%;
-  border-radius: 20px;
-  height: 130px;
-  top: 120px;
-  left: 50px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
-
-#imgge {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-}
-
-#icon {
-  position: absolute;
-  right: 20px;
-  bottom: 100px;
-}
-
-#price {
-  font-size: 30px;
-}
+        select {
+            margin: 5px 0px;
+        }
+        .hidden {
+            display: none;
+        }
+        div.card-row-spacing{
+        margin-left: 230px;
+        }
+        div.scb{
+        position:absolute;
+        margin-top:-0.7%;
+        margin-left:50%;
+        }
+        div.seli{
+        position:absolute;
+		margin-top:-1%;
+        margin-left:16%;
+        }
 </style>
 </head>
 <body>
-<th>
+	<div class="seli">
+    <span><button class="region current" id="alladmingblist" value="전체">전체</button></span>
+    <span><button class="region" id="sucadmingblist" value="완료">완료</button></span>
+    <span><button class="region" id="failadmingblist" value="취소">취소</button></span>
+	</div>
+<div class="scb">
 	<input type="text" id="searchadmingblist" placeholder="아이디 입력"/>
 	<input type="button" id="searchpoingblist" value="아이디 검색"/>
-    <input type="button" id="alladmingblist" value="전체" />
-    <input type="button" id="sucadmingblist" value="완료" />
-    <input type="button" id="failadmingblist" value="취소" />
     <label for="date">날짜를 선택하세요:
         <input type="date" id="firstsearchdate" value="" />
         ~
         <input type="date" id="lastsearchdate" value="" />
         <input type="button" id="searchButton" value="검색" />
     </label>
-</th>
-    <div class="container container-row-spacing">
+</div>
+ <div class="sideber">
+		<ul>
+	  <li><h3 class="page">관리자 페이지</h3></li>
+	  <li><a href="analysis">통계</a></li>
+	  <li><a href="adminUser">회원 관리</a></li>
+	  <li><a href="adminReport">신고 관리</a></li>
+	  <li><a href="point">포인트 관리</a></li>
+	  <li><a href="groupBuy" style="background: #F9DCA3;color: white;" >게시판 관리</a></li>
+		</ul>
+	</div>
+    <div class="card-row-spacing">
         <div class="row" id="list">
             <!-- 데이터가 여기에 삽입됩니다. -->
         
@@ -160,6 +148,7 @@ position: absolute;
             data: { 'page': page, 'searchblock':searchblock },
             dataType: 'json',
             success: function (data) {
+            	console.log(data);
                 console.log(data.list.length);
                 if(data.list.length==0){
                 	alert('검색결과가 없습니다.')
@@ -179,28 +168,38 @@ position: absolute;
         var itemPerRow = 4; // 한 행당 4개의 아이템을 표시
 
         obj.list.forEach(function (item, idx) {
-        	content += '<div id="all" >'; // 한 행 시작
-            content += '<div class="card ' + idx + '" id="' + item.gbNo + '">';
-            content += '<div id="photoroom">';
-            content += '<img id="image" src="../../images/logo1.png"></img>';
+        	content += '<div class="card-row">'; // 한 행 시작
+            content += '<div class="card "style="width: 18rem; " ' + idx + '" id="' + item.gbNo + '">';
+            if(item.firstFileName == null){
+                content +='<div class="card-img-top" style="background-image:url(/photo/default/default.png?auto=compress,format);">'
+            	
+            }else{
+            	content +='<div class="card-img-top" style="background-image:url(/photo/gbImg/'+item.firstFileName+'?auto=compress,format);">'  	
+            }
             content += '</div>';
-            content += '<div id="content">';
-            content += '<h3>' + item.title + '</h3>';
-            content += '<p id="name">' + item.userId + '</p>';
-            content += '<p>모집 기간</p>';
+            content +='<div class="card-body">'
+            content +='<p class="gbno-hidden">'+item.gbNo+'</p>'
+            content += '<div class="title section">' + item.title + '</div>'
+            content += '<div class="writer section">' + item.userId +'</div>'
+            content += '<div class="date-div">모집기간</div>'
             var startDate = formatDateFromTimestamp(item.startDate);
             var finishDate = formatDateFromTimestamp(item.finishDate);
-            content += '<p>' + startDate + ' ~ ' + finishDate + '</p>';
-            content += '<br />';
-            content += '<p>모집 인원 ' + item.joinPeople + '/' + item.recruitPeople + '</p>';
-            content += '<h1>' + item.joinPrice + '원</h1>';
-            content += '<p id="icon">아이콘</p>';
-            content += '<p id="sinsun">' + item.categoryType + '</p>';
-            content += '</div>';
-            content += '</div>';
-            content += '</div>'; // 한 행 종료
-            content += '</div>'; 
-            content += '</div>'; 
+            content +='<div class-"date">'+ startDate + ' ~ ' + finishDate + '</div>'
+            content +='<div class="recruit-div section">'
+            content +='<span>모집인원</span><span class="recruit-period">'+ item.joinPeople + '/' + item.recruitPeople + '</sapn>'
+            content += getRecruitImgTag(item.joinPeople, item.recruitPeople);
+            content +='<div class="section">'
+            content += '</div>'
+            let joinPrice = item.joinPrice.toString();
+            joinPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            content +='<span>'+joinPrice+'원</span>'
+            content +='<span class="card-category comm-btn">'+item.categoryType+'</span>'
+            content += '</div>'
+            content += '</div>'
+            content += '</div>'// 한 행 종료
+            content += '</div>'
+            content += '</div>'
+
         });
         pp += '<div class="container">';
         pp += '<nav aria-label="Page navigation" style="text-align:center">';
@@ -238,9 +237,27 @@ position: absolute;
             }
         });
     }
+    function getRecruitImgTag(joinNum, recruitNum){
+    	let recruitRatio = 	Math.floor(joinNum/recruitNum*100);
+    	let imgTag = '';
+    	if(recruitRatio>=0 && recruitRatio<= 25){
+    		imgTag += '<span class="recruit-img-span"><img class="detail-joinicon" src="/photo/icon/1.png"/></span>'
+    	}else if(recruitRatio>=26 && recruitRatio<= 50){
+    		imgTag += '<span class="recruit-img-span"><img class="detail-joinicon" src="/photo/icon/2.png"/></span>'
+    	}else if(recruitRatio>51 && recruitRatio<= 75){
+    		imgTag += '<span class="recruit-img-span"><img class="detail-joinicon" src="/photo/icon/3.png"/></span>'
+    	}else if(recruitRatio>=76 && recruitRatio<= 99){
+    		imgTag += '<span class="recruit-img-span"><img class="detail-joinicon" src="/photo/icon/4.png"/></span>'
+    	}else{
+    		imgTag += '<span class="recruit-img-span"><img class="detail-joinicon" src="/photo/icon/5.png"/></span>'
+    	}
+    	return imgTag;
+    }
     $('#alladmingblist').on('click',function(){
     	showPage = 1;
     	searchblock = "all";
+    	$('button.region').removeClass('current');
+        $(this).addClass('current');
     	seruser= null;
     	searchResults=null;
     	adminGroupBuyList(showPage,searchblock);
@@ -251,6 +268,8 @@ position: absolute;
     $('#sucadmingblist').on('click',function(){
     	showPage= 1;
     	searchblock = "N";
+    	$('button.region').removeClass('current');
+        $(this).addClass('current');
     	if(serint){
         	if(firstpage){
             	adminGroupBuyIntList(showPage,searchblock,firstSearchDateValue,lastSearchDateValue);		
@@ -269,6 +288,8 @@ position: absolute;
     $('#failadmingblist').on('click',function(){
     	showPage= 1;
     	searchblock = "Y";
+    	$('button.region').removeClass('current');
+        $(this).addClass('current');
     	if(serint){
         	if(firstpage){
             	adminGroupBuyIntList(showPage,searchblock,firstSearchDateValue,lastSearchDateValue);		

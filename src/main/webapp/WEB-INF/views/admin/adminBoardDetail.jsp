@@ -3,20 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Document</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/img_slider.css'/>">
+<link rel="stylesheet" href="<c:url value='/resources/css/gbDetail.css'/>">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
 </head>
 <body>
-
-    <div id="productsInfo">
+	<div class="elem-container">
+    <div id="productsInfo" class="section">
         <div id="productImgBox" class="products">
         	<div class="slider-2">
 			     <div class="side-btns">
@@ -46,10 +46,10 @@
         </div>
         <div class="products">
             <div 모집인원 class="smallInfo">
-                <label for="recruitPeople">인원수</label>
-                <span>
-                <input type="text" id="recruitPeople" name="recruitPeople" value="${GroupBuyDto.joinPeople}/${GroupBuyDto.recruitPeople}"/>
-                </span>
+                <label for="recruitPeople" class="info-label">인원수</label>
+	                <span>
+	                ${GroupBuyDto.joinPeople}/${GroupBuyDto.recruitPeople}
+	                </span>
                 <span>
                 <c:if test="${GroupBuyDto.joinPeople ne 0}">
                 <fmt:formatNumber var="oc" type="number" maxFractionDigits="0"  value="${GroupBuyDto.joinPeople/GroupBuyDto.recruitPeople*100}" />
@@ -187,7 +187,8 @@ function admingbdetail(){
             console.log(data);
             $('#title').val(data.GroupBuyDto.title);
             $('#gbContent').val(data.GroupBuyDto.gbContent);
-            $('#recruitPeople').val(data.GroupBuyDto.joinPeople + '/' + data.GroupBuyDto.recruitPeople);
+            $('#info-label').val(data.GroupBuyDto.joinPeople);
+            $('#info-label').val(data.GroupBuyDto.recruitPeople);
             $('#startDate').val(formatDateFromTimestamp(data.GroupBuyDto.startDate));
             $('#finishDate').val(formatDateFromTimestamp(data.GroupBuyDto.finishDate));
             $('#recruitRegion').val(data.GroupBuyDto.gbDetailAddress);

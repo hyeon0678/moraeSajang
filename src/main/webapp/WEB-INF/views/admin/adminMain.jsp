@@ -17,7 +17,9 @@ table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
             padding: 5px 10px;
-        }
+        }.centered-cell {
+        text-align: center;
+    }
 </style>
 
 </head>
@@ -99,7 +101,7 @@ table, th, td {
         		<th>순위</th>
         		<th>날짜</th>
             	<th>전체 건수</th>
-            	<th>진행</th>
+            	<th id="state">완료</th>
             	<th>비율</th>
         	</tr>
 		</thead>
@@ -188,7 +190,7 @@ const chartHeight = donutChartContainer.offsetHeight;
 
 centerText.style.top = chartHeight / 2 + 'px';
 centerText.style.left = chartWidth / 2 + 'px';
-centerText.style.transform = 'translate(-700%, -68%)';
+centerText.style.transform = 'translate(-691%, -55%)';
 // 왼쪽 : 숫자가 작아질수록 오른쪽으로 이동
 // 오른쪽 : 숫자가 작아질수록 아래쪽으로 이동
 
@@ -393,7 +395,7 @@ function drawTopUser(ufirstSearchDate,ulastSearchDate){
 		    var content ='';
 		    if(data.topUser.length==0){
 		    	content +='<tr>';
-		    	content +='<td>"검색 결과가 없습니다"</td>';
+		    	content +='<td class="centered-cell" colspan="5">"검색 결과가 없습니다"</td>';
 		    	content +='</tr>';
 		    }else{
 		    	data.topUser.forEach(function(item, idx){
@@ -443,7 +445,7 @@ function drawTopPoint(pfirstSearchDate,plastSearchDate){
 		    var content ='';
 		    if(data.topPoint.length==0){
 		    	content +='<tr>';
-		    	content +='<td>"검색 결과가 없습니다"</td>';
+		    	content +='<td class="centered-cell" colspan="3">"검색 결과가 없습니다"</td>';
 		    	content +='</tr>';
 		    }else{
 		    	data.topPoint.forEach(function(item, idx){
@@ -493,7 +495,7 @@ function drawgbState(stateBar,bfirstSearchDate,blastSearchDate){
 		    var content ='';
 		    if(data.gbState.length==0){
 		    	content +='<tr>';
-		    	content +='<td>"검색 결과가 없습니다"</td>';
+		    	content +='<td class="centered-cell" colspan="5">"검색 결과가 없습니다"</td>';
 		    	content +='</tr>';
 		    }else{
 		    	data.gbState.forEach(function(item, idx){
@@ -526,19 +528,22 @@ $('#ssearchButton').on('click',function(){
 	stateBar = $(this).val();
 	const bfirstSearchDate = bfirstSearchDateInput.value;
 	const blastSearchDate = blastSearchDateInput.value;
-	drawgbState(stateBar,bfirstSearchDate,blastSearchDate)
+	drawgbState(stateBar,bfirstSearchDate,blastSearchDate);
+	$('#state').text('완료');
 });
 $('#isearchButton').on('click',function(){
 	stateBar = $(this).val();
 	const bfirstSearchDate = bfirstSearchDateInput.value;
 	  const blastSearchDate = blastSearchDateInput.value;
-	drawgbState(stateBar,bfirstSearchDate,blastSearchDate)
+	drawgbState(stateBar,bfirstSearchDate,blastSearchDate);
+	$('#state').text('진행');
 });
 $('#fsearchButton').on('click',function(){
 	stateBar = $(this).val();
 	const bfirstSearchDate = bfirstSearchDateInput.value;
 	  const blastSearchDate = blastSearchDateInput.value;
-	drawgbState(stateBar,bfirstSearchDate,blastSearchDate)
+	drawgbState(stateBar,bfirstSearchDate,blastSearchDate);
+	$('#state').text('취소');
 });
 </script>
 </html>

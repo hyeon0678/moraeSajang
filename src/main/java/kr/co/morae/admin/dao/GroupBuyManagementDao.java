@@ -51,6 +51,10 @@ public interface GroupBuyManagementDao {
 
 	int admingbState(String gbNo);
 
+	int admingbHis(String gbNo, String formattedDate);
+
+	int admincount(String gbNo);
+
 
 
 }
