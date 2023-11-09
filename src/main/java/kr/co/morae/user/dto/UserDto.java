@@ -20,8 +20,22 @@ public class UserDto {
 	// 사용자 권한 필드
 	private Integer authNo;
 	private String authType;
+	private String state;
+	private String detailAddress;
 	
 	
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getUserId() {
 		return userId;
 	}
