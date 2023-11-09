@@ -15,7 +15,7 @@
 
 
 <body>
-
+<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
     <div class="elem-container">
         <div class="gb-list-container search1">
             <div id="info__id">

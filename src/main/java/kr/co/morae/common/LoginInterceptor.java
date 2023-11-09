@@ -23,6 +23,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         log.info("========================== loginInterceptor start ===========================");
 		HttpSession session = request.getSession();
 		UserDto dto = (UserDto) session.getAttribute("userInfo");
+		log.info(request.getRequestURI());
 		if(dto == null) {
 			log.info("unknown user");
             FlashMap map = new FlashMap();
