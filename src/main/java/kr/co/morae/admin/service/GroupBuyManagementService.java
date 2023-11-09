@@ -164,17 +164,24 @@ public Map<String, Object> adminCommentdel(String commNo, String gbNo) {
 
 public Map<String, Object> adminBlockState(String blockState, String gbNo) {
 	HashMap<String, Object> result = new HashMap<String, Object>();
+	// 글 블라인드 상태 변경
 	int row = dao.adminBlockState(blockState,gbNo);
 	if(blockState.equals("Y")) {		
-		int rw = dao.admingbState(gbNo);
 		LocalDate nowdate = LocalDate.now();
 		DateTimeFormatter fromatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedDate = nowdate.format(fromatter);
+		// 글 진행상태
+		int rw = dao.admingbState(gbNo);
+		
+		// 글 히스트로 중복 확인
 		int count = dao.admincount(gbNo);
 		logger.info("count확인 : "+count);
-		if(count==0) {			
+		
+		if(count==0) {		
+			// 글 히스토리 작성
 			int rr = dao.admingbHis(gbNo,formattedDate);
 		}
+		
 		if(row>0 & rw >0) {
 			result.put("msg", "success");
 			return result;

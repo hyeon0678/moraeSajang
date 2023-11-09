@@ -13,6 +13,57 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
+<style>
+div.container{
+	margin-left: -18%;
+}
+#back {
+   	margin-left: 47%;
+}
+	tr.f1{
+	background-color: #F9DCA3; 
+	}
+
+	div.sideber ul {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px 20px 0px 20px;
+	  width: 200px;
+	  background: white;	  
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  float: left;
+	  border: 3px ;
+	 border-style: none solid none none;
+	  border-color: #F9DCA3; 
+	}
+	
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  background: white;
+	  color: gray;
+	  border: 0px solid ;
+	  border-color: #F9DCA3;
+	  font-weight: bold;
+	  margin: 10px 0px;
+	  border-radius: 15px;
+	}
+	
+	li a:hover {
+	  background: #F9DCA3;
+	  color: white;
+	  border-radius: 15px;
+	}
+		
+	li h3.page {
+	  background : white;
+	  color: gray;
+	}
+	
+</style>
 </head>
 <body>
 	<div class="elem-container">
@@ -46,125 +97,137 @@
         </div>
         <div class="products">
             <div 모집인원 class="smallInfo">
-                <label for="recruitPeople" class="info-label">인원수</label>
-	                <span>
+               <label for="recruitPeople" class="info-label">인원수</label>
+	                <span id="recruitPeople">
 	                ${GroupBuyDto.joinPeople}/${GroupBuyDto.recruitPeople}
 	                </span>
-                <span>
-                <c:if test="${GroupBuyDto.joinPeople ne 0}">
-                <fmt:formatNumber var="oc" type="number" maxFractionDigits="0"  value="${GroupBuyDto.joinPeople/GroupBuyDto.recruitPeople*100}" />
-                </c:if>
-                <c:choose>
-                	<c:when test="${GroupBuyDto.joinPeople eq 0}">
-                	<img class="detail-joinicon" src="/photo/icon/1.png"/>
-                	</c:when>
-                	<c:when test="${oc ge 0 && oc le 25}">
-                	<img class="detail-joinicon" src="/photo/icon/1.png" />
-                	</c:when>
-                	<c:when test="${oc ge 26 && oc le 50}">
-                	<img class="detail-joinicon" src="/photo/icon/2.png" />
-                	</c:when>
-                	<c:when test="${oc ge 51 && oc le 75}">
-                	<img class="detail-joinicon" src="/photo/icon/3.png" />
-                	</c:when>
-                	<c:when test="${oc ge 76 && oc le 99}">
-                	<img class="detail-joinicon" src="/photo/icon/4.png" />
-                	</c:when>
-                	<c:when test="${oc eq 100}">
-                	<img class="detail-joinicon" src="/photo/icon/5.png" />
-                	</c:when>
-                </c:choose>
-                </span>
+                <span class="joinicon-span">
+	                <c:if test="${GroupBuyDto.joinPeople ne 0}">
+	                <fmt:formatNumber var="oc" type="number" maxFractionDigits="0"  value="${GroupBuyDto.joinPeople/GroupBuyDto.recruitPeople*100}" />
+	                </c:if>
+	                <c:choose>
+	                	<c:when test="${GroupBuyDto.joinPeople eq 0}">
+	                	<img class="detail-joinicon" src="/photo/icon/1.png"/>
+	                	</c:when>
+	                	<c:when test="${oc ge 0 && oc le 25}">
+	                	<img class="detail-joinicon" src="/photo/icon/1.png" />
+	                	</c:when>
+	                	<c:when test="${oc ge 26 && oc le 50}">
+	                	<img class="detail-joinicon" src="/photo/icon/2.png" />
+	                	</c:when>
+	                	<c:when test="${oc ge 51 && oc le 75}">
+	                	<img class="detail-joinicon" src="/photo/icon/3.png" />
+	                	</c:when>
+	                	<c:when test="${oc ge 76 && oc le 99}">
+	                	<img class="detail-joinicon" src="/photo/icon/4.png" />
+	                	</c:when>
+	                	<c:when test="${oc eq 100}">
+	                	<img class="detail-joinicon" src="/photo/icon/5.png" />
+	                	</c:when>
+	                </c:choose>
+	                </span>
             </div>
-            <p id ="gbNo">글 번호: ${gbNo}</p>
-            <fieldset>
- <div>
- 	<label>글 상태</label>
- 	<div>
-    <p>정상<input type="radio" id="blockN" name="blockState" value="N"/></p>
-    <p>블라인드<input type="radio" id="blockY" name="blockState" value="Y"/></p>
-    <input type ="button" id="blockbut" value="저장"/>
- 	</div>
- </div>
-</fieldset>
+			<div class="smallInfo">
+	                <label class="info-label">글 번호</label>
+	                <span id="gbNo">
+	                    ${gbNo}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label class="info-label">글 상태</label>
+	                <span id="block">
+	                    <select type="text" id="blocks" >
+			                <option value="N">정상</option>
+			                <option value="Y">블라인드</option>
+            			</select>
+			                <input type ="button" id="blockbut" class="comm-btn" value="저장"/>
+	                </span>
+	            </div>
+	            
             <div 모집기간 class="smallInfo">
-                <label>모집기간</label>
-                <span>
-                    <input type="text" id="startDate" name="startDate" value="${GroupBuyDto.startDate}"/>
-                    ~
-                    <input type="text" id="finishDate" name="finishDate" value="${GroupBuyDto.startDate}"/>
-                </span>
-            </div>
-            <div>
-                <label for="recruitRegion">지역</label>
-                <span>
-                    <input type="text" id="recruitRegion" name="recruitRegion" value="${GroupBuyDto.gbDetailAddress}"/>
-                </span>
-            </div>
-            <div 모집장소 class="smallInfo">
-                <label for="recruitLocation">모집장소</label>
-                <span>
-                    <input type="text" id="recruitLocation" name="recruitLocation" value="${GroupBuyDto.place}" readonly/>
-                </span>
-            </div>
-            <div 모집장소 class="smallInfo">
-                <label for="userId">아이디</label>
-                <span>
-                    <input type="text" id="userId" name="userId" value="${GroupBuyDto.userId}" readonly/>
-                </span>
-                <label for="recruiter">작성자</label>
-                <span>
-                    <input type="text" id="recruiter" name="recruiter" value="${GroupBuyDto.nickname}" readonly/>
-                </span>
-            </div>
-            <div 모집장소 class="smallInfo">
-                <label for="user">사용자 평가</label>
-                <span>
-                    별로에요 : <input type="text" id="tradeAgainNum" value="${GroupBuyDto.tradeAgainNum}" readonly/>
-                </span>
-                <span>
-                    그냥 그래요 : <input type="text" id="justOkayNum" value="${GroupBuyDto.justOkayNum}" readonly/>
-                </span>
-                <span>
-                    또 거래하고싶어요 : <input type="text" id="notInterestedNum" value="${GroupBuyDto.notInterestedNum}" readonly/>
-                </span>
-            </div>
-            <div 금액 class="smallInfo">
-                <label for="joinPrice">금액</label>
-                <span>
-                	<fmt:formatNumber var="sm" value="${GroupBuyDto.joinPrice}" pattern="#,###" />
-                    <input type="text" id="joinPrice" value="${sm}"/>
-                </span>
-            </div>
-            <div 금액 class="smallInfo">
-                <label for="category">카테고리</label>
-                <span>
-                    <input type="text" id="category" value="${GroupBuyDto.categoryType}"/>
-                </span>
-            </div>
+	                <label class="info-label">모집기간</label>
+	                <span id="startDate">
+	                    ${GroupBuyDto.startDate}
+	                    ~
+	                    ${GroupBuyDto.startDate}
+	                </span>
+	            </div>
+            <div class = "smallInfo">
+	                <label class="info-label">지역</label>
+	                <span id="recruitRegion">
+	                    ${GroupBuyDto.gbDetailAddress}
+	                </span>
+	            </div>
+            <div class="smallInfo">
+	                <label class="info-label">모집장소</label>
+	                <span id="recruitLocation">
+	                    ${GroupBuyDto.place}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label class="info-label">아이디</label>
+	                <span id="userId">
+						${GroupBuyDto.userId}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label class="info-label">작성자</label>
+	                <span id="nickname">
+						${GroupBuyDto.nickname}
+	                </span>
+	            </div>
+				<div class="smallInfo">
+	                <label class="info-label">사용자 평가</label>
+	                <span id="tradeAgainNum">
+	                    별로에요 : ${GroupBuyDto.tradeAgainNum}
+	                </span>
+	                <span id="justOkayNum">
+	                    그냥 그래요 : ${GroupBuyDto.justOkayNum}
+	                </span>
+	                <span id="notInterestedNum">
+	                    또 거래하고싶어요 : ${GroupBuyDto.notInterestedNum}
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label class="info-label">금액</label>
+	                <span  id="joinPrice">
+	                	<fmt:formatNumber var="sm" value="${GroupBuyDto.joinPrice}" pattern="#,###" />
+	                    ${sm}원
+	                </span>
+	            </div>
+	            <div class="smallInfo">
+	                <label class="info-label">카테고리</label>
+	                <span id="category">
+	                    ${GroupBuyDto.categoryType}
+	                </span>
+	            </div>
         </div>
         
     </div>
     
-    <div id="titleDiv">
-        <div class="subContent">
-            제목
-            <input type="text" id="title" value="${GroupBuyDto.title}"/>
-        </div>
-        <div>
-            내용
-            <textarea id="gbContent" readonly>${GroupBuyDto.gbContent}</textarea>
-        </div>
-    </div>
+    <div class="gbContent section">
+	        <div class="subContent">
+	            <input type="text" id="title" class="big-info" value="${GroupBuyDto.title}" readonly/>
+	        </div>
+	        <div class="subContent">
+	            <textarea id="gbContent" class="big-info" readonly>${GroupBuyDto.gbContent}</textarea>
+	        </div>
+	    </div>
     <hr>
-    <h3>댓글</h3>
+    <h3 class="comment-h3">댓글</h3>
+    <div class="comment-div">
+
     <div id="comments">
 	            
+        </div>
         </div>
         <div id="pp">
 
 		</div>
-    <hr>
+    	<button id="back" class="comm-btn">목록으로</button>
+    	</div>
+    	</br>
+    	</br>
 </body>
 <script>
 function formatDateFromTimestamp(timestamp) {
@@ -187,26 +250,48 @@ function admingbdetail(){
             console.log(data);
             $('#title').val(data.GroupBuyDto.title);
             $('#gbContent').val(data.GroupBuyDto.gbContent);
-            $('#info-label').val(data.GroupBuyDto.joinPeople);
-            $('#info-label').val(data.GroupBuyDto.recruitPeople);
-            $('#startDate').val(formatDateFromTimestamp(data.GroupBuyDto.startDate));
-            $('#finishDate').val(formatDateFromTimestamp(data.GroupBuyDto.finishDate));
-            $('#recruitRegion').val(data.GroupBuyDto.gbDetailAddress);
-            $('#recruitLocation').val(data.GroupBuyDto.place);
-            $('#recruiter').val(data.GroupBuyDto.nickname);
-            $('#joinPrice').val(data.GroupBuyDto.joinPrice);
-            $('#category').val(data.GroupBuyDto.categoryType);
-            $('#userId').val(data.GroupBuyDto.userId);
-            $('#tradeAgainNum').val(data.GroupBuyDto.tradeAgainNum);
-            $('#justOkayNum').val(data.GroupBuyDto.justOkayNum);
-            $('#notInterestedNum').val(data.GroupBuyDto.notInterestedNum);
+            // 모집인원
+            var joinPeople = data.GroupBuyDto.joinPeople;
+            var recruitPeople = data.GroupBuyDto.recruitPeople;
+            $('#recruitPeople').text(joinPeople + '/' + recruitPeople);
+            // 모집 기간
+            var startDate=formatDateFromTimestamp(data.GroupBuyDto.startDate);
+            var finishDate=formatDateFromTimestamp(data.GroupBuyDto.finishDate)
+            $('#startDate').text(startDate+' ~ '+finishDate);
+            // 모집 지역
+         	var adress = data.GroupBuyDto.gbDetailAddress;
+            $('#recruitRegion').text(adress);
+            // 모집 장소
+            var place = data.GroupBuyDto.place;
+            $('#recruitLocation').text(place);
+            // 닉네임
+            var nickname = data.GroupBuyDto.nickname;
+            $('#nickname').text(nickname);
+            // 금액
+           	var joinPrice = data.GroupBuyDto.joinPrice;
+			var formattedJoinPrice = new Intl.NumberFormat('ko-KR', { style: 'decimal', currency: 'KRW' }).format(joinPrice);
+			$('#joinPrice').text(formattedJoinPrice + '원');
+			// 카테고리
+			var category = data.GroupBuyDto.categoryType;
+            $('#category').text(category);
+            // 유저 아이디
+            var userId=data.GroupBuyDto.userId;
+            $('#userId').text(userId);
+            // 유저 평가
+            var tradeAgainNum= data.GroupBuyDto.tradeAgainNum;
+            $('#tradeAgainNum').text('또 거래하고 싶어요 : '+tradeAgainNum);
+            var justOkayNum =data.GroupBuyDto.justOkayNum
+            $('#justOkayNum').text('그냥 그래요 : '+justOkayNum);
+            var notInterestedNum = data.GroupBuyDto.notInterestedNum
+            $('#notInterestedNum').text('별로에요 : '+notInterestedNum);
+            //------------------------
             var blockStateValue = data.GroupBuyDto.blockState; 
             if (blockStateValue === 'N') {
-                $('#blockN').prop('checked', true);
-                $('#blockY').prop('checked', false);
+                // '정상'을 선택하도록 업데이트
+                $('#blocks').val('N');
             } else if (blockStateValue === 'Y') {
-                $('#blockN').prop('checked', false);
-                $('#blockY').prop('checked', true);
+                // '블라인드'를 선택하도록 업데이트
+                $('#blocks').val('Y');
             }
             
             // PhotoNames 데이터 업데이트
@@ -277,15 +362,23 @@ function drawList(obj){
 	var comments ='';
 	var pp ='';
 	obj.comments.forEach(function(item, idx){
+		comments += '<div class="comment-box">';
 		comments += '<p style="display:none">'+item.commNo+'</p>';
-		comments += '<div id="commentHead">';
-		comments +=	'<span id="commentWriter">'+item.nickname+'</span>';
+		comments += '<div class="commentHead">';
+		comments +=	'<span id="commentWriter">'+item.userId+'</span>';
     	comments += '</div>';
-		comments += '<div id="commentBody">';
-		comments += '<div id="content"><textarea id="commentContent" class="inputValid" readonly>'+item.comment+'</textarea></div>';
-        comments += '<div id="date">'
-        
-        comments += '<span><button class="delete" data-commno="${item.commNo}">삭제</button>';	
+		comments += '<div class="commentBody">'
+		comments +='<div class="content"><textarea class="commentContent inputValid" readonly>'+item.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
+        comments += '<div class="date">'
+        	let milliseconds = parseInt(item.commRegDate,10)
+	        const date = new Date(milliseconds);
+	        const year = date.getFullYear();
+	        const month = date.getMonth() + 1;
+	        const day = date.getDate();
+	        const formattedDate = year+'-'+month+'-'+day;
+	    	comments += '<span >작성 날짜 '+formattedDate+' </span>'
+        comments += '<span><button class="delete" data-commno="${item.commNo}"> 삭제 </button>';	
+		
 	});
 	pp += '<div class="container">';
     pp += '<nav aria-label="Page navigation" style="text-align:center">';
@@ -340,7 +433,7 @@ function deleteBtn(){
 }
 
 $('#blockbut').on('click',function(){
-	 var blockState = $("input[name='blockState']:checked").val();
+	 var blockState = $('#blocks').val();
 	 console.log("선택한 블록 상태: " + blockState);
 	 $.ajax({
 			type:'GET',
@@ -362,7 +455,9 @@ $('#blockbut').on('click',function(){
 		});
 });
 	
-
+$('#back').on('click', function(){
+	location.href='groupBuy';
+})
 
 </script>
 </html>

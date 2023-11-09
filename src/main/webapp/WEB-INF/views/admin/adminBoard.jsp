@@ -65,11 +65,7 @@
 	
 
 
-	input[type="button"]{
-		background-color: #FFBC38;
-		border-color:#DEDEDE;
-		color: #212732;
-	}
+
 
         select {
             margin: 5px 0px;
@@ -100,12 +96,12 @@
 	</div>
 <div class="scb">
 	<input type="text" id="searchadmingblist" placeholder="아이디 입력"/>
-	<input type="button" id="searchpoingblist" value="아이디 검색"/>
-    <label for="date">날짜를 선택하세요:
+	<input type="button" id="searchpoingblist" class="comm-btn" value="아이디 검색"/>
+    <label for="date"> 날짜를 선택하세요 : 
         <input type="date" id="firstsearchdate" value="" />
         ~
         <input type="date" id="lastsearchdate" value="" />
-        <input type="button" id="searchButton" value="검색" />
+        <input type="button" id="searchButton" class="comm-btn" value="검색" />
     </label>
 </div>
  <div class="sideber">
