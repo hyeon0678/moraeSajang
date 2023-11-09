@@ -51,8 +51,7 @@
 	
 	<update id="updateAddr" parameterType="map">
 	UPDATE userAddress SET userDetailAddress = #{addr1} ,detailAddress = #{addr2}
-	where userId = #{id};
-	
+	where userId = #{id}
 	</update>
 	
 </mapper>
