@@ -53,11 +53,11 @@
 	
 	<!-- 참여자들이 참여 완료를 눌렀는지 확인하는 sql -->
 	<select id="checkComplete" resultType="kr.co.morae.groupbuy.dto.GbStateCheckDto">
-	SELECT g.recruitPeople,
-	(SELECT COUNT(joinState)
-	FROM groupBuyingJoining g3 
-	WHERE g3.gbNo = g.gbNo AND joinState LIKE 'Y'
-	) completeCnt
+	SELECT g.recruitPeople, g.gbNo, g.joinPrice, g.userId,
+		(SELECT COUNT(joinState)
+			FROM groupBuyingJoining g3 
+			WHERE g3.gbNo = g.gbNo AND joinState LIKE 'Y'
+		) completeCnt
 	FROM groupBuyingPost g LEFT OUTER JOIN groupBuyingJoining g2 
 	ON g.gbNo = g2.gbNo
 	WHERE g.gbNo = #{param1}

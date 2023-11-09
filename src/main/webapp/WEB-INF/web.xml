@@ -52,4 +52,15 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+<!-- 404 에러 발생시 /error/404  요청을 보내라 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/pageNotFound</location>
+	</error-page>
+	
+	<!-- 프로젝트 시작중에 발생하는 500 에러에는 반응할 수 없다. -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/serverError</location>
+	</error-page>
 </web-app>

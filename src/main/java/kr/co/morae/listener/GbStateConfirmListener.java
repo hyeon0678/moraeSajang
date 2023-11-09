@@ -105,8 +105,11 @@ class GbStateConfirmListener implements ApplicationListener<ContextRefreshedEven
 		//사용자 다 가져오기
 		ArrayList<String> joinUser = gbDao.getJoinUser(dto.getGbNo());
 		//사용자의 히스토리에 공구 price나눠주기
-		for(String userId : joinUser) {
-			gbDao.insertPoint(dto.getGbNo(), userId, dto.getJoinPrice(), pointReasonEnum.CANCEL.getState());
+		log.info("joinUser : "+joinUser.toString());
+		if(joinUser.size()>0) {
+			for(String userId : joinUser) {
+				gbDao.insertPoint(dto.getGbNo(), userId, dto.getJoinPrice(), pointReasonEnum.CANCEL.getState());
+			}
 		}
 	}
 	@Override

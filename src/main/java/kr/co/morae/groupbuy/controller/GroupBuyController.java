@@ -1,14 +1,22 @@
 package kr.co.morae.groupbuy.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,6 +96,7 @@ public class GroupBuyController {
 	
 	//공구 참여
 	@PostMapping("/join.ajax")
+	@ResponseBody
 	public HashMap<String,Object> gbJoin(@RequestParam int gbNo, @RequestParam int gbPrice, HttpSession session) {
 		log.info("------------gbJoin----------------");
 		log.info("params : "+"gbNo:"+gbNo+"gbPrice:"+gbPrice);
@@ -98,57 +107,72 @@ public class GroupBuyController {
 		
 		if(isJoin.equals("true")) {
 			log.info("공동구매 참여 완료");
-			result.put("success", "공구 참여 완료");
+			result.put("msg", "success");
 			return result;
 		}
 		
 		if(isJoin.equals("balanceIssue")) {
 			log.info("잔액부족");
-			result.put("balanceIssue", "잔액이 부족하여 포인트 충전 페이지로 넘어갑니다");
+			result.put("msg", "balanceIssue");
+			return result;
 		}
 		
 		log.info("공동구매 참여 실패");
-		result.put("fail", "공구 참여 실패");
+		result.put("msg", "fail");
 		log.info("------------end----------------");
 		return result;
 	}
 	
 	//공구 신고
 	@GetMapping("/report")
-	public String reportForm(@RequestParam HashMap<String, String> params, Model model) {
+	public String reportForm(@RequestParam HashMap<String, String> params, HttpServletResponse response) {
 		log.info("----------report------------");
 		log.info("params : " + params.toString());
-		model.addAttribute("param", params);
+
+		response = addCookie(response, params);
+		
 		return "groupBuy/report";
 	}
 	
 	@PostMapping("/report")
-	public String report(@RequestParam HashMap<String,String>params, Model model, RedirectAttributes rattr, HttpSession session) {
-		
-		UserDto info = (UserDto)session.getAttribute("userInfo");
-		
-		if(info== null) {
-			rattr.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-			return "redirect:/";
+	public String report(@RequestParam HashMap<String,String>params, RedirectAttributes rattr, 
+			HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String gbNo = "";
+		ArrayList<String> name = new ArrayList<String>();
+		Cookie[] list = request.getCookies();
+		for(Cookie cookie:list) {
+			if(cookie.getName().equals("gbNo")) {
+				log.info("report gbNo: "+cookie.getValue());
+				gbNo = cookie.getValue();
+				params.put("gbNo", gbNo);
+				name.add("gbNo");
+			}
+			if(cookie.getName().equals("commNo")) {
+				log.info("report commNo: "+cookie.getValue());
+				params.put("commNo", cookie.getValue());
+				name.add("commNo");
+			}
 		}
-		
-		log.info("params : " + params.toString());
+	    
+		UserDto info = (UserDto)session.getAttribute("userInfo");
 		int row = gbService.report(params, info.getUserId());
 
 		
 		if(row>0) {
-			rattr.addAttribute("msg", "신고가 접수되었습니다.");
+			rattr.addFlashAttribute("msg", "신고가 접수되었습니다.");
 		}else {
-			rattr.addAttribute("msg", "신고가 접수에 실패하였습니다.");			
+			rattr.addFlashAttribute("msg", "신고가 접수에 실패하였습니다.");			
 		}
+		
+		response = deleteCookie(response, name);
 		log.info("----------end------------");
-		return "redirect:/groupBuy/gbDetail?gbNo="+params.get("gbNo");
+		return "redirect:/groupBuy/gbDetail?gbNo="+gbNo;
 	}
 	
 	//공구 리스트
 	@GetMapping("/gbList.ajax")
 	@ResponseBody
-	public HashMap<String,Object> gbList(@ModelAttribute SearchOptionDto dto) {
+	public HashMap<String,Object> gbList(@ModelAttribute SearchOptionDto dto, HttpSession session) {
 		log.info("------------gbList+search----------------");
 		log.info("params : "+dto.toString());
 		HashMap<String, Object> result = gbService.getGbList(dto);
@@ -161,5 +185,28 @@ public class GroupBuyController {
 		log.info("forword gbListForm");
 		return "groupBuy/gbList";
 	}
+	
+	public HttpServletResponse deleteCookie(HttpServletResponse response, ArrayList<String> cookieNames) {
+		
+		for(String name : cookieNames) {
+			Cookie cookie = new Cookie(name, null); 
+			cookie.setMaxAge(0); 
+		    response.addCookie(cookie);
+		}
+		
+		return response;
+	}
+	
+public HttpServletResponse addCookie(HttpServletResponse response,  HashMap<String, String> names) {
+		Set set = names.keySet();
+		Iterator iterator = set.iterator();
+		for(Entry<String, String> elem : names.entrySet()) {
+			Cookie cookie = new Cookie(elem.getKey(), elem.getValue()); 
+		    response.addCookie(cookie);
+		}
+		return response;
+	}
+	
+	
 	
 }

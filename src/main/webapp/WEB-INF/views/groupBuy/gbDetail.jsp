@@ -17,7 +17,7 @@
 <body>
 <p id ="gbNo" style="visibility: hidden">"${GroupBuyDto.gbNo}"</p>
     <div class="elem-container">
-	    <div class="gb-report-div"><button id='reportBtn' class="report"><img src="/photo/icon/siren.png"/></button>
+	    <div class="gb-report-div"><button id='reportBtn' class="report"><img class="report" src="/photo/icon/siren.png"/></button>
 	    
 	    </div>
 	    <div id="productsInfo" class="section">
@@ -383,7 +383,6 @@ function modifyBtn(){
 //수정 취소 버튼 이벤트 함수
 function modifyCancel(){
 	$(".modifyCancel").on('click', function(){
-		
 		let commentArea = $(this).closest("div").prev().children('textarea');
 		commentArea.next().css("display","none");
 		commentArea.css('border','none');
@@ -400,30 +399,33 @@ function modifyCancel(){
 function gbJoin(){
 	$('#gbJoin').on('click', function(){
 		let gbNo = $('#gbNo').html();
+		let url = '<c:url value="/pointCharge"/>';
 		$.ajax({
 			type:'post',
-			url:'join.ajax?',
+			url:'join.ajax',
 			data:{
 				gbNo:${GroupBuyDto.gbNo},
 				gbPrice:${GroupBuyDto.joinPrice}
 			},
 			dataType : 'json',
 			success:function(data){
-				console.log(data.msg)
+				console.log(data)
 				if(data.msg == 'success'){
-					alert(data.msg);
-					//location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';					
-				}
-				if(data.msg == 'fail'){
-					alert(data.msg);
-					//location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';					
-				}
-				if(data.msg == 'balanceIssue'){
-					alert(data.msg);					
+					alert('공구 참여 성공!');
+					location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';					
+				}else if(data.msg == 'balanceIssue'){
+					console.log("test")
+					console.log(data.msg)
+					let msg = data.msg;
+					alert('잔액이 부족해여 포인트 충전 페이지로 넘어갑니다');
+					location.href = url;					
+				}else if(data.msg == 'fail'){
+					alert('공구 참여 실패!');
+					location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';	
 				}
 			},
 			error:function(error){
-				//location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';
+				location.href = 'gbDetail?gbNo=${GroupBuyDto.gbNo}';
 				console.error(error)
 			}
 					
@@ -439,6 +441,7 @@ $('#pagePerNum').change(function(){
 
 function report(){
 	$('.report').on('click', function(){
+		console.log('report')
 		let gbNo = '${GroupBuyDto.gbNo}';
 		let url = 'report?gbNo='+gbNo;
 		console.log($(this).val());
