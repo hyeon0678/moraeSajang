@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.morae.admin.dao.AnalysisDao">
 <select id="adminanalysisAdress" resultType="kr.co.morae.admin.dto.RegionAnalysisDto">
 <![CDATA[
-	SELECT re.gbDetailAddress , count(re.gbNo)AS topAddress FROM groupbuyingpost g INNER JOIN groupbuyingregions re ON g.gbNo = re.gbNo 
+	SELECT re.gbDetailAddress , count(re.gbNo)AS topAddress FROM groupBuyingPost g INNER JOIN groupBuyingRegions re ON g.gbNo = re.gbNo 
 	WHERE g.gbState = '완료' AND g.finishDate >= #{param1} AND g.finishDate <=#{param2}
 	GROUP BY re.gbDetailAddress HAVING count(re.gbNo) ORDER BY count(re.gbNo) desc LIMIT 6
 ]]>	
@@ -22,7 +22,7 @@
        SUM(CASE WHEN g.gbState = '완료' THEN 1 ELSE 0 END +
            CASE WHEN g.gbState = '진행' THEN 1 ELSE 0 END +
            CASE WHEN g.gbState = '취소' THEN 1 ELSE 0 END) AS su
-FROM groupbuyingpost g
+FROM groupBuyingPost g
 INNER JOIN category c ON g.categoryNo = c.categoryNo
 WHERE g.finishDate >= #{param1} AND g.finishDate <=#{param2}
 GROUP BY c.categoryType
@@ -39,10 +39,10 @@ ORDER BY su DESC;
       CAST(COALESCE(s.su, 0) * 100.0 / COALESCE(COUNT(g.gbNo), 0) AS DECIMAL(10, 2))
     ELSE 0.00
   END AS sucrate
-FROM groupbuyingpost g
+FROM groupBuyingPost g
 LEFT JOIN (
   SELECT userId, COUNT(gbNo) AS su
-  FROM groupbuyingpost
+  FROM groupBuyingPost
   WHERE gbState = '완료'
   GROUP BY userId
 ) s ON g.userId = s.userId
@@ -55,7 +55,7 @@ LIMIT 5;
 </select>
 <select id="adminanalysisTopPoint" resultType="kr.co.morae.admin.dto.PointAnalysisDto">
 	<![CDATA[
-		SELECT chargeDate ,sum(chargePrice)AS chargePoint FROM chargehistory
+		SELECT chargeDate ,sum(chargePrice)AS chargePoint FROM chargeHistory
 		WHERE chargeDate >= #{param1} AND chargeDate <=#{param2}
 		GROUP BY chargeDate HAVING sum(chargePrice)
 		ORDER BY chargePoint DESC LIMIT 5

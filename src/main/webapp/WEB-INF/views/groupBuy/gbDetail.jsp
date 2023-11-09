@@ -109,13 +109,13 @@
 	            <div class="smallInfo">
 	                <label class="info-label">사용자 평가</label>
 	                <span>
-	                    별로에요 : ${GroupBuyDto.tradeAgainNum}
+	                   	또 거래하고싶어요 : ${GroupBuyDto.tradeAgainNum}
 	                </span>
 	                <span>
 	                    그냥 그래요 : ${GroupBuyDto.justOkayNum}
 	                </span>
 	                <span>
-	                    또 거래하고싶어요 : ${GroupBuyDto.notInterestedNum}
+	                    별로에요 : ${GroupBuyDto.notInterestedNum}
 	                </span>
 	            </div>
 	            <div class="smallInfo">

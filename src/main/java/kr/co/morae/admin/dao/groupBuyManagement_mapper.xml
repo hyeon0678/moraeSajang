@@ -213,17 +213,17 @@ WHERE gb.gbNo = #{param1};
 UPDATE groupBuyingPost SET blockState = #{param1} WHERE gbNo = #{param2}
 </update>
 <update id="admingbState">
-UPDATE groupbuyingpost
+UPDATE groupBuyingPost
 SET gbState = '취소'
 WHERE gbNo = #{param1}
-AND recruitPeople != (SELECT COUNT(userId) FROM groupbuyingjoining WHERE gbNo = #{param1});
+AND recruitPeople != (SELECT COUNT(userId) FROM groupBuyingJoining WHERE gbNo = #{param1});
 </update>
 <insert id="admingbHis">
-INSERT INTO gbstatehistory (gbNo,hState,stateUpDate) VALUES (#{param1},'취소',#{param2})
+INSERT INTO gbStateHistory (gbNo,hState,stateUpDate) VALUES (#{param1},'취소',#{param2})
 </insert>
 <select id="admincount" resultType="int">
 SELECT COUNT(*) AS count
-FROM gbstatehistory
+FROM gbStateHistory
 WHERE gbNo = #{param1}
   AND hState = '취소'
 </select>

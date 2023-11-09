@@ -20,11 +20,59 @@ table, th, td {
         }.centered-cell {
         text-align: center;
     }
+    tr.f1{
+	background-color: #F9DCA3; 
+	}
+
+	div.sideber ul {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px 20px 0px 20px;
+	  width: 200px;
+	  background: white;	  
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  float: left;
+	  border: 3px ;
+	 border-style: none solid none none;
+	  border-color: #F9DCA3; 
+	}
+	
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  background: white;
+	  color: gray;
+	  border: 0px solid ;
+	  border-color: #F9DCA3;
+	  font-weight: bold;
+	  margin: 10px 0px;
+	  border-radius: 15px;
+	}
+	
+	li a:hover {
+	  background: #F9DCA3;
+	  color: white;
+	  border-radius: 15px;
+	}
+		
+	li h3.page {
+	  background : white;
+	  color: gray;
+	}
+	
+
+	
 </style>
 
 </head>
 <body>
-<div id="donutChartContainer" style="position: relative;">
+
+	
+	
+<div id="donutChartContainer" style="float: left; margin-left: 15%">
 	<div>거래량 TOP6</div>
 	<label for="date">날짜를 선택하세요:
         <input type="date" id="dfirstsearchdate" value="" />
@@ -32,10 +80,10 @@ table, th, td {
         <input type="date" id="dlastsearchdate" value="" />
         <input type="button" id="dsearchButton" value="검색" />
     </label>
-  <canvas id="donutchart" height="350" width="350"></canvas>
+  <canvas id="donutchart" height="370" width="370"></canvas>
   <div id="centerText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 20px; color: #333;">Your Text</div>
 </div>
-<div id="graphChartContainer" >
+<div id="graphChartContainer" style="float: left; margin-left:7%">
 	<div>카테고리별 거래량</div>
 	<label for="date">날짜를 선택하세요:
         <input type="date" id="cfirstsearchdate" value="" />
@@ -43,9 +91,9 @@ table, th, td {
         <input type="date" id="clastsearchdate" value="" />
         <input type="button" id="csearchButton" value="검색" />
     </label>
-<canvas id="myChart" width="450" height="350"></canvas>
+<canvas id="myChart" width="450" height="370"></canvas>
 </div>
-<div id="topJoinUserContainer">
+<div id="topJoinUserContainer" style="float: left; margin-left: 15%">
 	<label for="date">날짜를 선택하세요:
         <input type="date" id="ufirstsearchdate" value="" />
         ~
@@ -66,7 +114,7 @@ table, th, td {
     	</tbody>
 	</table>
 </div>
-<div id="topPointContainer">
+<div id="topPointContainer" style="float: left; margin-left:7%">
 	<label for="date">날짜를 선택하세요:
         <input type="date" id="pfirstsearchdate" value="" />
         ~
