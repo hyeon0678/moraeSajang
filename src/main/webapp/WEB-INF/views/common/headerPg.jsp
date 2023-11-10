@@ -204,7 +204,7 @@
 										+ '<p>';
 								$('#list').append(alarmDisabled);
 								$('#alarmIcon').attr('src',
-										'./resources/img/Notification.png');
+										"<c:url value='/resources/img/Notification.png'/>");
 							}
 						},
 						error : function(e) {
