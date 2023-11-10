@@ -5,10 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<link href="<c:url value='/resources/css/paging.css'/>" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<link href="<c:url value='/resources/css/gbList.css'/>" rel="stylesheet"/>
+<script src="<c:url value='/resources/js/paging.js'/>" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         table, th, td {
             border: 1px solid black;
@@ -75,11 +77,6 @@
 	.main {
 	  margin-left: 240px;
 	}
-	input[type="button"]{
-		background-color: #FFBC38;
-		border-color:#DEDEDE;
-		color: #212732;
-	}
 
         select {
             margin: 5px 0px;
@@ -90,7 +87,7 @@
     </style>
 </head>
 <body>
-
+<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
   <div class="sideber">
 		<ul>
 	  <li><h3 class="page">관리자 페이지</h3></li>
@@ -103,14 +100,15 @@
 	</div>
 	
 	<div style="margin: 0px 0px 0px 250px">
-		<div style="float:right; display: flex; padding: 10px 35px; margin-left: auto;  margin-top: 40px">
-		    <input type="button" id="chargePoint" value="사용자 충전 내역" style="margin: 0px 5px" />
-		    <input type="button" id="pointHistory" value="사용자 거래 내역" style="margin: 0px 5px" />
+			<span><button class="region current" id="chargePoint" value="사용자 충전 내역" style="width: 180px; margin-top: 5px;">사용자 충전 내역</button></span>
+		    <span><button class="region" id="pointHistory" value="사용자 거래 내역" style="width: 180px; margin-top: 5px;">사용자 거래 내역</button></span>
+		<div style="float:right; display: flex; padding: 10px 35px; margin-left: auto;">
+
 		    <label for="date" style="margin: 0px 5px">날짜를 선택하세요:
 		        <input type="date" id="firstsearchdate" value="" />
 		        ~
 		        <input type="date" id="lastsearchdate" value="" />
-		        <input type="button" id="searchButton" value="검색" style="margin: 0px 5px"/>
+		        <input type="button" id="searchButton" value="검색" style="margin: 0px 5px" class="comm-btn"/>
 		    </label>
 		</div>
 		<table id="pointChargeTable">
@@ -346,6 +344,8 @@ function drawList(obj){
 }
 
 $('#chargePoint').on('click', function () {
+	$('button.region').removeClass('current');
+    $(this).addClass('current');
     $('#contentContainer').addClass('hidden');
     $('#pointChargeTable').removeClass('hidden');
     $('#firstsearchdate').val('');
@@ -354,6 +354,8 @@ $('#chargePoint').on('click', function () {
 });
 
 $('#pointHistory').on('click', function () {
+	$('button.region').removeClass('current');
+    $(this).addClass('current');
 	$('#pointChargeTable').addClass('hidden');
     $('#contentContainer').removeClass('hidden');
     $('#firstsearchdate').val('');

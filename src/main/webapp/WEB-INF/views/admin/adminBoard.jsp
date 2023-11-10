@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="<c:url value='/resources/css/paging.css'/>" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <link href="<c:url value='/resources/css/gbList.css'/>" rel="stylesheet"/>
-<script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<script src="<c:url value='/resources/js/paging.js'/>" type="text/javascript"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
 .card:hover {
@@ -37,6 +37,7 @@
 	  border: 3px ;
 	 border-style: none solid none none;
 	  border-color: #F9DCA3; 
+
 	}
 	
 	li a {
@@ -86,24 +87,13 @@
 		margin-top:-1%;
         margin-left:16%;
         }
+        div.container{
+        position: absolute;
+        margin-left: 9%;
+        }
 </style>
 </head>
 <body>
-	<div class="seli">
-    <span><button class="region current" id="alladmingblist" value="전체">전체</button></span>
-    <span><button class="region" id="sucadmingblist" value="완료">완료</button></span>
-    <span><button class="region" id="failadmingblist" value="취소">취소</button></span>
-	</div>
-<div class="scb">
-	<input type="text" id="searchadmingblist" placeholder="아이디 입력"/>
-	<input type="button" id="searchpoingblist" class="comm-btn" value="아이디 검색"/>
-    <label for="date"> 날짜를 선택하세요 : 
-        <input type="date" id="firstsearchdate" value="" />
-        ~
-        <input type="date" id="lastsearchdate" value="" />
-        <input type="button" id="searchButton" class="comm-btn" value="검색" />
-    </label>
-</div>
  <div class="sideber">
 		<ul>
 	  <li><h3 class="page">관리자 페이지</h3></li>
@@ -114,6 +104,24 @@
 	  <li><a href="groupBuy" style="background: #F9DCA3;color: white;" >게시판 관리</a></li>
 		</ul>
 	</div>
+	
+	
+<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
+	<div class="seli"style="margin-top: 1%;">
+    <span><button class="region current" id="alladmingblist" value="전체">전체</button></span>
+    <span><button class="region" id="sucadmingblist" value="완료">완료</button></span>
+    <span><button class="region" id="failadmingblist" value="취소">취소</button></span>
+	</div>
+<div class="scb" style="margin-top: 1%;">
+	<input type="text" id="searchadmingblist" placeholder="아이디 입력"/>
+	<input type="button" id="searchpoingblist" class="comm-btn" value="아이디 검색"/>
+    <label for="date"> 날짜를 선택하세요 : 
+        <input type="date" id="firstsearchdate" value="" />
+        ~
+        <input type="date" id="lastsearchdate" value="" />
+        <input type="button" id="searchButton" class="comm-btn" value="검색" />
+    </label>
+</div>
     <div class="card-row-spacing">
         <div class="row" id="list">
             <!-- 데이터가 여기에 삽입됩니다. -->
@@ -164,7 +172,7 @@
         var itemPerRow = 4; // 한 행당 4개의 아이템을 표시
 
         obj.list.forEach(function (item, idx) {
-        	content += '<div class="card-row">'; // 한 행 시작
+        	content += '<div class="card-row" style="margin-top: 4%;">'; // 한 행 시작
             content += '<div class="card "style="width: 18rem; " ' + idx + '" id="' + item.gbNo + '">';
             if(item.firstFileName == null){
                 content +='<div class="card-img-top" style="background-image:url(/photo/default/default.png?auto=compress,format);">'
@@ -186,9 +194,8 @@
             content += getRecruitImgTag(item.joinPeople, item.recruitPeople);
             content +='<div class="section">'
             content += '</div>'
-            let joinPrice = item.joinPrice.toString();
-            joinPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-            content +='<span>'+joinPrice+'원</span>'
+            	let joinPrice = item.joinPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            content +='<span>'+joinPrice+'원</span>';
             content +='<span class="card-category comm-btn">'+item.categoryType+'</span>'
             content += '</div>'
             content += '</div>'
