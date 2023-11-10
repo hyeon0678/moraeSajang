@@ -114,7 +114,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 #header .headerInner .util li a img {
 	width: 100%;
 }
-
+/******************************************************************************************/
 #header .alarmList {
 	position: absolute;
 	right: 210px;
@@ -126,10 +126,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	border: 1px solid #F9DCA3;
 	border-radius: 3%;
 	background-color: white;
-	
-	
 }
-
 
 #header .alarmList table {
 	width: 200px;
@@ -144,7 +141,6 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	color: white;
 	background-color: #FFBC38;
 }
-
 .alarmChk {
 	border-radius: 5px;
 	border: 1px solid #FFBC38;
@@ -157,7 +153,6 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	float: right;
 	display: block;
 }
-
 #alarmChkAll{
 	border-radius: 5px;
 	border: 1px solid #FFBC38;
@@ -204,75 +199,90 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 </body>
 <script>
 
-	var alarmError = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림을 읽어올 수 없습니다."+'<p>';
+	
+	var alarmError = '<p>'
+			+ '<br>'
+			+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림을 읽어올 수 없습니다."
+			+ '<p>';
 	var no = '${sessionScope.userInfo.authNo}';
-	if(no == ""){
+	if (no == "") {
 		no = 0;
 	}
-	console.log(no);	
-	
-	
-	alarmCall();  // 페이지 로드 시 알림 리스트 호출
-	
+	console.log(no);
 
-	function alarmCall() {  // 알림 리스트 호출
-		alarmRemove()  // 7일 이상 경과된 히스토리 삭제
-		alarmUpdate();  // 히스토리 최신 알림 업데이트
-		$.ajax({
-			type : 'get',
-			url : 'alarm/call.ajax',
-			data : {"no":no},
-			dataType : 'json',
-			success : function(data) {
-				console.log(data.alarmState);
-				if(data.alarmState == "activate"){  // 사용자 알림 활성화 여부 확인
-					if (data.alarmList.length != 0) {  // 알림 리스트 개수 확인
-						$('#alarmIcon').attr('src',
-								'<c:url value=/resources/img/NotificationOn.png/>');  // 확인할 알림이 있으면 배지 붙은 아이콘 표시
-						alarmDrawList(data);
-					} else{
-						$('#alarmIcon').attr('src',
-								'<c:url value=/resources/img/Notification.png/>');  // 확인할 알림이 없으면 기본 아이콘 표시
-						alarmDrawList(data);
+	alarmCall(); // 페이지 로드 시 알림 리스트 호출
+
+	function alarmCall() { // 알림 리스트 호출
+		alarmRemove() // 7일 이상 경과된 히스토리 삭제
+		alarmUpdate(); // 히스토리 최신 알림 업데이트
+		$
+				.ajax({
+					type : 'get',
+					url : 'alarm/call.ajax',
+					data : {
+						"no" : no
+					},
+					dataType : 'json',
+					success : function(data) {
+						console.log(data.alarmState);
+						if (data.alarmState == "activate") { // 사용자 알림 활성화 여부 확인
+							if (data.alarmList.length != 0) { // 알림 리스트 개수 확인
+								$('#alarmIcon')
+										.attr('src',
+												'<c:url value=/resources/img/NotificationOn.png/>'); // 확인할 알림이 있으면 배지 붙은 아이콘 표시
+								alarmDrawList(data);
+							} else {
+								$('#alarmIcon')
+										.attr('src',
+												'<c:url value=/resources/img/Notification.png/>'); // 확인할 알림이 없으면 기본 아이콘 표시
+								alarmDrawList(data);
+							}
+						} else { // 알림 비활성화 상태일 경우 알림창 내 버튼 숨김, 알림 비활성화 상태 문구 출력
+							console.log("알림 차단");
+							$('#alarmChkAll').css('display', 'none');
+							var alarmDisabled = '<p>'
+									+ '<br>'
+									+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림 비활성화 상태 입니다."
+									+ '<p>';
+							$('#list').append(alarmDisabled);
+							$('#alarmIcon').attr('src',
+									'./resources/img/Notification.png');
+						}
+					},
+					error : function(e) {
+						console.log(e);
+
 					}
-				}else {  // 알림 비활성화 상태일 경우 알림창 내 버튼 숨김, 알림 비활성화 상태 문구 출력
-					console.log("알림 차단");
-					$('#alarmChkAll').css('display', 'none');
-					var alarmDisabled = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림 비활성화 상태 입니다."+'<p>';
-					$('#list').append(alarmDisabled);
-					$('#alarmIcon').attr('src','./resources/img/Notification.png');
-				}
-			},
-			error : function(e) {
-				console.log(e);
-				
-				
-			}
-		});
+				});
 	}
 
-	function alarmDrawList(obj) {  // 가져온 알림 히스토리 리스트 출력
+	function alarmDrawList(obj) { // 가져온 알림 히스토리 리스트 출력
 		var content = '';
-		obj.alarmList.forEach(function(item, idx) {
+		obj.alarmList
+				.forEach(function(item, idx) {
 					content += '<tr>';
-					content += '<td>'+'<a href=';
+					content += '<td>'
+							+ '<a href=';
 					content += ""+item.alarmAddr+item.gbNo+' style="text-decoration:none">';
-					content += item.title.substr(0,13) + '</a>';	  // 제목 열 세 글자만 끊어서 보여주기
+					content += item.title.substr(0, 13) + '</a>'; // 제목 열 세 글자만 끊어서 보여주기
 					content += '<button class="alarmChk"'+'>읽음</button></td>';
 				});
-		
+
 		$('#list').empty();
 		$('#list').append(content);
-		if(content == ""){  // 보여줄 알림이 없다면 새로운 알림 없음 문구 출력, 알림창 내 버튼 숨김
+		if (content == "") { // 보여줄 알림이 없다면 새로운 알림 없음 문구 출력, 알림창 내 버튼 숨김
 			$('#alarmChkAll').css('display', 'none');
-			var alarmNull = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;새로운 알림이 없습니다."+'<p>';
+			var alarmNull = '<p>'
+					+ '<br>'
+					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;새로운 알림이 없습니다."
+					+ '<p>';
 			$('#list').append(alarmNull);
-		}else {
+		} else {
 			$('#alarmChkAll').css('display', 'block');
 		}
 	}
 
-	function alarmRemove() {  // 7일 이상 경과된 알림 히스토리 삭제
+	function alarmRemove() { // 7일 이상 경과된 알림 히스토리 삭제
 		console.log("누적 알림 제거");
 		$.ajax({
 			type : 'get',
@@ -288,7 +298,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 		});
 	}
 
-	function alarmUpdate() {  // 알림 히스토리에 추가될 내용 업데이트
+	function alarmUpdate() { // 알림 히스토리에 추가될 내용 업데이트
 		$.ajax({
 			type : 'get',
 			url : 'alarm/update.ajax',
@@ -314,7 +324,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 		alarmRead(alarmChk);
 	});
 
-	function alarmRead(alarmChk) {  // 개별 버튼 알림 읽음 처리(가져온 글 번호 대상)
+	function alarmRead(alarmChk) { // 개별 버튼 알림 읽음 처리(가져온 글 번호 대상)
 		console.log(alarmChk);
 		$.ajax({
 			type : 'get',
@@ -333,8 +343,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 		});
 	}
 
-	
-	$('#alarmChkAll').click(function() {  // 알림 리스트 내 모든 알림 읽음 처리
+	$('#alarmChkAll').click(function() { // 알림 리스트 내 모든 알림 읽음 처리
 		console.log("전체 읽음");
 		$.ajax({
 			type : 'get',
@@ -354,7 +363,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	});
 
 	var clickNum = 0;
-	$('#alarm').on('click', function() {  // 알림 아이콘 클릭 시 리스트 표시 토글
+	$('#alarm').on('click', function() { // 알림 아이콘 클릭 시 리스트 표시 토글
 		clickNum++;
 		if (clickNum % 2 == 1) {
 			$('.alarmList').css('display', 'block');

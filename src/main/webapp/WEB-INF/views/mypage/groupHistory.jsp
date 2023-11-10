@@ -24,19 +24,49 @@
 }
 th, td, tr{
 	border: 1px solid black;
+	text-align: center;
 }
 body{
- margin: 110px;
+     margin-top: 130px;
 }
+
+        #pointHistory{position:relative; margin-top:150px; overflow: hidden;}
+        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
+        #lnb ul{margin-top:20px;}
+        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
+        #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
+        #lnb a:hover{text-decoration:none;}
+        
+        #gbTable{
+        margin-left: 320px;
+        width: 850px;
+    	height: 500px;
+    	margin-top: 20px;
+        }
+        #gbToggle{
+        margin-left: 320px;
+        }
+        #gbTable table{
+        width: 100%;
+        text-align: center;
+        }
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
-	<div>
+	<div id="lnb">
+		<ul>
+			<a href="mypage"><li>내 프로필</li></a>
+			<a href="javascript:"><li class="on">내 공구 현황</li></a>
+			<a href="my/point/history"><li>포인트 내역</li></a>
+			<a href="my/point/charge"><li>포인트 충전</li></a>
+		</ul>
+	</div>
+	<div id="gbToggle">
 		<button class="list-btn current" value="recruit">모집</button>
 		<button class="list-btn" value="join">참여</button>
 	</div>
-	<div>
+	<div id="gbTable">
 		<table>
 			<thead>
 			</thead>
