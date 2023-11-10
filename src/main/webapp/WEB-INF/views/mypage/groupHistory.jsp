@@ -183,15 +183,15 @@ function drawJoinGbList(data){
 			tbody += '<td>'+gb.joinPrice+'</td>'
 			tbody += '<td>'+gb.gbState+'</td>'
 			if(gb.gbState == '완료' && gb.isReview == 0){
-				tbody += '<td><button class="complete" disabled>완료'+gb.isReview+'</button><button class="review current" value="'+gb.gbNo+'">평가</button></td></tr>'
+				tbody += '<td><button class="complete" disabled>완료</button><button class="review current" value="'+gb.gbNo+'">평가</button></td></tr>'
 			}else if(gb.gbState == '진행' && gb.joinState == 'N'){
 				tbody += '<td><button class="complete current" value="'+gb.gbNo+'">완료</button><button class="review" disabled>평가</button></td></tr>'
 			}else if(gb.gbState == '진행' && gb.joinState == 'Y' && gb.isReview == 0){
-				tbody += '<td><button class="complete" disabled>완료'+gb.isReview+'</button><button class="review current" value="'+gb.gbNo+'">평가</button></td></tr>'	
+				tbody += '<td><button class="complete" disabled>완료</button><button class="review current" value="'+gb.gbNo+'">평가</button></td></tr>'	
 			}else if(gb.isReview >0){
 				tbody += '<td><button class="complete" disabled >완료</button><button class="review" disabled >평가</button></td></tr>'
 			}else{
-				tbody += '<td><button class="complete" disabled >완료'+gb.isReview+'</button><button class="review" disabled >평가</button></td></tr>'
+				tbody += '<td><button class="complete" disabled >완료</button><button class="review" disabled >평가</button></td></tr>'
 			}
 		}
 		$('tbody').append(tbody);
