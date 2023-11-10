@@ -31,14 +31,23 @@ public class MyGroupBuyService {
 	public HashMap<String, Object> getMyGbList(String userId, String listType, int page) {
 		HashMap<String, Object> result = new HashMap<>();
 		int offset = (page-1)*10;
-		log.info(Integer.toString(offset));
+		log.info("offset:"+Integer.toString(offset));
+		ArrayList<GroupBuyDto> myGbList;
+		int totalCnt;
 		
-		ArrayList<GroupBuyDto> myGbList = (ArrayList<GroupBuyDto>) myGbDao.getMyGbList(userId, listType, offset);
-		log.info(Integer.toString(myGbList.size()));
-		
-		int totalCnt = myGbDao.getMyGbListCnt(userId, listType);
+		if(listType.equals("recruit")) {
+			myGbList = (ArrayList<GroupBuyDto>) myGbDao.getRecuritMyGbList(userId, offset);
+			log.info(Integer.toString(myGbList.size()));
+			totalCnt= myGbDao.getRecruitMyGbListCnt(userId);
+		}else {
+			myGbList = (ArrayList<GroupBuyDto>) myGbDao.getJoinMyGbList(userId, offset);
+			log.info(Integer.toString(myGbList.size()));
+			totalCnt= myGbDao.getJoinMyGbListCnt(userId);
+		}
+		log.info("totalCnt: " +Integer.toString(totalCnt));
 		int totalPage = paging.getTotalPage(totalCnt, 10);
 		log.info(myGbList.toString());
+		log.info(Integer.toString(totalPage));
 		
 		result.put("myGbList", myGbList);
 		result.put("listType", listType);

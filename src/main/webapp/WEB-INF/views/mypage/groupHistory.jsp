@@ -116,6 +116,7 @@ function drawRecruitGbList(data){
 function drawJoinGbList(data){
 	let list = data.myGbList;
 	console.log(list);
+	let showPage=1;
 	$('thead').empty();
 	let tbody = '';
 	let thead = '<tr>'
@@ -147,7 +148,7 @@ function drawJoinGbList(data){
 			if(gb.gbState == '완료' && gb.isReview == 0){
 				tbody += '<td><button class="complete" disabled>완료'+gb.isReview+'</button><button class="review current" value="'+gb.gbNo+'">평가</button></td></tr>'
 			}else if(gb.gbState == '진행' && gb.joinState == 'N'){
-				tbody += '<td><button class="complete current" value="'+gb.gbNo+'">완료'+gb.isReview+'</button><button class="review" disabled>평가</button></td></tr>'
+				tbody += '<td><button class="complete current" value="'+gb.gbNo+'">완료</button><button class="review" disabled>평가</button></td></tr>'
 			}else if(gb.gbState == '진행' && gb.joinState == 'Y' && gb.isReview == 0){
 				tbody += '<td><button class="complete" disabled>완료'+gb.isReview+'</button><button class="review current" value="'+gb.gbNo+'">평가</button></td></tr>'	
 			}else if(gb.isReview >0){
@@ -167,7 +168,7 @@ function pagnation(currPage, totalPage){
 $('#pagination').twbsPagination({
 	startPage:showPage, // 보여줄 페이지
 	totalPages:totalPage,// 총 페이지 수(총갯수/페이지당보여줄게시물수) : 서버에서 계산해서 가져와야함
-	visiblePages:10,//[1][2][3][4][5]
+	visiblePages:5,//[1][2][3][4][5]
 	onPageClick:function(e,page){
 		if(showPage != page){
 			console.log(page);
@@ -191,6 +192,7 @@ function formatDateFromTimestamp(timestamp) {
 $(".list-btn").on('click', function(){
 	listType = $(this).val();
 	$('#pagination').twbsPagination('destroy');
+	showPage = 1;
 	$(this).addClass("current");
 	$(this).next().removeClass("current");
 	$(this).prev().removeClass("current");
