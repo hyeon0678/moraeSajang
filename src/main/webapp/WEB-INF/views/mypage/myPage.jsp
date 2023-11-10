@@ -80,6 +80,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 	z-index: 9999;
 }
 
+
 #header .headerInner {
 	position: relative;
 	width: 80%;
@@ -296,7 +297,7 @@ body {
 			</h1>
 			<ul class="util">
 				<li id="alarm"><a href="javascript:"><img
-						src="./resources/img/Notification.png" alt="알림" id="alarmIcon"></a></li>
+						src="<c:url value='/resources/img/Notification.png'/>" alt="알림" id="alarmIcon"></a></li>
 				<li><a href="javascript:"><img
 						src="./resources/img/msg.png" alt="메세지 알림"></a></li>
 				<li><a href="javascript:"><img src="./resources/img/my.png"
@@ -333,7 +334,7 @@ body {
 		</div>
 
 		<div id="userImg">
-			<img src="./resources/img/mypageimg.png" alr="유저이미지" />
+			<img src="<c:url value='/resources/img/mypageimg.png'/>" alr="유저이미지" />
 		</div>
 
 		<div id="mypage">
@@ -469,14 +470,11 @@ body {
 			success : function(data) {
 				console.log(data.alarmState);
 				if(data.alarmState == "activate"){  // 사용자 알림 활성화 여부 확인
-
 					if (data.alarmList.length != 0) {  // 알림 리스트 개수 확인
-						$('#alarmIcon').attr('src',
-								'./resources/img/NotificationOn.png');  // 확인할 알림이 있으면 배지 붙은 아이콘 표시
+						$('#alarmIcon').attr('src',"<c:url value='/resources/img/NotificationOn.png'/>");  // 확인할 알림이 있으면 배지 붙은 아이콘 표시
 						alarmDrawList(data);
 					} else{
-						$('#alarmIcon').attr('src',
-								'./resources/img/Notification.png');  // 확인할 알림이 없으면 기본 아이콘 표시
+						$('#alarmIcon').attr('src',"<c:url value='/resources/img/Notification.png'/>");  // 확인할 알림이 없으면 기본 아이콘 표시
 						alarmDrawList(data);
 					}
 				}else {  // 알림 비활성화 상태일 경우 알림창 내 버튼 숨김, 알림 비활성화 상태 문구 출력

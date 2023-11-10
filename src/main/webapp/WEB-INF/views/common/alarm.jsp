@@ -228,11 +228,11 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 				if(data.alarmState == "activate"){  // 사용자 알림 활성화 여부 확인
 					if (data.alarmList.length != 0) {  // 알림 리스트 개수 확인
 						$('#alarmIcon').attr('src',
-								'./resources/img/NotificationOn.png');  // 확인할 알림이 있으면 배지 붙은 아이콘 표시
+								'<c:url value=/resources/img/NotificationOn.png/>');  // 확인할 알림이 있으면 배지 붙은 아이콘 표시
 						alarmDrawList(data);
 					} else{
 						$('#alarmIcon').attr('src',
-								'./resources/img/Notification.png');  // 확인할 알림이 없으면 기본 아이콘 표시
+								'<c:url value=/resources/img/Notification.png/>');  // 확인할 알림이 없으면 기본 아이콘 표시
 						alarmDrawList(data);
 					}
 				}else {  // 알림 비활성화 상태일 경우 알림창 내 버튼 숨김, 알림 비활성화 상태 문구 출력
