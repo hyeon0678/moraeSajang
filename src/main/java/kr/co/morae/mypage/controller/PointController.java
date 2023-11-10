@@ -25,7 +25,7 @@ public class PointController {
 	
 	@Autowired PointService service;
 	
-	@RequestMapping(value = "my/point/charge")
+	@RequestMapping(value = "mypage/point/charge")
 	   public String pointCharge(HttpSession session, Model model) {
 	      String page = "mypage/pointCharge";
 	      if(session.getAttribute("userInfo") == null) {
@@ -35,12 +35,12 @@ public class PointController {
 	      return page;
 	   }
 	
-	@RequestMapping(value = "my/point/history")
+	@RequestMapping(value = "mypage/point/history")
 	public String pointHistory() {
 		return "mypage/pointHistory";
 	}
 	
-	@RequestMapping(value = "my/point/myPoint.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "mypage/point/myPoint.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> point(HttpSession session, Model model){
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -54,7 +54,7 @@ public class PointController {
 		return result;
 	}
 	
-	@RequestMapping(value = "my/point/chargeGo", method = RequestMethod.POST)
+	@RequestMapping(value = "mypage/point/chargeGo", method = RequestMethod.POST)
 		public String chargeGo(@RequestParam String name, @RequestParam String chargePrice, HttpSession session, Model model) {
 		logger.info("입금자명 : "+name+" / 충전금액 : "+chargePrice);
 		String page = "mypage/pointCharge";
@@ -71,7 +71,7 @@ public class PointController {
 			return page;
 		}
 	
-	@RequestMapping(value = "my/point/useListCall.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "mypage/point/useListCall.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> useListCall(@RequestParam String page, HttpSession session){
 		logger.info("page : "+page);
@@ -80,7 +80,7 @@ public class PointController {
 		return service.useList(page, userId);
 	}
 	
-	@RequestMapping(value = "my/point/chargeListCall.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "mypage/point/chargeListCall.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> chargeListCall(@RequestParam String page, HttpSession session){
 		logger.info("page : "+page);
