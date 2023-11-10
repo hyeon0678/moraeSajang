@@ -5,17 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="<c:url value='/resources/css/paging.css'/>" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <link href="<c:url value='/resources/css/gbList.css'/>" rel="stylesheet"/>
-<script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<script src="<c:url value='/resources/js/paging.js'/>" type="text/javascript"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+body{
+ margin: 160px;
+}
+
+</style>
 </head>
-
-
 <body>
-<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
+<jsp:include page="<c:url value='/resources/common/headerPg.jsp'/>"/>
     <div class="elem-container">
         <div class="gb-list-container search1">
             <div id="info__id">
@@ -119,7 +123,7 @@ function drawList(list, totalPage, currPage){
             content +='</div>'
             content +='<div class="card-body">'
             content +='<p class="gbno-hidden">'+list[index].gbNo+'</p>'
-            content +='<div class="title section">'+list[index].title+'</div>'
+            content +='<div class="title section" style="overflow: hidden">'+list[index].title+'</div>'
             content +='<div class="writer section">'+list[index].nickname+'</div>'
             content +='<div class="date-div">모집기간</div>'
             let startDate = formatDateFromTimestamp(list[index].startDate);
@@ -143,7 +147,7 @@ function drawList(list, totalPage, currPage){
     }
     $('div.card-row-spacing').append(content);
     $('#pagination').twbsPagination({
-		startPage:currPage, // 보여줄 페이지
+		startPage:showPage, // 보여줄 페이지
 		totalPages:totalPage,// 총 페이지 수(총갯수/페이지당보여줄게시물수) : 서버에서 계산해서 가져와야함
 		visiblePages:5,//[1][2][3][4][5]
 		onPageClick:function(e,page){

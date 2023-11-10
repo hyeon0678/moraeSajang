@@ -18,6 +18,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
     <form action="report" method="post">
     <div>
         <span id="h3">글쓰기</span>
@@ -37,8 +38,6 @@
 <script>
 let param = '${param}';
 console.log(param);
-//<input id="gbNo" name="gbNo" value="${param.gbNo}" class="nums"/>
-//<input id="commNo" name="commNo" value="${param.commNo}" class="nums"></input>
 
 $('#report').on('click', function(){
 	if($('#reportContent').val() == ''){

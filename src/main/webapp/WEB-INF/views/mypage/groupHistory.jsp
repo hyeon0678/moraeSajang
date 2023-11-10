@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>모래사장 | 포인트 충전</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="<c:url value='/resources/js/paging.js'/>" type="text/javascript"></script>
+<link href="<c:url value='/resources/css/paging.css'/>" rel="stylesheet">
 <style type="text/css">
 	.current{
 		background-color: #FFBC38;
@@ -25,10 +25,13 @@
 th, td, tr{
 	border: 1px solid black;
 }
-
+body{
+ margin: 110px;
+}
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
 	<div>
 		<button class="list-btn current" value="recruit">모집</button>
 		<button class="list-btn" value="join">참여</button>
@@ -162,7 +165,7 @@ function drawJoinGbList(data){
 
 function pagnation(currPage, totalPage){
 $('#pagination').twbsPagination({
-	startPage:currPage, // 보여줄 페이지
+	startPage:showPage, // 보여줄 페이지
 	totalPages:totalPage,// 총 페이지 수(총갯수/페이지당보여줄게시물수) : 서버에서 계산해서 가져와야함
 	visiblePages:10,//[1][2][3][4][5]
 	onPageClick:function(e,page){
