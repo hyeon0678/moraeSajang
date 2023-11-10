@@ -44,6 +44,7 @@ public class MyGroupBuyController {
 		log.info("session + "+session.getAttribute("userInfo"));
 		UserDto info = (UserDto) session.getAttribute("userInfo");
 		log.info("params : " + listType + ", " + info.getUserId());
+		log.info("params : " + listType + ", " + Integer.toString(page));
 		
 		HashMap<String, Object> result = myGbService.getMyGbList(info.getUserId(), listType, page);
 		

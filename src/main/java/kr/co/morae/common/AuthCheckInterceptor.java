@@ -17,7 +17,7 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		log.info("========================== AuthCheckInterceptor start ===========================");
+		//log.info("========================== AuthCheckInterceptor start ===========================");
 		HttpSession session = request.getSession();
 		UserDto dto = (UserDto) session.getAttribute("userInfo");
 		
@@ -28,7 +28,7 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
             FlashMapManager mapManager = RequestContextUtils.getFlashMapManager(request);
             mapManager.saveOutputFlashMap(map,request,response);
             response.sendRedirect("/morae/main");
-            log.info("========================== AuthCheckInterceptor end ===========================");
+            //log.info("========================== AuthCheckInterceptor end ===========================");
             return false;
             
 		}else if(dto.getAuthNo() == null || dto.getAuthNo() == 3) {
@@ -41,11 +41,11 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
             FlashMapManager mapManager = RequestContextUtils.getFlashMapManager(request);
             mapManager.saveOutputFlashMap(map,request,response);
             response.sendRedirect("/morae/groupBuy/gbList");
-            log.info("========================== AuthCheckInterceptor end ===========================");
+            //log.info("========================== AuthCheckInterceptor end ===========================");
 		}
 		
 		log.info("login user : {}",dto.getUserId());
-		log.info("========================== AuthCheckInterceptor end ===========================");
+		//log.info("========================== AuthCheckInterceptor end ===========================");
 		return true;
 	}
 	

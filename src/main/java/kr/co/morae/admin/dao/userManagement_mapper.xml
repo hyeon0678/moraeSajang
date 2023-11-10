@@ -51,13 +51,13 @@
 	</insert>
 	
 	<insert id="hisasave">
-		insert into userBlockHistory (blockedId, blockDate,blockReason, blockerId) 
+		insert into UserBlockHistory (blockedId, blockDate,blockReason, blockerId) 
 		values(#{param1}, curdate(),#{param3},#{param2});
 	</insert>
 	
 	
 	<select id="UBhislist" resultType="map">
-		select  blockNo , blockerId , blockReason ,blockDate from userBlockHistory where blockedId = #{param1}
+		select  blockNo , blockerId , blockReason ,blockDate from UserBlockHistory where blockedId = #{param1}
 	</select>
 	
 	

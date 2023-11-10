@@ -235,13 +235,6 @@ function formatDateFromTimestamp(timestamp) {
     return year + '-' + month + '-' + day;
 }
 
-function destroyPageing(){
-	$('#pagePerNum').change(function(){
-		
-		
-		listCall(showPage);
-	});
-}
 
 function cardClick(){
 	$('.card').on('click', function(){

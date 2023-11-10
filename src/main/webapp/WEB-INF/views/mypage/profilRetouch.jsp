@@ -66,9 +66,9 @@
 
      
       <tr class="form-group">
-      <th>읍/면/동</th>
+      <th>상세 주소</th>
       <th>
-      <input class="form-control" placeholder="읍/면/동" name="addr2" id="userdetailAddr" type="text" value="${sessionScope.userInfo.userDetailAddress}" />
+      <input class="form-control" placeholder="상세 주소" name="addr2" id="detailAddr" type="text" value="${sessionScope.userInfo.detailAddress}" />
       </th>      
       </tr> 
          
@@ -142,7 +142,7 @@ $('#update').on('click',function(){
     	  alert('도로명 주소를 입력해 주세요');
           $addr1.focus(); 
       }else if($addr2.val()==''){
-         alert('읍/면/동을 입력해 주세요');
+         alert('상세 주소를 입력해 주세요');
          $addr2.focus();
       } else{     	  
          var param = {};   

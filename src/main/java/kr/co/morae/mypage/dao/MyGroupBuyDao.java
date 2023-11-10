@@ -6,13 +6,17 @@ import kr.co.morae.groupbuy.dto.GbStateCheckDto;
 import kr.co.morae.groupbuy.dto.GroupBuyDto;
 
 public interface MyGroupBuyDao {
-	List<GroupBuyDto> getMyGbList(String userId, String listType, int offset);
-	
-	int getMyGbListCnt(String userId, String listType);
 	
 	GbStateCheckDto checkComplete(int gbNo);
 	
 	int setComplete(int gbNo, String userId);
 
 	int ratin(String gbNo, String reviewerId, String ratings);
+	
+	int getRecruitMyGbListCnt(String userId);
+	
+	int getJoinMyGbListCnt(String userId);
+	List<GroupBuyDto> getJoinMyGbList(String userId, int offset);
+	List<GroupBuyDto> getRecuritMyGbList(String userId, int offset);
+	
 }

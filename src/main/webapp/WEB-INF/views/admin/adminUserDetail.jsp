@@ -54,11 +54,11 @@
 	
 	.main {
 	  margin-left: 220px;
+	  margin-top: 6px;
 	}
 	span{
 		list-style-type: disc;
-		margin: 10px ;
-		
+		margin: 10px ;	
 	}
 	input[type="button"]{
 	background-color: #FFBC38;
@@ -67,7 +67,8 @@
 	}
 </style>
 </head>
-<body style="margin:0px;">
+<body>
+<div style="margin-top: 300px;">
 	<div class="sideber">
 	<ul>
 	   <li><h3 class="page" style="margin: 50px 0px;">관리자 페이지</h3></li>
@@ -79,11 +80,12 @@
 	</ul>
 	</div>
 
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<div style="width: 900px; float: left; margin: 8px 0px 8px 300px;" class="usermain">
-		<div class="profil" style="float: left; overflow: auto; width: 350px; height: 300px;margin: 0px 0px 0px 50px">
+		<div class="profil" style="float: left; overflow: auto; width: 350px; height: 320px;margin: 0px 0px 0px 50px">
 			<img src="/morae/resources/img/profil.png" width="300px" height="300px">	
 		</div>
-		<div class="info" style="float: right; overflow: auto; width: 400px; height: 300px;margin: 0px 50px 0px 10px" >
+		<div class="info" style="float: right; overflow: auto; width: 400px; height: 320px;margin: 0px 50px 0px 10px" >
 			<p style="font-weight: 600;  margin: 9px;" >회원 상세 정보</p>
 			<p style="list-style-type: disc; margin: 9px;" >아이디 : ${info.userId}</p>
 			<p style="list-style-type: disc; margin: 9px;" >닉네임 : ${info.nickname}</p>
@@ -103,6 +105,7 @@
 		
 	</div>
 		
+</div>
 </body>
 <script>
 	
@@ -161,8 +164,10 @@ function drawhislist(obj){
 			content += '<div style="width: 150px; float: left; height: 20px;"><span>처리번호 : '+obj.list[i].blockNo+'</span></div>';
 			content += '<div style="width: 150px; float: left; height: 20px;"><span>처리자 : '+obj.list[i].blockerId+'</span></div>';
 			content += '</div>';	 
-			content += '<div style="width: 380px; height: 70px;">';
-			content += '<span>'+obj.list[i].blockReason+'</span>/<span>'+obj.list[i].blockDate+'</span>';
+			content += '<div style="width: 380px; height: 70px;">';			
+			 var date = new Date(obj.list[i].blockDate);
+			 var dateStr = date.toLocaleDateString("ko-KR");			
+			content += '<span>'+obj.list[i].blockReason+'</span>/<span>'+dateStr+'</span>';
 			content += '</div>';	 
 			content += '</div>';
 			//content += '</div>';

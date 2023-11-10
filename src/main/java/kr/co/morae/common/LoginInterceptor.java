@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-        log.info("========================== loginInterceptor start ===========================");
+        //log.info("========================== loginInterceptor start ===========================");
 		HttpSession session = request.getSession();
 		UserDto dto = (UserDto) session.getAttribute("userInfo");
 		if(dto == null) {
@@ -30,12 +30,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             FlashMapManager mapManager = RequestContextUtils.getFlashMapManager(request);
             mapManager.saveOutputFlashMap(map,request,response);
             response.sendRedirect("/morae/main");
-            log.info("========================== loginInterceptor end ===========================");
+            //log.info("========================== loginInterceptor end ===========================");
             return false;
 		}
 		
 		log.info("login user : {}",dto.getUserId());
-		log.info("========================== loginInterceptor end ===========================");
+		//log.info("========================== loginInterceptor end ===========================");
 		return true;
 	}
 	

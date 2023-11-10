@@ -5,12 +5,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- bootstrap : 디자인을 위한 프레임워크 페이지의 모양을 위한 부분 -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/paging.css" rel="stylesheet"> -->
+<link href="<c:url value='/resources/css/paging.css'/>" rel="stylesheet">
 <!-- jpuery : 는 사용하는 프러그인과 다른 라이브러리 와의 충돌여부를 확인 해야 한다.  -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <!-- 페이징 처리를 위한 라이브러리 -->  
-<script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<script src="<c:url value='/resources/js/paging.js'/>" type="text/javascript"></script>
+
+
+
 
 <style>
 	table, th,td{
@@ -19,8 +23,7 @@
 		border-color : #DEDEDE;
 		border-collapse: collapse;
 		padding: 5px 10px;	
-		margin: auto;
-		
+		margin: auto;		
 	}
 	table{
 		width: 900px;
@@ -71,6 +74,7 @@
 
 	.main {
 	  margin-left: 240px;
+	  margin-top: 6%;
 	}
 	input[type="button"]{
 		background-color: #FFBC38;
@@ -92,6 +96,7 @@
 		</ul>
 	</div>
 
+<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
 	<div class="main">
 	<h3 style=" float: left; margin: 30px 50px; ">회원 관리 리스트</h3>	<br/>
 	<div style="float:right;  display: flex;margin-left: auto; padding: 10px 53px; margin-top: 50px;">
@@ -116,7 +121,7 @@
 			<tr>
 			<td colspan="5" id="paging">	
 				<!-- 	플러그인 사용	(twbsPagination)	 이렇게 사용하라고 tutorial에서 제공-->
-				<div class="container">									
+				<div class="container" style="padding : 0px 100px;">										
 					<nav aria-label="Page navigation" style="text-align:center">
 						<ul class="pagination" id="pagination"></ul>
 					</nav>					
@@ -234,7 +239,7 @@ function listcall(page){
 			};
 			
 			$('#pagination').twbsPagination({
-				startPage:obj.currpage // 보여줄페이지>> 
+				startPage:showpage // 보여줄페이지>> 
 				,totalPages:obj.pages // 총 페이지 수(총갯수 / 페이지당 보여줄 게시물수):서버에서 계산해서 가져오기
 				,visiblePages:5// 페이지 넘버 얼마나 보여 줄것인지 (이것은 거의 고정이다. ): 
 				,onPageClick:function(e,page){// 번호클릭시 실행할 내용
