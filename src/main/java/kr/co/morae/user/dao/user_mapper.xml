@@ -49,8 +49,9 @@
 		</insert>
 		
 		
+		
 		<insert id="insertUserAddr" parameterType="map">
-			INSERT INTO userAddress(userId,userDetailAddress,detailAddress,streetAddress)
+			INSERT INTO userAddress(userId,streetAddress,userDetailAddress,detailAddress)
 				VALUES(#{id},#{addr1},#{addr2},#{addr3})	
 		
 		</insert>
