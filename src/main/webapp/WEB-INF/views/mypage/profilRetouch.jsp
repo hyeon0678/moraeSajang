@@ -80,10 +80,7 @@
              </th>
          </tr>
          
-         <tr>
 
-         
-         </tr>
      </table>
      
      
@@ -161,10 +158,10 @@ $('#update').on('click',function(){
             data:param,
             dataType:'JSON',
             success:function(data){
-               console.log(data);
+               console.log(data.success);
                if(data.success>0){
                   alert('수정하기에 성공 했습니다.');
-                  location.href='./';  
+                  location.href='/morae/mypage';
                }else{
                   alert('수정하기에 실패 했습니다.');
                }               
