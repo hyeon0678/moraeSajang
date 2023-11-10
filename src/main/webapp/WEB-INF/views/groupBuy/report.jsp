@@ -10,6 +10,7 @@
         #reportContent{
             width: 550px;
             height: 300px;
+            resize: none;
         }
         .nums{
         	visibility : hidden;
@@ -19,12 +20,10 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <form action="report" method="post">
+    <form action="report" method="post" style="margin-top: 8%; margin-left: 3%;">
     <div>
-        <span id="h3">글쓰기</span>
-        
-        <hr>
-        <div id="productImg" class="smallInfo">
+        <div style="width: 550px; height: 30px;"><span id="h3" style="border-color: none;">신고 글쓰기</span></div>         
+        <div id="productImg" class="smallInfo" >
             <textarea id="reportContent" name="reportContent" class="inputValid"></textarea>
         </div>
         <div class="validation">
