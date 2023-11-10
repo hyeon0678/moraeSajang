@@ -58,6 +58,7 @@
 #header .alarmList table {
 	width: 200px;
 	margin: 3px;
+	font-size: 13px;
 }
 
 .alarmList button:hover{
