@@ -279,6 +279,12 @@ body {
 	float: right;
 	padding-left: 10px;
 }
+        #pointHistory{position:relative; margin-top:150px; overflow: hidden;}
+        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
+        #lnb ul{margin-top:20px;}
+        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
+        #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
+        #lnb a:hover{text-decoration:none;}
 </style>
 </head>
 <body>
@@ -309,6 +315,15 @@ body {
 			</table>
 		</div>
 	</header>
+
+	<div id="lnb">
+		<ul>
+			<a href="javascript:"><li class="on">내 프로필</li></a>
+			<a href="mypage/groupBuy/gbList"><li>내 공구 현황</li></a>
+			<a href="my/point/history"><li>포인트 내역</li></a>
+			<a href="my/point/charge"><li>포인트 충전</li></a>
+		</ul>
+	</div>
 
 
 	<main>
