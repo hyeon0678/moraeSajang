@@ -7,7 +7,7 @@
 	, g.joinPrice, c2.categoryType,
 	(select count(ur.userId)
 	from userReview ur
-	where ur.gbNo = g.gbNo and ur.reviewerId like 'test4'
+	where ur.gbNo = g.gbNo and ur.reviewerId like #{param1}
 	) isReview,
 	(SELECT COUNT(g3.gbNo)
 	FROM groupBuyingJoining g3 

@@ -58,7 +58,7 @@
       <tr class="form-group">
       <th>도로명</th>
       <th>
-       <input class="form-control" "id="streetAddr" placeholder="도로 주소" name="addr1" type="text" readonly="readonly" value="${sessionScope.userInfo.userDetailAddress}"/>
+       <input class="form-control" "id="streetAddr" placeholder="도로 주소" name="addr1" type="text" readonly="readonly" value="${sessionScope.userInfo.streetAddress}"/>
       <button type="button" class="btn btn-default" onclick="execPostCode()"><i class="fa fa-search"></i> 주소 찾기</button>  
       </th>
       </tr>
@@ -68,7 +68,7 @@
       <tr class="form-group">
       <th>읍/면/동</th>
       <th>
-      <input class="form-control" placeholder="상세주소" name="addr2" id="detailAddr" type="text" value="${sessionScope.userInfo.detailAddress}" />
+      <input class="form-control" placeholder="상세주소" name="addr2" id="detailAddr" type="text" value="${sessionScope.userInfo.userDetailAddress}" />
       </th>      
       </tr> 
          
@@ -81,11 +81,7 @@
          </tr>
          
          <tr>
-         <input type="button" value="내 프로필" onclick="location.href="#"/>
-         <input type="button" value="포인트 충전" onclick="location.href="#"/>
-         <input type="button" value="포인트 내역" onclick="location.href="#"/>
-         <input type="button" value="공구 모집/참여" onclick="location.href="#"/>
-          <input type="button" value="로그아웃" onclick="location.href="#"/>
+
          
          </tr>
      </table>
@@ -168,7 +164,7 @@ $('#update').on('click',function(){
                console.log(data);
                if(data.success>0){
                   alert('수정하기에 성공 했습니다.');
-                  location.href='/myPage';  //마이페이지 프로필페이지로 이동경로 설정해주기
+                  location.href='./';  
                }else{
                   alert('수정하기에 실패 했습니다.');
                }               

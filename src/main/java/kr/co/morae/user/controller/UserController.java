@@ -24,7 +24,7 @@ public class UserController {
 	
 	@Autowired UserService service;
 	
-	@RequestMapping(value = "user/loginGo", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/loginGo", method = RequestMethod.POST)
 		public String login(@RequestParam String id, @RequestParam String pw, HttpSession session, Model model) {
 			String page = "main/login";
 			logger.info("id : "+id+" / pw : "+pw);
@@ -55,7 +55,7 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
-	@RequestMapping(value = "user/findId.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/findId.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> findId(@RequestParam HashMap<String, String> params) {
 		logger.info("params : "+params);
@@ -66,7 +66,7 @@ public class UserController {
 		return result;
 	}
 	
-	@RequestMapping(value = "user/findPw", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/findPw", method = RequestMethod.POST)
 	public String findPw(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
 		String page = "main/findPw";
 		logger.info("params : "+params);
@@ -81,7 +81,7 @@ public class UserController {
 		return page;
 	}
 	
-	@RequestMapping(value = "user/newPw", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/newPw", method = RequestMethod.POST)
 	public String correctPw(@RequestParam String newPw, HttpSession session, Model model) {
 		String foundId = (String) session.getAttribute("foundId");
 		logger.info("세션에서 가져온 ID : "+foundId);
@@ -96,6 +96,60 @@ public class UserController {
 			model.addAttribute("msg","비정상적인 접근입니다.");
 		}
 		return page;
+	}
+	
+
+	@RequestMapping(value="/user/register")
+	public String mainregister() {
+		return "main/register";
+	}
+	
+
+	
+	@RequestMapping(value="/user/overlay")
+	@ResponseBody 
+	public HashMap<String, Object> overlay(@RequestParam String id) {
+		boolean use = service.overlay(id);
+		logger.info("사용 가능 여부: "+use);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("use", use);	
+		logger.info("overlay");
+		return map;
+	}
+	
+	
+
+	@RequestMapping(value="/user/overemail")
+	@ResponseBody 
+	public HashMap<String, Object> overemail(@RequestParam String email) {
+		boolean use1 = service.overemail(email);
+		logger.info("사용 가능 여부 : "+use1);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("use1", use1);		
+		return map;
+	}
+	
+	
+	
+	@RequestMapping(value="/user/overnickname")
+	@ResponseBody 
+	
+	public HashMap<String, Object> overnickname(@RequestParam String nickname) {
+		boolean use2 = service.overnickname(nickname);
+		logger.info("사용 가능 여부 : "+use2);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("use2", use2);		
+		return map;
+	}
+	
+	@RequestMapping(value="/user/register", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params){
+		logger.info("params : "+params);
+		HashMap<String, Object> result = new HashMap<String, Object>();	
+		int row = service.join(params);		
+		result.put("success", row);		
+		return result;
 	}
 	
 }

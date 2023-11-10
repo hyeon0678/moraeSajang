@@ -64,8 +64,8 @@
             <h1 class="logo"><a href="<c:url value='/main'/>"><img src="<c:url value='/resources/img/logo.png'/>" alt="모래사장"></a></h1>
             <ul class="util utilAfter">
                 <li><a href="javascript:"><img src="<c:url value='/resources/img/Notification.png'/>" alt="알림"></a></li>
-                <li><a href="<c:url value='message/rcvList'/>"><img src="<c:url value='/resources/img/msg.png'/>" alt="메세지 알림"></a></li>
-                <li><a href="<c:url value='mypage'/>"><img src="<c:url value='/resources/img/my.png'/>" alt="마이페이지"></a></li>
+                <li><a href="<c:url value='/message/rcvList'/>"><img src="<c:url value='/resources/img/msg.png'/>" alt="메세지 알림"></a></li>
+                <li><a href="<c:url value='/mypage'/>"><img src="<c:url value='/resources/img/my.png'/>" alt="마이페이지"></a></li>
             </ul>
         </div>
     </header>

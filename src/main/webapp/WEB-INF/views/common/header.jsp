@@ -95,9 +95,11 @@ var setMsgAlram = setInterval(function() {
 	
 	
 function msgAlram(){
+	let contextPath = '${pageContext.request.contextPath}'
+		console.log('<c:url value="/message/alram.ajax"/>');
 	$.ajax({
 		type: 'post',
-		url: 'alram.ajax',
+		url: '<c:url value="/message/alram.ajax"/>',
 		dataType: 'json',
 		success:function(data){
 			console.log("cnt값"+data.cnt);
@@ -110,7 +112,7 @@ function msgAlram(){
 		error:function(e){
 			console.log(e);
 		}
-	});
+	}); 
 }
 </script>
 </html>
