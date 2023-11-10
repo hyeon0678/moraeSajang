@@ -14,8 +14,10 @@ public interface MypageDao {
 
 	int totalPoint(String userId);
 
-	int alarmSet(int alarmSetNo, String userId);
-
+	int alarmOff(String userId);
+	
+	int alarmOn(String userId);
+	
 	int alarmToggle(String userId);
 	
 	int overnickname(String nickname);
@@ -24,5 +26,6 @@ public interface MypageDao {
 	int updateData(HashMap<String, String> parmas);
 
 	int updateAddr(HashMap<String, String> parmas);
+
 
 }

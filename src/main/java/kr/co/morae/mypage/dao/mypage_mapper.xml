@@ -7,10 +7,9 @@
 
 	<select id="myInfo"
 		resultType="kr.co.morae.mypage.dto.MypageDto">
-		SELECT u.userId ,u.nickname ,u.name ,u.email ,u.reg_date ,
-		CONCAT(ua.streetAddress ,ua.detailAddress) as addr
-		FROM user u join
-		userAddress ua group by u.userId HAVING u.userId = #{param1}
+		SELECT u.userId ,u.nickname ,u.name ,u.email ,u.reg_date
+		,CONCAT(ua.streetAddress ,SPACE(1) ,ua.detailAddress) as addr
+		FROM user u ,userAddress ua WHERE u.userId = #{param1} AND ua.userId = #{param1}
 	</select>
 
 	<select id="totalPoint" resultType="int">
@@ -30,13 +29,16 @@
 		userId = #{param1}
 	</select>
 
-	<update id="alarmSet">
-		UPDATE userAuth SET authNo = #{param1} WHERE userId =
-		#{param2}
-	</update>
+	<insert id="alarmOff">
+		INSERT INTO userAuth (userId, authNo) VALUES (#{param1},3)
+	</insert>
 
+	<delete id="alarmOn">
+		DELETE FROM userAuth WHERE userId = #{param1}
+	</delete>
+	
 	<select id="alarmToggle" resultType="int">
-		SELECT authNo FROM userAuth WHERE userId = #{param1}
+		SELECT COUNT(authNo) FROM userAuth WHERE userId = #{param1}
 	</select>
 
 	<select id="overnickname" resultType="int">

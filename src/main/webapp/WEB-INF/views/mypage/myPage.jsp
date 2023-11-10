@@ -351,8 +351,8 @@ body {
 					<td>알림 설정</td>
 					<td>
 						<div id="btn_group">
-							<button id="btn_on" value="3">ON</button>
-							<button id="btn_off" value="5">OFF</button>
+							<button id="btn_on" value="1" disabled>ON</button>
+							<button id="btn_off" value="0" disabled>OFF</button>
 						</div>
 					</td>
 				</tr>
@@ -382,10 +382,10 @@ body {
 
 
 	var alarmSetNo;
-	var no = 0;
+	var no;
 	alarmToggle();
 	
-	function alarmToggle(){
+	function alarmToggle(){  // 권한 체크 후 해당하는 상태의 알림 on/off 버튼 비활성화 처리
 		$.ajax({
 			type: 'get',
 			url: 'mypage/alarmToggle.ajax',
@@ -393,17 +393,16 @@ body {
 			dataType: 'json',
 			success: function(data){
 				console.log(data);
-				no = data;
-				if(data == 3){
+				no = data; 
+				alarmCall(no);
+				if(data == 0){
 					$('#btn_on').css('color', 'white');
 					$('#btn_on').css('background-color', '#FFBC38');
-					$('#btn_on').attr('disabled','true');
-					alarmCall();
-				}else if(data == 5){
+					$('#btn_off').removeAttr('disabled');
+				}else if(data == 1){
 					$('#btn_off').css('color', 'white');
 					$('#btn_off').css('background-color', '#FFBC38');
-					$('#btn_off').attr('disabled','true');
-					alarmCall();
+					$('#btn_on').removeAttr('disabled');
 				}
 			},
 			error: function(e){
@@ -417,17 +416,15 @@ body {
 	$('#btn_on').on('click',function(e){
 		alarmSetNo = $(this).val()
 		alarmSet(alarmSetNo);
-		alarmToggle();
 	});
 	$('#btn_off').on('click',function(e){
 		alarmSetNo = $(this).val()
 		alarmSet(alarmSetNo);
-		alarmToggle();
 	});
 
 
 	
-	function alarmSet(alarmSetNo){
+	function alarmSet(alarmSetNo){  // 알림 수신 여부 on/off
 		$.ajax({
 			type: 'get',
 			url: 'mypage/alarmSet.ajax',
@@ -444,9 +441,9 @@ body {
 	}
 	
 	myPageInfo(); // 마이 페이지 정보 호출
-	alarmCall();  // 페이지 로드 시 알림 리스트 호출
+
 	
-	function alarmCall() {  // 알림 리스트 호출
+	function alarmCall(no) {  // 알림 리스트 호출
 		alarmRemove()  // 7일 이상 경과된 히스토리 삭제
 		alarmUpdate();  // 히스토리 최신 알림 업데이트
 		$.ajax({
@@ -544,7 +541,6 @@ body {
 	$('tbody').on('click', '[class=alarmChk]', function(e) { // 개별 버튼 알림 읽음 처리 요청
 		var alarmUrl = $(this).siblings().prop('href');
 		var alarmChk = alarmUrl.substring(51);
-		console.log(alarmChk);
 		alarmRead(alarmChk);
 	});
 
@@ -559,7 +555,7 @@ body {
 			dataType : 'json',
 			success : function(e) {
 				console.log("읽음 처리 완료");
-				alarmCall();
+				alarmCall(no);
 			},
 			error : function(e) {
 				console.log(e);
@@ -578,7 +574,7 @@ body {
 			success : function(data) {
 				console.log("전체 읽음 완료" + data.row);
 				if (data.low != 0) {
-					alarmCall();
+					alarmCall(no);
 				}
 			},
 			error : function(e) {

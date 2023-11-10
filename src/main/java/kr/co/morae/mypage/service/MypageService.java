@@ -34,9 +34,7 @@ public class MypageService {
 		return map;
 	}
 
-	public int alarmSet(int alarmSetNo, String userId) {
-		return dao.alarmSet(alarmSetNo,userId);
-	}
+
 
 	public int alarmToggle(String userId) {
 		return dao.alarmToggle(userId);
@@ -54,6 +52,18 @@ public class MypageService {
 			logger.info("row"+row);
 			return row;
 		}
+
+
+
+	public int alarmOff(String userId) {
+		return dao.alarmOff(userId);
+	}
+
+
+
+	public int alarmOn(String userId) {
+		return dao.alarmOn(userId);
+	}
 		
 	
 	

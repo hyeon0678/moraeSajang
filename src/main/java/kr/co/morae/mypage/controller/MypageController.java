@@ -42,7 +42,14 @@ public class MypageController {
 	public int alarmSet(Model model, HttpSession session, @RequestParam int alarmSetNo) {
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
 		String userId = userInfo.getUserId();
-		return service.alarmSet(alarmSetNo,userId);
+		int row = 0;
+		if(alarmSetNo == 0) {
+			row = service.alarmOff(userId);
+		}else {
+			row = service.alarmOn(userId);	
+		}
+		
+		return row;
 	}
 	
 	@RequestMapping(value="/mypage/alarmToggle.ajax")
@@ -50,8 +57,11 @@ public class MypageController {
 	public int alarmToggle(Model model, HttpSession session) {
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
 		String userId = userInfo.getUserId();
-		return service.alarmToggle(userId);
+		int row = service.alarmToggle(userId);
+		return row;
 	}
+	
+	
 	
 	
 	

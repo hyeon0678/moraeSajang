@@ -205,7 +205,12 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 <script>
 
 	var alarmError = '<p>'+'<br>'+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림을 읽어올 수 없습니다."+'<p>';
-	var no = 0;
+	var no = '${sessionScope.userInfo.authNo}';
+	if(no == ""){
+		no = 0;
+	}
+	console.log(no);	
+	
 	
 	alarmCall();  // 페이지 로드 시 알림 리스트 호출
 	

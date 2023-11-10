@@ -35,19 +35,13 @@ public class AlarmController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		UserDto userInfo = (UserDto) session.getAttribute("userInfo");
 		String userId = userInfo.getUserId();
-		int authNo = 0;
-		if(no == 0) {
-			authNo = userInfo.getAuthNo();
-		}else if(no > 0) {
-			authNo = no;
-		}
+		int authNo = no;
 		String alarmState = "";
-		if(authNo == 3) {
+		if(authNo == 0) {
 			ArrayList<AlarmDto> alarmList = service.alarm(userId);
 			map.put("alarmList",alarmList);
 			alarmState = "activate";
 			map.put("alarmState", alarmState);
-			
 		}else {
 			alarmState = "Disabled";
 			map.put("alarmState", alarmState);
