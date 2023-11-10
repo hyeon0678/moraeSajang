@@ -18,22 +18,22 @@ public class MainController {
 		return "main/main";
 	}
 	
-	@RequestMapping(value = {"/login"})
+	@RequestMapping(value = {"user/login"})
 	public String login() {
 		return "main/login";
 	}
 	
-	@RequestMapping(value = {"/findId"})
+	@RequestMapping(value = {"user/findId"})
 	public String findId() {
 		return "main/findId";
 	}
 	
-	@RequestMapping(value = {"/findPw"})
+	@RequestMapping(value = {"user/findPw"})
 	public String findPw() {
 		return "main/findPw";
 	}
 	
-	@RequestMapping(value = {"/correctPw"})
+	@RequestMapping(value = {"user/correctPw"})
 	public String correctPw(HttpSession session, Model model) {
 		String page = "main/correctPw";
 		if(session.getAttribute("foundId") == null) {
