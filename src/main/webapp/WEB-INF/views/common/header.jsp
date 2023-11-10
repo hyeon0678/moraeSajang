@@ -177,7 +177,7 @@
 		$
 				.ajax({
 					type : 'get',
-					url : 'alarm/call.ajax',
+					url : '<c:url value="/alarm/call.ajax"/>',
 					data : {
 						"no" : no
 					},
@@ -245,7 +245,7 @@
 		console.log("누적 알림 제거");
 		$.ajax({
 			type : 'get',
-			url : 'alarm/remove.ajax',
+			url : '<c:url value="/alarm/remove.ajax"/>',
 			data : {},
 			dataType : 'json',
 			success : function(data) {
@@ -260,7 +260,7 @@
 	function alarmUpdate() { // 알림 히스토리에 추가될 내용 업데이트
 		$.ajax({
 			type : 'get',
-			url : 'alarm/update.ajax',
+			url : '<c:url value="/alarm/update.ajax"/>',
 			data : {},
 			dataType : 'json',
 			success : function(data) {
@@ -287,7 +287,7 @@
 		console.log(alarmChk);
 		$.ajax({
 			type : 'get',
-			url : 'alarm/read.ajax',
+			url : '<c:url value="/alarm/read.ajax"/>',
 			data : {
 				'alarmChk' : alarmChk
 			},
@@ -306,7 +306,7 @@
 		console.log("전체 읽음");
 		$.ajax({
 			type : 'get',
-			url : 'alarm/readAll.ajax',
+			url : '<c:url value="/alarm/readAll.ajax"/>',
 			data : {},
 			dataType : 'json',
 			success : function(data) {
