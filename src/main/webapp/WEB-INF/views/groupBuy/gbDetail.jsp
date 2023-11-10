@@ -11,10 +11,11 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/gbDetail.css'/>">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
+<script src="<c:url value='/resources/js/paging.js'/>" type="text/javascript"></script>
+<link href="<c:url value='/resources/css/paging.css'/>" rel="stylesheet">
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
 <p id ="gbNo" style="visibility: hidden">"${GroupBuyDto.gbNo}"</p>
     <div class="elem-container">
 	    <div class="gb-report-div"><button id='reportBtn' class="report"><img class="report" src="/photo/icon/siren.png"/></button>
@@ -251,7 +252,7 @@ function drawComment(obj){
 		console.log(obj.currPage);
 		$('#comments').append(comments);
 		$('#pagination').twbsPagination({
-			startPage:obj.currPage, // 보여줄 페이지
+			startPage:showPage, // 보여줄 페이지
 			totalPages:obj.totalPage,// 총 페이지 수(총갯수/페이지당보여줄게시물수) : 서버에서 계산해서 가져와야함
 			visiblePages:5,//[1][2][3][4][5]
 			onPageClick:function(e,page){ // 번호 클릭시 실행할 내용

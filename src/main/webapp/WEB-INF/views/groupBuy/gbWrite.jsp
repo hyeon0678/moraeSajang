@@ -10,13 +10,18 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="javascript" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <link rel="stylesheet" href="<c:url value='/resources/css/gbWrite.css'/>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+.gbForm{
+margin-top: 144px;
+}
+</style>
 </head>
-<jsp:include page="<c:url value='/resources/common/alarm.jsp'/>"/>
+
 <body>
+<jsp:include page="<c:url value='/resources/common/headerPg.jsp'/>"/>
     <div class="gbForm center">
         <span id="h3">글쓰기</span>
         <span class="validation h3Validation">*필수 정보</span>
