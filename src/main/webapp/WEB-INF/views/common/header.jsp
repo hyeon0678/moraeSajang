@@ -27,16 +27,16 @@
         *{margin:0; padding:0;}
         li{list-style: none;}
         a{text-decoration: none;}
-        img{border:none; display: block;}
+        img{border:none;}
         h1, h2, h3, h4, h5, h6{font-family: 'KorailRoundGothicBold', sans-serif; font-size:16px; color:#212732;}
         body, header, section, footer, div, ul, li, p, a, span, input{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
 
-        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede; background-color:#fff;}
+        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede; background-color:#fff; z-index:9999;}
         #header .headerInner{position:relative; width:80%; height:100px; margin:0 auto;}
         #header .headerInner .logo{position:absolute; width:180px; left:0; top:26px;}
         #header .headerInner .logo img{width:100%;}
-        #header .headerInner .utilBefore{position:absolute; width:160px; right:0; top:40px;}
-        #header .headerInner .utilAfter{position:absolute; width:142px; right:0; top:28px;}
+        #header .headerInner .utilBefore{position:absolute; width:160px; right:0; top:40px; padding:0;}
+        #header .headerInner .utilAfter{position:absolute; width:142px; right:0; top:28px; padding:0;}
         #header .headerInner .utilBefore>li{position:relative; float:left; width:49%; margin-left: 2%;}
         #header .headerInner .utilAfter>li{position:relative; float:left; width:44px; margin-left: 5px;}
         #header .headerInner .util li:first-child{margin-left:0px;}
@@ -60,7 +60,7 @@
 	
     <header id="header">
         <div class="headerInner">
-            <h1 class="logo"><a href="<c:url value='/groupBy/gbList'/>"><img src="<c:url value='/resources/img/logo.png'/>" alt="모래사장"></a></h1>
+            <h1 class="logo"><a href="<c:url value='/groupBuy/gbList'/>"><img src="<c:url value='/resources/img/logo.png'/>" alt="모래사장"></a></h1>
             <ul class="util utilAfter">
                 <li><a href="javascript:"><img src="<c:url value='/resources/img/Notification.png'/>" alt="알림"></a></li>
                 <li><a href="<c:url value='/message/rcvList'/>"><img src="<c:url value='/resources/img/msg.png'/>" alt="메세지 알림"  id="msgAlram"></a></li>
