@@ -388,7 +388,7 @@ body {
 	function alarmToggle(){
 		$.ajax({
 			type: 'get',
-			url: 'alarmToggle.ajax',
+			url: 'mypage/alarmToggle.ajax',
 			data: {},
 			dataType: 'json',
 			success: function(data){
@@ -430,7 +430,7 @@ body {
 	function alarmSet(alarmSetNo){
 		$.ajax({
 			type: 'get',
-			url: 'alarmSet.ajax',
+			url: 'mypage/alarmSet.ajax',
 			data: {'alarmSetNo':alarmSetNo},
 			dataType: 'json',
 			success: function(data){
@@ -616,7 +616,7 @@ body {
 		console.log("유저 정보 요청")
 		$.ajax({
 			type: 'get',
-			url: 'myInfo.ajax',
+			url: 'mypage/myInfo.ajax',
 			data: {},
 			dataType: 'json',
 			success: function(data) {
