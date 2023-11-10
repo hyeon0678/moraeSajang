@@ -21,7 +21,7 @@ margin-top: 144px;
 </head>
 
 <body>
-<jsp:include page="<c:url value='/resources/common/headerPg.jsp'/>"/>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
     <div class="gbForm center">
         <span id="h3">글쓰기</span>
         <span class="validation h3Validation">*필수 정보</span>
