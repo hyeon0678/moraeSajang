@@ -63,10 +63,10 @@ body{
 <%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
 	<div id="lnb">
 		<ul>
-			<a href="mypage"><li>내 프로필</li></a>
-			<a href="javascript:"><li class="on">내 공구 현황</li></a>
-			<a href="my/point/history"><li>포인트 내역</li></a>
-			<a href="my/point/charge"><li>포인트 충전</li></a>
+			<a href="<c:url value="/mypage"/>"><li>내 프로필</li></a>
+			<a href="<c:url value="/mypage/groupBuy/gbList"/>"><li class="on">내 공구 현황</li></a>
+			<a href="<c:url value="/mypage/point/history"/>"><li>포인트 내역</li></a>
+			<a href="<c:url value="/mypage/point/charge"/>"><li>포인트 충전</li></a>
 		</ul>
 	</div>
 	<div id="gbToggle">
