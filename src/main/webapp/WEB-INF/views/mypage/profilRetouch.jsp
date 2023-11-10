@@ -68,7 +68,7 @@
       <tr class="form-group">
       <th>읍/면/동</th>
       <th>
-      <input class="form-control" placeholder="상세주소" name="addr2" id="detailAddr" type="text" value="${sessionScope.userInfo.userDetailAddress}" />
+      <input class="form-control" placeholder="읍/면/동" name="addr2" id="userdetailAddr" type="text" value="${sessionScope.userInfo.userDetailAddress}" />
       </th>      
       </tr> 
          
