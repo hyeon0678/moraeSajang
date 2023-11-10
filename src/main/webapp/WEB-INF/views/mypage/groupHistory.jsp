@@ -13,6 +13,7 @@
 <style type="text/css">
 	.current{
 		background-color: #FFBC38;
+		
 	}
 	button.list-btn{
 	width: 100px;
@@ -22,9 +23,15 @@
 	margin:0;
 	border-radius:10px;
 }
-th, td, tr{
-	border: 1px solid black;
-	text-align: center;
+.container{
+	margin-left: 370px;
+}
+th, tr{
+	border-bottom: 1px solid black;
+	text-align: center;	
+}
+th{
+	background-color: #F9DCA3;
 }
 body{
      margin-top: 130px;
@@ -38,13 +45,13 @@ body{
         #lnb a:hover{text-decoration:none;}
         
         #gbTable{
-        margin-left: 320px;
+        margin-left: 450px;
         width: 850px;
     	height: 500px;
     	margin-top: 20px;
         }
         #gbToggle{
-        margin-left: 320px;
+        margin-left: 450px;
         }
         #gbTable table{
         width: 100%;
