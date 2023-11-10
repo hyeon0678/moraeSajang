@@ -12,7 +12,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="<c:url value='/resources/js/jquery.twbsPagination.js'/>"></script>
+<link href="<c:url value='/resources/css/paging.css'/>" rel="stylesheet">
+<script src="<c:url value='/resources/js/paging.js'/>" type="text/javascript"></script>
 <style>
 div.container{
 	margin-left: -18%;
@@ -65,7 +66,10 @@ div.container{
 	
 </style>
 </head>
-<body>
+<body style="margin-top: 8%;">
+<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
+
+
 	<div class="elem-container">
     <div id="productsInfo" class="section">
         <div id="productImgBox" class="products">

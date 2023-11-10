@@ -5,14 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Bootstrap: 디자인을 위한 프레임워크 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<!-- jQuery 는 사용하는 플러그인과 다른 라이브러리와의 충돌 여부를 확인해야 합니다. -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<link href="<c:url value='/resources/css/gbList.css'/>" rel="stylesheet"/>
+<script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+
 <!-- 그래프 차트 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 <style>
+div.lab{
+	font-size: 25px;
+	color: #F9DCA3;
+	font-weight: bold;
+}
 table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -69,36 +77,51 @@ table, th, td {
 
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<div class="sideber">
+		<ul>
+	  <li><h3 class="page">관리자 페이지</h3></li>
+	  <li><a href="analysis" style="background: #F9DCA3;color: white;" >통계</a></li>
+	  <li><a href="adminUser">회원 관리</a></li>
+	  <li><a href="adminReport">신고 관리</a></li>
+	  <li><a href="point">포인트 관리</a></li>
+	  <li><a href="groupBuy">게시판 관리</a></li>
+		</ul>
+	</div>	
 	
-	
-<div id="donutChartContainer" style="float: left; margin-left: 15%">
-	<div>거래량 TOP6</div>
-	<label for="date">날짜를 선택하세요:
+<div id="donutChartContainer" style="float: left; margin-left: 19%; margin-top: 2%;">
+	<div class="lab">거래량 TOP6</div>
+	<label for="date">
         <input type="date" id="dfirstsearchdate" value="" />
         ~
         <input type="date" id="dlastsearchdate" value="" />
-        <input type="button" id="dsearchButton" value="검색" />
+        <input type="button" id="dsearchButton" class="comm-btn" value="검색" />
     </label>
-  <canvas id="donutchart" height="370" width="370"></canvas>
-  <div id="centerText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 20px; color: #333;">Your Text</div>
+  <canvas id="donutchart" height="470" width="470"></canvas>
+  <div id="centerText" class="lab" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 20px;">Your Text</div>
 </div>
-<div id="graphChartContainer" style="float: left; margin-left:7%">
-	<div>카테고리별 거래량</div>
-	<label for="date">날짜를 선택하세요:
+
+
+
+<div id="graphChartContainer" style="float: left; margin-left:6%; margin-top: 2%;">
+	<div class="lab">카테고리별 거래량</div>
+	<label for="date">
         <input type="date" id="cfirstsearchdate" value="" />
         ~
         <input type="date" id="clastsearchdate" value="" />
-        <input type="button" id="csearchButton" value="검색" />
+        <input type="button" id="csearchButton" class="comm-btn" value="검색" />
     </label>
-<canvas id="myChart" width="450" height="370"></canvas>
+<canvas id="myChart" width="470" height="470"></canvas>
 </div>
-<div id="topJoinUserContainer" style="float: left; margin-left: 15%">
-	<label for="date">날짜를 선택하세요:
+
+<div id="topJoinUserContainer" style="float: left; margin-left: 17%; margin-top: 5%;">
+	<div class="lab">거래 성공 사용자</div>
+	<label for="date">
         <input type="date" id="ufirstsearchdate" value="" />
         ~
         <input type="date" id="ulastsearchdate" value="" />
-        <input type="button" id="usearchButton" value="검색" />
+        <input type="button" id="usearchButton" class="comm-btn" value="검색" />
     </label>
 	<table>
 		<thead>
@@ -114,12 +137,13 @@ table, th, td {
     	</tbody>
 	</table>
 </div>
-<div id="topPointContainer" style="float: left; margin-left:7%">
-	<label for="date">날짜를 선택하세요:
+<div id="topPointContainer" style="float: left; margin-left:2%; margin-top: 5%;">
+	<div class="lab">포인트 충전 합계</div>
+	<label for="date">
         <input type="date" id="pfirstsearchdate" value="" />
         ~
         <input type="date" id="plastsearchdate" value="" />
-        <input type="button" id="psearchButton" value="검색" />
+        <input type="button" id="psearchButton" class="comm-btn" value="검색" />
     </label>
 	<table>
 		<thead>
@@ -133,15 +157,16 @@ table, th, td {
     	</tbody>
 	</table>
 </div>
-<div id="gbStateContainer">
-	<input type="button" id="ssearchButton" value="완료" />
-	<input type="button" id="isearchButton" value="진행" />
-	<input type="button" id="fsearchButton" value="취소" />
-	<label for="date">날짜를 선택하세요:
+<div id="gbStateContainer" style="float: left; margin-left:2%; margin-top: 5%;">
+	<div class="lab">거래 건수</div>
+	<button class="region current" id="ssearchButton" value="완료" style=" width: 50px;; height: auto; font-size: medium;">완료</button>
+	<button class="region" id="isearchButton" value="진행" style=" width: 50px;; height: auto; font-size: medium;">진행</button>
+	<button class="region" id="fsearchButton" value="취소" style=" width: 50px;; height: auto; font-size: medium;">취소</button>
+	<label for="date">
         <input type="date" id="bfirstsearchdate" value="" />
         ~
         <input type="date" id="blastsearchdate" value="" />
-        <input type="button" id="bsearchButton" value="검색" />
+        <input type="button" id="bsearchButton" class="comm-btn" value="검색" />
     </label>
 	<table>
 		<thead>
@@ -238,9 +263,9 @@ const chartHeight = donutChartContainer.offsetHeight;
 
 centerText.style.top = chartHeight / 2 + 'px';
 centerText.style.left = chartWidth / 2 + 'px';
-centerText.style.transform = 'translate(-691%, -55%)';
-// 왼쪽 : 숫자가 작아질수록 오른쪽으로 이동
-// 오른쪽 : 숫자가 작아질수록 아래쪽으로 이동
+centerText.style.transform = 'translate(285%, 190%)';
+// 왼쪽 : 숫자가 커질수록 오른쪽으로 이동
+// 오른쪽 : 숫자가 커질수록 아래쪽으로 이동
 
 
 
@@ -573,6 +598,8 @@ document.getElementById('bsearchButton').addEventListener('click', function () {
 	});
 	
 $('#ssearchButton').on('click',function(){
+	$('button.region').removeClass('current');
+    $(this).addClass('current');
 	stateBar = $(this).val();
 	const bfirstSearchDate = bfirstSearchDateInput.value;
 	const blastSearchDate = blastSearchDateInput.value;
@@ -580,6 +607,8 @@ $('#ssearchButton').on('click',function(){
 	$('#state').text('완료');
 });
 $('#isearchButton').on('click',function(){
+	$('button.region').removeClass('current');
+    $(this).addClass('current');
 	stateBar = $(this).val();
 	const bfirstSearchDate = bfirstSearchDateInput.value;
 	  const blastSearchDate = blastSearchDateInput.value;
@@ -587,6 +616,8 @@ $('#isearchButton').on('click',function(){
 	$('#state').text('진행');
 });
 $('#fsearchButton').on('click',function(){
+	$('button.region').removeClass('current');
+    $(this).addClass('current');
 	stateBar = $(this).val();
 	const bfirstSearchDate = bfirstSearchDateInput.value;
 	  const blastSearchDate = blastSearchDateInput.value;
