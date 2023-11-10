@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" href="<c:url value='/resources/img/favicon.ico'/>" type="image/x-icon">
 <meta charset="UTF-8">
 <style>
         @font-face {
@@ -31,7 +30,7 @@
         h1, h2, h3, h4, h5, h6{font-family: 'KorailRoundGothicBold', sans-serif; font-size:16px; color:#212732;}
         body, header, section, footer, div, ul, li, p, a, span, input{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
 
-        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede;}
+        #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede; background-color:#fff;}
         #header .headerInner{position:relative; width:80%; height:100px; margin:0 auto;}
         #header .headerInner .logo{position:absolute; width:180px; left:0; top:6px;}
         #header .headerInner .logo img{width:100%;}
@@ -60,14 +59,43 @@
 	
     <header id="header">
         <div class="headerInner">
-            <h1 class="logo"><a href="<c:url value='/main'/>"><img src="<c:url value='/resources/img/logo.png'/>" alt="모래사장"></a></h1>
+            <h1 class="logo"><a href="<c:url value='/groupBy/gbList'/>"><img src="<c:url value='/resources/img/logo.png'/>" alt="모래사장"></a></h1>
             <ul class="util utilAfter">
                 <li><a href="javascript:"><img src="<c:url value='/resources/img/Notification.png'/>" alt="알림"></a></li>
-                <li><a href="<c:url value='message/rcvList'/>"><img src="<c:url value='/resources/img/msg.png'/>" alt="메세지 알림"></a></li>
-                <li><a href="<c:url value='mypage'/>"><img src="<c:url value='/resources/img/my.png'/>" alt="마이페이지"></a></li>
+                <li><a href="<c:url value='/message/rcvList'/>"><img src="<c:url value='/resources/img/msg.png'/>" alt="메세지 알림" id="msgAlram"></a></li>
+                <li><a href="<c:url value='/mypage'/>"><img src="<c:url value='/resources/img/my.png'/>" alt="마이페이지"></a></li>
             </ul>
         </div>
     </header>
+    
+    <script>
+ 		// userInfo가 있을 때만 실행되는 스크립트
+		msgAlram();
+		
+		var setMsgAlram = setInterval(function() {
+			msgAlram();
+			}, 10000);
+			
+		function msgAlram(){
+			$.ajax({
+				type: 'post',
+				url: '<c:url value="/message/alram.ajax"/>',
+				dataType: 'json',
+				success:function(data){
+					// console.log("cnt값"+data.cnt);
+					if(data.cnt>0){
+						$('#msgAlram').attr('src','<c:url value="/resources/img/msg_on.png"/>');
+					}else{
+						$('#msgAlram').attr('src','<c:url value="/resources/img/msg.png"/>');
+					}
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+		}
+	</script>
+    
     <%
 	    } else {
 	%>
