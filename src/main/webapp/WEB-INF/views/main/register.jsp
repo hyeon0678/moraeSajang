@@ -269,7 +269,7 @@ $('#register').on('click',function(){
                console.log(data);
                if(data.success>0){
                   alert('회원가입에 성공 했습니다.');
-                  location.href='/morae/login'; 
+                  location.href='login'; 
                }else{
                   alert('회원가입에 실패 했습니다.');
                }               
@@ -410,11 +410,6 @@ function execPostCode() {
            if(fullRoadAddr !== ''){
                fullRoadAddr += extraRoadAddr;
            }
-
-        
-          
-           
-           
          
            $("[name=addr1]").val(fullRoadAddr); 
            $("[name=addr2]").val(data.bname);
