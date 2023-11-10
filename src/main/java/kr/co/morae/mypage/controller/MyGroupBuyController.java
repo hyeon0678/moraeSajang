@@ -21,7 +21,7 @@ import kr.co.morae.mypage.service.MyGroupBuyService;
 import kr.co.morae.user.dto.UserDto;
 
 @Controller
-@RequestMapping("/my/groupBuy")
+@RequestMapping("/mypage/groupBuy")
 public class MyGroupBuyController {
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 	

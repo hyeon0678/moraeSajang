@@ -18,11 +18,13 @@ public class MainController {
 		return "main/main";
 	}
 	
+
 	@RequestMapping(value = {"/user/login"})
 	public String login() {
 		return "main/login";
 	}
 	
+
 	@RequestMapping(value = {"/user/findId"})
 	public String findId() {
 		return "main/findId";
