@@ -42,6 +42,7 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
             mapManager.saveOutputFlashMap(map,request,response);
             response.sendRedirect("/morae/groupBuy/gbList");
             //log.info("========================== AuthCheckInterceptor end ===========================");
+            return false;
 		}
 		
 		log.info("login user : {}",dto.getUserId());
