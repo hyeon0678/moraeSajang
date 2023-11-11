@@ -156,6 +156,7 @@ WHERE gb.blockState = 'N' AND gb.gbState like '진행'
     <if test="'all'!=region and category != 0 and keyWord != null">
         AND loc.gbDetailAddress=#{region} AND c.categoryNo=#{category} AND gb.title LIKE CONCAT('%',#{keyWord},'%')
     </if>
+    ORDER by gb.gbNo DESC
     LIMIT 8 OFFSET #{offset}
 </select> 
 
@@ -212,6 +213,6 @@ INSERT INTO gbStateHistory (gbNo, hState) VALUES (#{param1}, #{param2});
 </insert>
 
 <select id="getJoinUser" resultType="string">
-select userId from groupbuyingjoining where gbNo = #{param1};
+select userId from groupBuyingJoining where gbNo = #{param1};
 </select>
 </mapper>
