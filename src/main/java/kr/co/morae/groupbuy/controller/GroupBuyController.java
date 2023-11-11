@@ -50,6 +50,8 @@ public class GroupBuyController {
 	@ResponseBody
 	public HashMap<String,Object> writeGb(@RequestParam(value="images") MultipartFile[] files, 
 			@ModelAttribute GroupBuyDto dto, Model model, HttpSession session) {
+		log.info("------------start writeGb----------------");
+		
 		log.info("files:"+files.length);
 		log.info("params : "+dto.toString());
 		UserDto info = (UserDto)session.getAttribute("userInfo");
@@ -63,23 +65,18 @@ public class GroupBuyController {
 			return result;
 		}
 		
-		result.put("fail", "공구 등록에 실패했습니다.");		
+		result.put("fail", "공구 등록에 실패했습니다.");	
+		log.info("------------end writeGb----------------");
 		return result;
 	}
 	
-
 	
 	//글 상세정보보기
 	@GetMapping("/gbDetail")
 	public String gbDetail(@RequestParam int gbNo, HttpSession session, RedirectAttributes rattr, Model model) {
-		log.info("------------gbDetail----------------");
-		log.info("parma : " + gbNo);
+		log.info("------------start gbDetail----------------");
+		log.info("params : " + gbNo);
 		UserDto info = (UserDto)session.getAttribute("userInfo");
-		
-		if(info== null) {
-			rattr.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-			return "redirect:/";
-		}
 		
 		HashMap<String, Object> map = gbService.getGbDetail(gbNo, info.getUserId());
 		
@@ -90,7 +87,7 @@ public class GroupBuyController {
 		
 		log.info("공구 글 불러오기 완료");
 		model.addAllAttributes(map);
-		log.info("------------end----------------");
+		log.info("------------end gbDetail----------------");
 		return "groupBuy/gbDetail";
 	}
 	
@@ -98,7 +95,7 @@ public class GroupBuyController {
 	@PostMapping("/join.ajax")
 	@ResponseBody
 	public HashMap<String,Object> gbJoin(@RequestParam int gbNo, @RequestParam int gbPrice, HttpSession session) {
-		log.info("------------gbJoin----------------");
+		log.info("------------start gbJoin----------------");
 		log.info("params : "+"gbNo:"+gbNo+"gbPrice:"+gbPrice);
 		UserDto info = (UserDto)session.getAttribute("userInfo");
 		String isJoin = gbService.gbJoin(gbNo, info.getUserId(), gbPrice);
@@ -119,14 +116,14 @@ public class GroupBuyController {
 		
 		log.info("공동구매 참여 실패");
 		result.put("msg", "fail");
-		log.info("------------end----------------");
+		log.info("------------ gbJoin end ----------------");
 		return result;
 	}
 	
 	//공구 신고
 	@GetMapping("/report")
 	public String reportForm(@RequestParam HashMap<String, String> params, HttpServletResponse response) {
-		log.info("----------report------------");
+		log.info("----------start report------------");
 		log.info("params : " + params.toString());
 
 		response = addCookie(response, params);
@@ -139,6 +136,7 @@ public class GroupBuyController {
 			HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		String gbNo = "";
 		ArrayList<String> name = new ArrayList<String>();
+		
 		Cookie[] list = request.getCookies();
 		for(Cookie cookie:list) {
 			if(cookie.getName().equals("gbNo")) {
@@ -153,6 +151,8 @@ public class GroupBuyController {
 				name.add("commNo");
 			}
 		}
+		
+		log.info("params (write report): " + params.toString());
 	    
 		UserDto info = (UserDto)session.getAttribute("userInfo");
 		int row = gbService.report(params, info.getUserId());
@@ -165,7 +165,7 @@ public class GroupBuyController {
 		}
 		
 		response = deleteCookie(response, name);
-		log.info("----------end------------");
+		log.info("---------- end report ------------");
 		return "redirect:/groupBuy/gbDetail?gbNo="+gbNo;
 	}
 	
@@ -173,10 +173,10 @@ public class GroupBuyController {
 	@GetMapping("/gbList.ajax")
 	@ResponseBody
 	public HashMap<String,Object> gbList(@ModelAttribute SearchOptionDto dto, HttpSession session) {
-		log.info("------------gbList+search----------------");
+		log.info("------------start gbList+search----------------");
 		log.info("params : "+dto.toString());
 		HashMap<String, Object> result = gbService.getGbList(dto);
-		log.info("------------end----------------");
+		log.info("------------ end gbList+search ----------------");
 		return result;
 	}
 	
@@ -197,7 +197,7 @@ public class GroupBuyController {
 		return response;
 	}
 	
-public HttpServletResponse addCookie(HttpServletResponse response,  HashMap<String, String> names) {
+	public HttpServletResponse addCookie(HttpServletResponse response,  HashMap<String, String> names) {
 		Set set = names.keySet();
 		Iterator iterator = set.iterator();
 		for(Entry<String, String> elem : names.entrySet()) {
