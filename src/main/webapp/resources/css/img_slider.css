@@ -21,13 +21,7 @@ ul, li {
 	padding: 5px;
 	padding-left: 20px;
 }
-#gbContent{
-	padding: 5px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	padding-left: 20px;
-	resize: none;
-}
+
 .slider-2 .slides > div {
     position:absolute;
     top:0;
