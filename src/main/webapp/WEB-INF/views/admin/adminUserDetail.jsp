@@ -68,6 +68,7 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
 <div style="margin-top: 300px;">
 	<div class="sideber">
 	<ul>
@@ -80,7 +81,6 @@
 	</ul>
 	</div>
 
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<div style="width: 900px; float: left; margin: 8px 0px 8px 300px;" class="usermain">
 		<div class="profil" style="float: left; overflow: auto; width: 350px; height: 320px;margin: 0px 0px 0px 50px">
 			<img src="/morae/resources/img/profil.png" width="300px" height="300px">	

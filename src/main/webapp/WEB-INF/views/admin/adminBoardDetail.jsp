@@ -67,7 +67,7 @@ div.container{
 </style>
 </head>
 <body style="margin-top: 8%;">
-<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
+<%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
 
 
 	<div class="elem-container">
