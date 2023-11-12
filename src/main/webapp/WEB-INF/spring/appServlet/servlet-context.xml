@@ -58,14 +58,14 @@
 		<exclude-mapping path="/main/**"/>
 		<exclude-mapping path="/"/>
 		<exclude-mapping path="/user/**"/>
-		<exclude-mapping path="/message/alarm.ajax"/>
+		<exclude-mapping path="/message/alram.ajax"/>
 		<beans:bean id="loginInterceptor" class="kr.co.morae.common.LoginInterceptor"/>
 	</interceptor>
 	<interceptor>
 		<mapping path="/admin/**"/>
 		<exclude-mapping path="/resources/**"/>
 		<exclude-mapping path="/user/**"/>
-		<exclude-mapping path="/message/alarm.ajax"/>
+		<exclude-mapping path="/message/alram.ajax"/>
 		<beans:bean id="AuthCheckInterceptor" class="kr.co.morae.common.AuthCheckInterceptor"/>
 	</interceptor>
 </interceptors>

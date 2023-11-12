@@ -74,7 +74,7 @@ div.sideber ul {
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
 	<div class="sideber">
 		<ul>
 	  <li><h3 class="page">관리자 페이지</h3></li>

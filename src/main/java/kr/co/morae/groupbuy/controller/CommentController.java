@@ -24,9 +24,8 @@ import kr.co.morae.user.dto.UserDto;
 
 @Controller
 @RequestMapping("/groupBuy/comment")
-public class CommentController implements InitializingBean {
+public class CommentController{
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
-	private Thread gbStateConfThread;
 	
 	@Autowired
 	CommentService commService;
@@ -36,14 +35,14 @@ public class CommentController implements InitializingBean {
 	@GetMapping("/commList.ajax")
 	@ResponseBody
 	public HashMap<String,Object>getCommList(@RequestParam int gbNo,@RequestParam int pageNum, HttpSession session) {
-		log.info("----------- comment list --------------");
+		log.info("----------- start comment list --------------");
 		
-		log.info("params > gbNo:"+gbNo+" pageNum:"+pageNum);
+		log.info("params : gbNo="+gbNo+" pageNum="+pageNum);
 		UserDto info = (UserDto)session.getAttribute("userInfo");
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		map = commService.getCommentList(gbNo, info.getUserId(), pageNum);
 		
-		log.info("----------- end --------------");
+		log.info("----------- end comment list --------------");
 		return map;
 	}
 	
@@ -51,9 +50,9 @@ public class CommentController implements InitializingBean {
 	@GetMapping("/delete.ajax")
 	@ResponseBody
 	public HashMap<String,Object> deleteComment(@RequestParam HashMap<String, String> params){
-		log.info("----------- comment delete --------------");
+		log.info("----------- start comment delete --------------");
 		
-		log.info("commentDelete data : "+params.toString());
+		log.info("params: "+params.toString());
 		int row = commDao.deleteComment(params);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
@@ -64,7 +63,7 @@ public class CommentController implements InitializingBean {
 		
 		result.put("msg", "fail");
 		
-		log.info("----------- end --------------");
+		log.info("----------- end comment delete --------------");
 		return result;
 	}
 	
@@ -72,14 +71,14 @@ public class CommentController implements InitializingBean {
 	@PostMapping("/modify.ajax")
 	@ResponseBody
 	public HashMap<String,Object> modifyComment(@RequestParam HashMap<String, String> params){
-		log.info("----------- comment modify --------------");
+		log.info("----------- start comment modify --------------");
 		
-		log.info("commentModify data : "+params.toString());
+		log.info("params:"+params.toString());
 		String resultMsg = commService.modyfyComment(params);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("msg", resultMsg);
 		
-		log.info("----------- end --------------");
+		log.info("----------- end comment modify --------------");
 		return result;
 	}
 	
@@ -89,38 +88,17 @@ public class CommentController implements InitializingBean {
 	@ResponseBody
 	public HashMap<String,Object> writeComment(@RequestParam HashMap<String, String> map, HttpSession session, RedirectAttributes rattr) {
 		UserDto info = (UserDto)session.getAttribute("userInfo");
-		log.info("----------- comment write --------------");
-		log.info("write comment"+map.toString());
+		log.info("----------- start comment write --------------");
+		log.info("params:"+map.toString());
 		HashMap<String, Object> result = commService.writeComment(map, info.getUserId());
 		
 		
 		String page = map.get("gbNo");
 		log.info("totalPage : "+page);
 		
-		log.info("----------- end --------------");
+		log.info("----------- end comment write --------------");
 		return result;
 	}
 
-	/*
-	 * service가 bean으로 생성이 되고 초기화 될 때 실행되는 함수, 이 함수에서 공구 자동 완료 스레드를 실행시킨다.
-	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		gbStateConfThread = new Thread(()->{
-			while(!Thread.currentThread().isInterrupted()) {
-				System.out.println("스레드 실행");
-				try {
-                    Thread.sleep(5000); // 5초마다 실행
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-			}
-		});
-		
-	}
-	
-	private void gbStateConfirm() {
-		//시작일 , 시작일 + 종료일을 가져오기 + joinPeople, recruitPeople 을 가져와서 둘이 같으면 update -> 완료
-	}
 
 }

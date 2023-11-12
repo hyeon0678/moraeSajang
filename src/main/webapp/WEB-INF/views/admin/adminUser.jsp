@@ -85,6 +85,7 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
 	<div class="sideber">
 		<ul>
 	  <li><h3 class="page">관리자 페이지</h3></li>
@@ -96,7 +97,6 @@
 		</ul>
 	</div>
 
-<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
 	<div class="main">
 	<h3 style=" float: left; margin: 30px 50px; ">회원 관리 리스트</h3>	<br/>
 	<div style="float:right;  display: flex;margin-left: auto; padding: 10px 53px; margin-top: 50px;">

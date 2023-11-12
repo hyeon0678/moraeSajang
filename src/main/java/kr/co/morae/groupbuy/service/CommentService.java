@@ -21,11 +21,12 @@ public class CommentService {
 	CommentDao commDao;
 	Paging paging = new Paging();
 	
-	@Transactional
+
 	public HashMap<String, Object> getCommentList(int gbNo, String userId, int pageNum){
 		int offset = (pageNum-1)*5;
 		ArrayList<CommentDto> commDto = commDao.getComment(gbNo, offset);
 		commDto = setCommWriter(commDto, userId);
+		
 		log.info("commDtolength : "+commDto.size());
 		
 		int totalCommentCnt = commDao.getTotalComment(gbNo);

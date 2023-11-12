@@ -47,7 +47,7 @@ public class GroupBuyService {
 	Paging paging = new Paging();
 	Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
 	
-	@Transactional
+
 	public int registerGB(MultipartFile[] files, GroupBuyDto dto, String userId){
 		int n=0;
 		
@@ -113,7 +113,7 @@ public class GroupBuyService {
 		return n;
 	}
 
-	@Transactional
+
 	public HashMap<String, Object> getGbDetail(int gbNo, String userId) {
 
 		GroupBuyDto gbDto =  gbDao.getGbDetail(Integer.toString(gbNo), userId);
@@ -136,7 +136,7 @@ public class GroupBuyService {
 		
 	}
 
-	@Transactional
+
 	public String gbJoin(int gbNo, String userId, int gbPrice) {
 		
 		HashMap<String, String> gbJoinCheck = gbDao.isgbJoining(Integer.toString(gbNo), userId);

@@ -94,6 +94,7 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
  <div class="sideber">
 		<ul>
 	  <li><h3 class="page">관리자 페이지</h3></li>
@@ -106,7 +107,7 @@
 	</div>
 	
 	
-<%@ include file="/WEB-INF/views/common/headerPg.jsp" %>
+
 	<div class="seli"style="margin-top: 1%;">
     <span><button class="region current" id="alladmingblist" value="전체">전체</button></span>
     <span><button class="region" id="sucadmingblist" value="완료">완료</button></span>

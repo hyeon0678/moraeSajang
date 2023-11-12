@@ -109,15 +109,17 @@
 	            </div>
 	            <div class="smallInfo">
 	                <label class="info-label">사용자 평가</label>
-	                <span>
+	                <div>
+	                <span class="review">
 	                   	또 거래하고싶어요 : ${GroupBuyDto.tradeAgainNum}
 	                </span>
-	                <span>
+	                <span class="review">
 	                    그냥 그래요 : ${GroupBuyDto.justOkayNum}
 	                </span>
-	                <span>
+	                <span class="review">
 	                    별로에요 : ${GroupBuyDto.notInterestedNum}
 	                </span>
+	                </div>
 	            </div>
 	            <div class="smallInfo">
 	                <label class="info-label">금액</label>
@@ -148,7 +150,7 @@
 	    <h3 class="comment-h3">댓글</h3>
 	    <div class="comment-div">
 	        <div id="commentWriteBox">
-	            <div>
+	            <div class="comment-elem-div">
 		            <textarea id="comment" class="inputValid comment-content">
 		
 		            </textarea>
