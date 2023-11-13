@@ -82,7 +82,7 @@
     div.scb{
     display:flex;
     margin-top:-0.7%;
-   	margin-left: 220px;
+   	margin-left: 200px;
     }
     div.seli{
     float: left;
@@ -97,7 +97,9 @@
 	}
 	.date-option{
 		display: flex;
+		
 	}
+	
 </style>
 </head>
 <body>
