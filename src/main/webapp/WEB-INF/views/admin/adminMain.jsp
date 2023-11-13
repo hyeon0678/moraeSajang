@@ -114,7 +114,7 @@ table, th, td {
 <canvas id="myChart" width="470" height="470"></canvas>
 </div>
 
-<div id="topJoinUserContainer" style="float: left; margin-left: 17%; margin-top: 5%;">
+<div id="topJoinUserContainer" style="float: left; margin-left: 17%; margin-top: 5%; margin-bottom: 40px;">
 	<div class="lab">거래 성공 사용자</div>
 	<label for="date">
         <input type="date" id="ufirstsearchdate" value="" />
@@ -136,7 +136,7 @@ table, th, td {
     	</tbody>
 	</table>
 </div>
-<div id="topPointContainer" style="float: left; margin-left:2%; margin-top: 5%;">
+<div id="topPointContainer" style="float: left; margin-left:2%; margin-top: 5%; margin-bottom: 40px;">
 	<div class="lab">포인트 충전 합계</div>
 	<label for="date">
         <input type="date" id="pfirstsearchdate" value="" />
@@ -156,7 +156,7 @@ table, th, td {
     	</tbody>
 	</table>
 </div>
-<div id="gbStateContainer" style="float: left; margin-left:2%; margin-top: 5%;">
+<div id="gbStateContainer" style="float: left; margin-left:2%; margin-top: 5%; margin-bottom: 40px;">
 	<div class="lab">거래 건수</div>
 	<button class="region current" id="ssearchButton" value="완료" style=" width: 50px;; height: auto; font-size: medium;">완료</button>
 	<button class="region" id="isearchButton" value="진행" style=" width: 50px;; height: auto; font-size: medium;">진행</button>

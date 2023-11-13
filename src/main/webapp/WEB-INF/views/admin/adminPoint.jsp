@@ -84,9 +84,13 @@
         .hidden {
             display: none;
         }
+        div.container{
+        position: relative;
+        margin-left: 9%;
+        }
     </style>
 </head>
-<body>
+<body style="overflow-x:hidden">
 <%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
   <div class="sideber">
 		<ul>
@@ -366,7 +370,7 @@ $('#pointHistory').on('click', function () {
     $('#contentContainer').removeClass('hidden');
     $('#firstsearchdate').val('');
     $('#lastsearchdate').val('');
-    $('#mm').text('날짜 ▼');
+    $('#contentContainer #mm').text('날짜 ▼');
     firstpage = false;
     showPage = 1;
     ascendingOrder = true; // 초기 정렬 방향을 오름차순으로 설정
@@ -379,6 +383,11 @@ $('#contentContainer #mm').on('click', function () {
     // 정렬 방향을 토글하고 적절한 함수 호출
     ascendingOrder = !ascendingOrder;
     pointHistoryListCall(showPage, ascendingOrder);
+    if(ascendingOrder){
+    	$('#contentContainer #mm').text('날짜 ▼');
+    }else{
+    	$('#contentContainer #mm').text('날짜 ▲');
+    }
 });
 function pointHistoryListCall(page, ascendingOrder) {
 	if (searchResults) {

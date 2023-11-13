@@ -93,7 +93,7 @@
         }
 </style>
 </head>
-<body>
+<body style="overflow-x:hidden">
 <%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
  <div class="sideber">
 		<ul>
