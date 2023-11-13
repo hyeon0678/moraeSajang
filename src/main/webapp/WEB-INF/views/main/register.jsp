@@ -39,6 +39,7 @@
                     <p>아이디</p>
                     <input type="text" placeholder="아이디를 입력해주세요." name="id" value=""/>
                     <input type="button" id="overlay" value="ID 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>
+                	<font id="label1" size ="2"></font>
                 </div>
                <div class="textBox">
                     <p>비밀번호</p>
@@ -53,6 +54,7 @@
                     <p>닉네임</p>
                     <input type="text" name="nickname" placeholder="닉네임을 입력해주세요"/>
                  <input type="button" id="overnickname" value="nickname 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>                 
+                <font id="label2" size ="2"></font>
                 </div>
                 <div class="textBox">
                     <p>이름</p>
@@ -66,6 +68,7 @@
                     <p>이메일</p>
                     <input type="text" name="email" placeholder="ex)abc@naver.com" value=""/>
                     <input type="button" id="overemail" value="email 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>                    
+                	<font id="label3" size ="2"></font>
                 </div>
                 
                 <div class="gender">
@@ -265,6 +268,11 @@ $('#overlay').on('click',function(){
    var id = $('input[name="id"]').val();
    console.log('id='+id);
    
+   if(id == '' || id.length == 0) {
+		$("#label1").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
+		return false;
+	}
+	
    
    $.ajax({
       type:'get', 
@@ -297,6 +305,11 @@ $('#overnickname').on('click',function(){
    var nickname = $('input[name="nickname"]').val();
    console.log('nickname='+nickname);
    
+   if(nickname == '' || nickname.length == 0) {
+		$("#label2").css("color", "red").text("공백은 nickname으로 사용할 수 없습니다.");
+		return false;
+	}
+	
    
    $.ajax({
       type:'get', 
@@ -328,6 +341,10 @@ $('#overemail').on('click',function(){
    var email = $('input[name="email"]').val();
    console.log('email='+email);
    
+   if(email == '' || email.length == 0) {
+		$("#label3").css("color", "red").text("공백은 email로 사용할 수 없습니다.");
+		return false;
+	}
    
    $.ajax({
       type:'get', 
