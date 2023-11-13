@@ -65,7 +65,7 @@
 	font-size: 14px;
 }
 ##header .alarmList p{
-font-size: 14px;
+font-size: 13px;
 }
 
 .alarmList button:hover{

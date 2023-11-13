@@ -61,7 +61,7 @@
 	font-size: 13px;
 }
 #list p{
-	font-size: 14px;
+	font-size: 13px;
 }
 
 .alarmList button:hover{
