@@ -17,7 +17,9 @@
 <style>
 div.container{
 	margin-left: -18%;
+	width: 100%;
 }
+
 #back {
    	margin-left: 47%;
 }
@@ -375,7 +377,7 @@ function drawList(obj){
     	comments += '</div>';
 		comments += '<div class="commentBody">'
 		comments +='<div class="content"><textarea class="commentContent inputValid" readonly>'+item.comment+'</textarea><div class="validation" style="display:none">0/250</div></div>'
-        comments += '<div class="date">'
+        comments += '<div class="date"></div></div>'
         	let milliseconds = parseInt(item.commRegDate,10)
 	        const date = new Date(milliseconds);
 	        const year = date.getFullYear();
