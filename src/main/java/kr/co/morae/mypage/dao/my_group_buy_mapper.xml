@@ -4,7 +4,7 @@
 	
 	<select id="getJoinMyGbList" resultType="kr.co.morae.groupbuy.dto.GroupBuyDto">
 			SELECT g.gbNo, g.finishDate, SUBSTRING(g.title, 1, 30) title ,g.startDate , g.recruitPeople, g.gbState, g2.joinState 
-			, g.joinPrice, c2.categoryType,
+			, g.joinPrice, c2.categoryType, u.nickname,
 			(select count(ur.userId)
 			from userReview ur
 			where ur.gbNo = g.gbNo and ur.reviewerId like #{param1}
@@ -23,8 +23,11 @@
 			ON g.categoryNo = c2.categoryNo 
 			LEFT OUTER JOIN userReview ur
 			ON ur.gbNo = g.gbNo 
+			LEFT OUTER JOIN user u
+			ON u.userId = g.userId
 			WHERE g2.userId = #{param1} and g.blockState like 'N'
 			group by g.gbNo
+			order by g.regDate desc
 			LIMIT 10 OFFSET #{param2}
 	</select>
 	
@@ -41,6 +44,7 @@
 			on g.categoryNo = c2.categoryNo 
 			where g.userId = #{param1} and g.blockState like 'N'
 			group by g.gbNo
+			order by g.regDate desc
 			LIMIT 10 OFFSET #{param2}
 	</select>
 	

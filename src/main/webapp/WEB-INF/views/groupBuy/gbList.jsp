@@ -222,8 +222,10 @@ function getSearchOption(){
 function makeUrl(){
     getSearchOption();
     let url = '';
+    
     for(var key in searchOption) {
-        if(searchOption[key] != '' || searchOption[key] != '0'){
+    	console.log('key:'+searchOption[key]);
+        if(searchOption[key] != '' || searchOption[key] != 0){
             url+='&&'+key+'='+searchOption[key];
         }
         console.log('url'+url);

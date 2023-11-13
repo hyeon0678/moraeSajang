@@ -139,7 +139,7 @@ function drawRecruitGbList(data){
 		$('thead').append(thead);
 		$('tbody').empty();
 	if(list.length == 0){
-		tbody = '<tr><td colspan="6">모집한 공구글이 없습니다.</td></tr>'
+		tbody = '<tr><td colspan="6">모집한 공구가 없습니다.</td></tr>'
 		$('tbody').append(tbody);
 	}else{
 		console.log(list);
@@ -166,6 +166,7 @@ function drawJoinGbList(data){
 	$('thead').empty();
 	let tbody = '';
 	let thead = '<tr>'
+		thead += '<th>모집자</th>'
 		thead += '<th>카테고리 종류</th>'
 		thead += '<th>제목</th>'
 		thead += '<th>모집기간</th>'
@@ -177,12 +178,13 @@ function drawJoinGbList(data){
 		$('tbody').empty();
 		
 	if(list.length == 0){
-		tbody = '<tr><td colspan="7">모집한 공구글이 없습니다.</td></tr>'
+		tbody = '<tr><td colspan="7">참여한 공구가 없습니다.</td></tr>'
 		$('tbody').append(tbody);
 	}else{
 		console.log(list);
 		for(let gb of list){
 			tbody += '<tr>'
+			tbody += '<td>'+gb.nickname+'</td>'
 			tbody += '<td>'+gb.categoryType+'</td>'
 			tbody += '<td>'+gb.title+'</td>'
 			let startDate = formatDateFromTimestamp(gb.startDate);
