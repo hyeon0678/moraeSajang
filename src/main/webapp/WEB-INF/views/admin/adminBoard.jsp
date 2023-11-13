@@ -75,17 +75,17 @@
             display: none;
         }
         div.card-row-spacing{
-        margin-left: auto;
+        float: left;
+        margin-left: 25%;
         }
         div.scb{
-        position:absolute;
+        float: left;
         margin-top:-0.7%;
         margin-left:50%;
         }
         div.seli{
-        position:absolute;
-		margin-top:-1%;
-        margin-left:16%;
+        float: left;
+        margin-left:25%;
         }
         div.container{
         position: absolute;
