@@ -7,7 +7,14 @@
 <title>모래사장 | 포인트 충전</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-        #pointCharge{position:relative; margin-top:100px;}
+        #pointCharge{position:relative; margin-top:120px; margin-left:300px;}
+        #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
+        #lnb ul{margin-top:20px;}
+        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
+        #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
+        #lnb ul a:hover{text-decoration:none;}
+        #lnb .logout{position:absolute; margin-left:50px; bottom:200px;}
+        #lnb .logout a span{font-size:20px; line-height:25px; position:relative; top:-7px; color:#FFBC38;}
         #pointCharge .correctPwInner{width:80%; height:500px; margin: 0 auto; padding-top:50px;}
         #pointCharge .correctPwInner h2{text-align: center; font-size:38px; margin-bottom: 10px;}
         #pointCharge .correctPwInner>p{text-align: center; color:#888; margin-bottom: 50px;}
@@ -31,6 +38,21 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<div id="lnb">
+        <ul>
+			<a href="<c:url value="/mypage"/>"><li>내 프로필</li></a>
+			<a href="<c:url value="/mypage/groupBuy/gbList"/>"><li>내 공구 현황</li></a>
+			<a href="<c:url value="/mypage/point/history"/>"><li>포인트 내역</li></a>
+			<a href="<c:url value="/mypage/point/charge"/>"><li class="on">포인트 충전</li></a>
+		</ul>
+		<div class=logout>
+			<a href="<c:url value='/user/logout'/>"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.8999 7.55999C9.2099 3.95999 11.0599 2.48999 15.1099 2.48999H15.2399C19.7099 2.48999 21.4999 4.27999 21.4999 8.74999V15.27C21.4999 19.74 19.7099 21.53 15.2399 21.53H15.1099C11.0899 21.53 9.2399 20.08 8.9099 16.54" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.0001 12H3.62012" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.85 8.6499L2.5 11.9999L5.85 15.3499" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span> Log Out</span></a>
+		</div>
+    </div>
     <section id="pointCharge">
     	<form action="chargeGo" method="post" name="chargeForm">
         <div class="correctPwInner">
