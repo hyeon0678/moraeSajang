@@ -117,7 +117,7 @@
 		            <th>충전 번호</th>
 		            <th>사용자 아이디</th>
 		            <th>금액</th>
-		            <th id="mm">날짜</th>
+		            <th id="mm">날짜 ▼</th>
 		            <th>입금자 명</th>
 		        </tr>
 		    </thead>
@@ -134,7 +134,7 @@
 		            <th>사용자 ID</th>
 		            <th>금액</th>
 		            <th>거래사유</th>
-		            <th id="mm">날짜</th>
+		            <th id="mm">날짜 ▼</th>
 		        </tr>
 		    </thead>
 		    <tbody id="list">
@@ -168,6 +168,11 @@ $('#mm').on('click', function () {
     // 정렬 방향을 토글하고 적절한 함수 호출
     ascendingOrder = !ascendingOrder;
     listCall(showPage, ascendingOrder);
+    if(ascendingOrder){
+    	$('#mm').text('날짜 ▼');
+    }else{
+    	$('#mm').text('날짜 ▲');
+    }
 });
 
 
@@ -350,6 +355,7 @@ $('#chargePoint').on('click', function () {
     $('#pointChargeTable').removeClass('hidden');
     $('#firstsearchdate').val('');
     $('#lastsearchdate').val('');
+    $('#mm').text('날짜 ▼');
     firstpage = true;
 });
 
@@ -360,6 +366,7 @@ $('#pointHistory').on('click', function () {
     $('#contentContainer').removeClass('hidden');
     $('#firstsearchdate').val('');
     $('#lastsearchdate').val('');
+    $('#mm').text('날짜 ▼');
     firstpage = false;
     showPage = 1;
     ascendingOrder = true; // 초기 정렬 방향을 오름차순으로 설정
