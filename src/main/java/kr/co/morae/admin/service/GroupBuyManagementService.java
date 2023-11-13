@@ -182,7 +182,7 @@ public Map<String, Object> adminBlockState(String blockState, String gbNo) {
 			int rr = dao.admingbHis(gbNo,formattedDate);
 		}
 		
-		if(row>0 & rw >0) {
+		if(row>0) {
 			result.put("msg", "success");
 			return result;
 		}else {
