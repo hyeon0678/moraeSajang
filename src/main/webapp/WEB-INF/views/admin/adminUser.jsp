@@ -99,8 +99,8 @@
 	</div>
 
 	<div class="main">
-	<h3 style=" float: left; margin: 30px 100px; ">회원 관리 리스트</h3>	<br/>
-	<div style="float:right;  display: flex;margin-left: auto; padding: 10px 53px; margin-top: 50px;">
+	<h3 style=" float: left; margin: 30px 300px; ">회원 관리 리스트</h3>	<br/>
+	<div style="float:right;  display: flex;margin-right: 200px; padding: 10px 53px; margin-top: 50px;">
 	<input type="text" name="userId" value="" placeholder="아이디를 입력해주세요." style="margin: 0px 5px;"/>
 	<input type="button" id="reserch" value="검색" style="margin: 0px 5px;"/>
 	<input type="button" id="return" value="전체 리스트로 돌아가기" style="margin: 0px 5px;"/>

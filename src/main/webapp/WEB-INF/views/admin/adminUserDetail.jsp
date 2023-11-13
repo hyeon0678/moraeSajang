@@ -82,7 +82,7 @@
 	</ul>
 	</div>
 
-	<div style="width: 900px; float: left; margin: 60px 0px 8px 300px;" class="usermain">
+	<div style="width: 900px; float: left; margin: 60px 0px 8px 400px;" class="usermain">
 		<div class="profil" style="float: left; overflow: auto; width: 350px; height: 320px;margin: 0px 0px 0px 50px">
 			<img src="/morae/resources/img/profil.png" width="300px" height="300px">	
 		</div>
@@ -211,7 +211,7 @@ function drawlist(obj){
 		}		
 		/* 회원 상태 수정 */
 		
-		content += '<div class="profil" style="float: right; overflow: auto; width: 400px; height:170px; margin: 3px 50px 0px 10px">';		
+		content += '<div class="profil" style="float: right; overflow: auto; width: 400px; height:175px; margin: 3px 50px 0px 10px">';		
 		content += '<p style="font-weight: bold;margin: 10px;" >회원 상태 수정</p>';
 		content += '<input class="form-check-input" type="radio" name="Stateradio" id="flexRadioDefault1" style="margin: 0px 0px 0px 10px;" value="차단"/>';
 		content += '<label class="form-check-label" for="flexRadioDefault1"> 차단 </label>';		  
