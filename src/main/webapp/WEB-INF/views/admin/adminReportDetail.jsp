@@ -88,7 +88,7 @@ div.sideber ul {
 	</div>
 	
 	
-	<div style="margin: 100px 0px 0px 300px;" class="reportmain"	>
+	<div style="margin: 100px 0px 0px 400px;" class="reportmain"	>
 	<button onclick="gotolist()" style="margin: 30px 0px 0px 850px">리스트로 돌아가기</button>
 	<div style="width: 1000px; height: 20px; padding: 10px 0px 5px 0px; " >		
 		<div style="width: 475px; float: left; height: 20px;"><span style="font-weight: 600;">신고 상세보기</span></div>
@@ -164,7 +164,7 @@ div.sideber ul {
     	// '+obj.list[i].+'  '+obj.list[i].reportProcessNo+'
     	for (var i = 0; i < obj.size; i++) {
     	var content ='';
-    		content += '<div style="width: 990px; background-color:#DEDEDE; margin: 0px 0px 5px 0px;">';
+    		content += '<div style="width: 990px; background-color:#DEDEDE; margin: 0px 0px 5px 0px; padding: 10px;">';
     		content += '<div style="width: 970px; height: 35px;">';
     		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리번호 : '+obj.list[i].reportProcessNo+'</span></div>';
     		content += '<div style="width: 150px; float: left; height: 20px;"><span>처리자 : '+obj.list[i].processorId+'</span></div>';
