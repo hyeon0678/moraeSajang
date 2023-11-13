@@ -151,7 +151,7 @@ font-size: 13px;
 				url: '<c:url value="/message/alram.ajax"/>',
 				dataType: 'json',
 				success:function(data){
-					// console.log("cnt값"+data.cnt);
+					// console.log("cnt값");
 					if(data.cnt>0){
 						$('#msgAlram').attr('src','<c:url value="/resources/img/msg_on.png"/>');
 					}else{
@@ -344,8 +344,8 @@ font-size: 13px;
         <div class="headerInner">
             <h1 class="logo"><a href="<c:url value='/main'/>"><img src="<c:url value='/resources/img/logo.png'/>" alt="모래사장"></a></h1>
             <ul class="util utilBefore">
-                <li><a href="user/login">로그인</a></li>
-                <li><a href="user/register">회원가입</a></li>
+                <li><a href="<c:url value='/user/login'/>">로그인</a></li>
+                <li><a href="<c:url value='/user/register'/>">회원가입</a></li>
             </ul>
         </div>
     </header>

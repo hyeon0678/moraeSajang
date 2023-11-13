@@ -64,7 +64,7 @@ public class PointController {
 		int row = service.chargeGo(userId, name, chargePrice);
 		if(row==1) {
 			model.addAttribute("msg","충전이 완료되었습니다.");
-	         page="redirect:/my/point/history";
+	         page="mypage/pointHistory";
 	      }else {
 	         model.addAttribute("msg","입금자명이 일치하지 않습니다.");
 	      }
