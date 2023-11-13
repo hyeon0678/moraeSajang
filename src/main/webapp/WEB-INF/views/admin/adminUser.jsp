@@ -77,9 +77,10 @@
 	  margin-top: 6%;
 	}
 	input[type="button"]{
-		background-color: #FFBC38;
-		border-color:#DEDEDE;
-		color: #212732;
+	background-color:#F9DCA3; 
+	border-style: none;
+	border-radius: 5px;
+	padding: 0.5px 5px 0.5px 5px;
 	}
 		
 </style>

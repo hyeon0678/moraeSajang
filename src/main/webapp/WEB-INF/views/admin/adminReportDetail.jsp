@@ -66,9 +66,10 @@ div.sideber ul {
 	}
 	
 	button{
-	background-color: #FFBC38;
-		border-color:#DEDEDE;
-		color: #212732;
+	background-color:#F9DCA3; 
+	border-style: none;
+	border-radius: 5px;
+	padding: 0.5px 5px 0.5px 5px;
 	}
 
 </style>
@@ -87,27 +88,27 @@ div.sideber ul {
 	</div>
 	
 	
-	<div style="margin: 0px 0px 0px 300px;" class="reportmain"	>
-	<button onclick="gotolist()" style="margin: 0px 0px 0px 850px">리스트로 돌아가기</button>
+	<div style="margin: 100px 0px 0px 300px;" class="reportmain"	>
+	<button onclick="gotolist()" style="margin: 30px 0px 0px 850px">리스트로 돌아가기</button>
 	<div style="width: 1000px; height: 20px; padding: 10px 0px 5px 0px; " >		
 		<div style="width: 475px; float: left; height: 20px;"><span style="font-weight: 600;">신고 상세보기</span></div>
 		<div style="width: 475px; float: right; height: 20px;"><span style="text-align: right;">신고 번호 : ${report.reportNo}</span></div>		
 	</div>	
-	<div style="width: 1000px; height: 40px; border: 3px;	border-style: solid none;	border-color : #DEDEDE;">
+	<div style="width: 1000px; height: 30px; border: 3px; padding: 10px 0px 0px 0px; border-style: solid none;	border-color : #DEDEDE;">
 		<div style="width: 970px; float: left;height: 20px;"><span>신고자 아이디 : ${report.userId}</span>  /  
 		<span>피신고자 아이디 : ${report.reportuser}</span></div>
 	</div>
-	<div style="width: 1000px; height: 40px;">
+	<div style="width: 1000px; height: 30px; padding: 10px 0px 0px 0px;">
 		<div style="width: 475px; float: left;height: 20px;"><span >글/댓글 번호 : <button onclick="locationgo()">${useruniqueNo}</button></span>  /  
 		<span>글/댓글 상태 : ${userstate}</span></div>
 		<div style="width: 475px; float: left;height: 20px;"><span>${report.reportRegDate}</span></div>
 	</div>
-	<div style="width: 1000px; height: 300px; border: 3px;	border-style: solid none;	border-color : #DEDEDE;">
-		<div style="width: 970px; float: left;height: 270px;"><span>신고사유 : ${report.reportContent}</span></div>
+	<div style="width: 1000px; height: 270px; padding: 10px 0px 0px 0px;  border: 3px;	border-style: solid none;	border-color : #DEDEDE;">
+		<div style="width: 970px; float: left;height: 200px;"><span>신고사유 : ${report.reportContent}</span></div>
 	</div>		
 	
 	<!-- 신고 히스토리 // insert -->
-	<div style=" display: flex;"><h5>신고 히스토리</h5><span style="margin: 40px 0px 3px 580px;"> 신고 처리 상태 : ${report.processState}</span></div>	
+	<div style=" display: flex;"><h5 style="padding: 10px 0px 0px 0px;">신고 히스토리</h5><span style="margin: 40px 0px 3px 580px;"> 신고 처리 상태 : ${report.processState}</span></div>	
     <div style="width: 1000px; height: 80px;">
         <textarea style="height:70px; width:850px; resize: none; float: left;" placeholder="히스토리를 입력 해 주세요." value="" name="content"></textarea>        
         <!-- <input type="text" id = "reporthistory" value="" placeholder="내용을 입력 해 주세요"></div> -->

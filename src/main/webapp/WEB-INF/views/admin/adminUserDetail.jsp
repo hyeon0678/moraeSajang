@@ -54,23 +54,24 @@
 	
 	.main {
 	  margin-left: 220px;
-	  margin-top: 6px;
+	  
 	}
 	span{
 		list-style-type: disc;
-		margin: 10px ;	
+		
 	}
 	input[type="button"]{
-	background-color: #FFBC38;
-	border-color:#DEDEDE;
-	color: #212732;
+	background-color:#F9DCA3; 
+	border-style: none;
+	border-radius: 5px;
+	padding: 0.5px 5px 0.5px 5px;
 	}
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
-<div style="margin-top: 300px;">
-	<div class="sideber">
+<div>
+	<div class="sideber" style="margin-top: 6%;	">
 	<ul>
 	   <li><h3 class="page" style="margin: 50px 0px;">관리자 페이지</h3></li>
 	  <li><a href="analysis">통계</a></li>
@@ -81,7 +82,7 @@
 	</ul>
 	</div>
 
-	<div style="width: 900px; float: left; margin: 8px 0px 8px 300px;" class="usermain">
+	<div style="width: 900px; float: left; margin: 60px 0px 8px 300px;" class="usermain">
 		<div class="profil" style="float: left; overflow: auto; width: 350px; height: 320px;margin: 0px 0px 0px 50px">
 			<img src="/morae/resources/img/profil.png" width="300px" height="300px">	
 		</div>
@@ -159,7 +160,7 @@ function drawhislist(obj){
 			var content = '';
 			//  차단 히스토리  
 			//content += '<div class="rehis" style="float: right; overflow: auto; width: 400px; height:200px; margin: 0px 50px 0px 10px">';		
-			content += '<div style="float: right; overflow: auto; width: 380px;margin: 10px 50px 0px 10px; background-color:#DEDEDE;" >';
+			content += '<div style="float: right; overflow: auto; width: 380px;padding: 10px;margin: 10px 50px 0px 10px; background-color:#DEDEDE;" >';
 			content += '<div style="width: 380px; height: 35px; background-color:#DEDEDE; ">';
 			content += '<div style="width: 150px; float: left; height: 20px;"><span>처리번호 : '+obj.list[i].blockNo+'</span></div>';
 			content += '<div style="width: 150px; float: left; height: 20px;"><span>처리자 : '+obj.list[i].blockerId+'</span></div>';
@@ -173,30 +174,15 @@ function drawhislist(obj){
 			//content += '</div>';
 			$('#history').append(content);
 				
-			}
-			
-			
+			}			
 		},
 		error:function(e){
 			console.log(e);
 		}	
-	});//		
-	
-	
-	
-	
-	
-	
+	});//	
 }//
-
-
-
-
 	
-	
-	
-function drawlist(obj){	
-	
+function drawlist(obj){		
 	var $state = "${state}"; // 차단 미차단
 	var $auth = "${auth}"; //회원 상태
 	var gardid = "obj.gardid";
@@ -213,28 +199,26 @@ function drawlist(obj){
 		/* $('+''input[type=radio][name=flexRadioDefault]:checked  ').val() // $('input[type=radio][name=flexRadioDefault]:checked').val()*/
 		/* 최고 관리자 여부 확인 = session 으로 확인 */		
 		if(logstate == 1){	
-			console.log("최고 관리자");	
-		
-		content += '<div class="profil" style="float: right; overflow: auto; width: 400px; height:80px; margin: 0px 50px 0px 10px">';
-		content += '<p style="font-weight: bold;" >회원 권한 수정</p>';		
+			console.log("최고 관리자");			
+		content += '<div class="profil" style="float: right; overflow: auto; width: 400px; height:80px; margin: 0px 50px 0px 10px; ">';
+		content += '<p style="font-weight: bold;margin: 5px;" >회원 권한 수정</p>';		
 		content += '<input class="form-check-input" type="radio" name="Radioauth" id="flexRadioDefault1" style="margin: 0px 0px 0px 10px" value="관리자"/>';
 		content += '<label class="form-check-label" for="flexRadioDefault1"> 관리자 </label>	';	  
 		content += '<input class="form-check-input" type="radio" name="Radioauth" id="flexRadioDefault2" style="margin: 0px 0px 0px 30px" value="일반회원" checked/>';
 		content += '<label class="form-check-label" for="flexRadioDefault2"> 일반 회원 </label>';
 		content += '<input type="button" value="권한 저장" style="margin: 0px 0px 0px 30px" onclick="authsave()"/>';			
-		content += '</div>';				
-		
+		content += '</div>';					
 		}		
 		/* 회원 상태 수정 */
 		
-		content += '<div class="profil" style="float: right; overflow: auto; width: 400px; height:190px; margin: 3px 50px 0px 10px">';		
-		content += '<p style="font-weight: bold;" >회원 상태 수정</p>';
+		content += '<div class="profil" style="float: right; overflow: auto; width: 400px; height:170px; margin: 3px 50px 0px 10px">';		
+		content += '<p style="font-weight: bold;margin: 10px;" >회원 상태 수정</p>';
 		content += '<input class="form-check-input" type="radio" name="Stateradio" id="flexRadioDefault1" style="margin: 0px 0px 0px 10px;" value="차단"/>';
 		content += '<label class="form-check-label" for="flexRadioDefault1"> 차단 </label>';		  
 		content += '<input class="form-check-input" type="radio" name="Stateradio" id="flexRadioDefault2" style="margin: 0px 0px 0px 10px;" value="미차단" checked/>';
 		content += '<label class="form-check-label" for="flexRadioDefault2"> 미차단 </label>';
 		content += '<textarea type="text" id = "reporthistory" value="" placeholder="회원상태변경의 이유을 입력해주세요" style="height: 100px; width: 270px; resize: none;margin: 5px 0px 0px 0px;"></textarea>';
-		content += '<input type="button" value="상태 저장" style="margin: 0px 0px 0px 10px; position: absolute; top: 555px;  left: 1020px;" onclick="statesave()"/>';		
+		content += '<input type="button" value="상태 저장" style="margin: 0px 0px 0px 10px;" onclick="statesave()"/>';		
 		content += '</div>';
 		$('#auth').append(content);
 	// }	
