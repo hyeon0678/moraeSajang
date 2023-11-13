@@ -29,8 +29,8 @@
                 <p>Welcome to Burger Bliss, where we take your cravings to a<br/>whole new level! Our mouthwatering burgers are made<br/>from 100% beef and are served on freshly baked buns.</p>
             </div>
             <ul class="innerBtn">
-                <a href="user/login"><li>로그인</li></a>
-                <a href="user/register"><li>회원가입</li></a>
+                <a href="<c:url value='/user/login'/>"><li>로그인</li></a>
+                <a href="<c:url value='/user/register'/>"><li>회원가입</li></a>
             </ul>
         </div>
     </section>
