@@ -95,7 +95,7 @@ table, th,td{
 	</div>
 	
 	<div class="main">	
-	<h3 style=" float: left; margin: 30px 50px; ">신고 리스트</h3><br/>
+	<h3 style=" float: left; margin: 30px 100px; ">신고 리스트</h3><br/>
 	<div style="float:right;  display: flex;margin-left: auto; padding: 10px 53px; margin-top: 50px;">
 	 <select id="pageState" style="margin: 0px 5px">
 		<option values="전체">전체</option>

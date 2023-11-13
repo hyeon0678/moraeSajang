@@ -283,24 +283,26 @@ body {
         #pointHistory{position:relative; margin-top:150px; overflow: hidden;}
         #lnb{position: fixed; left:0; top:100px; width:300px; height:100%; background-color: #f9f9f9; z-index: 99;}
         #lnb ul{margin-top:20px;}
-        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
+        #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold'; font-size:16px;}
         #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
-        #lnb a:hover{text-decoration:none;}
+        #lnb ul a:hover{text-decoration:none;}
+        #lnb .logout{position:absolute; margin-left:50px; bottom:200px;}
+        #lnb .logout a span{font-size:20px; line-height:25px; position:relative; top:-7px; color:#FFBC38;}
 </style>
 </head>
 <body>
 	<header id="header">
 		<div class="headerInner">
 			<h1 class="logo">
-				<a href="main.html"><img src="./resources/img/logo.png"
+				<a href="<c:url value='/groupBuy/gbList'/>"><img src="./resources/img/logo.png"
 					alt="모래사장"></a>
 			</h1>
 			<ul class="util">
 				<li id="alarm"><a href="javascript:"><img
 						src="<c:url value='/resources/img/Notification.png'/>" alt="알림" id="alarmIcon"></a></li>
-				<li><a href="javascript:"><img
+				<li><a href="<c:url value='/message/rcvList'/>"><img
 						src="./resources/img/msg.png" alt="메세지 알림"></a></li>
-				<li><a href="javascript:"><img src="./resources/img/my.png"
+				<li><a href="<c:url value='/mypage'/>"><img src="./resources/img/my.png"
 						alt="마이페이지"></a></li>
 			</ul>
 		</div>
@@ -318,13 +320,28 @@ body {
 	</header>
 
 	<div id="lnb">
+<<<<<<< HEAD
 		<ul>
 			<a href="javascript:"><li class="on">내 프로필</li></a>
 			<a href="mypage/groupBuy/gbList"><li>내 공구 현황</li></a>
 			<a href="mypage/point/history"><li>포인트 내역</li></a>
 			<a href="mypage/point/charge"><li>포인트 충전</li></a>
+=======
+        <ul>
+			<a href="<c:url value="/mypage"/>"><li class="on">내 프로필</li></a>
+			<a href="<c:url value="/mypage/groupBuy/gbList"/>"><li>내 공구 현황</li></a>
+			<a href="<c:url value="/mypage/point/history"/>"><li>포인트 내역</li></a>
+			<a href="<c:url value="/mypage/point/charge"/>"><li>포인트 충전</li></a>
+>>>>>>> 36d54614c6f981e9ccaa13207d925cdabd64afbd
 		</ul>
-	</div>
+		<div class=logout>
+			<a href="<c:url value='/user/logout'/>"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.8999 7.55999C9.2099 3.95999 11.0599 2.48999 15.1099 2.48999H15.2399C19.7099 2.48999 21.4999 4.27999 21.4999 8.74999V15.27C21.4999 19.74 19.7099 21.53 15.2399 21.53H15.1099C11.0899 21.53 9.2399 20.08 8.9099 16.54" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.0001 12H3.62012" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.85 8.6499L2.5 11.9999L5.85 15.3499" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span> Log Out</span></a>
+		</div>
+    </div>
 
 
 	<main>

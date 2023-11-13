@@ -8,53 +8,110 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style>
-  <%--  table, th, td{
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
-        margin: auto; 
-        text-align: center;
+     #registerjoin{position:relative; margin-top:100px;}
+     #registerjoin .register{width:80%; height:500px; margin: 0 auto; padding-top:50px;}
+     #registerjoin .register h2{text-align: center; font-size:38px; margin-bottom: 10px;}
+     #registerjoin .register .regist{width:330px; margin:0 auto;}
+     #registerjoin .register .regist .textBox{margin-bottom: 15px;}
+     #registerjoin .register .regist .textBox p{font-size:18px; margin-bottom: 5px; letter-spacing: 1px;}
+     #registerjoin .register .regist .textBox .pw{font-family: 'Malgun Gothic';}
+     #registerjoin .register .regist .textBox input{width:100%; height:60px; border-radius: 8px; border: 1px solid #b7b7b7; box-sizing: border-box; padding:0 15px;}
+     #registerjoin .register .regist .gender{font-size:18px; margin-bottom:18px;}
+     #registerjoin .register .regist .gender p{font-size:18px; margin-bottom: 10px; letter-spacing: 1px;}
+     #registerjoin .register .regist .gender input{border-radius: 8px; border: 1px solid #b7b7b7; box-sizing: border-box; padding:0 15px;}
+     #registerjoin .register .regist .textBox input:focus{border:2px solid #FFBC38; outline: none; box-shadow: 0 0 2px #FFBC38;}
+     #registerjoin .register .regist .textBox input:focus::placeholder{color:transparent}
+     #registerjoin .register .regist .textBox select{width:100%; height:60px; border-radius: 8px; border: 1px solid #b7b7b7; box-sizing: border-box; padding:0 15px;}
+     #registerjoin .register .regist .textBox select:focus{border:2px solid #FFBC38; outline: none; box-shadow: 0 0 2px #FFBC38;}
+     #registerjoin .register .regist .btnBox{width:330px; margin-bottom: 5px;}
+     #registerjoin .register .regist .btnBox input{width:100%; height:50px; margin:10px 0 15px 0; line-height: 50px; letter-spacing: 2px; font-size:20px; background-color: #FFBC38; color:#fff; border: none; border-radius: 5px; cursor: pointer;}
+     #registerjoin .register .regist .btnBox input:hover{border:1px solid #FFBC38; background: none; color:#FFBC38; transition:0.5s;}
 
-    } --%>
-    
-    
-
-</style><!-- #F9DCA3 -->
+</style>
 </head>
 <body>        
-             <table>  
-			 <h1 align="center">회원가입</h1>
-				
-			 <p align="center">아이디  
-			 <div>
-			 <input type="text" name="id" placeholder="아이디를 입력해주세요"/> 
-			 <input type="button" id="overlay" value="ID 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>
-			 </div>
-			 </p>
-			 <p align="center">비밀번호 <input type="password" name="pw" class="pw" id="password_1" placeholder="비밀번호를 입력해주세요"/></p>	   
-			 <p align="center">비밀번호 재확인 <input type="password" name="pwer" class="pw" id="password_2" placeholder="비밀번호를 재입력해주세요" /></p>	   
-			 <font id="checkPw" size ="2" align="center"></font>				
-             <p align="center">이름   <input type="text" name="name" placeholder="이름을 입력해주세요"/></p>
-        	 <p align="center">나이   <input type="text" name="age" placeholder="나이를 입력해주세요"/> </p>
-      		 <P align="center">이메일  <input type="text" name="email" placeholder="ex)abc@naver.com"/> <input type="button" id="overemail" value="email 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/> </P>
-             <p align="center">성별 <input type="radio" name="gender" value="남"/>남자
-                    <input type="radio" name="gender" value="여"/>여자</p>   
-         	 <p align="center">비밀번호 질문 <select id="hint" name="hint">
-					       <option value="1">선택하세요</option>
-					       <option value="2">나의 출신 초등학교는?</option>
-					       <option value="3">내가 좋아하는 캐릭터는?</option>
-					       <option value="4">다시 태어나면 되고 싶은 것은?</option>
-					       <option value="5">가장 좋아하는 색깔은?</option>
-					       <option value="6">나의 출신 고향은?</option>
-					      </select> </p>
-					      
-			<p align="center">비밀번호 정답 <input type="text" name="pwanswer" placeholder="정답을 입력해주세요"/></p>	
-			<p align="center">닉네임 <input type="text" name="nickname" placeholder="닉네임을 입력해주세요"/> <input type="button" id="overnickname" value="nickname 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/> </p>	      
-			<p class="form-group" align="center"> 도로명 <input class="form-control" "id="streetAddr" placeholder="도로 주소" name="addr1" type="text" readonly="readonly" />
-      				<button type="button" class="btn btn-default" onclick="execPostCode()" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"><i class="fa fa-search"></i> 주소 찾기</button> </p>		      
-			<p class="form-group" align="center"> 읍/면/동 <input class="form-control" id="userDetailAddr" placeholder="읍/면/동" name="addr2" type="text" readonly="readonly"> </p>		      
-			<p class="form-group" align="center"> 상세 주소 <input class="form-control" placeholder="상세주소" name="addr3" id="detailAddr" type="text" /> </p>
-			<input type="button" id="register" name="register" value="회원가입" />
+
+   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<section id="registerjoin">
+        <div class="register">
+            <h2>비밀번호 찾기</h2>
+            <div class="regist">
+                <div class="textBox">
+                    <p>아이디</p>
+                    <input type="text" placeholder="아이디를 입력해주세요." name="id" value=""/>
+                    <input type="button" id="overlay" value="ID 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>
+                </div>
+               <div class="textBox">
+                    <p>비밀번호</p>
+                    <input input type="password" name="pw" class="pw" id="password_1" placeholder="비밀번호를 입력해주세요" value="" maxlength='20'/>
+                </div>
+                <div class="textBox">
+                    <p>비밀번호 재확인</p>
+                    <input type="password" name="pwer" class="pw" id="password_2" placeholder="비밀번호를 재입력해주세요"  value="" maxlength='20'/>
+                     <font id="checkPw" size ="2"></font>
+                </div> 
+                 <div class="textBox">
+                    <p>닉네임</p>
+                    <input type="text" name="nickname" placeholder="닉네임을 입력해주세요"/>
+                 <input type="button" id="overnickname" value="nickname 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>                 
+                </div>
+                <div class="textBox">
+                    <p>이름</p>
+                    <input type="text" name="name" placeholder="이름을 입력해주세요" value=""/>
+                </div>
+                 <div class="textBox">
+                    <p>나이</p>
+                    <input type="text" name="name" placeholder="나이를 입력해주세요" value=""/>
+                </div>               
+                <div class="textBox">
+                    <p>이메일</p>
+                    <input type="text" name="email" placeholder="ex)abc@naver.com" value=""/>
+                    <input type="button" id="overemail" value="email 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>                    
+                </div>
+                
+                <div class="gender">
+                    <p>성별</p>
+                    <input type="radio" name="gender" value="남"/>남자&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="gender" value="여"/>여자
+               </div> 
+                <div class="textBox">
+                    <p>비밀번호 힌트</p>
+                    <select id="hint" name="hint">
+                        <option value="0">선택해 주세요.</option>
+                        <option value="1">나의 출신 초등학교는?</option>
+                        <option value="2">내가 좋아하는 캐릭터는?</option>
+                        <option value="3">다시 태어나면 되고 싶은 것은?</option>
+                        <option value="4">가장 좋아하는 색깔은?</option>
+                        <option value="5">나의 출신 고향은?</option>
+                    </select>
+                </div>               
+                <div class="textBox">
+                    <p>비밀번호 정답</p>
+                    <input type="text" name="pwanswer" placeholder="정답을 입력해주세요" value=""/>
+                </div>               
+                <div class="textBox">
+                    <p>도로명 주소</p>
+                    <input class="form-control" "id="streetAddr" placeholder="도로 주소" name="addr1" type="text" readonly="readonly" />
+                 <input type="button" class="btn btn-default" onclick="execPostCode()" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white" value="주소 찾기">  
+                </div>
+                <div class="textBox">
+                    <p>읍/면/동</p>
+                     <input class="form-control" id="userDetailAddr" placeholder="읍/면/동" name="addr2" type="text" readonly="readonly">
+                </div>
+                <div class="textBox">
+                    <p>상세 주소</p>
+                    <input class="form-control" placeholder="상세주소" name="addr3" id="detailAddr" type="text" />
+                </div>
+               
+                <div class="btnBox">
+                    <input type="button" id="register" name="register" value="회원가입" onclick="return check()"/>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+  
+  
 
 					
 <%-- 
@@ -191,7 +248,7 @@ $('.pw').keyup(function(){
    if(pass1 != "" || pass2 !=""){
       if(pass1 == pass2){
          $("#checkPw").html("비밀번호가 일치합니다.");
-         $("#checkPw").attr("color","green");
+         $("#checkPw").attr("color","green"); 
       }else{
          $("#checkPw").html("비밀번호가 불일치합니다.");
          $("#checkPw").attr("color","red");
