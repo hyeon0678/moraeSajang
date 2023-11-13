@@ -33,7 +33,7 @@
    <%@ include file="/WEB-INF/views/common/header.jsp" %>   
 <section id="registerjoin">
         <div class="register">
-            <h2>비밀번호 찾기</h2>
+            <h2>회원가입</h2>
             <div class="regist">
                 <div class="textBox">
                     <p>아이디</p>
