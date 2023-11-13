@@ -184,7 +184,7 @@
             content += '</div>';
             content +='<div class="card-body">'
             content +='<p class="gbno-hidden">'+item.gbNo+'</p>'
-            content += '<div class="title section">' + item.title + '</div>'
+            content += '<div class="title section" style="overflow: hidden">' + item.title + '</div>'
             content += '<div class="writer section">' + item.userId +'</div>'
             content += '<div class="date-div">모집기간</div>'
             var startDate = formatDateFromTimestamp(item.startDate);
