@@ -507,7 +507,7 @@ body {
 		obj.alarmList.forEach(function(item, idx) {
 					content += '<tr>';
 					content += '<td>'+'<a href=';
-					content += ""+item.alarmAddr+item.gbNo+' style="text-decoration:none">';
+					content += "groupBuy/"+item.alarmAddr+item.gbNo+' style="text-decoration:none">';
 					content += item.title.substr(0,13) + '</a>';
 					content += '<button class="alarmChk"'+'>읽음</button></td>';
 				});
