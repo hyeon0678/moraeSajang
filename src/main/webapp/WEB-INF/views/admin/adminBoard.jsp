@@ -63,34 +63,41 @@
 	  background : white;
 	  color: gray;
 	}
-	
+	.scb{
+	}
 
 
 
 
-        select {
-            margin: 5px 0px;
-        }
-        .hidden {
-            display: none;
-        }
-        div.card-row-spacing{
-        float: left;
-        margin-left: 25%;
-        }
-        div.scb{
-        float: left;
-        margin-top:-0.7%;
-        margin-left:50%;
-        }
-        div.seli{
-        float: left;
-        margin-left:25%;
-        }
-        div.container{
-        position: absolute;
-        margin-left: 9%;
-        }
+    select {
+        margin: 5px 0px;
+    }
+    .hidden {
+        display: none;
+    }
+    div.card-row-spacing{
+    float: left;
+    margin-left: 25%;
+    }
+    div.scb{
+    display:flex;
+    margin-top:-0.7%;
+   	margin-left: 220px;
+    }
+    div.seli{
+    float: left;
+    margin-left:25%;
+    }
+    div.container{
+    position: absolute;
+    margin-left: 9%;
+    }
+	.option{
+		display: flex;
+	}
+	.date-option{
+		display: flex;
+	}
 </style>
 </head>
 <body>
@@ -108,21 +115,29 @@
 	
 	
 
+	<div class="option">
 	<div class="seli"style="margin-top: 1%;">
     <span><button class="region current" id="alladmingblist" value="전체">전체</button></span>
     <span><button class="region" id="sucadmingblist" value="완료">완료</button></span>
     <span><button class="region" id="failadmingblist" value="취소">취소</button></span>
 	</div>
-<div class="scb" style="margin-top: 1%;">
-	<input type="text" id="searchadmingblist" placeholder="아이디 입력"/>
-	<input type="button" id="searchpoingblist" class="comm-btn" value="아이디 검색"/>
-    <label for="date"> 날짜를 선택하세요 : 
-        <input type="date" id="firstsearchdate" value="" />
-        ~
-        <input type="date" id="lastsearchdate" value="" />
-        <input type="button" id="searchButton" class="comm-btn" value="검색" />
-    </label>
-</div>
+	<div class="scb" style="margin-top: 1%;">
+		<div>
+			<input type="text" id="searchadmingblist" class="sub-elem" placeholder="아이디 입력"/>
+		</div>
+		<div>
+				<input type="button" id="searchpoingblist" class="comm-btn sub-elem" value="아이디 검색"/>	
+		</div>
+		<div class="date-option">
+			<label for="date"> 날짜를 선택하세요 : 
+	        <input type="date" id="firstsearchdate" value="" />
+	        ~
+	        <input type="date" id="lastsearchdate" value="" />
+	        <input type="button" id="searchButton" class="comm-btn" value="검색" />
+	    </label>
+		</div>
+	</div>
+	</div>
     <div class="card-row-spacing">
         <div class="row" id="list">
             <!-- 데이터가 여기에 삽입됩니다. -->

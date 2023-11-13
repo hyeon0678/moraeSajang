@@ -161,7 +161,6 @@ margin-top: 144px;
 	    getUserLocation();
 	    fileDeleteClick();
 	    changeOrder();
-	    isValid();
 	});
 	
 	//숫자-문자 검증
