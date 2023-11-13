@@ -69,6 +69,7 @@ div.container{
 	width: auto;
 	margin: 0 auto;
 	margin-top: 40px;
+	margin-left:0px !important;
 }
 #gbContent{
 	padding: 5px;

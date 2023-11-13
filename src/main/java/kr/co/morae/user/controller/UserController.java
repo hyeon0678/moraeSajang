@@ -35,7 +35,7 @@ public class UserController {
 				if(dto.getAuthNo() == null || dto.getAuthNo() == 3) { // 일반 사용자
 					logger.info("해당 아이디 권한 : 일반사용자");
 				}else if(dto.getAuthNo() == 1 || dto.getAuthNo() == 4) { // 관리자
-					page = "redirect:/admin/adminUser";
+					page = "redirect:/admin/analysis";
 					logger.info("해당 아이디 권한 : "+dto.getAuthType());
 				}else if(dto.getAuthNo() == 2){ // 차단된 사용자
 					logger.info("해당 아이디 권한 : "+dto.getAuthType());
