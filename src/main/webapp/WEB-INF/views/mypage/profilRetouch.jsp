@@ -49,6 +49,9 @@ body {
 	height: 100%;
 }
 
+.pw{
+font-family: 'Malgun Gothic';
+}
 #profil {
 	border: 3px solid #F9DCA3;
 	border-collapse: collapse;
@@ -89,14 +92,24 @@ body {
 	font-size: 14px;
 }
 
+#checkpw{
+ 	margin-top:7%;
+    margin-right: 25px;
+    margin-bottom: 30px;
+    margin-left: 20%;
+    padding-left:100px;
+}
+
 #profil [type='text'] {
 	width: 250px;
 	height: 25px;
+	margin-left: 15px;
 }
 
 #profil [type='password'] {
 	width: 250px;
 	height: 25px;
+	margin-left: 15px;
 }
 
 #update {
@@ -111,6 +124,20 @@ body {
 	color: white;
 	cursor: pointer;
 	font-size: 18px;
+}
+
+#label{
+	padding-left:100px;
+	margin-top:7%;
+    margin-right: 25px;
+    margin-bottom: 30px;
+    margin-left: -20%;
+}
+#pwtitle{
+	width: 112px;
+}
+#pwCh{
+	height: 14px;
 }
 </style>
 </head>
@@ -147,16 +174,21 @@ body {
         <tr>
            <th>비밀번호</th>
              <th>
-          <input type="password" name="pw" class="pw" id="password_1" placeholder="비밀번호를 입력해 주세요."/>
+          <input type="password" name="pw" class="pw" id="password_1" placeholder="비밀번호를 입력해 주세요."/>          
           </th>
           
         </tr> 
        <tr>
-          <th>비밀번호 재확인</th>
+          <th id="pwtitle">비밀번호 재확인</th>
           <th>
-          <input type="password" name="pwer" class="pw" id="password_2" placeholder="비밀번호를 재입력해 주세요."  />
-          <font id="checkPw" size ="2"></font>
-          </th>
+          <input type="password" name="pwer" class="pw" id="password_2" placeholder="비밀번호를 재입력해 주세요."  />            
+          </th>        
+       </tr>
+       
+       <tr>
+       	<th colspan="2" id="pwCh">
+           <font id="checkPw" size ="2"></font>          
+       </th>
        </tr>
        
          <tr>
@@ -172,6 +204,7 @@ body {
              <th>
                  <input type="text" name="nickname" placeholder="닉네임을 입력해 주세요." value="${sessionScope.userInfo.nickname}"/>
                  <input type="button" id="overnickname" value="중복 확인"/>
+             	 <font id="label" size ="2"></font>
              </th>
          </tr>   
 
@@ -182,9 +215,7 @@ body {
       <button type="button" class="btn btn-default" onclick="execPostCode()"><i class="fa fa-search"></i> 주소 찾기</button>  
       </th>
       </tr>
-            
 
-     
       <tr class="form-group">
       <th>상세 주소</th>
       <th>
@@ -196,14 +227,8 @@ body {
                  <input type="button" id="update" name="update" value="수정하기"/>
              </th>
          </tr>
-         
-
      </table>
-     </div>
-     
-     
-     
-     
+     </div>    
 </body>
 <script>
 
@@ -304,6 +329,10 @@ $('#overnickname').on('click',function(){
    var nickname = $('input[name="nickname"]').val();
    console.log('nickname='+nickname);
    
+   if(nickname == '' || nickname.length == 0) {
+		$("#label").css("color", "red").text("공백은 nickname으로 사용할 수 없습니다.");
+		return false;
+	}
    
    $.ajax({
       type:'get', 
