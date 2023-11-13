@@ -75,7 +75,7 @@
             display: none;
         }
         div.card-row-spacing{
-        margin-left: 230px;
+        margin-left: auto;
         }
         div.scb{
         position:absolute;
@@ -93,7 +93,7 @@
         }
 </style>
 </head>
-<body style="overflow-x:hidden">
+<body>
 <%@ include file="/WEB-INF/views/common/adminHeader.jsp" %>
  <div class="sideber">
 		<ul>
