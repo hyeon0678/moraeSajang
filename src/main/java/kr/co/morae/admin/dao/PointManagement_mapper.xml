@@ -46,7 +46,7 @@
 	<select id="totalHistoryPage" resultType="int">
 		SELECT CEIL(COUNT(pointNo)/#{param1}) AS pages FROM pointHistory
 	</select>
-	<select id="adminPointHistorySearchDesc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+	<select id="adminpointHistorySearchDesc" resultType="kr.co.morae.admin.dto.PointManagementDto">
 		<![CDATA[
 		select p.pointNo ,p.gbNo ,p.userId ,p.pointReason ,p.pointMonney ,p.pointDate ,g.title 
   		from pointHistory p inner join groupBuyingPost g on p.gbNo = g.gbNo 
@@ -54,7 +54,7 @@
    		order by p.pointDate desc limit #{param3} offset #{param4}
 		]]>	
 	</select>
-	<select id="adminPointHistorySearchAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+	<select id="adminpointHistorySearchAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
 		<![CDATA[
 		select p.pointNo ,p.gbNo ,p.userId ,p.pointReason ,p.pointMonney ,p.pointDate ,g.title 
   		from pointHistory p inner join groupBuyingPost g on p.gbNo = g.gbNo 

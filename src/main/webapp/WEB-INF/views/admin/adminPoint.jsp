@@ -366,7 +366,7 @@ $('#pointHistory').on('click', function () {
     $('#contentContainer').removeClass('hidden');
     $('#firstsearchdate').val('');
     $('#lastsearchdate').val('');
-    $('#contentContainer #mm').text('날짜 ▼');
+    $('#mm').text('날짜 ▼');
     firstpage = false;
     showPage = 1;
     ascendingOrder = true; // 초기 정렬 방향을 오름차순으로 설정
@@ -379,11 +379,6 @@ $('#contentContainer #mm').on('click', function () {
     // 정렬 방향을 토글하고 적절한 함수 호출
     ascendingOrder = !ascendingOrder;
     pointHistoryListCall(showPage, ascendingOrder);
-    if(ascendingOrder){
-    	$('#contentContainer #mm').text('날짜 ▼');
-    }else{
-    	$('#contentContainer #mm').text('날짜 ▲');
-    }
 });
 function pointHistoryListCall(page, ascendingOrder) {
 	if (searchResults) {
