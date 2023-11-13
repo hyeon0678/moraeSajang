@@ -42,7 +42,7 @@ body{
         #lnb ul{margin-top:20px;}
         #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
         #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
-        #lnb ul a:hover{text-decoration:none;}
+        #lnb a:hover{text-decoration:none;}
         #lnb .logout{position:absolute; margin-left:50px; bottom:200px;}
         #lnb .logout a span{font-size:20px; line-height:25px; position:relative; top:-7px; color:#FFBC38;}
         

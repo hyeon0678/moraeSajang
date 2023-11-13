@@ -28,6 +28,7 @@ body{
             </div>
             <select type="text" id="categoryType" >
                 <option value="" selected disabled hidden>카테고리를 선택해주세요.</option>
+                <option value="0">전체</option>
                 <option value="1">가공 식품</option>
                 <option value="2">신선 식품</option>
                 <option value="3">식재료</option>
@@ -94,7 +95,7 @@ function listCall(page){
 }
 
 function setOptionEmpty(){
-	$('#categoryType').val('').prop('selected', true);
+	//$('#categoryType').val('').prop('selected', true);
 	$('#search-keyWord').val('');
 }
 
@@ -195,12 +196,15 @@ $('.region').on('click', function(){
     let region = $(this).val();
     currentSearchUrl = '&&region='+region;
     $('#pagination').twbsPagination('destroy');
+    $('#categoryType').val('').prop('selected', true);
+    showPage = 1;
     listCall(optionFirstPage);
 });
    
 $('#categoryType').on('change', function(){
     currentSearchUrl = makeUrl();
     $('#pagination').twbsPagination('destroy');
+    showPage = 1;
     listCall(optionFirstPage);
     
 });
@@ -219,7 +223,7 @@ function makeUrl(){
     getSearchOption();
     let url = '';
     for(var key in searchOption) {
-        if(searchOption[key] != ''){
+        if(searchOption[key] != '' || searchOption[key] != '0'){
             url+='&&'+key+'='+searchOption[key];
         }
         console.log('url'+url);

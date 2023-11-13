@@ -161,6 +161,13 @@ $('#reserch').on('click',function(){
 			//drawlist(data);	
 			var content = '';
 			$('#list').empty();
+			if (obj.size == 0) {
+				
+				 content = '<tr>';				 
+				 content += '<td style="text-align: center; color: red;">'+userId+'가 존재 하지 않습니다.</td>';
+				 content += '</tr>';				
+	            $('#list').append(content);
+			}else {
 			for (var i = 0; i < obj.size; i++) {
 				var state = "미차단";
 				var auth = "";
@@ -178,6 +185,7 @@ $('#reserch').on('click',function(){
 					 content += '<td>' + dateStr + '</td>';					 	
 					 content += '</tr>';				
 		            $('#list').append(content);
+			}
 			};
 		},
 		error:function(e){
