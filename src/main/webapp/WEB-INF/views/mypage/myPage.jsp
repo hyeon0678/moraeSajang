@@ -320,19 +320,11 @@ body {
 	</header>
 
 	<div id="lnb">
-<<<<<<< HEAD
-		<ul>
-			<a href="javascript:"><li class="on">내 프로필</li></a>
-			<a href="mypage/groupBuy/gbList"><li>내 공구 현황</li></a>
-			<a href="mypage/point/history"><li>포인트 내역</li></a>
-			<a href="mypage/point/charge"><li>포인트 충전</li></a>
-=======
         <ul>
 			<a href="<c:url value="/mypage"/>"><li class="on">내 프로필</li></a>
 			<a href="<c:url value="/mypage/groupBuy/gbList"/>"><li>내 공구 현황</li></a>
 			<a href="<c:url value="/mypage/point/history"/>"><li>포인트 내역</li></a>
 			<a href="<c:url value="/mypage/point/charge"/>"><li>포인트 충전</li></a>
->>>>>>> 36d54614c6f981e9ccaa13207d925cdabd64afbd
 		</ul>
 		<div class=logout>
 			<a href="<c:url value='/user/logout'/>"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

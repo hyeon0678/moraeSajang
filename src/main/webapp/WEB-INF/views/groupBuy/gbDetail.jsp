@@ -204,9 +204,10 @@ let comment='';
 $(document).ready(function(){
 	showPage = 1
 	commentListCall(1);
-	gbJoin()
-	slider()
-	report()
+	gbJoin();
+	slider();
+	report();
+	inputValid();
 });
 
 function commentListCall(pageNum){
@@ -461,7 +462,7 @@ function report(){
 function inputValid(){
 	$('.inputValid').on('keydown', function(){
 	    let len = $(this).val().length;
-	    console.log($(this));
+	    //console.log($(this));
 	    if(len > 250){
 	        var over = len - 250;
 	        var x = $(this).val();
