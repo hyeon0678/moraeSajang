@@ -14,6 +14,7 @@
      #registerjoin .register .regist{width:330px; margin:0 auto;}
      #registerjoin .register .regist .textBox{margin-bottom: 15px;}
      #registerjoin .register .regist .textBox p{font-size:18px; margin-bottom: 5px; letter-spacing: 1px;}
+     #registerjoin .register .regist .textBox .pw{font-family: 'Malgun Gothic';}
      #registerjoin .register .regist .textBox input{width:100%; height:60px; border-radius: 8px; border: 1px solid #b7b7b7; box-sizing: border-box; padding:0 15px;}
      #registerjoin .register .regist .gender{font-size:18px; margin-bottom:18px;}
      #registerjoin .register .regist .gender p{font-size:18px; margin-bottom: 10px; letter-spacing: 1px;}
