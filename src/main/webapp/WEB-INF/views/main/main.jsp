@@ -15,6 +15,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
 <style>
 
+body{
+	background-color:#FFF4DD;
+}
+
 #container {
 	transform: translate(-50%, -50%);
 	top: 50%;
