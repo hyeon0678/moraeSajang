@@ -56,7 +56,7 @@
 	background-color: white;
 }
 #list p{
-	font-size: 14px;
+	font-size: 13px;
 }
 
 #header .alarmList table {
@@ -282,7 +282,7 @@ font-size: 13px;
 
 	$('tbody').on('click', '[class=alarmChk]', function(e) { // 개별 버튼 알림 읽음 처리 요청
 		var alarmUrl = $(this).siblings().prop('href');
-		var alarmChk = alarmUrl.substring(51);
+		var alarmChk = alarmUrl.substring(51); // 끊을 글자 수 수정
 		console.log(alarmChk);
 		alarmRead(alarmChk);
 	});
