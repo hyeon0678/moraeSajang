@@ -96,6 +96,7 @@ class GbStateConfirmListener implements ApplicationListener<ContextRefreshedEven
 				gbDao.insertGbStateHistory(dto.getGbNo(), GbStateEnum.COMPLETE.getState());
 				
 				int totalPrice = dto.getJoinNum()*dto.getJoinPrice();
+				log.info("총 가격:"+totalPrice);
 				gbDao.insertPoint(dto.getGbNo(), dto.getUserId(), totalPrice, pointReasonEnum.CALCULATE.getState());
 			}
 		}
