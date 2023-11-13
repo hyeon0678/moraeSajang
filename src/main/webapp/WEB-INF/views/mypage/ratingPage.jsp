@@ -11,8 +11,7 @@
 <style>
 
 .review {
-     
-    
+
     float: left;
     margin-top: 5%;
     margin-right: -100px;
@@ -40,7 +39,7 @@
 
 
 
-.active{background-color:gold;}
+.active{background-color:#FFBC38;}
 
 .rat{
    margin-top:15%;
@@ -100,10 +99,10 @@
        
     <div id="lnb">
       <ul>
-         <a href="./"><li>내 프로필</li></a>
-         <a href="mypage/groupBuy/gbList"><li>내 공구 현황</li></a>
-         <a href="my/point/history"><li>포인트 내역</li></a>
-         <a href="my/point/charge"><li>포인트 충전</li></a>
+         <a href="mypage"><li>내 프로필</li></a>
+         <a href="javascript:"><li  class="on">내 공구 현황</li></a>
+         <a href="mypage/point/history"><li>포인트 내역</li></a>
+         <a href="mypage/point/charge"><li>포인트 충전</li></a>
       </ul>
       <div class=logout>
 			<a href="<c:url value='/user/logout'/>"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,10 +130,7 @@ $('.review').click(function(){
 	  $('.review').removeClass("active");
 	  $(this).addClass("active");
 	});	
-			
-	
 
-	
 	var reviewNo;
 	
 	$('.review').on('click',function(e){

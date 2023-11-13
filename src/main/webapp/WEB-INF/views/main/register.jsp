@@ -26,12 +26,11 @@
      #registerjoin .register .regist .btnBox{width:330px; margin-bottom: 5px;}
      #registerjoin .register .regist .btnBox input{width:100%; height:50px; margin:10px 0 15px 0; line-height: 50px; letter-spacing: 2px; font-size:20px; background-color: #FFBC38; color:#fff; border: none; border-radius: 5px; cursor: pointer;}
      #registerjoin .register .regist .btnBox input:hover{border:1px solid #FFBC38; background: none; color:#FFBC38; transition:0.5s;}
-
 </style>
 </head>
 <body>        
 
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%@ include file="/WEB-INF/views/common/header.jsp" %>   
 <section id="registerjoin">
         <div class="register">
             <h2>비밀번호 찾기</h2>
@@ -61,7 +60,7 @@
                 </div>
                  <div class="textBox">
                     <p>나이</p>
-                    <input type="text" name="name" placeholder="나이를 입력해주세요" value=""/>
+                    <input type="text" name="age" placeholder="나이를 입력해주세요" value=""/>
                 </div>               
                 <div class="textBox">
                     <p>이메일</p>
@@ -110,131 +109,7 @@
         </div>
     </section>
    
-  
-  
 
-					
-<%-- 
-     <table>
-         <tr>
-             <th>아이디</th>
-             <th>
-                 <input type="text" name="id" placeholder="아이디를 입력해주세요"/>
-                 <input type="button" id="overlay" value="ID 중복 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>
-             </th>
-         </tr>
-        
-        <tr>
-           	 <th>비밀번호</th>
-             <th>
-         	 <input type="password" name="pw" class="pw" id="password_1" placeholder="비밀번호를 입력해주세요"/>
-         	 </th>         
-        </tr> 
-        
-       <tr>
-          <th>비밀번호 재확인</th>
-          <th>
-          <input type="password" name="pwer" class="pw" id="password_2" placeholder="비밀번호를 재입력해주세요" />
-          <font id="checkPw" size ="2"></font>
-          </th>
-       </tr>
-       
-         <tr>
-             <th>이&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-             <th>
-                 <input type="text" name="name" placeholder="이름을 입력해주세요"/>
-             </th>
-         </tr>
-         
-         <tr>
-             <th>나이</th>
-             <th>
-                 <input type="text" name="age" placeholder="나이를 입력해주세요"/>
-             </th>
-         </tr>
-         
-         <tr>
-             <th>이메일</th>
-             <th>
-                 <input type="text" name="email" placeholder="ex)abc@naver.com"/>
-                 <input type="button" id="overemail" value="email 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>
-             </th>
-         </tr>
-        
-         <tr>
-             <th>성별</th>
-             <th>
-                 <input type="radio" name="gender" value="남"/>남자
-                 <input type="radio" name="gender" value="여"/>여자
-             </th>
-         </tr>
-         
-         <tr>
-         <th>비밀번호 질문</th>
-         <th>
-         <select id="hint" name="hint">
-         <option value="1">선택하세요</option>
-         <option value="2">나의 출신 초등학교는?</option>
-         <option value="3">내가 좋아하는 캐릭터는?</option>
-         <option value="4">다시 태어나면 되고 싶은 것은?</option>
-         <option value="5">가장 좋아하는 색깔은?</option>
-         <option value="6">나의 출신 고향은?</option>
-      	 </select>
-     	 <th>
-     	 </tr>
-      
-        <tr>
-             <th>비밀번호 정답</th>
-             <th>
-                 <input type="text" name="pwanswer" placeholder="정답을 입력해주세요"/>
-             </th>
-         </tr>
-         
-         <tr>
-             <th>닉네임</th>
-             <th>
-                 <input type="text" name="nickname" placeholder="닉네임을 입력해주세요"/>
-                 <input type="button" id="overnickname" value="nickname 체크" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"/>
-             </th>
-         </tr>   
-      
-      <tr class="form-group">
-      <th>도로명</th>
-      <th>
-       <input class="form-control" "id="streetAddr" placeholder="도로 주소" name="addr1" type="text" readonly="readonly" />
-      <button type="button" class="btn btn-default" onclick="execPostCode()" style="background-color:#FFBC38 ; border-color:#F9DCA3; color:white"><i class="fa fa-search"></i> 주소 찾기</button>  
-      </th>
-      </tr>
-            
-      <tr class="form-group">      
-      <th>읍/면/동</th>      
-      <th>
-      <input class="form-control" id="userDetailAddr" placeholder="읍/면/동" name="addr2" type="text" readonly="readonly">
-      </th>
-      </tr>
-     
-     
-     
-      <tr class="form-group">
-      <th>상세 주소</th>
-      <th>
-      <input class="form-control" placeholder="상세주소" name="addr3" id="detailAddr" type="text" />
-      </th>      
-      </tr> 
-         
-                
-        
-         <tr>
-             <th colspan="2">
-                 <input type="button" id="register" name="register" value="회원가입"/>
-             </th>
-         </tr>
-     </table>
-     --%>
-     
-     
-     
-     
 </body>
 <script>
 
