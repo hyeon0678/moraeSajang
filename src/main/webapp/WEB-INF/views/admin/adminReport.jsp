@@ -166,16 +166,23 @@ $('#reserch').on('click',function(){
 		success:function(obj){			
 			console.log(obj);			
 			//drawlist(data);	
+			/*if(data.list.length==0){
+        	alert('검색결과가 없습니다.')
+        }else{    
+        drawList(data);
+        }*/
 			
-			console.log(obj.size);			
 			var content = '';
 			$('#list').empty();
-			if (obj == null) {
+				
+			if (obj.size == null) {
+				
 				 content = '<tr>';				 
-				 content += '<td>'+uniqueNo+'가 존재 하지 않습니다.</td>';
+				 content += '<td style="text-align: center; color: red;">'+uniqueNo+'가 존재 하지 않습니다.</td>';
 				 content += '</tr>';				
 	            $('#list').append(content);
-			}
+			}else {
+				
 			for (var i = 0; i < obj.size; i++) {
 				 	 content = '<tr>';
 					 content += '<td><a href="adminReportDetail?idx='+obj.list[i].reportNo+'&&type='+obj.list[i].reportType+'">' + obj.list[i].reportNo + '</td>';
@@ -191,6 +198,7 @@ $('#reserch').on('click',function(){
 					 content += '<td>' + obj.list[i].processState + '</td>';
 					 content += '</tr>';				
 		            $('#list').append(content);
+			}
 			};
 		},
 		error:function(e){
