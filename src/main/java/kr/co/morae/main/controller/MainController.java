@@ -14,7 +14,8 @@ public class MainController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value = {"/", "/main"})
-	public String index() {
+	public String index(HttpSession session) {
+		session.removeAttribute("userInfo");
 		return "main/main";
 	}
 	
