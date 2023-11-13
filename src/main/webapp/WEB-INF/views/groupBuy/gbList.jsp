@@ -197,12 +197,14 @@ $('.region').on('click', function(){
     currentSearchUrl = '&&region='+region;
     $('#pagination').twbsPagination('destroy');
     $('#categoryType').val('').prop('selected', true);
+    showPage = 1;
     listCall(optionFirstPage);
 });
    
 $('#categoryType').on('change', function(){
     currentSearchUrl = makeUrl();
     $('#pagination').twbsPagination('destroy');
+    showPage = 1;
     listCall(optionFirstPage);
     
 });
