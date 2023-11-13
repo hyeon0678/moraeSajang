@@ -38,7 +38,7 @@
    		from pointHistory p inner join groupBuyingPost g on p.gbNo = g.gbNo 
    		order by p.pointDate desc limit #{param1} offset #{param2}
 	</select>
-	<select id="adminpointHistoryAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
+	<select id="adminPointHistoryAsc" resultType="kr.co.morae.admin.dto.PointManagementDto">
 		 select p.pointNo ,p.gbNo ,g.title ,p.userId ,p.pointMonney ,p.pointReason ,p.pointDate 
    		from pointHistory p inner join groupBuyingPost g on p.gbNo = g.gbNo 
    		order by p.pointDate limit #{param1} offset #{param2}
