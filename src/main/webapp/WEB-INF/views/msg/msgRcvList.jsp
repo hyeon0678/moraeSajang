@@ -43,6 +43,7 @@
         #msgList .msgListInner .msgListInnerBox .msgListBox>.msg .msgForm .rightArea .delImg:hover{color:#212732;}
         #msgList .msgListInner .msgListInnerBox .noMsg{text-align: center; display:none;}
         #msgList .msgListInner .msgListInnerBox .noMsg p{font-size:22px; color:#888; margin-top: 150px;}
+        .container {padding-right: 280px;}
 
         @keyframes blinking {
             0% { color: #FFBC38; }
