@@ -415,7 +415,7 @@ function drawList(obj){
 // 댓글 삭제 기능 만들기, 블라인드 상태 변경 버튼
 function deleteBtn(){
 	$('.delete').on('click', function(){
-		let commNo= $(this).closest("div").prev().parent("div").prev().prev().html();
+		let commNo= $(this).closest('.comment-box').find('p').eq(0).text();
 		console.log(commNo);
 		console.log(gbNo); 
 		$.ajax({
