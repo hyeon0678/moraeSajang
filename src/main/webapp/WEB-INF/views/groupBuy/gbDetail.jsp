@@ -206,7 +206,7 @@ $(document).ready(function(){
 	commentListCall(1);
 	gbJoin()
 	slider()
-	
+	report()
 });
 
 function commentListCall(pageNum){
