@@ -525,7 +525,8 @@ function drawTopPoint(pfirstSearchDate,plastSearchDate){
 		    		content +='<tr>';
 		    		content +='<td>'+idx+'</td>';
 		    		content +='<td>'+formatDateFromTimestamp(item.chargeDate)+'</td>';
-		    		content +='<td>'+item.chargePoint+'</td>';
+		    		let chargePoint = item.chargePoint.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		    		content +='<td>'+chargePoint+' 원</td>';
 		    		content +='</tr>';
 		    	});
 		    }
@@ -577,7 +578,7 @@ function drawgbState(stateBar,bfirstSearchDate,blastSearchDate){
 		    		content +='<td>'+formatDateFromTimestamp(item.stateUpDate)+'</td>';
 		    		content +='<td>'+item.stateall+'</td>';
 		    		content +='<td>'+item.stateing+'</td>';
-		    		content +='<td>'+item.stateper+'</td>';
+		    		content +='<td>'+item.stateper+'%</td>';
 		    		content +='</tr>';
 		    	});
 		    }

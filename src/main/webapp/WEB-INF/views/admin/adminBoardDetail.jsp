@@ -182,6 +182,7 @@ div.container{
 	            </div>
 				<div class="smallInfo">
 	                <label class="info-label">사용자 평가</label>
+	                <div>
 	                <span id="tradeAgainNum">
 	                    별로에요 : ${GroupBuyDto.tradeAgainNum}
 	                </span>
@@ -191,6 +192,7 @@ div.container{
 	                <span id="notInterestedNum">
 	                    또 거래하고싶어요 : ${GroupBuyDto.notInterestedNum}
 	                </span>
+	                </div>
 	            </div>
 	            <div class="smallInfo">
 	                <label class="info-label">금액</label>
