@@ -262,7 +262,7 @@ const chartHeight = donutChartContainer.offsetHeight;
 
 centerText.style.top = chartHeight / 2 + 'px';
 centerText.style.left = chartWidth / 2 + 'px';
-centerText.style.transform = 'translate(285%, 190%)';
+centerText.style.transform = 'translate(390%, 190%)';
 // 왼쪽 : 숫자가 커질수록 오른쪽으로 이동
 // 오른쪽 : 숫자가 커질수록 아래쪽으로 이동
 
