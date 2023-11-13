@@ -6,16 +6,129 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style>
-    table, th, td{
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px 10px;
-    }
+body {
+	margin-top: 130px;
+}
+
+#lnb {
+	position: fixed;
+	left: 0;
+	top: 100px;
+	width: 300px;
+	height: 100%;
+	background-color: #f9f9f9;
+	z-index: 99;
+}
+
+#lnb ul {
+	margin-top: 20px;
+}
+
+#lnb ul li {
+	width: 280px;
+	height: 60px;
+	line-height: 60px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	margin: 10px auto;
+	padding-left: 40px;
+	font-family: 'KorailRoundGothicBold';
+}
+
+#lnb ul li.on {
+	background-color: #fcdfa0;
+	color: #fff;
+}
+
+#lnb a:hover {
+	text-decoration: none;
+}
+
+#reTable {
+	width: 100%;
+	height: 100%;
+}
+
+#profil {
+	border: 3px solid #F9DCA3;
+	border-collapse: collapse;
+	padding: 5px 10px;
+	width: 500px;
+	height: 600px;
+	margin-left: 550px;
+	border-radius: 10px;
+}
+
+#reTable th, td {
+	text-align: start;
+	padding-left: 15px;
+}
+
+#profil button {
+	font-family: 'KorailRoundGothicMedium', sans-serif;
+	font-size: 16px;
+	color: #212732;
+	border: 1px solid #FFBC38;
+	background-color: #FFBC38;
+	width: 75px;
+	height: 25px;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#overnickname {
+	border: 1px solid #FFBC38;
+	background-color: #FFBC38;
+	width: 75px;
+	height: 25px;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#profil [type='text'] {
+	width: 250px;
+	height: 25px;
+}
+
+#profil [type='password'] {
+	width: 250px;
+	height: 25px;
+}
+
+#update {
+	width: 80px;
+	height: 30px;
+	margin-left: 160px;
+	border: 1px solid #FFBC38;
+	width: 150px;
+	height: 40px;
+	background-color: #FFBC38;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	font-size: 18px;
+}
 </style>
 </head>
 <body>
-     <table>
-     
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+	<div id="lnb">
+		<ul>
+			<a href="<c:url value="/mypage"/>"><li class="on">내 프로필</li></a>
+			<a href="<c:url value="/mypage/groupBuy/gbList"/>"><li>내
+					공구 현황</li></a>
+			<a href="<c:url value="/mypage/point/history"/>"><li>포인트 내역</li></a>
+			<a href="<c:url value="/mypage/point/charge"/>"><li>포인트 충전</li></a>
+		</ul>
+	</div>
+	
+	<div id="profil">
+	<table id="reTable">
     	 <tr>
            <th>아이디</th>
              <th>
@@ -27,14 +140,14 @@
         <tr>
            <th>비밀번호</th>
              <th>
-          <input type="password" name="pw" class="pw" id="password_1" placeholder="비밀번호를 입력해주세요"/>
+          <input type="password" name="pw" class="pw" id="password_1" placeholder="비밀번호를 입력해 주세요."/>
           </th>
           
         </tr> 
        <tr>
           <th>비밀번호 재확인</th>
           <th>
-          <input type="password" name="pwer" class="pw" id="password_2" placeholder="비밀번호를 재입력해주세요"  />
+          <input type="password" name="pwer" class="pw" id="password_2" placeholder="비밀번호를 재입력해 주세요."  />
           <font id="checkPw" size ="2"></font>
           </th>
        </tr>
@@ -43,15 +156,15 @@
              <!--공백문자-->
              <th>이&nbsp;&nbsp;&nbsp;&nbsp;름</th>
              <th>
-                 <input type="text" name="name" placeholder="이름을 입력해주세요" value="${sessionScope.userInfo.name}" readonly/>
+                 <input type="text" name="name" placeholder="이름을 입력해 주세요." value="${sessionScope.userInfo.name}" readonly/>
              </th>
          </tr>
   
          <tr>
              <th>닉네임</th>
              <th>
-                 <input type="text" name="nickname" placeholder="닉네임을 입력해주세요" value="${sessionScope.userInfo.nickname}"/>
-                 <input type="button" id="overnickname" value="nickname 체크"/>
+                 <input type="text" name="nickname" placeholder="닉네임을 입력해 주세요." value="${sessionScope.userInfo.nickname}"/>
+                 <input type="button" id="overnickname" value="중복 확인"/>
              </th>
          </tr>   
 
@@ -71,9 +184,6 @@
       <input class="form-control" placeholder="상세 주소" name="addr2" id="detailAddr" type="text" value="${sessionScope.userInfo.detailAddress}" />
       </th>      
       </tr> 
-         
-                
-        
          <tr>
              <th colspan="2">
                  <input type="button" id="update" name="update" value="수정하기"/>
@@ -82,7 +192,7 @@
          
 
      </table>
-     
+     </div>
      
      
      

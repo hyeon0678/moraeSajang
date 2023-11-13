@@ -60,6 +60,9 @@
 	margin: 3px;
 	font-size: 13px;
 }
+#list p{
+	font-size: 14px;
+}
 
 .alarmList button:hover{
 	color: white;
@@ -191,10 +194,14 @@
 													"<c:url value='/resources/img/NotificationOn.png'/>"); // 확인할 알림이 있으면 배지 붙은 아이콘 표시
 									alarmDrawList(data);
 								} else {
-									$('#alarmIcon')
-											.attr('src',
-													"<c:url value='/resources/img/Notification.png'/>"); // 확인할 알림이 없으면 기본 아이콘 표시
 									alarmDrawList(data);
+									$('#alarmIcon').attr('src',"<c:url value='/resources/img/Notification.png'/>"); // 확인할 알림이 없으면 기본 아이콘 표시
+									$('#alarmChkAll').css('display', 'none');
+									var alarmNull = '<p>'
+											+ '<br>'
+											+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;새로운 알림이 없습니다."
+											+ '<p>';
+									$('#list').append(alarmNull);
 								}
 							} else { // 알림 비활성화 상태일 경우 알림창 내 버튼 숨김, 알림 비활성화 상태 문구 출력
 								console.log("알림 차단");
@@ -229,16 +236,9 @@
 
 			$('#list').empty();
 			$('#list').append(content);
-			if (content == "") { // 보여줄 알림이 없다면 새로운 알림 없음 문구 출력, 알림창 내 버튼 숨김
-				$('#alarmChkAll').css('display', 'none');
-				var alarmNull = '<p>'
-						+ '<br>'
-						+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;새로운 알림이 없습니다."
-						+ '<p>';
-				$('#list').append(alarmNull);
-			} else {
+			if (content != "") { // 보여줄 알림이 없다면 새로운 알림 없음 문구 출력, 알림창 내 버튼 숨김
 				$('#alarmChkAll').css('display', 'block');
-			}
+			} 
 		}
 
 		function alarmRemove() { // 7일 이상 경과된 알림 히스토리 삭제
