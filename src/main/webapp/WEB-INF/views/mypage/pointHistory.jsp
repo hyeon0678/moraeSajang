@@ -39,6 +39,7 @@
         #pointHistory .pointHistoryInner .pointHistoryInnerBox #chargeListBox>li>ul>li{float:left; width:25%; text-align: center; line-height: 50px; box-sizing: border-box;}
         #pointHistory .pointHistoryInner .pointHistoryInnerBox #useListBox{display: none;}
         #pointHistory .pointHistoryInner .pointHistoryInnerBox #useListBox>li>ul>li{float:left; width:20%; text-align: center; line-height: 50px; box-sizing: border-box;}
+        .container {padding-right: 280px;}
 </style>
 </head>
 <body>

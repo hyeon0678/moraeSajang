@@ -29,7 +29,7 @@
         a{text-decoration: none;}
         img{border:none;}
         h1, h2, h3, h4, h5, h6{font-family: 'KorailRoundGothicBold', sans-serif; font-size:16px; color:#212732;}
-        body, header, section, footer, div, ul, li, p, a, span, input{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
+        body, header, section, footer, div, ul, li, p, a, input{font-family: 'KorailRoundGothicMedium', sans-serif; font-size:16px; color:#212732;}
 
         #header{position:fixed; left:0; top:0; width:100%; height:100px; border-bottom: 1px solid #dedede; background-color:#fff; z-index:9999;}
         #header .headerInner{position:relative; width:80%; height:100px; margin:0 auto;}
