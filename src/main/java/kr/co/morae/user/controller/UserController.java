@@ -49,10 +49,11 @@ public class UserController {
 			return page;
 		}
 	
-	@RequestMapping(value = "/myPage/logout")
-		public String logout(HttpSession session) {
+	@RequestMapping(value = "/user/logout")
+		public String logout(HttpSession session, Model model) {
 		session.removeAttribute("userInfo");
-		return "redirect:/main";
+		model.addAttribute("msg","로그아웃 되었습니다.");
+		return "main/main";
 	}
 	
 	@RequestMapping(value = "/user/findId.ajax", method = RequestMethod.POST)

@@ -83,7 +83,9 @@
         #lnb ul{margin-top:20px;}
         #lnb ul li{width:280px; height:60px; line-height: 60px; box-sizing: border-box; border-radius: 10px; margin:10px auto; padding-left:40px; font-family: 'KorailRoundGothicBold';}
         #lnb ul li.on{background-color: #fcdfa0; color:#fff;}
-        #lnb a:hover{text-decoration:none;}   
+        #lnb ul a:hover{text-decoration:none;}
+        #lnb .logout{position:absolute; margin-left:50px; bottom:200px;}
+        #lnb .logout a span{font-size:20px; line-height:25px; position:relative; top:-7px; color:#FFBC38;} 
 </style>
 <body>
 
@@ -103,6 +105,13 @@
          <a href="my/point/history"><li>포인트 내역</li></a>
          <a href="my/point/charge"><li>포인트 충전</li></a>
       </ul>
+      <div class=logout>
+			<a href="<c:url value='/user/logout'/>"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.8999 7.55999C9.2099 3.95999 11.0599 2.48999 15.1099 2.48999H15.2399C19.7099 2.48999 21.4999 4.27999 21.4999 8.74999V15.27C21.4999 19.74 19.7099 21.53 15.2399 21.53H15.1099C11.0899 21.53 9.2399 20.08 8.9099 16.54" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.0001 12H3.62012" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.85 8.6499L2.5 11.9999L5.85 15.3499" stroke="#FFBC38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span> Log Out</span></a>
+		</div>
    </div>
     
 
