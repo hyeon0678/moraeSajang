@@ -188,16 +188,16 @@ SELECT gb.gbNo, gb.gbContent,gb.recruitPeople, gb.title, gb.finishDate, gb.start
      WHERE groupBuyingJoining.gbNo = gb.gbNo) joinPeople,  
     (SELECT count(reviewNo)
      FROM userReview u2 
-     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 1
-    ) tradeAgain,
+     WHERE u2.userId = gb.userId and u2.reviewNo = 1
+    ) tradeAgainNum,
     (SELECT COUNT(reviewNo)
      FROM userReview u2 
-     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 2
-    ) justOkay, 
+     WHERE u2.userId = gb.userId and u2.reviewNo = 2
+    ) justOkayNum, 
     (SELECT count(reviewNo)
      FROM userReview u2 
-     WHERE u2.userId = 'gb.userId' and u2.reviewNo = 3
-    ) notInterested,
+     WHERE u2.userId = gb.userId and u2.reviewNo = 3
+    ) notInterestedNum,
     (SELECT count(g.userId)
      FROM groupBuyingJoining g
      WHERE g.userId = g.gbNo =#{param1}
