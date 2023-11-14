@@ -1,7 +1,5 @@
 package kr.co.morae.common;
 
-import kr.co.morae.groupbuy.dto.SearchOptionDto;
-
 public class Paging {
 
 	public int getTotalPage(int totalCnt, int showPagingNum) {
