@@ -275,15 +275,25 @@ margin-top: 144px;
 	        }
 	  });
 	}
-  
+	var dictObject = {};
 	function inputValues(){
-	    values.push($('#recruitPeople'));
+		dictObject['카테고리를 선택해주세요'] = $('#categoryType option:selected');
+		dictObject['모집인원을 입력해주세요'] = $('#recruitPeople');
+		dictObject['모집 가격을 입력해주세요'] = $('#joinPrice');
+		dictObject['시작일을 입력해주세요'] = $('#startDate');
+		dictObject['종료일을 입력해주세요'] = $('#finishDate');
+		dictObject['모집장소를 입력해주세요'] = $('#recruitLocation');
+		dictObject['제목을 입력해주세요'] = $('#title');
+		dictObject['내용을 입력해주세요'] = $('#gbContent');
+		
+	    /*values.push($('#recruitPeople'));
 	    values.push($('#joinPrice'));
 	    values.push($('#startDate'));
 	    values.push($('#finishDate'));
 	    values.push($('#recruitLocation'));
 	    values.push($('#title'));
 	    values.push($('#gbContent'));
+	    values.push($('#categoryType option:selected'));*/
 	}
 	//글쓰기 버튼 클릭
 	$('#submit').on('click', function(){
@@ -324,10 +334,10 @@ margin-top: 144px;
 
 	function setSendData(){
 		formData = new FormData()
-        for(let validValue of values){
-            if(validValue.attr('name') == 'recruitLocation'){
+        for(let key in dictObject){
+            if(dictObject[key].attr('name') == 'recruitLocation'){
             	
-        		let totalAddr = String(validsValue.html()).split('\n');
+        		let totalAddr = String(dictObject[key].html()).split('\n');
         		
         		let parcelAddress = totalAddr[1];
                 formData.append('parcelAddress', parcelAddress);
@@ -345,7 +355,7 @@ margin-top: 144px;
         		let place = totalAddr[0];
                 formData.append('place', place);
         	}else{
-        		formData.append(validValue.attr('id'), validValue.val());	
+        		formData.append(dictObject[key].attr('id'), dictObject[key].val());	
         	}
         }
         formData.append('categoryType', $('#categoryType option:selected').val());
@@ -357,19 +367,20 @@ margin-top: 144px;
 
 	function isValid(){
 		inputValues();
-		for(let validValue of values){
-			if(validValue.attr('id') == 'recruitLocation'){
-				if(!validValue.html()){
-	    			alert('모든 값을 입력해 주세요');
-	    			validValue.focus();
+		for(let key in dictObject){
+			if(dictObject[key].attr('id') == 'recruitLocation'){
+				if(!dictObject[key].html()){
+	    			alert(key);
+	    			dictObject[key].focus();
 	    			return false;
 				}
 			}
-	        if(!validValue.val()){
-	            alert('모든 값을 입력해 주세요');
-	            validValue.focus();
+	        if(!dictObject[key].val()||dictObject[key].val()==''){
+	            alert(key);
+	            dictObject[key].focus();
 	            return false; 
 	        }
+	        console.log(dictObject[key]);
 	    }
 	    if($('#recruitPeople').val().match(/[^0-9]/)){
 	        alert('숫자만 입력 가능합니다.');

@@ -319,7 +319,7 @@ body, header, section, footer, div, ul, li, p, a, span, input {
 
 	$('tbody').on('click', '[class=alarmChk]', function(e) { // 개별 버튼 알림 읽음 처리 요청
 		var alarmUrl = $(this).siblings().prop('href');
-		var alarmChk = alarmUrl.substring(51);
+		var alarmChk = alarmUrl.substring(54);
 		console.log(alarmChk);
 		alarmRead(alarmChk);
 	});

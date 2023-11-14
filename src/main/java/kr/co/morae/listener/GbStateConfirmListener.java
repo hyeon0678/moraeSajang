@@ -87,12 +87,12 @@ class GbStateConfirmListener implements ApplicationListener<ContextRefreshedEven
 			if((dto.getFinishDate().getTime() <= currMillisconds)
 					&&dto.getRecruitPeople() != dto.getJoinNum()) {
 				
-				gbDao.modifyGbState(dto.getGbNo(), GbStateEnum.CANCEL.getState());
+				gbDao.modifyGbState(dto.getGbNo(), GbStateEnum.CANCEL.getState(), "Y");
 				gbDao.insertGbStateHistory(dto.getGbNo(), GbStateEnum.CANCEL.getState());
 				returnPrice(dto);
 			
 			}else if((dto.getCompleteDate().getTime() <= currMillisconds)) {
-				gbDao.modifyGbState(dto.getGbNo(), GbStateEnum.COMPLETE.getState());
+				gbDao.modifyGbState(dto.getGbNo(), GbStateEnum.COMPLETE.getState(),"N");
 				gbDao.insertGbStateHistory(dto.getGbNo(), GbStateEnum.COMPLETE.getState());
 				
 				int totalPrice = dto.getJoinNum()*dto.getJoinPrice();

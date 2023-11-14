@@ -35,7 +35,7 @@ public interface GroupBuyDao {
 	
 	int insertPoint(int gbNo, String userId, int gbPrice, String string);
 	
-	void modifyGbState(int gbNo, String string);
+	void modifyGbState(int gbNo, String string, String blockState);
 	
 	List<GroupBuyDto> getGbList(SearchOptionDto dto);
 	

@@ -75,7 +75,7 @@ public class MyGroupBuyService {
 		log.info(checkDto.toString());
 		
 		if(checkDto.getRecruitPeople() == checkDto.getCompleteCnt()) {
-			gbDao.modifyGbState(gbNo, GbStateEnum.COMPLETE.getState());
+			gbDao.modifyGbState(gbNo, GbStateEnum.COMPLETE.getState(), "N");
 			gbDao.insertGbStateHistory(gbNo, GbStateEnum.COMPLETE.getState());
 			int totalPrice = checkDto.getCompleteCnt()*checkDto.getJoinPrice();
 			log.info("gbNo:"+gbNo+"userId:"+checkDto.getUserId()+", totalPrice");
