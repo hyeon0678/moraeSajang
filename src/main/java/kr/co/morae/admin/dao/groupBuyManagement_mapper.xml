@@ -27,7 +27,7 @@ SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.
        (SELECT gi.newName
         FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
-        LIMIT 1) AS firstImage
+        LIMIT 1) AS firstFileName
 FROM groupBuyingPost g
 LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
@@ -46,7 +46,7 @@ SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.
        (SELECT gi.newName
         FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
-        LIMIT 1) AS firstImage
+        LIMIT 1) AS firstFileName
 FROM groupBuyingPost g
 LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
@@ -65,7 +65,7 @@ SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.
        (SELECT gi.newName
         FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
-        LIMIT 1) AS firstImage
+        LIMIT 1) AS firstFileName
 FROM groupBuyingPost g
 LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
@@ -86,7 +86,7 @@ SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.
        (SELECT gi.newName
         FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
-        LIMIT 1) AS firstImage
+        LIMIT 1) AS firstFileName
 FROM groupBuyingPost g
 LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
@@ -110,7 +110,7 @@ SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.
        (SELECT gi.newName
         FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
-        LIMIT 1) AS firstImage
+        LIMIT 1) AS firstFileName
 FROM groupBuyingPost g
 LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
@@ -134,7 +134,7 @@ SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.
        (SELECT gi.newName
         FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
-        LIMIT 1) AS firstImage
+        LIMIT 1) AS firstFileName
 FROM groupBuyingPost g
 LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
@@ -158,7 +158,7 @@ SELECT g.gbNo ,g.title, g.userId, g.startDate, g.finishDate, g.recruitPeople, g.
        (SELECT gi.newName
         FROM groupBuyingImage gi
         WHERE gi.gbNo = g.gbNo
-        LIMIT 1) AS firstImage
+        LIMIT 1) AS firstFileName
 FROM groupBuyingPost g
 LEFT OUTER JOIN groupBuyingJoining j ON g.gbNo = j.gbNo
 LEFT OUTER JOIN category c ON g.categoryNo = c.categoryNo
