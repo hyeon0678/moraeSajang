@@ -11,7 +11,5 @@ public class Paging {
 		}else {
 			return total = (totalCnt/showPagingNum)+1;
 		}
-		 
 	}
-	
 }

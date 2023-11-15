@@ -25,8 +25,8 @@
 	        <div id="productImgBox" class="products">
 	        	<div class="slider-2">
 				     <div class="side-btns">
-				        <div><span><i class="fas fa-caret-left"><</i></span></div>
-				        <div><span><i class="fas fa-caret-right">></i></span></div>
+				        <div><span><i class="fas fa-caret-left">◀</i></span></div>
+				        <div><span><i class="fas fa-caret-right">▶</i></span></div>
 				    </div>
 	    
 				    <div class="slides">
@@ -151,9 +151,7 @@
 	    <div class="comment-div">
 	        <div id="commentWriteBox">
 	            <div class="comment-elem-div">
-		            <textarea id="comment" class="inputValid comment-content">
-		
-		            </textarea>
+		            <textarea id="comment" class="inputValid comment-content"></textarea>
 		            <div class="validation">0/250</div>
 		            <div class="write-div">
 		            	<button id="commentWrite" class="comm-wirte-btn comm-btn">댓글 작성</button>
