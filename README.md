@@ -4,7 +4,7 @@
 <img src="https://github.com/hyeon0678/moraeSajang/assets/115452850/8ad16dfa-b48f-4038-9bb4-f8f1b636d1d2" width="300" height="200"/>
 </p>
 
-> 개발기간: 2023.09.15 ~ 2023.10.15
+> 개발기간: 2023.10.09 ~ 2023.11.15
 
 
 ## 프로젝트 소개
